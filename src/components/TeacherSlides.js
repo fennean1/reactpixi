@@ -65,9 +65,9 @@ render(){
       <div>
         <Drawer anchor="left"  open={this.state.open} onClose={this.handleClose.bind(this)}>
             <p className = "flow-text" style = {{margin: 10,width: window.innerWidth/3}}>Here is where your teacher tips would
-             go.     <Link to="/strips" target="_blank">Here's a link to the manipulative.</Link></p>
+             go. <Link to="/strips" target="_blank">Here's a link to the manipulative.</Link></p>
         </Drawer>
-        <a style = {{position: 'absolute', margin: 5}} onClick = {()=>this.loadInstructions()}className ="btn-floating red"><i className="material-icons">forum</i></a>
+            <a style = {{position: 'absolute', margin: 5}} onClick = {()=>this.loadInstructions()}className ="btn-floating red"><i className="material-icons">forum</i></a>
         <Panels/>
       </div>
     );

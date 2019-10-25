@@ -17,8 +17,6 @@ const Main = () => (
   <div>
     <Route exact path="/" component={() => <Arena app = {app} features = {{'lock': true}}fullscreen = {true} lesson = {CapacityTalkData.default} script = {HundredsArrayScript.init}/>} />
     <Route exact path="/strips" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {NumberLineStripsScript.init}/>} />
-    <Route exact path="/panels" component={() => <Panels/>} />
-    <Route exact path="/teacherslides" component={() => <TeacherSlides/>} />
   </div>
 );
 
