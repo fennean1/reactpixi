@@ -36,6 +36,7 @@ export const init = (app, setup) => {
   let minusOneButton;
   let gridCounters;  // Circles that represent numbers
   let gridNodes;  // Placeholders / small dots
+  let zeroButton;
  
   // Constructors (should not be called on re-draw)
   // START HERE: Let's try ot make this grid a container object and give it a redraw property.
@@ -120,6 +121,27 @@ export const init = (app, setup) => {
 
     btn.interactive = true
     btn.on('pointerdown',()=>setPivot())
+    btn.draw()
+    return btn;
+  }
+
+  function getZeroButton(){
+    let btn  = new PIXI.Sprite.from(CONST.ASSETS.ZERO_OUT)
+
+    btn.draw = () => {
+      let w = GRID_WIDTH/8
+      let h = w*0.8
+      btn.x = WINDOW_WIDTH/2 + 1.10*GRID_WIDTH/2 
+      btn.y = 0
+      btn.width = w
+      btn.height = h
+    } 
+
+    btn.interactive = true
+    btn.on('pointerdown',()=>{
+      state.val = 0
+      updateGrid(0)
+    })
     btn.draw()
     return btn;
   }
@@ -291,6 +313,9 @@ export const init = (app, setup) => {
     // Initialize counters
     gridNodes = new makeGridNodes(10)
     gridCounters = new makeGridCounters(10)
+
+    zeroButton = getZeroButton()
+    app.stage.addChild(zeroButton)
 
     plusTenButton = getPlusTenButton()
     app.stage.addChild(plusTenButton)

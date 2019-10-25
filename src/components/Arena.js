@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
 import Paper from '@material-ui/core/Paper';
 import Drawer from '@material-ui/core/Drawer';
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
@@ -102,19 +100,18 @@ class Arena extends Component {
     }
 
     return (
-      <div>
-      <Drawer anchor="left"  open={this.state.open} onClose={this.handleClose.bind(this)}>
-
-        <Paper className = "padded margins ">
-           <span >Questions</span>
-            <p>{this.printList(this.props.lesson.questions)}</p>
-         </Paper>
-      </Drawer>
-      <div style = {styleType}
-        ref={me => {
-          this.gameCanvas = me;
-        }}
-      />
+        <div>
+        <Drawer anchor="left"  open={this.state.open} onClose={this.handleClose.bind(this)}>
+          <Paper className = "padded margins ">
+            <span >Questions</span>
+              <p>{this.printList(this.props.lesson.questions)}</p>
+          </Paper>
+        </Drawer>
+        <div style = {styleType}
+          ref={me => {
+            this.gameCanvas = me;
+          }}
+        />
       </div>
     );
   }

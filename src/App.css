@@ -20,3 +20,15 @@
 .App-link {
   color: #09d3ac;
 }
+
+.problemButton {
+  flex: 1;
+  background-color: #ffffff;
+  border-radius: 5px;
+  margin: 5px;
+  border-width: 1px;
+  border-color: #303030;
+  color: #000000;
+  border-style: solid;
+  text-align: center;
+}

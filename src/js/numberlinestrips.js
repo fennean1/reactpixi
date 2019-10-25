@@ -1,7 +1,8 @@
 import * as PIXI from "pixi.js";
 import * as CONST from "./const.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
-
+import { SSL_OP_TLS_BLOCK_PADDING_BUG } from "constants";
+import { number } from "prop-types";
 const ASSETS = CONST.ASSETS
 
 export const init = (app, setup) => {
@@ -445,11 +446,6 @@ export const init = (app, setup) => {
     incButton.draw()
     decButton.draw()
     
-    if (!features['strips']){
-      stripALabel.alpha = 0
-      stripBLabel.alpha = 0
-    }
-
   }
 
   // Call load script
