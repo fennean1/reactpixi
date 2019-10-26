@@ -13,7 +13,7 @@ import * as Pixi from "pixi.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
-//import { Document } from 'react-pdf/dist/entry.webpack'
+import { Document } from '@react-pdf/renderer'
 //pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 /* <Document
