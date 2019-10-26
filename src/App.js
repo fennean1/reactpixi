@@ -9,6 +9,7 @@ import * as HundredsArrayScript from "./js/hundredsarray.js"
 import * as NumberLineStripsScript from "./js/numberlinestrips.js"
 import * as CapacityTalkData from "./activitydata/CapacityTalk.json";
 import TeacherSlides from './components/TeacherSlides'
+import { Document } from 'react-pdf'
 
 Pixi.settings.RESOLUTION = 3
 let app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
