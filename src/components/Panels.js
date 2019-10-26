@@ -13,9 +13,9 @@ import * as Pixi from "pixi.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
-import {Page,Document,pdfjs} from "react-pdf"
+//import {Page,Document,pdfjs} from "react-pdf"
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+// pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
 const useStyles = makeStyles(theme => ({
@@ -45,14 +45,11 @@ export default function LessonPanel(props) {
   var panel;
   let page1;
   let width;
-  const page100 = <Document file="pdf/pk07.pdf"> <Page pageNumber = {1} /> </Document>
 
 
 // So that the correct panel is highlighted on startup
 useEffect(()=> {
-    console.log("panel",panel.clientWidth)
-    width = panel.clientWidth
-    page1 = <Document file="pdf/pk07.pdf"> <Page width = {200}  pageNumber = {1} /> </Document>
+
 })
   function animate(k){
     var tl = new TimelineMax()
@@ -81,7 +78,7 @@ useEffect(()=> {
         {initButtons()}
       </div>
         <div ref = {me => panel = me } > 
-            <Document file="pdf/NumberLineLesson.pdf"> <Page width = {window.innerWidth}  pageNumber = {panelNumber} /> </Document>
+
         </div>
       </div>
     );
