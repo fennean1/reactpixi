@@ -16,7 +16,7 @@ import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Drawer from "@material-ui/core/Drawer";
-import {Page,Document,pdfjs} from "react-pdf"
+//import {Page,Document,pdfjs} from "react-pdf"
 import Panels from "./Panels"
 
 //pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
