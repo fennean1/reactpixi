@@ -20,6 +20,7 @@ class Arena extends Component {
   };
 
   componentWillUnmount(){
+    window.onresize = {}
     let children = this.props.app.stage.children
     for (var i = children.length - 1; i >= 0; i--) {	this.props.app.stage.removeChild(children[i]);};
     for (var i = children.length - 1; i >= 0; i--) {	children[i].destroy(true);};

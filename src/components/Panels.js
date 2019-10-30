@@ -1,6 +1,7 @@
 import React , {Component, Text,useEffect} from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Arena from "./Arena";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import * as FractionWallScript from "../js/fractionwall.js";
 import * as NumberLineToolScript from "../js/numberlinetool.js";
 import * as GridToolScript from "../js/gridtool.js";
@@ -10,6 +11,7 @@ import * as CuisenaireToolScript from "../js/cuisenairetool.js";
 import * as CapacityTalkData from "../activitydata/CapacityTalk.json";
 import { Grid , TextField} from "@material-ui/core";
 import * as Pixi from "pixi.js";
+import Drawer from "@material-ui/core/Drawer";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
@@ -45,46 +47,79 @@ export default function LessonPanel(props) {
 
 
   const classes = useStyles();
-  const [panelNumber,setPanel] = React.useState(1)
+  const [panelNumber,setPanel] = React.useState(0)
   const [label,setLabel] = React.useState("Problem 1")
   const keys = [0,1,2]
-  var panel;
+  let numberOfPanels = 1
+  let panel;
   let page1;
-  let width;
+  const [tipsOpen,setTipsOpen] = React.useState(false)
+  const [menuOpen,setMenuOpen] = React.useState(false)
 
+
+function printList(items){
+console.log('items',items)
+if (items){return items.map(q=>{return <p>{"\u2022 \u0085"+q}<br/><br/></p>})}
+
+}
+
+  function printList(items){
+    console.log("items",items)
+    if (items){return items.map(q=>{return <p>{"\u2022 \u0085"+q}<br/><br/></p>})}
+ 
+  }
 
 // So that the correct panel is highlighted on startup
 useEffect(()=> {
-
+  numberOfPanels = props.location.state.data.SEQUENCE.length
 })
   function animate(k){
+    console.log("numberOfPanels",panelNumber,numberOfPanels,panelNumber%numberOfPanels)
     var tl = new TimelineMax()
     if (k == -1) {
       tl.to(panel, 0.5, {x: panel.clientWidth,alpha: 0})
         .to(panel,0, {x: -panel.clientWidth,alpha: 1})
         .to(panel,1,{x: 0})
-        setTimeout(()=>setPanel(panelNumber-1),500)
+        setTimeout(()=>setPanel((panelNumber > 0 ? panelNumber -1 : 0)),500)
     } else if (k == 1) {
       tl.to(panel, 0.5, {x: -panel.clientWidth,alpha: 0})
         .to(panel,0, {x: panel.clientWidth,alpha: 1})
         .to(panel,1,{x: 0})
-        setTimeout(()=>setPanel(panelNumber+1),500)
+        setTimeout(()=>setPanel((panelNumber+1)%numberOfPanels),500)
     }
   }
 
   function initButtons(){
-    let buttons = [ <a className ="waves-effect blue waves-light btn" onClick = {()=>animate(-1)}>Previous</a>,<a className ="waves-effect blue waves-light btn" style = {{margin: 5}}onClick = {()=>animate(1)}>Next</a>]
+    let buttons = [ <a className ="waves-effect blue waves-light btn" onClick = {()=>animate(-1)}>Previous</a>,<a className ="waves-effect blue waves-light btn" onClick = {()=>animate(1)}>Next</a>]
     return buttons;
   }
 
 
     return (
       <div>
-      <div className = 'center' >
-        {initButtons()}
+      <Drawer anchor="left"  open={menuOpen} onClose={()=>setMenuOpen(false)}>
+            <p className = "flow-text" style = {{margin: 10,width: window.innerWidth/3}}> 
+            {printList(props.location.state.data.SEQUENCE[panelNumber].tips)} 
+            </p>
+        </Drawer>
+        <Drawer anchor="right"  open={tipsOpen} onClose={()=> setTipsOpen(false)}>
+            <p className = "flow-text" style = {{margin: 10,width: window.innerWidth/3}}> 
+            {printList(props.location.state.data.SEQUENCE[panelNumber].tips)} 
+            </p>
+        </Drawer>
+      <div style = {{display: 'flex',width: '100%'}} >
+      <div style = {{flex: 1,margin: 3}}>
+        <a onClick = {()=> setMenuOpen(true)}className ="btn blue"><i className="material-icons">menu</i></a>
       </div>
-        <div ref = {me => panel = me } > 
-       
+      <div  className = "center" style = {{flex: 1}}>
+        {initButtons()}
+        </div>
+        <div style = {{flex: 1,float: 'right'}}>
+        <a onClick = {()=> setTipsOpen(true)}className ="btn blue right"><i className="material-icons">forum</i></a>
+      </div>
+      </div>
+        <div className = 'center' ref = {me => panel = me } > 
+          <img style = {{width: '95%'}} src = {props.location.state.data.SEQUENCE[panelNumber].img}/>
         </div>
       </div>
     );

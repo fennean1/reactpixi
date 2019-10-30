@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Arena from "./components/Arena"
@@ -9,6 +9,7 @@ import * as HundredsArrayScript from "./js/hundredsarray.js"
 import * as NumberLineStripsScript from "./js/numberlinestrips.js"
 import * as CapacityTalkData from "./activitydata/CapacityTalk.json";
 import TeacherSlides from './components/TeacherSlides'
+import ActivityList from './components/ActivityList'
 //import { Document } from 'react-pdf'
 
 Pixi.settings.RESOLUTION = 3
@@ -16,9 +17,11 @@ let app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
 
 const Main = () => (
   <div>
-    <Route exact path="/" component={() => <Arena app = {app} features = {{'lock': true}}fullscreen = {true} lesson = {CapacityTalkData.default} script = {HundredsArrayScript.init}/>} />
+    <Route exact path="/hundredslock" component={() => <Arena app = {app} features = {{'lock': true}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {HundredsArrayScript.init}/>} />
     <Route exact path="/strips" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {NumberLineStripsScript.init}/>} />
-    <Route exact path="/teacherslides" component={() => <TeacherSlides/>} />
+    <Route exact path="/teacherslides" component={TeacherSlides} />
+    <Route exact path="/" component={() => <ActivityList/>} />
+    <Route exact path="/panels" component={Panels} />
   </div>
 );
 

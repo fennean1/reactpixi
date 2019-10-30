@@ -18,7 +18,8 @@ import Box from "@material-ui/core/Box";
 import Drawer from "@material-ui/core/Drawer";
 //import {Page,Document,pdfjs} from "react-pdf"
 import Panels from "./Panels"
-
+import HG_PlaceValue_Slide_1 from '../assets/blue-gradient.png'
+import HG_PlaceValue_Slide_2 from '../assets/Plus.png'
 //pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
@@ -53,6 +54,11 @@ loadInstructions(){
     this.setState({open: true})
 }
 
+printList(items){
+  console.log('items',items)
+  if (items){return items.map(q=>{return <p>{"\u2022 \u0085"+q}<br/><br/></p>})}
+
+}
 
 handleClose() {
     this.setState({open: false})
@@ -64,11 +70,11 @@ render(){
     return (
       <div>
         <Drawer anchor="left"  open={this.state.open} onClose={this.handleClose.bind(this)}>
-            <p className = "flow-text" style = {{margin: 10,width: window.innerWidth/3}}>Here is where your teacher tips would
-             go. <Link to="/strips" target="_blank">Here's a link to the manipulative.</Link></p>
+            <p className = "flow-text" style = {{margin: 10,width: window.innerWidth/3}}> printList </p>
+             <Link to={this.props.location.state.data.TOOL} target="_blank">Here's a link to the manipulative.</Link>
         </Drawer>
-            <a style = {{position: 'absolute', margin: 5}} onClick = {()=>this.loadInstructions()}className ="btn-floating red"><i className="material-icons">forum</i></a>
-        <Panels/>
+            <a className = "right" style = {{position: 'absolute', margin: 5}} onClick = {()=>this.loadInstructions()}className ="btn blue"><i className="material-icons">forum</i></a>
+        <Panels images = {this.props.location.state.data.SEQUENCE} />
       </div>
     );
 }
