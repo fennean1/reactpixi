@@ -452,4 +452,5 @@ export const init = (app, setup) => {
   load()
   // Not sure where else to put this.
   app.resize = (frame) => resize(frame)
+  app.resizable = true
 };

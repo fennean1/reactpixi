@@ -8,8 +8,8 @@ import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import * as HundredsArrayScript from "./js/hundredsarray.js"
 import * as NumberLineStripsScript from "./js/numberlinestrips.js"
 import * as CapacityTalkData from "./activitydata/CapacityTalk.json";
-import TeacherSlides from './components/TeacherSlides'
 import ActivityList from './components/ActivityList'
+import ManipulativeCarousel from "./components/ManipulativeCarousel"
 //import { Document } from 'react-pdf'
 
 Pixi.settings.RESOLUTION = 3
@@ -19,9 +19,9 @@ const Main = () => (
   <div>
     <Route exact path="/hundredslock" component={() => <Arena app = {app} features = {{'lock': true}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {HundredsArrayScript.init}/>} />
     <Route exact path="/strips" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {NumberLineStripsScript.init}/>} />
-    <Route exact path="/teacherslides" component={TeacherSlides} />
     <Route exact path="/" component={() => <ActivityList/>} />
     <Route exact path="/panels" component={Panels} />
+    <Route exact path="/manipulatives" component={ManipulativeCarousel} />
   </div>
 );
 

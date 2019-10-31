@@ -20,7 +20,8 @@ class Arena extends Component {
   };
 
   componentWillUnmount(){
-    window.onresize = {}
+    this.props.app.resizable = false
+    this.props.app.active = false
     let children = this.props.app.stage.children
     for (var i = children.length - 1; i >= 0; i--) {	this.props.app.stage.removeChild(children[i]);};
     for (var i = children.length - 1; i >= 0; i--) {	children[i].destroy(true);};
@@ -29,6 +30,7 @@ class Arena extends Component {
   componentWillMount() {
     // Setting up app.
     //this.props.app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
+    console.log("calling component will mount")
     window.onresize = () => this.resize()
     this.props.app.renderer.backgroundColor = 0xffffff;
     this.props.app.renderer.resolution = 3
@@ -41,8 +43,17 @@ class Arena extends Component {
   }
 
   resize(){
-    this.props.app.resize({width: this.gameCanvas.clientWidth,height: this.gameCanvas.clientHeight})
-  }
+    console.log("this.props.app.resizable",this.props.app.resizable)
+    console.log("this.props.app.active",this.props.app.active)
+    if (this.props.app.active){
+      if (this.props.app.resizable){
+        this.props.app.resize({width: this.gameCanvas.clientWidth,height: this.gameCanvas.clientHeight})
+      } else {
+        console.log("redrawing")
+        this.redraw()
+      }
+   }
+}
 
   redraw(){
     let children = this.props.app.stage.children
@@ -65,7 +76,8 @@ class Arena extends Component {
     this.setState({panelNumber: this.props.panelNumber})
     // Attached app view to gameCanvas
     this.gameCanvas.appendChild(this.props.app.view);
-
+    this.props.app.active = true
+    this.props.app.resizable = false
     const setup = {
       height: this.gameCanvas.clientHeight,
       width: this.props.width != null ? this.props.width : this.gameCanvas.clientWidth,

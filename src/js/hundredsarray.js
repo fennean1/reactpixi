@@ -251,8 +251,6 @@ export const init = (app, setup) => {
 
   }
 
-  app.resize = (frame) => resize(frame)
-
   // Actions
   function setPivot(){
     console.log("state.pivot",state.pivot)
@@ -337,4 +335,7 @@ export const init = (app, setup) => {
   }
   // Call load script
   load()
+  // Resize assignment
+  app.resize = (frame) => resize(frame)
+  app.resizable = true
 };

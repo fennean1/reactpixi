@@ -90,7 +90,7 @@ useEffect(()=> {
   }
 
   function initButtons(){
-    let buttons = [ <a className ="waves-effect blue waves-light btn" onClick = {()=>animate(-1)}>Previous</a>,<a className ="waves-effect blue waves-light btn" onClick = {()=>animate(1)}>Next</a>]
+    let buttons = [ <a className ="waves-effect grey waves-light btn"  style = {{margin: 2}} onClick = {()=>animate(-1)}><i className="material-icons">chevron_left</i></a>,<a className ="waves-effect grey waves-light btn"  style = {{margin: 2}}  onClick = {()=>animate(1)}><i className="material-icons">chevron_right</i></a>]
     return buttons;
   }
 
@@ -98,24 +98,24 @@ useEffect(()=> {
     return (
       <div>
       <Drawer anchor="left"  open={menuOpen} onClose={()=>setMenuOpen(false)}>
-            <p className = "flow-text" style = {{margin: 10,width: window.innerWidth/3}}> 
+            <div className = "flow-text" style = {{margin: 10,width: window.innerWidth/3}}> 
             {printList(props.location.state.data.SEQUENCE[panelNumber].tips)} 
-            </p>
+            </div>
         </Drawer>
         <Drawer anchor="right"  open={tipsOpen} onClose={()=> setTipsOpen(false)}>
-            <p className = "flow-text" style = {{margin: 10,width: window.innerWidth/3}}> 
+            <div className = "flow-text" style = {{margin: 10,width: window.innerWidth/3}}> 
             {printList(props.location.state.data.SEQUENCE[panelNumber].tips)} 
-            </p>
+            </div>
         </Drawer>
       <div style = {{display: 'flex',width: '100%'}} >
       <div style = {{flex: 1,margin: 3}}>
-        <a onClick = {()=> setMenuOpen(true)}className ="btn blue"><i className="material-icons">menu</i></a>
+        <a onClick = {()=> setMenuOpen(true)}className ="btn orange"><i className="material-icons">menu</i></a>
       </div>
       <div  className = "center" style = {{flex: 1}}>
         {initButtons()}
         </div>
         <div style = {{flex: 1,float: 'right'}}>
-        <a onClick = {()=> setTipsOpen(true)}className ="btn blue right"><i className="material-icons">forum</i></a>
+        <a onClick = {()=> setTipsOpen(true)}className ="btn orange right"><i className="material-icons">forum</i></a>
       </div>
       </div>
         <div className = 'center' ref = {me => panel = me } > 
