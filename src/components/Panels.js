@@ -57,15 +57,10 @@ export default function LessonPanel(props) {
   const [menuOpen,setMenuOpen] = React.useState(false)
 
 
-function printList(items){
-console.log('items',items)
-if (items){return items.map(q=>{return <p>{"\u2022 \u0085"+q}<br/><br/></p>})}
-
-}
 
   function printList(items){
     console.log("items",items)
-    if (items){return items.map(q=>{return <p>{"\u2022 \u0085"+q}<br/><br/></p>})}
+    if (items){return items.map(q=>{return <p>{q}<br/><br/></p>})}
  
   }
 
@@ -99,7 +94,7 @@ useEffect(()=> {
       <div>
       <Drawer anchor="left"  open={menuOpen} onClose={()=>setMenuOpen(false)}>
             <div className = "flow-text" style = {{margin: 10,width: window.innerWidth/3}}> 
-            {printList(props.location.state.data.SEQUENCE[panelNumber].tips)} 
+            <Link target = "_blank" to = {props.location.state.data.TOOL}>Tool </Link>
             </div>
         </Drawer>
         <Drawer anchor="right"  open={tipsOpen} onClose={()=> setTipsOpen(false)}>

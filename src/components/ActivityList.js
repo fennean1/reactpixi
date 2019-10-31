@@ -5,7 +5,8 @@ import ActivityCard from "./ActivityCard";
 
 // Activity File Imports
 import * as CapacityTalk from "../activitydata/CapacityTalk.json";
-import * as HundredsActivity from "../activitydata/hundredsgrid/HundredsActivity.js"
+import * as HundredsActivity from "../activitydata/hundredsgrid/building_numbers_data.js"
+import * as JellyBeanActivity from "../activitydata/fractionline/jellybean/jelly_bean_data.js"
 
 class ActivityList extends Component {
   constructor(props) {
@@ -26,17 +27,9 @@ class ActivityList extends Component {
           <ActivityCard data={HundredsActivity.ACTIVITY} />
           </div>
           <div className="col s6">
-          <ActivityCard data={HundredsActivity.ACTIVITY} />
+          <ActivityCard data={JellyBeanActivity.ACTIVITY} />
           </div>
           </div>
-          <div className = "row"> 
-          <div className="col s6">
-          <ActivityCard data={HundredsActivity.ACTIVITY} />
-          </div>
-          <div className="col s6">
-          <ActivityCard data={HundredsActivity.ACTIVITY} />
-          </div>
-        </div>
       </div>
     );
   }
