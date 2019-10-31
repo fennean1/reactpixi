@@ -90,7 +90,7 @@ export default function ActivityCard(props) {
     <div className="card-action"><Link  to={{pathname: '/panels', state: {data: props.data}}}><Button className = "white">Start</Button></Link><Link to = {props.data.TOOL}>
       <Button className = "white">Tool</Button></Link></div>
     <div className="card-reveal">
-      <span className="card-title grey-text text-darken-4">Details<i className="material-icons right">close</i></span>
+      <span className="card-title grey-text text-darken-4">{props.data.STANDARD_ID}<i className="material-icons right">close</i></span>
       <p>{props.data.DESCRIPTION}</p>
     </div>
   </div>
