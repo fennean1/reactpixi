@@ -258,7 +258,7 @@ function createGridTool() {
   }
 
   function initVerticalLines(partition) {
-    for (let i = 0; i < 11; i++) {
+    for (let i = 0; i < 13; i++) {
       let g = new PIXI.Graphics();
       g.lineStyle(3, 0x000000);
       g.lineTo(0, CONTAINER_HEIGHT);
@@ -270,7 +270,7 @@ function createGridTool() {
   }
 
   function initHorizontalLines(partition) {
-    for (let i = 0; i < 11; i++) {
+    for (let i = 0; i < 13; i++) {
       let g = new PIXI.Graphics();
       g.lineStyle(3, 0x000000);
       g.lineTo(CONTAINER_WIDTH, 0);
@@ -283,7 +283,7 @@ function createGridTool() {
 
   function animateVerticalLines(inc) {
     vPartitions += inc;
-    if (vPartitions != 0 && vPartitions != 11) {
+    if (vPartitions != 0 && vPartitions != 13) {
       colorIndex += 1;
 
       let spacing = CONTAINER_WIDTH / vPartitions;
@@ -316,7 +316,7 @@ function createGridTool() {
   function animateHorizontalLines(inc) {
     console.log("ANIMATING horizontalLines");
     hPartitions += inc;
-    if (hPartitions != 0 && hPartitions != 11) {
+    if (hPartitions != 0 && hPartitions != 13) {
       currFrac[1] = hPartitions;
       if (currFrac[0] > hPartitions) {
         currFrac[0] = hPartitions;

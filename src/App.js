@@ -26,6 +26,7 @@ const Main = () => (
   <div>
     <Route exact path="/hundredslock" component={() => <Arena app = {app} features = {{'lock': true}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {HundredsArrayScript.init}/>} />
     <Route exact path="/fractionline" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {FractionLineScript.init}/>} />
+    <Route exact path="/orderingblocks" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {OrderingToolScript.init}/>} />
     <Route exact path="/strips" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {NumberLineStripsScript.init}/>} />
     <Route exact path="/" component={() => <ActivityList/>} />
     <Route exact path="/panels" component={Panels} />
