@@ -13,7 +13,7 @@ export const ACTIVITY = {
     TIME: 35,
     TOOL: "/fractionline",
     MENU: ['Link One',"Link Two"],
-    SEQUENCE: [{img: Slide1,tips: ['Explore the tool']},{img: Slide2,tips: ['Discuss the picture']},{img: Slide3,tips: ['Discuss the picture']},{img: Slide4,tips: ['Find what is missing']},{img: Slide5,tips: ['Work in groups','Are there any coupons that cannot go with certain jars?']},{img: Slide6,tips: ['Ask students to pick a number']}],
+    SEQUENCE: [{img: Slide1,tips: ['Explore the tool','3 min']},{img: Slide2,tips: ['Shark Chromebooks!','Discuss the picture','3 min']},{img: Slide3,tips: ['Discuss the picture','2 min']},{img: Slide4,tips: ['Find what is missing','Students should use manipulative','3 min']},{img: Slide5,tips: ['Work in groups','Are there any coupons that cannot go with certain jars?','15 min']},{img: Slide6,tips: ['Ask students to pick a number','Use trial and error','4 min']}],
     DESCRIPTION: 'Students have to use fractional parts to optimize the amount of jelly beans they can buy. For example  "Should I get 1/3 of 30 or 1/2 of 24?"',
     LONG_DESCRIPTION: "Here is a very long description of what is happeneing in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think?",
     INSTRUCTIONS: 'Students should...',
