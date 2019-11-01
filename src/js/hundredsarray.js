@@ -146,6 +146,8 @@ export const init = (app, setup) => {
     return btn;
   }
 
+
+
   function getPlusTenButton(){
     let btn  = new PIXI.Sprite.from(CONST.ASSETS.PLUS_TEN)
 
@@ -248,6 +250,8 @@ export const init = (app, setup) => {
     minusOneButton.draw()
     minusTenButton.draw()
     plusTenButton.draw()
+    zeroButton.draw()
+
 
   }
 
@@ -275,13 +279,17 @@ export const init = (app, setup) => {
       gridCounters.grid.map((row,i)=>{
         row.map((e,j)=>{
           count += 1
-        if (count <= val && !pivot) {
+        if (count <= val && pivot == null) {
             e.texture = BLUE_TEXTURE
+            console.log("first")
         } else if (count <= val && count <= pivot){
+          console.log("second")
             e.texture = BLUE_TEXTURE
         } else if (count <= val && count >= pivot) {
+          console.log("third")
             e.texture = RED_TEXTURE
         } else if (count >= val && count <= pivot){
+          console.log("fourth")
           e.texture = EMPTY_TEXTURE
         } else {
           e.texture = null

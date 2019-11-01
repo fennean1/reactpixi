@@ -15,6 +15,7 @@ import Drawer from "@material-ui/core/Drawer";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
+import { ACTIVITIES } from "../activitydata/activities.js"
 //import { Document } from '@react-pdf/renderer'
 //pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -47,6 +48,10 @@ export default function LessonPanel(props) {
 
 
   const classes = useStyles();
+  const { activity } = props.match.params
+  const data = ACTIVITIES[activity]
+  console.log("activity",activity)
+  console.log("data",data)
   const [panelNumber,setPanel] = React.useState(0)
   const [label,setLabel] = React.useState("Problem 1")
   const keys = [0,1,2]
@@ -66,7 +71,7 @@ export default function LessonPanel(props) {
 
 // So that the correct panel is highlighted on startup
 useEffect(()=> {
-  numberOfPanels = props.location.state.data.SEQUENCE.length
+  numberOfPanels = data.SEQUENCE.length
 })
   function animate(k){
     console.log("numberOfPanels",panelNumber,numberOfPanels,panelNumber%numberOfPanels)
@@ -94,12 +99,12 @@ useEffect(()=> {
       <div>
       <Drawer anchor="left"  open={menuOpen} onClose={()=>setMenuOpen(false)}>
             <div className = "flow-text" style = {{margin: 10,width: window.innerWidth/3}}> 
-            <Link target = "_blank" to = {props.location.state.data.TOOL}>Tool </Link>
+            <Link target = "_blank" to = {data.TOOL}>Tool </Link>
             </div>
         </Drawer>
         <Drawer anchor="right"  open={tipsOpen} onClose={()=> setTipsOpen(false)}>
             <div className = "flow-text" style = {{margin: 10,width: window.innerWidth/3}}> 
-            {printList(props.location.state.data.SEQUENCE[panelNumber].tips)} 
+            {printList(data.SEQUENCE[panelNumber].tips)} 
             </div>
         </Drawer>
       <div style = {{display: 'flex',width: '100%'}} >
@@ -114,7 +119,7 @@ useEffect(()=> {
       </div>
       </div>
         <div className = 'center' ref = {me => panel = me } > 
-          <img style = {{width: '95%'}} src = {props.location.state.data.SEQUENCE[panelNumber].img}/>
+          <img style = {{width: '95%'}} src = {data.SEQUENCE[panelNumber].img}/>
         </div>
       </div>
     );

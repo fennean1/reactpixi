@@ -11,6 +11,7 @@ import Slide9 from './building_numbers_slide_9.png'
 
 
 export const ACTIVITY = {
+    ID: "hundred_grid_building_numbers",
     TITLE : "Building Numbers",
     ICON: ICON,
     TIME: 15,

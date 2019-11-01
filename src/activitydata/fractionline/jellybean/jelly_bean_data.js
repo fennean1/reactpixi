@@ -8,6 +8,7 @@ import Slide6 from './jelly_bean_slide_6.png'
 //import facilitation doc?
 
 export const ACTIVITY = {
+    ID: "fraction_line_jelly_beans",
     TITLE : "Fraction Coupons",
     ICON: ICON,
     TIME: 35,

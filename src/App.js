@@ -17,7 +17,7 @@ import * as CuisenaireToolScript from "./js/cuisenairetool.js";
 import * as CapacityTalkData from "./activitydata/CapacityTalk.json";
 import ActivityList from './components/ActivityList'
 import ManipulativeCarousel from "./components/ManipulativeCarousel"
-//import { Document } from 'react-pdf'
+import SignIn from "./components/SignIn"
 
 Pixi.settings.RESOLUTION = 3
 let app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
@@ -25,10 +25,12 @@ let app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
 const Main = () => (
   <div>
     <Route exact path="/hundredslock" component={() => <Arena app = {app} features = {{'lock': true}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {HundredsArrayScript.init}/>} />
+    <Route exact path="/activities/:activity" component={Panels}/>
     <Route exact path="/fractionline" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {FractionLineScript.init}/>} />
     <Route exact path="/orderingblocks" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {OrderingToolScript.init}/>} />
     <Route exact path="/strips" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {NumberLineStripsScript.init}/>} />
     <Route exact path="/" component={() => <ActivityList/>} />
+    <Route exact path="/login" component={SignIn} />
     <Route exact path="/panels" component={Panels} />
     <Route exact path="/manipulatives" component={ManipulativeCarousel} />
   </div>

@@ -77,6 +77,8 @@ export default function ActivityCard(props) {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+  const activitypath = '/activities/' + props.data.ID
+  console.log("activity path",activitypath)
 
   return (
     <div className="card sticky-action">
@@ -87,7 +89,7 @@ export default function ActivityCard(props) {
       <span className="card-title activator grey-text text-darken-4">{props.data.TITLE}<i className="material-icons right">more_vert</i></span>
       <p>{props.data.TIME+ " Minutes"}</p>
     </div>
-    <div className="card-action"><Link  to={{pathname: '/panels', state: {data: props.data}}}><Button className = "white">Start</Button></Link><Link to = {props.data.TOOL}>
+    <div className="card-action"><Link  to={{pathname: `${activitypath}`, state: {data: props.data}}}><Button className = "white">Start</Button></Link><Link to = {props.data.TOOL}>
       <Button className = "white">Tool</Button></Link></div>
     <div className="card-reveal">
       <span className="card-title grey-text text-darken-4">{props.data.STANDARD_ID}<i className="material-icons right">close</i></span>

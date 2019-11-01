@@ -5,7 +5,7 @@ import ActivityCard from "./ActivityCard";
 
 // Activity File Imports
 import * as CapacityTalk from "../activitydata/CapacityTalk.json";
-import * as HundredsActivity from "../activitydata/hundredsgrid/building_numbers_data.js"
+import * as HundredsActivity from "../activitydata/hundredsgrid/buildingnumbers/building_numbers_data.js"
 import * as JellyBeanActivity from "../activitydata/fractionline/jellybean/jelly_bean_data.js"
 
 class ActivityList extends Component {
