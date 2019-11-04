@@ -14,6 +14,7 @@ import * as OrderingToolScript from "./js/orderingtool.js";
 import * as SharingToolScript from "./js/sharingtool.js";
 import * as NumberStripsScript from "./js/numberlinestrips.js";
 import * as CuisenaireToolScript from "./js/cuisenairetool.js";
+import * as FractionStacksScript from "./js/fractionstacks.js";
 import * as CapacityTalkData from "./activitydata/CapacityTalk.json";
 import ActivityList from './components/ActivityList'
 import ManipulativeCarousel from "./components/ManipulativeCarousel"
@@ -27,6 +28,7 @@ const Main = () => (
     <Route exact path="/hundredslock" component={() => <Arena app = {app} features = {{'lock': true}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {HundredsArrayScript.init}/>} />
     <Route exact path="/activities/:activity" component={Panels}/>
     <Route exact path="/fractionline" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {FractionLineScript.init}/>} />
+    <Route exact path="/fractionstacks" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {FractionStacksScript.init}/>} />
     <Route exact path="/orderingblocks" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {OrderingToolScript.init}/>} />
     <Route exact path="/strips" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {NumberLineStripsScript.init}/>} />
     <Route exact path="/" component={() => <ActivityList/>} />
