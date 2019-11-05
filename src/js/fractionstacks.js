@@ -20,9 +20,12 @@ export const init = (app, setup) => {
     lineMax: 20,
   }
 
+  console.log("setupwidth",setup.width)
+  console.log("windowheight",window.innerHeight)
 
   // Layout Parameters
   let WINDOW_WIDTH = setup.width
+  let BAR_HEIGHT = setup.height/8
   let WINDOW_HEIGHT = setup.height
   let H_W_RATIO = setup.height/setup.width
   let LANDSCAPE = H_W_RATIO < 3/4
@@ -36,6 +39,9 @@ export const init = (app, setup) => {
   let DX = LINE_WIDTH/state.lineMax
   let LINE_START = WINDOW_WIDTH/2 - LINE_WIDTH/2
   let STRIP_HEIGHT = LINE_WIDTH/12
+  let TOP_LINE_Y = WINDOW_HEIGHT/4
+  let BOTTOM_LINE_Y = WINDOW_HEIGHT*3/4
+  let INC_BUTTONS_HEIGHT = BAR_HEIGHT/2.75
 
 
   // RELEVENT
@@ -43,43 +49,54 @@ export const init = (app, setup) => {
   let ActiveIndex = 0
   let FirstRow
   let SecondRow
+  let ThirdRow;
+  let FourthRow;
   var Rows;
+
+
+  let PlusButton = new PIXI.Sprite.from(ASSETS.PLUS_SQUARE)
+  
+  PlusButton.interactive = true
+  PlusButton.anchor.x = 1
+  PlusButton.anchor.y = 0.5
+  PlusButton.on('pointerdown',()=>{
+    PlusButton.interactive = false
+    incActiveFrac(1)
+    setTimeout(()=>{PlusButton.interactive = true},300)
+  })
+  PlusButton.width = INC_BUTTONS_HEIGHT
+  PlusButton.height = INC_BUTTONS_HEIGHT
+
+
+  let MinusButton = new PIXI.Sprite.from(ASSETS.MINUS_SQUARE)
+  MinusButton.interactive = true
+  MinusButton.anchor.x = 1
+  MinusButton.anchor.y = 0.5
+  MinusButton.on('pointerdown',()=>{
+    MinusButton.interactive = false
+    incActiveFrac(-1)
+    setTimeout(()=>{MinusButton.interactive = true},300)
+  })
+  MinusButton.width = BAR_HEIGHT/2.5
+  MinusButton.height = BAR_HEIGHT/2.5
+
 
   function placeButtons(){
     let x = Rows[ActiveIndex].container.x
     let y = Rows[ActiveIndex].container.y
     let w = Rows[ActiveIndex].container.width
     let h = Rows[ActiveIndex].container.height
-    PlusButton.x = x + w 
-    PlusButton.y = y 
-    MinusButton.x = x - 50
-    MinusButton.y = y
+    PlusButton.width = INC_BUTTONS_HEIGHT
+    PlusButton.height = INC_BUTTONS_HEIGHT
+    MinusButton.width = INC_BUTTONS_HEIGHT
+    MinusButton.height = INC_BUTTONS_HEIGHT
+  
+    PlusButton.x = x - PlusButton.width/8
+    PlusButton.y = y + BAR_HEIGHT/4
+    MinusButton.x = x - MinusButton.width/8
+    MinusButton.y = y + BAR_HEIGHT*3/4
   }
 
-  let PlusButton = new PIXI.Sprite.from(ASSETS.PLUS)
-  PlusButton.interactive = true
-  //PlusButton.anchor.set(0.5)
-  PlusButton.on('pointerdown',()=>{
-    PlusButton.interactive = false
-    incActiveFrac(1)
-    setTimeout(()=>{PlusButton.interactive = true},300)
-  })
-  PlusButton.width = 50
-  PlusButton.height = 50
-  PlusButton.y = 3/4*WINDOW_HEIGHT
-  PlusButton.x = 3/4*WINDOW_WIDTH
-  let MinusButton = new PIXI.Sprite.from(ASSETS.MINUS)
-  MinusButton.interactive = true
-  //MinusButton.anchor.set(0.5)
-  MinusButton.on('pointerdown',()=>{
-    MinusButton.interactive = false
-    incActiveFrac(-1)
-    setTimeout(()=>{MinusButton.interactive = true},300)
-  })
-  MinusButton.width = 50
-  MinusButton.height = 50
-  MinusButton.y = 3/4*WINDOW_HEIGHT
-  MinusButton.x = 1/4*WINDOW_WIDTH
 
   let LeftWhisker  = new PIXI.Graphics()
   let RightWhisker = new PIXI.Graphics()
@@ -90,6 +107,7 @@ export const init = (app, setup) => {
   // Reference to entities. - deprecated.
   let backGround;
   let numberLine;
+  let topNumberLine;
   let pinA;
   let pinB;
   let stripA;
@@ -107,7 +125,7 @@ export const init = (app, setup) => {
 
  
   // Constructors (should not be called on re-draw)
-  function makeNumberLine(){
+  function makeNumberLine(flip){
      this.tickSpan = 1
      this.labelSpan = 1
      this.max = state.lineMax
@@ -117,18 +135,22 @@ export const init = (app, setup) => {
 
      this.init = (n) => {
         this.line.lineStyle(LINE_THICKNESS,0x000000)
-        this.line.x = ARENA_WIDTH/2-LINE_WIDTH/2
+        this.line.x = LINE_START
         this.line.y = ARENA_HEIGHT/2
         this.line.lineTo(LINE_WIDTH,0)
-        this.draw()
         app.stage.addChild(this.line)
 
         for (let i = 0;i<120;i++){
             let newTick = new PIXI.Graphics()
             newTick.lineStyle(LINE_THICKNESS,0x000000)
             newTick.x = this.line.x 
-            newTick.y = this.line.y - LINE_THICKNESS/2
-            newTick.lineTo(0,MINOR_TICK_HEIGHT)
+            if(flip){
+              newTick.y = this.line.y + LINE_THICKNESS/2
+              newTick.lineTo(0,-MINOR_TICK_HEIGHT)
+            } else {
+              newTick.y = this.line.y - LINE_THICKNESS/2
+              newTick.lineTo(0,MINOR_TICK_HEIGHT)
+            }
             app.stage.addChild(newTick)
             this.ticks.push(newTick)
 
@@ -143,6 +165,11 @@ export const init = (app, setup) => {
             this.labels.push(newLabel)
             newLabel.x = this.line.x + DX*i
             newLabel.y = this.line.y + MINOR_TICK_HEIGHT
+            if (flip){
+              newLabel.y = this.line.y - 2*MINOR_TICK_HEIGHT
+              newLabel.anchor.y = 1
+              newLabel.text.anchor.y = 0.5
+            }
             app.stage.addChild(newLabel)
         }
         this.increment(0)
@@ -180,14 +207,23 @@ export const init = (app, setup) => {
      }
 
      this.draw = () => {
+       let _y;
+       if (flip){
+        _y = TOP_LINE_Y
+       } else {
+         _y = BOTTOM_LINE_Y
+       }
         this.line.width = LINE_WIDTH
         this.line.height = LINE_THICKNESS
-        this.line.x = WINDOW_WIDTH/2 - LINE_WIDTH/2
-        this.line.y = WINDOW_HEIGHT/2
+        this.line.x = LINE_START
+        this.line.y = _y
         this.ticks.forEach((e,i)=> {
             e.width = TICK_THICKNESS
             e.height = MINOR_TICK_HEIGHT
             e.y = this.line.y - LINE_THICKNESS/2
+            if (flip){
+              e.y = this.line.y + LINE_THICKNESS/2
+            }
             if (i > this.max){
                 e.x = LINE_WIDTH + this.line.x 
             } else {
@@ -196,6 +232,9 @@ export const init = (app, setup) => {
          })
          this.labels.forEach((e,i)=> {
           e.y = this.line.y + MINOR_TICK_HEIGHT
+          if (flip){
+            e.y = this.line.y - MINOR_TICK_HEIGHT
+          }
           e.style.fontSize = DX/2
           if (i > this.max){
               e.x = LINE_WIDTH + this.line.x 
@@ -206,6 +245,8 @@ export const init = (app, setup) => {
      }
      this.init()
   }
+
+
 
   function makeBackground(){
     // Setup Background
@@ -261,7 +302,7 @@ export const init = (app, setup) => {
     this.draw = () => { 
       this.sprite.width = STRIP_HEIGHT
       this.sprite.height = STRIP_HEIGHT
-      this.sprite.y = WINDOW_HEIGHT/2 + MINOR_TICK_HEIGHT + DX/2
+      this.sprite.y = BOTTOM_LINE_Y + MINOR_TICK_HEIGHT + DX/2
       this.sprite.x = WINDOW_WIDTH/2 - LINE_WIDTH/2 + this.sprite.val*DX
     }
     this.draw()
@@ -314,6 +355,7 @@ export const init = (app, setup) => {
     button.anchor.set(0.5)
     button.on('pointerdown',()=>{
       numberLine.increment(inc)
+      topNumberLine.increment(inc)
       resize(null,false)
     })
     app.stage.addChild(button)
@@ -350,6 +392,7 @@ export const init = (app, setup) => {
 
     // Internal Params
     let touching = true   
+    let activated = true
     
     // Default values
     this.numerator = num
@@ -361,7 +404,7 @@ export const init = (app, setup) => {
     this.container.id = ID
     this.container.width = width
     this.container.interactive = true
-    this.container.y = WINDOW_HEIGHT/2 - 75
+    this.container.y = BOTTOM_LINE_Y - BAR_HEIGHT
     this.container.x = LINE_START 
     this.sprites = []
   
@@ -370,13 +413,13 @@ export const init = (app, setup) => {
 
     this.blockA = new PIXI.Graphics()
     this.blockA.lineStyle(3,0x000000) 
-    this.blockA.drawRoundedRect(0,0,this.blockWidth,50,1)
+    this.blockA.drawRoundedRect(0,0,this.blockWidth,BAR_HEIGHT,1)
     let myA = app.renderer.generateTexture(this.blockA)
 
     this.blockB = new PIXI.Graphics()
     this.blockB.beginFill(0xff4772)
     this.blockB.lineStyle(3,0x000000) 
-    this.blockB.drawRoundedRect(0,0,this.blockWidth,50,1)
+    this.blockB.drawRoundedRect(0,0,this.blockWidth,BAR_HEIGHT,1)
     let myB = app.renderer.generateTexture(this.blockB)
 
     let g = new PIXI.Graphics()    
@@ -386,7 +429,7 @@ export const init = (app, setup) => {
     this.incDenonimator = (inc) => {
       g.clear()
       g.lineStyle(3,0x000000) 
-      g.drawRoundedRect(0,0,this.width,50,1)
+      g.drawRoundedRect(0,0,this.width,BAR_HEIGHT,1)
       let R = app.renderer.generateTexture(g)
       let s = new PIXI.Sprite()
       this.container.addChild(s)
@@ -424,13 +467,13 @@ export const init = (app, setup) => {
 
       this.blockA.clear()
       this.blockA.lineStyle(3,0x000000) 
-      this.blockA.drawRoundedRect(0,0,this.blockWidth,50,1)
+      this.blockA.drawRoundedRect(0,0,this.blockWidth,BAR_HEIGHT,1)
       myA = app.renderer.generateTexture(this.blockA)
 
       this.blockB.clear()
       this.blockB.beginFill(0xff4772)
       this.blockB.lineStyle(3,0x000000) 
-      this.blockB.drawRoundedRect(0,0,this.blockWidth,50,1)
+      this.blockB.drawRoundedRect(0,0,this.blockWidth,BAR_HEIGHT,1)
       myB = app.renderer.generateTexture(this.blockB)
 
       for (let i = 0;i<this.sprites.length;i++){
@@ -454,7 +497,7 @@ export const init = (app, setup) => {
       s.interactive = true
       s.active = false
       s.x = i*LINE_WIDTH/this.denominator
-      s.y = WINDOW_HEIGHT/2 - 50
+      s.y = WINDOW_HEIGHT/2 - BAR_HEIGHT
       this.sprites.push(s)
       this.container.addChild(s)
     }
@@ -486,7 +529,7 @@ export const init = (app, setup) => {
     function spritePointerUp(event){
          this.touched = false
          console.log('this.draggeed',this.dragged)
-     if (!this.dragged) {
+     if (!this.dragged && activated) {
         this.dragged = false
         this.active = !this.active
         this.alpha = 0.2
@@ -497,10 +540,12 @@ export const init = (app, setup) => {
 
  
    function containerPointerDown(event) {
+      activated = this.id == ActiveIndex
       ActiveIndex = this.id
       drawWhiskers()
       placeButtons()
       pinA.sprite.x = this.width + LINE_START
+      pinA.sprite.round()
       this.data = event.data
       this.startWidth = this.width
       this.dragStartY = event.data.global.y
@@ -542,12 +587,12 @@ export const init = (app, setup) => {
     LeftWhisker.clear()
     LeftWhisker.lineStyle(2,0x000000)
     LeftWhisker.moveTo(Rows[ActiveIndex].container.x,Rows[ActiveIndex].container.y)
-    LeftWhisker.lineTo(Rows[ActiveIndex].container.x,WINDOW_HEIGHT/2)
+    LeftWhisker.lineTo(Rows[ActiveIndex].container.x,numberLine.line.y)
 
     RightWhisker.clear()
     LeftWhisker.lineStyle(2,0x000000)
     LeftWhisker.moveTo(Rows[ActiveIndex].container.x+Rows[ActiveIndex].width,Rows[ActiveIndex].container.y)
-    LeftWhisker.lineTo(Rows[ActiveIndex].container.x+Rows[ActiveIndex].width,WINDOW_HEIGHT/2)
+    LeftWhisker.lineTo(Rows[ActiveIndex].container.x+Rows[ActiveIndex].width,numberLine.line.y)
   }
 
   function globalPointerUp(){
@@ -570,6 +615,7 @@ export const init = (app, setup) => {
     updateLayoutParams(newFrame)
     app.renderer.resize(WINDOW_WIDTH,WINDOW_HEIGHT)
     numberLine.draw()
+    topNumberLine.draw()
     backGround.draw()
     pinA.draw()
     incButton.draw()
@@ -610,22 +656,25 @@ export const init = (app, setup) => {
 
 
     backGround = new makeBackground()
+
+    // Number Lines
     numberLine = new makeNumberLine()
+    numberLine.draw()
+    topNumberLine = new makeNumberLine(true)
+    topNumberLine.draw()
+
     pinA = new makePin(0)
+    pinA.sprite.y = BOTTOM_LINE_Y + 2*MINOR_TICK_HEIGHT
     //pinB = new makePin(1)
-    //stripA = new makeStrip(0)
-    //stripB = new makeStrip(1)
-    //stripALabel = makeStripLabel(0)
-    //stripBLabel = makeStripLabel(1)
     incButton = makeArrowButton(5)
     decButton = makeArrowButton(-5)
-    //stripALabel.draw()
-    //stripBLabel.draw()
     incButton.draw()
     decButton.draw()
     FirstRow = new Row(3,4,pinA.sprite.x - LINE_START,0)
+    FirstRow.container.x = LINE_START
     SecondRow = new Row(1,3,pinA.sprite.x - LINE_START,1)
-    SecondRow.container.y = WINDOW_HEIGHT/2 - 150
+    SecondRow.container.y = TOP_LINE_Y
+    SecondRow.container.x = LINE_START
     Rows = [FirstRow,SecondRow]
     app.stage.addChild(LeftWhisker)
     app.stage.addChild(RightWhisker)

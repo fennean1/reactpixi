@@ -105,7 +105,7 @@ class Arena extends Component {
   }
 
   render() { 
-    let styleType = this.props.fullscreen ? { height: "90vh",marginTop: 0 } : null;
+    let styleType = this.props.fullscreen ? { height: "100vh",marginTop: 0 } : null;
 
     if (this.state.loaded && this.props.panelNumber != this.state.panelNumber) {
       setTimeout(()=>this.redraw(),500) 

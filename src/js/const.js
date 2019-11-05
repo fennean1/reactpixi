@@ -16,6 +16,8 @@ import locked_lock from "../assets/LockedLock.png"
 import sharp_pin from "../assets/SharpPin.png"
 import arrow from "../assets/Arrow.png"
 import zero_out from "../assets/ZeroOut.png"
+import plus_square from "../assets/PlusSquare.png"
+import minus_square from "../assets/MinusSquare.png"
 
 
 export const ASSETS = {
@@ -36,7 +38,9 @@ export const ASSETS = {
     LOCKED_LOCK: locked_lock,
     SHARP_PIN: sharp_pin,
     ARROW: arrow,
-    ZERO_OUT: zero_out
+    ZERO_OUT: zero_out,
+    PLUS_SQUARE: plus_square,
+    MINUS_SQUARE: minus_square
 }
 
 export const CUISENAIRE_COLORS = {
