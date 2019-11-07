@@ -18,6 +18,7 @@ import arrow from "../assets/Arrow.png"
 import zero_out from "../assets/ZeroOut.png"
 import plus_square from "../assets/PlusSquare.png"
 import minus_square from "../assets/MinusSquare.png"
+import measure_pin from "../assets/MeasurePin.png"
 
 
 export const ASSETS = {
@@ -40,7 +41,8 @@ export const ASSETS = {
     ARROW: arrow,
     ZERO_OUT: zero_out,
     PLUS_SQUARE: plus_square,
-    MINUS_SQUARE: minus_square
+    MINUS_SQUARE: minus_square,
+    MEASURE_PIN: measure_pin
 }
 
 export const CUISENAIRE_COLORS = {

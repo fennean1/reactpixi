@@ -9,6 +9,8 @@ export const init = (app, setup) => {
   const BLUE_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.BLUE_CIRCLE)
   const LINE_PERCENTAGE = 0.8
   const PIN_TEXTURE = new PIXI.Texture.from(ASSETS.SHARP_PIN)
+  const MEASURE_PIN_TEXTURE = new PIXI.Texture.from(ASSETS.MEASURE_PIN)
+
 
  // Initial State
   let state = {
@@ -274,6 +276,7 @@ export const init = (app, setup) => {
     this.sprite.texture = PIN_TEXTURE
     this.sprite.interactive = true
     this.sprite.anchor.x = 0.5
+    this.sprite.scale.y = id == 0 ?  1 : -1
     if (id == 0){
       this.sprite.on('pointerdown',onDragStart)
       this.sprite.on('pointermove',onDragMove)
@@ -718,7 +721,7 @@ function onBDragMove(event) {
     pinA.sprite.y = BOTTOM_LINE_Y + 2*MINOR_TICK_HEIGHT
     pinA.sprite.x = LINE_START + LINE_WIDTH/2
     pinB = new makePin(1)
-    pinB.sprite.y = BOTTOM_LINE_Y + 2*MINOR_TICK_HEIGHT
+    pinB.sprite.y = TOP_LINE_Y - 2*MINOR_TICK_HEIGHT
     pinB.sprite.x = LINE_START
     incButton = makeArrowButton(5)
     decButton = makeArrowButton(-5)

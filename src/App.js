@@ -31,7 +31,6 @@ const Main = () => (
     <Route exact path="/oldfractionwall" component={() => <Arena app = {app} features = {{'lock': true,'regroup': true}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {OldFractionWallScript.init}/>} />
     <Route exact path="/hundreds" component={() => <Arena app = {app} features = {{'lock': false}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {HundredsArrayScript.init}/>} />
     <Route exact path="/fractionwall" component={() => <Arena app = {app} features = {{'lock': false}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {FractionWallScript.init}/>} />
-    <Route exact path="/hundreds" component={() => <Arena app = {app} features = {{'lock': false}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {HundredsArrayScript.init}/>} />
     <Route exact path="/activities/:activity" component={Panels}/>
     <Route exact path="/fractionline" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {FractionLineScript.init}/>} />
     <Route exact path="/fractionstacks" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {FractionStacksScript.init}/>} />
