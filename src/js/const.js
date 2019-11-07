@@ -87,3 +87,20 @@ export const FRACTION_BAR_COLORS = {
   "12": 0xff77e8
 };
   
+
+/*
+
+const ACTIVITY = {
+  1: {
+    TEACHER_COMPONENT: 
+    QUICK PROMPT:
+    COMPONENT: <Arena props />
+  }
+  2: {
+    TEACHER_PANEL:
+    QUICK PROMPT:
+    COMPONENT: null (same as last one)
+  }
+}
+
+*/

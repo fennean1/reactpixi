@@ -13,6 +13,7 @@ import * as SharingToolScript from "../js/sharingtool.js";
 import * as HundredsArrayScript from "../js/hundredsarray.js";
 import * as NumberStripsScript from "../js/numberlinestrips.js";
 import * as CuisenaireToolScript from "../js/cuisenairetool.js";
+import * as FractionStacksScript from "../js/fractionstacks.js";
 import FactorBlocks from "./FactorBlocks";
 import * as CapacityTalkData from "../activitydata/CapacityTalk.json";
 import * as Pixi from "pixi.js";
@@ -92,6 +93,7 @@ export default function ManipulativeCarousel(props) {
         <Tab className = "white" label="Sharing Tool" />
         <Tab className = "white" label="Cuisenaire" />
         <Tab className = "white" label="Factor Wall" />
+        <Tab className = "white" label="Fraction Stacks" />
       </Tabs>
 
       <SwipeableViews
@@ -194,6 +196,17 @@ export default function ManipulativeCarousel(props) {
         <TabContainer dir={theme.direction}>
           {value == 8 && (
             <FactorBlocks/>
+           )}
+        </TabContainer>
+        <TabContainer dir={theme.direction}>
+          {value == 9 && (
+            <Arena
+              app = {app}
+              lesson = {CapacityTalkData.default}
+              setup={false}
+              fullscreen={true}
+              script={FractionStacksScript.init}
+            />
            )}
         </TabContainer>
       </SwipeableViews>

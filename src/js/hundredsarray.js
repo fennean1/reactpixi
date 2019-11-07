@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import * as CONST from "./const.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
+import { BottomNavigation } from "@material-ui/core";
 
 export const init = (app, setup) => {
 
@@ -16,6 +17,9 @@ export const init = (app, setup) => {
     pivot: null,
     val: 0,
   }
+
+  // default setting for features
+  let features = {'lock': true,'regroup':false}
 
   // Parameters (Only changes on resize)
   let H_W_RATIO = setup.height/setup.width
@@ -120,7 +124,9 @@ export const init = (app, setup) => {
     } 
 
     btn.interactive = true
-    btn.on('pointerdown',()=>setPivot())
+    btn.on('pointerdown',()=>{
+      setPivot()
+    })
     btn.draw()
     return btn;
   }
@@ -140,6 +146,7 @@ export const init = (app, setup) => {
     btn.interactive = true
     btn.on('pointerdown',()=>{
       state.val = 0
+      state.pivot = null
       updateGrid(0)
     })
     btn.draw()
@@ -161,7 +168,14 @@ export const init = (app, setup) => {
     } 
 
     btn.interactive = true
-    btn.on('pointerdown',()=>updateGrid(10))
+    btn.on('pointerdown',()=>
+    {
+      btn.interactive = false
+      setTimeout(()=>{
+        btn.interactive = true
+      },100)
+    updateGrid(10)
+    })
     btn.draw()
     return btn;
   }
@@ -179,7 +193,12 @@ export const init = (app, setup) => {
     } 
 
     btn.interactive = true
-    btn.on('pointerdown',() => updateGrid(1))
+    btn.on('pointerdown',() => {
+      btn.interactive = false
+      setTimeout(()=>{
+        btn.interactive = true
+      },100)
+      updateGrid(1)})
     btn.draw()
     return btn;
   }
@@ -197,7 +216,12 @@ export const init = (app, setup) => {
     } 
 
     btn.interactive = true
-    btn.on('pointerdown',()=>updateGrid(-10))
+    btn.on('pointerdown',()=>{
+      btn.interactive = false
+      setTimeout(()=>{
+        btn.interactive = true
+      },100)
+      updateGrid(-10)})
     btn.draw()
     return btn;
   }
@@ -215,7 +239,12 @@ export const init = (app, setup) => {
     } 
 
     btn.interactive = true
-    btn.on('pointerdown',()=>updateGrid(-1))
+    btn.on('pointerdown',()=>{
+      btn.interactive = false
+      setTimeout(()=>{
+        btn.interactive = true
+      },100)
+      updateGrid(-1)})
     btn.draw()
     return btn;
   }
@@ -270,7 +299,16 @@ export const init = (app, setup) => {
     }
   }
 
-  function updateGrid(inc){
+
+function updateGrid(inc){
+  if (features['regroup']==true){
+    updateGridTwo(inc)
+  } else {
+    updateGridOne(inc)
+  }
+}
+
+  function updateGridOne(inc){
     let newVal = state.val + inc 
     if (newVal >= 0 && newVal <= 100) {
       state.val = newVal
@@ -279,17 +317,13 @@ export const init = (app, setup) => {
       gridCounters.grid.map((row,i)=>{
         row.map((e,j)=>{
           count += 1
-        if (count <= val && pivot == null) {
+        if (count <= val && !pivot) {
             e.texture = BLUE_TEXTURE
-            console.log("first")
         } else if (count <= val && count <= pivot){
-          console.log("second")
             e.texture = BLUE_TEXTURE
         } else if (count <= val && count >= pivot) {
-          console.log("third")
             e.texture = RED_TEXTURE
         } else if (count >= val && count <= pivot){
-          console.log("fourth")
           e.texture = EMPTY_TEXTURE
         } else {
           e.texture = null
@@ -299,9 +333,55 @@ export const init = (app, setup) => {
     }
   }
 
+  function updateGridTwo(inc){
+    let newVal = state.val + inc
+
+    if (newVal < state.pivot && state.val >= state.pivot){
+      const w = lockButton.width
+      const h = lockButton.height
+      let timeline = new TimelineLite()
+        timeline.to(lockButton,0.06,{width: 1.3*w,height:1.3*h})
+                .to(lockButton,0.06,{width: w,height: h})
+    } else {
+      if (newVal >= 0 && newVal <= 100) {
+        // Switch only when it crosses
+
+        state.val = newVal
+        let onesInNewVal = state.val%10
+        let tensInNewVal = state.val-onesInNewVal
+        let onesInPivot = state.pivot%10
+        let tensInPivot = state.pivot-onesInPivot
+        let difference = Math.abs(state.pivot - state.val)
+        let onesInDifference = difference%10
+        let tensInDifference = difference - onesInDifference
+        let count = 0
+        let {pivot,val} = state
+        gridCounters.grid.map((row,i)=>{
+          row.map((e,j)=>{
+            count += 1
+          if (count <= val && pivot == null) {
+              e.texture = BLUE_TEXTURE
+              console.log("first")
+          } else if (count <= tensInPivot){
+              e.texture = BLUE_TEXTURE
+          } else if (count <= tensInDifference+tensInPivot){
+            e.texture = RED_TEXTURE
+          } else if (count <= tensInDifference+tensInPivot+onesInPivot){
+            e.texture = BLUE_TEXTURE
+          } else if (count <= newVal){
+            e.texture = RED_TEXTURE
+          }
+          else {
+            e.texture = null
+          }
+          })
+        })
+      }
+    }
+}
+
   // Loading Script
   function load(){
-    let features = {'lock': true,'fives': true,'touchable': true}
     if (setup.props.features){
       features = setup.props.features
     }

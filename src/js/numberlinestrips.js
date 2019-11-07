@@ -355,9 +355,8 @@ export const init = (app, setup) => {
       } else if (this.id == 1) {
           let w = Math.abs(pinA.sprite.x - pinB.sprite.x)
           this.graphic.clear()
-          if (pinA.sprite.x > pinB.sprite.x) {
+          if (false) {
             this.graphic.lineStyle(t,CONST.COLORS.BLUE)
-            this.graphic.fill.alpha = 0
             this.graphic.y = WINDOW_HEIGHT/2 - STRIP_HEIGHT
             this.graphic.drawRect(0,0,w,STRIP_HEIGHT-1.5*t)
           } else {

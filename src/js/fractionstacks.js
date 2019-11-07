@@ -1,9 +1,6 @@
 import * as PIXI from "pixi.js";
 import * as CONST from "./const.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
-import { SSL_OP_TLS_BLOCK_PADDING_BUG, SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
-import { number } from "prop-types";
-import { tsExpressionWithTypeArguments, thisExpression, throwStatement } from "@babel/types";
 const ASSETS = CONST.ASSETS
 
 export const init = (app, setup) => {
@@ -17,7 +14,7 @@ export const init = (app, setup) => {
   let state = {
     valA: 8,
     valB: 8,
-    lineMax: 20,
+    lineMax: 30,
   }
 
   console.log("setupwidth",setup.width)
@@ -25,7 +22,8 @@ export const init = (app, setup) => {
 
   // Layout Parameters
   let WINDOW_WIDTH = setup.width
-  let BAR_HEIGHT = setup.height/8
+  let BAR_STEP = setup.height/8
+  let BAR_HEIGHT = setup.height/10
   let WINDOW_HEIGHT = setup.height
   let H_W_RATIO = setup.height/setup.width
   let LANDSCAPE = H_W_RATIO < 3/4
@@ -42,6 +40,8 @@ export const init = (app, setup) => {
   let TOP_LINE_Y = WINDOW_HEIGHT/4
   let BOTTOM_LINE_Y = WINDOW_HEIGHT*3/4
   let INC_BUTTONS_HEIGHT = BAR_HEIGHT/2.75
+  let DY = (BOTTOM_LINE_Y - TOP_LINE_Y - 4*BAR_HEIGHT)/3
+
 
 
   // RELEVENT
@@ -100,6 +100,7 @@ export const init = (app, setup) => {
 
   let LeftWhisker  = new PIXI.Graphics()
   let RightWhisker = new PIXI.Graphics()
+  let MiddleWhisker = new PIXI.Graphics()
 
   let A;
   let B;
@@ -273,9 +274,16 @@ export const init = (app, setup) => {
     this.sprite.texture = PIN_TEXTURE
     this.sprite.interactive = true
     this.sprite.anchor.x = 0.5
-    this.sprite.on('pointerdown',onDragStart)
-    this.sprite.on('pointermove',onDragMove)
-    this.sprite.on('pointerup',onDragEnd)
+    if (id == 0){
+      this.sprite.on('pointerdown',onDragStart)
+      this.sprite.on('pointermove',onDragMove)
+      this.sprite.on('pointerup',onDragEnd)
+    } else if (id == 1){
+      this.sprite.on('pointerdown',onBDragStart)
+      this.sprite.on('pointermove',onBDragMove)
+      this.sprite.on('pointerup',onBDragEnd)
+    }
+
     this.sprite.x = WINDOW_WIDTH/2 - LINE_WIDTH/2
     this.sprite.val = 8
     app.stage.addChild(this.sprite)
@@ -307,6 +315,40 @@ export const init = (app, setup) => {
     }
     this.draw()
    }
+
+   function onBDragStart(event) {
+    app.stage.addChild(this)
+    this.deltaTouch = {
+      x: this.x - event.data.global.x,
+      y: this.y - event.data.global.y
+    }
+    this.dragging = true;
+    this.data = event.data;
+}
+
+function onBDragEnd(event) {
+  this.dragging = false;
+  this.data = null;
+  drawWhiskers()
+  placeButtons()
+}
+
+function onBDragMove(event) {
+  if (this.dragging) {
+    drawWhiskers()
+    let newPosition = this.data.getLocalPosition(this.parent);
+    this.x = newPosition.x + this.deltaTouch.x;
+    // Keep within number line bounds.
+    if (this.x < WINDOW_WIDTH/2-LINE_WIDTH/2){
+      this.dragging = false
+      this.x = WINDOW_WIDTH/2-LINE_WIDTH/2
+    } else if (this.x > WINDOW_WIDTH/2+LINE_WIDTH/2) {
+      this.dragging = false
+      this.x = WINDOW_WIDTH/2+LINE_WIDTH/2
+    }
+  }
+}
+
 
   // Pin Drag Functions
   function onDragStart(event) {
@@ -566,7 +608,7 @@ export const init = (app, setup) => {
     function containerPointerMove(event) {
       if (this.touching){
         const newPosition = this.data.getLocalPosition(this.parent);
-        this.y = event.data.global.y + this.deltaTouch.y
+        //this.y = event.data.global.y + this.deltaTouch.y
         //this.x = event.data.global.x + this.deltaTouch.x
         //pinA.sprite.x = this.x + this.width
         this.dragged = true
@@ -583,16 +625,24 @@ export const init = (app, setup) => {
   function drawWhiskers(){
     console.log("Active index",ActiveIndex)
     console.log("row",Rows)
+    let WHISKER_THICKNESS = LINE_THICKNESS/2
 
     LeftWhisker.clear()
-    LeftWhisker.lineStyle(2,0x000000)
+    LeftWhisker.lineStyle(WHISKER_THICKNESS,0x000000)
     LeftWhisker.moveTo(Rows[ActiveIndex].container.x,Rows[ActiveIndex].container.y)
     LeftWhisker.lineTo(Rows[ActiveIndex].container.x,numberLine.line.y)
 
     RightWhisker.clear()
-    LeftWhisker.lineStyle(2,0x000000)
-    LeftWhisker.moveTo(Rows[ActiveIndex].container.x+Rows[ActiveIndex].width,Rows[ActiveIndex].container.y)
-    LeftWhisker.lineTo(Rows[ActiveIndex].container.x+Rows[ActiveIndex].width,numberLine.line.y)
+    RightWhisker.lineStyle(WHISKER_THICKNESS,0x000000)
+    RightWhisker.moveTo(pinA.sprite.x,Rows[ActiveIndex].container.y)
+    RightWhisker.lineTo(pinA.sprite.x,numberLine.line.y)
+
+    MiddleWhisker.clear()
+    MiddleWhisker.lineStyle(WHISKER_THICKNESS,0x000000)
+    MiddleWhisker.moveTo(pinB.sprite.x,topNumberLine.line.y)
+    MiddleWhisker.lineTo(pinB.sprite.x,numberLine.line.y)
+
+
   }
 
   function globalPointerUp(){
@@ -600,6 +650,7 @@ export const init = (app, setup) => {
     Rows[ActiveIndex].container.touching = false
     pinA.sprite.dragging = false
     pinA.sprite.round()
+    pinB.sprite.dragging = false
     Rows[ActiveIndex].draw(pinA.sprite.x - LINE_START)
     drawWhiskers()
     //pinB.sprite.round()
@@ -665,19 +716,28 @@ export const init = (app, setup) => {
 
     pinA = new makePin(0)
     pinA.sprite.y = BOTTOM_LINE_Y + 2*MINOR_TICK_HEIGHT
-    //pinB = new makePin(1)
+    pinA.sprite.x = LINE_START + LINE_WIDTH/2
+    pinB = new makePin(1)
+    pinB.sprite.y = BOTTOM_LINE_Y + 2*MINOR_TICK_HEIGHT
+    pinB.sprite.x = LINE_START
     incButton = makeArrowButton(5)
     decButton = makeArrowButton(-5)
     incButton.draw()
     decButton.draw()
-    FirstRow = new Row(3,4,pinA.sprite.x - LINE_START,0)
-    FirstRow.container.x = LINE_START
-    SecondRow = new Row(1,3,pinA.sprite.x - LINE_START,1)
-    SecondRow.container.y = TOP_LINE_Y
-    SecondRow.container.x = LINE_START
-    Rows = [FirstRow,SecondRow]
+    FirstRow = new Row(0,5,pinA.sprite.x - LINE_START,0)
+    SecondRow = new Row(0,4,pinA.sprite.x - LINE_START,1)
+    ThirdRow = new Row(0,3,pinA.sprite.x - LINE_START,2)
+    FourthRow = new Row(0,2,pinA.sprite.x - LINE_START,3)
+    FirstRow.container.y = BOTTOM_LINE_Y - BAR_HEIGHT
+    SecondRow.container.y = BOTTOM_LINE_Y - 2*BAR_HEIGHT - DY
+    ThirdRow.container.y = BOTTOM_LINE_Y - 3*BAR_HEIGHT - 2*DY
+    FourthRow.container.y = TOP_LINE_Y
+    Rows = [FirstRow,SecondRow,ThirdRow,FourthRow]
+
+
     app.stage.addChild(LeftWhisker)
     app.stage.addChild(RightWhisker)
+    app.stage.addChild(MiddleWhisker)
     app.stage.addChild(PlusButton)
     app.stage.addChild(MinusButton)
     drawWhiskers()
