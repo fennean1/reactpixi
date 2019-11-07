@@ -4,6 +4,7 @@ import * as CONST from "./const.js";
 import plusButton from "../assets/Plus.png";
 import minusButton from "../assets/Minus.png";
 import QuestionMark from '../assets/QuestionMark.png'
+import { fontWeight } from "@material-ui/system";
 let createjs = window.createjs
 
 export const init = (app, setup) => {
@@ -27,6 +28,15 @@ createjs.Tween.get(backGround).to(
   createjs.Ease.getPowInOut(4)
 );
 
+
+let resetButton = new PIXI.Sprite.from(CONST.ASSETS.RESET)
+resetButton.interactive = true
+resetButton.x = height/2
+resetButton.y = height/2
+resetButton.width = height
+resetButton.height = height
+resetButton.on('pointerdown',reset)
+app.stage.addChild(resetButton)
 // Denominator of the row that's currently place on the number line.
 let activeRow = 12;
 
@@ -109,6 +119,17 @@ function newTexture(self, color) {
 
 function swapCompleted() {
   swapping = false;
+}
+
+function reset(){
+    let keys = Object.keys(wallObj)
+    keys.forEach(k=>{
+        let r = wallObj[k]
+        r.forEach(e=>{
+            e.tile.texture = newTexture(e, 0xffffff)
+            e.active = false
+        })
+    })
 }
 
 function moveRowUp(row) {

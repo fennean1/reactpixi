@@ -84,10 +84,12 @@ export const init = (app, setup) => {
 
 
   function placeButtons(){
-    let x = Rows[ActiveIndex].container.x
-    let y = Rows[ActiveIndex].container.y
+
     let w = Rows[ActiveIndex].container.width
-    let h = Rows[ActiveIndex].container.height
+    let h = Rows[ActiveIndex].container.height 
+    let x = Rows[ActiveIndex].container.x + w + 1.5*INC_BUTTONS_HEIGHT
+    let y = Rows[ActiveIndex].container.y
+
     PlusButton.width = INC_BUTTONS_HEIGHT
     PlusButton.height = INC_BUTTONS_HEIGHT
     MinusButton.width = INC_BUTTONS_HEIGHT
@@ -403,7 +405,7 @@ function onBDragMove(event) {
       topNumberLine.increment(inc)
       resize(null,false)
     })
-    app.stage.addChild(button)
+    //app.stage.addChild(button)
 
     button.draw = () => {
       if (button.inc == -5){
@@ -656,6 +658,7 @@ function onBDragMove(event) {
     pinB.sprite.dragging = false
     Rows[ActiveIndex].draw(pinA.sprite.x - LINE_START)
     drawWhiskers()
+    placeButtons()
     //pinB.sprite.round()
     //stripA.draw()
     //stripB.draw()
@@ -721,7 +724,7 @@ function onBDragMove(event) {
     pinA.sprite.y = BOTTOM_LINE_Y + 2*MINOR_TICK_HEIGHT
     pinA.sprite.x = LINE_START + LINE_WIDTH/2
     pinB = new makePin(1)
-    pinB.sprite.y = TOP_LINE_Y - 2*MINOR_TICK_HEIGHT
+    pinB.sprite.y = TOP_LINE_Y - 1.65*MINOR_TICK_HEIGHT
     pinB.sprite.x = LINE_START
     incButton = makeArrowButton(5)
     decButton = makeArrowButton(-5)
