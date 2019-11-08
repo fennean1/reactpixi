@@ -702,27 +702,43 @@ function onBDragMove(event) {
   }
 
 
+  class Rowwow extends PIXI.Sprite {
+     constructor(){
+       super()
+       console.log("this",this)
+       let graphics = new PIXI.Graphics()
+       this.addChild(graphics)
+       console.log("Graphbics parent",graphics.parent.balls())
+     }
+
+     balls(input) {
+       console.log("balls called")
+        if (input) {
+          return this.balls(false)
+        }
+     }
+  }
+
+  let ROWWOW = new Rowwow()
+
+
   function drawWhiskers(){
-    console.log("Active index",ActiveIndex)
-    console.log("row",Rows)
-    let WHISKER_THICKNESS = LINE_THICKNESS/2
+      let WHISKER_THICKNESS = LINE_THICKNESS/2
 
-    LeftWhisker.clear()
-    LeftWhisker.lineStyle(WHISKER_THICKNESS,0x000000)
-    LeftWhisker.moveTo(Rows[ActiveIndex].container.x,Rows[ActiveIndex].container.y)
-    LeftWhisker.lineTo(Rows[ActiveIndex].container.x,numberLine.line.y)
+      LeftWhisker.clear()
+      LeftWhisker.lineStyle(WHISKER_THICKNESS,0x000000)
+      LeftWhisker.moveTo(Rows[ActiveIndex].container.x,Rows[ActiveIndex].container.y)
+      LeftWhisker.lineTo(Rows[ActiveIndex].container.x,numberLine.line.y)
 
-    RightWhisker.clear()
-    RightWhisker.lineStyle(WHISKER_THICKNESS,0x000000)
-    RightWhisker.moveTo(pinA.sprite.x,Rows[ActiveIndex].container.y)
-    RightWhisker.lineTo(pinA.sprite.x,numberLine.line.y)
+      RightWhisker.clear()
+      RightWhisker.lineStyle(WHISKER_THICKNESS,0x000000)
+      RightWhisker.moveTo(pinA.sprite.x,Rows[ActiveIndex].container.y)
+      RightWhisker.lineTo(pinA.sprite.x,numberLine.line.y)
 
-    MiddleWhisker.clear()
-    MiddleWhisker.lineStyle(WHISKER_THICKNESS,0x000000)
-    MiddleWhisker.moveTo(pinB.sprite.x,topNumberLine.line.y)
-    MiddleWhisker.lineTo(pinB.sprite.x,numberLine.line.y)
-
-
+      MiddleWhisker.clear()
+      MiddleWhisker.lineStyle(WHISKER_THICKNESS,0x000000)
+      MiddleWhisker.moveTo(pinB.sprite.x,topNumberLine.line.y)
+      MiddleWhisker.lineTo(pinB.sprite.x,numberLine.line.y)
   }
 
   function globalPointerUp(){
