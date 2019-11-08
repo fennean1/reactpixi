@@ -43,6 +43,12 @@ export const init = (app, setup) => {
   let BOTTOM_LINE_Y = WINDOW_HEIGHT*3/4
   let INC_BUTTONS_HEIGHT = BAR_HEIGHT/2.75
   let DY = (BOTTOM_LINE_Y - TOP_LINE_Y - 4*BAR_HEIGHT)/3
+  let Y1 =  BOTTOM_LINE_Y - BAR_HEIGHT
+  let Y2 = BOTTOM_LINE_Y - 2*BAR_HEIGHT - DY
+  let Y3 = BOTTOM_LINE_Y - 3*BAR_HEIGHT - 2*DY
+  let Y4 = TOP_LINE_Y
+  let ANCHORS = [Y1,Y2,Y3,Y4]    
+
 
 
 
@@ -99,6 +105,7 @@ export const init = (app, setup) => {
     PlusButton.y = y + BAR_HEIGHT/4
     MinusButton.x = x - MinusButton.width/8
     MinusButton.y = y + BAR_HEIGHT*3/4
+
   }
 
 
@@ -323,6 +330,7 @@ export const init = (app, setup) => {
 
    function onBDragStart(event) {
     app.stage.addChild(this)
+    app.stage.addChild(MiddleWhisker)
     this.deltaTouch = {
       x: this.x - event.data.global.x,
       y: this.y - event.data.global.y
@@ -587,8 +595,10 @@ function onBDragMove(event) {
 
  
    function containerPointerDown(event) {
+     app.stage.addChild(this)
       activated = this.id == ActiveIndex
       ActiveIndex = this.id
+            disableAllRowsExceptActive()
       drawWhiskers()
       placeButtons()
       pinA.sprite.x = this.width + LINE_START
@@ -603,9 +613,9 @@ function onBDragMove(event) {
         y: this.y - event.data.global.y
       }
     }
-
  
    function containerPointerUp(event) {
+      globalPointerUp()
       this.touching = false
       touching = false
     }
@@ -613,7 +623,15 @@ function onBDragMove(event) {
     function containerPointerMove(event) {
       if (this.touching){
         const newPosition = this.data.getLocalPosition(this.parent);
-        //this.y = event.data.global.y + this.deltaTouch.y
+        this.y = event.data.global.y + this.deltaTouch.y
+      // Keep within number line bounds.
+      if (this.y < TOP_LINE_Y){
+        this.dragging = false
+        this.y = TOP_LINE_Y
+      } else if (this.y > BOTTOM_LINE_Y-BAR_HEIGHT) {
+        this.dragging = false
+        this.y = BOTTOM_LINE_Y  - BAR_HEIGHT
+      }
         //this.x = event.data.global.x + this.deltaTouch.x
         //pinA.sprite.x = this.x + this.width
         this.dragged = true
@@ -626,6 +644,63 @@ function onBDragMove(event) {
     this.draw(width)
 
   }
+
+
+  function disableAllRowsExceptActive(){
+    Rows.forEach((r,i)=> {
+      if (i  != ActiveIndex){
+        r.container.interactive = false
+        r.sprites.forEach(s=>{s.interactive = false})
+      }
+    })
+  }
+
+  function reEnableAllRows(){
+    console.log("reinableing all rows")
+    Rows.forEach((r,i)=> {
+        r.container.interactive = true
+        r.sprites.forEach(s=>{
+          s.interactive = true
+          s.dragged = false 
+          s.touched = false
+          s.dragging = false
+        })
+    })
+  }
+
+  function swapRows() {
+    
+    let index;
+    ANCHORS.forEach((a,i)=> {
+      let d = Math.abs(a-Rows[ActiveIndex].container.y)
+      if (d < BAR_STEP/2) {
+        index = i
+      }
+    })
+    // swap 
+
+    if (ActiveIndex != index){
+      console.log("swapping",Rows)
+      let e = Rows[ActiveIndex]
+      Rows.splice(ActiveIndex,1)
+      Rows.splice(index,0,e)
+      console.log("swapped",Rows)
+      ActiveIndex = index
+    }
+    Rows.forEach((r,i)=> {
+      r.container.touching = false
+      r.container.dragged = false
+      r.container.dragging = false
+      r.id = i
+      r.container.id = i
+      TweenMax.to(r.container, 0.2, {y: ANCHORS[i],onComplete: reEnableAllRows})})
+
+      //let dB = PlusButton.y - ANCHORS[ActiveIndex].container.y
+      // Nudge Buttons
+      TweenMax.to(PlusButton, 0.2, {y: ANCHORS[ActiveIndex]+BAR_HEIGHT/4,onUpdate: drawWhiskers})
+      TweenMax.to(MinusButton, 0.2, {y: ANCHORS[ActiveIndex]+3/4*BAR_HEIGHT})
+  }
+
 
   function drawWhiskers(){
     console.log("Active index",ActiveIndex)
@@ -659,6 +734,7 @@ function onBDragMove(event) {
     Rows[ActiveIndex].draw(pinA.sprite.x - LINE_START)
     drawWhiskers()
     placeButtons()
+    swapRows()
     //pinB.sprite.round()
     //stripA.draw()
     //stripB.draw()
@@ -734,6 +810,7 @@ function onBDragMove(event) {
     SecondRow = new Row(0,4,pinA.sprite.x - LINE_START,1)
     ThirdRow = new Row(0,3,pinA.sprite.x - LINE_START,2)
     FourthRow = new Row(0,2,pinA.sprite.x - LINE_START,3)
+  
     FirstRow.container.y = BOTTOM_LINE_Y - BAR_HEIGHT
     SecondRow.container.y = BOTTOM_LINE_Y - 2*BAR_HEIGHT - DY
     ThirdRow.container.y = BOTTOM_LINE_Y - 3*BAR_HEIGHT - 2*DY
