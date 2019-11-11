@@ -31,7 +31,15 @@ export const init = (app, setup) => {
     9: "9th",
     10: "10th",
     11: "11th",
-    12: "12th"
+    12: "12th",
+    13: "13th",
+    14: "14th",
+    15: "15th",
+    16: "16th",
+    17: "17th",
+    18: "18th",
+    19: "19th",
+    20: "20th",
   };
 
 
@@ -42,6 +50,7 @@ export const init = (app, setup) => {
   let BAR_WIDTH = WINDOW_WIDTH*0.8
   let WALL_START_X = WINDOW_WIDTH/2 - BAR_WIDTH/2
   let WALL_START_Y = 2*BAR_HEIGHT 
+  let INC_BUTTONS_HEIGHT = BAR_HEIGHT*0.7
   let ANCHORS = []
   let ROWS = []
 
@@ -61,6 +70,50 @@ export const init = (app, setup) => {
         this.sprite.width = WINDOW_WIDTH
         this.sprite.height = WINDOW_HEIGHT
     }
+  }
+
+  let PlusButton = new PIXI.Sprite.from(ASSETS.PLUS_SQUARE)
+  
+  PlusButton.interactive = true
+  PlusButton.anchor.set(0.5)
+  PlusButton.on('pointerdown',()=>{
+    PlusButton.interactive = false
+    ActiveRow.incDenonimator(1)
+    setTimeout(()=>{PlusButton.interactive = true},300)
+  })
+  PlusButton.width = INC_BUTTONS_HEIGHT
+  PlusButton.height = INC_BUTTONS_HEIGHT
+
+  let MinusButton = new PIXI.Sprite.from(ASSETS.MINUS_SQUARE)
+  MinusButton.interactive = true
+  MinusButton.anchor.set(0.5)
+  MinusButton.on('pointerdown',()=>{
+    MinusButton.interactive = false
+    ActiveRow.incDenonimator(-1)
+    setTimeout(()=>{MinusButton.interactive = true},300)
+  })
+  MinusButton.width = BAR_HEIGHT/2.5
+  MinusButton.height = BAR_HEIGHT/2.5
+
+
+  function placeButtons(){
+
+    let w = ActiveRow.width
+    let h = ActiveRow.height 
+    let x = ActiveRow.x + w 
+    let y = ActiveRow.y
+    console.log("x,y,w,h",x,y,w,h)
+
+    PlusButton.width = INC_BUTTONS_HEIGHT
+    PlusButton.height = INC_BUTTONS_HEIGHT
+    MinusButton.width = INC_BUTTONS_HEIGHT
+    MinusButton.height = INC_BUTTONS_HEIGHT
+  
+    PlusButton.x = x +  BAR_HEIGHT/2
+    PlusButton.y = y + BAR_HEIGHT/2
+    MinusButton.x = x - w - BAR_HEIGHT/2
+    MinusButton.y = y + BAR_HEIGHT/2
+
   }
 
   class Row extends PIXI.Container {
@@ -133,14 +186,33 @@ export const init = (app, setup) => {
   
 
     incDenonimator = (inc) => {
+      
+      this.blockWidth = BAR_WIDTH/(this.denominator+inc)
       this.frameGraphics.clear()
       this.frameGraphics.lineStyle(3,0x000000) 
-      this.frameGraphics.drawRoundedRect(0,0,this.width-3,BAR_HEIGHT,1)
+      this.frameGraphics.beginFill(0xffffff)
+      this.frameGraphics.drawRoundedRect(0,0,BAR_WIDTH,BAR_HEIGHT,1)
+
       const frameTexture = app.renderer.generateTexture(this.frameGraphics)
       
       // New sprite starts as frame and then gets animated.
       let s = new PIXI.Sprite(frameTexture)
+      let label = new PIXI.Text()
+      label.text = labels[this.denominator+inc]
+      label.alpha = 0
+      label.anchor.set(0.5)
+      label.x = this.blockWidth/2
+      label.y = BAR_HEIGHT/2
+      s.label = label
+      s.active = false
+      s.dragged = false 
+      s.touched = false
+      s.interactive = true
+      s.addChild(label)
       this.addChild(s)
+      this.sprites.forEach(s=>{
+        this.addChild(s)
+      })
       s.x  = 0
       const onUpdate = ()=>{this.draw()}
       if (inc > 0){
@@ -148,9 +220,8 @@ export const init = (app, setup) => {
           s.on('pointerdown',this.spritePointerDown)
           s.on('pointerup',this.spritePointerUp)
           s.on('pointermove',this.spritePointerMoved)
-          s.interactive = true
-          s.active = false
           this.sprites.push(s)
+          this.draw()
         }
         TweenMax.to(this, 0.25, {denominator: this.denominator+1,onUpdate: onUpdate,onComplete: onComplete})
       } else if (inc < 0) {
@@ -159,7 +230,7 @@ export const init = (app, setup) => {
         const onComplete = ()=>{
           this.removeChild(s)
           this.sprites.forEach(s=>{
-            s.label.x = this.width/this.denominator/2
+            s.label.x = this.blockWidth/2
             s.label.text = labels[this.denominator]})
         }
         TweenMax.to(this, 0.25, {denominator: this.denominator-1,onUpdate: onUpdate,onComplete: onComplete})
@@ -171,8 +242,6 @@ export const init = (app, setup) => {
       if (width) {
         this.trueWidth = width
       }
-
-      console.log(this)
 
       this.blockWidth = (this.trueWidth)/this.denominator
 
@@ -189,12 +258,17 @@ export const init = (app, setup) => {
       this.textureB = app.renderer.generateTexture(this.graphicsB)
 
       for (let i = 0;i<this.sprites.length;i++){
+        this.sprites[i].label.text = labels[this.denominator]
+        this.sprites[i].label.x = this.blockWidth/2
+        console.log("sprites[i].active",this.sprites[i].active)
         if (this.sprites[i].active){
-          this.sprites[i].texture = this.textureA
-        } else {
           this.sprites[i].texture = this.textureB
+        } else {
+          this.sprites[i].texture = this.textureA
         }
-
+        if (BAR_HEIGHT > this.blockWidth){
+          this.sprites[i].label.style.fontSize = this.blockWidth/2.2
+        }
         this.sprites[i].x = this.blockWidth*i
         this.sprites[i].y = 0
       }
@@ -228,6 +302,8 @@ export const init = (app, setup) => {
 
  
    pointerDown(event) {
+     ActiveRow = this
+     placeButtons()
       app.stage.addChild(this)
       ActiveRow = this
       ActiveID = this.id
@@ -245,13 +321,15 @@ export const init = (app, setup) => {
   
  
    pointerUp(event) {
+     console.log("pointerup")
     if (this.dragged){
       let j = this.startIndex
       let i = Math.round((this.y-WALL_START_Y)/BAR_HEIGHT)
       ROWS.splice(j,1)
       ROWS.splice(i,0,this)
-      ROWS.forEach((r,i)=> {
-        TweenLite.to(r,0.2,{y: ANCHORS[i]+WALL_START_Y})
+      TweenLite.to([PlusButton,MinusButton],0.2,{y: ANCHORS[i]+WALL_START_Y+BAR_HEIGHT/2})
+      ROWS.forEach((r,k)=> {
+        TweenLite.to(r,0.2,{y: ANCHORS[k]+WALL_START_Y})
       })
     } 
       this.reset()
@@ -262,6 +340,7 @@ export const init = (app, setup) => {
 
     pointerMove(event) {
       if (this.touching){
+        placeButtons()
         Dragging = true
         this.y = event.data.global.y + this.deltaTouch.y
         this.dragged = true
@@ -272,15 +351,19 @@ export const init = (app, setup) => {
 
 
   function globalPointerUp(){
-    ActiveRow.pointerUp()
-    Dragging = false
-    ROWS.forEach(r=>{
-      r.dragged = false
-      r.touched = false
-      r.sprites.map(s=>{
-        s.dragged = false
-        s.touched = false})
-    })
+    console.log("global pointer up")
+    if (Dragging){
+      console.log("dragging")
+      ActiveRow.pointerUp()
+      Dragging = false
+      ROWS.forEach(r=>{
+        r.dragged = false
+        r.touched = false
+        r.sprites.map(s=>{
+          s.dragged = false
+          s.touched = false})
+      })
+    }
   }
   
   // Called on resize
@@ -303,8 +386,10 @@ export const init = (app, setup) => {
   // Loading Script
   function load(){
     let rows = [1,2,3,4,5,6,7,8,9,10,11,12]
+    let adjustable
     if (Features){
         rows = Features.values 
+        adjustable = Features.adjustable
     } 
 
 
@@ -314,9 +399,14 @@ export const init = (app, setup) => {
       newRow.y = i*BAR_HEIGHT + WALL_START_Y
       newRow.x = WALL_START_X
       ANCHORS.push(i*BAR_HEIGHT)
-      console.log("i*barHeight",i*BAR_HEIGHT)
       ROWS.push(newRow)
       app.stage.addChild(newRow)
+    }
+    ActiveRow = ROWS[0]
+    if (adjustable){
+      placeButtons()
+      app.stage.addChild(MinusButton)
+      app.stage.addChild(PlusButton)
     }
   }
 

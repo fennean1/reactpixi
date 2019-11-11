@@ -32,6 +32,7 @@ const Main = () => (
     <Route exact path="/hundredsregroup" component={() => <Arena app = {app} features = {{'lock': true,'regroup': true}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {HundredsArrayScript.init}/>} />
     <Route exact path="/fractionwall" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {NewFractionStacksScript.init}/>} />
     <Route exact path="/fractionwallodd" component={() => <Arena app = {app} features = {{'values': [1,3,5,7,9,11]}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {NewFractionStacksScript.init}/>} />
+    <Route exact path="/fractionwalladjustable" component={() => <Arena app = {app} features = {{'values': [1,2,3,4,5,6,7,8,9,10,11,12],'adjustable': true}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {NewFractionStacksScript.init}/>} />
     <Route exact path="/fractionwalleven" component={() => <Arena app = {app} features = {{'values': [2,4,6,8,10,12]}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {NewFractionStacksScript.init}/>} />
     <Route exact path="/oldfractionwall" component={() => <Arena app = {app} features = {{'lock': true,'regroup': true}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {OldFractionWallScript.init}/>} />
     <Route exact path="/activities/:activity" component={Panels}/>
