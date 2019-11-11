@@ -14,8 +14,8 @@ export const init = (app, setup) => {
 
  // Initial State
   let state = {
-    valA: 8,
-    valB: 8,
+    valA: 16,
+    valB: 16,
     lineMax: 30,
   }
 
@@ -24,8 +24,6 @@ export const init = (app, setup) => {
 
   // Layout Parameters
   let WINDOW_WIDTH = setup.width
-  let BAR_STEP = setup.height/8
-  let BAR_HEIGHT = setup.height/10
   let WINDOW_HEIGHT = setup.height
   let H_W_RATIO = setup.height/setup.width
   let LANDSCAPE = H_W_RATIO < 3/4
@@ -41,13 +39,16 @@ export const init = (app, setup) => {
   let STRIP_HEIGHT = LINE_WIDTH/12
   let TOP_LINE_Y = WINDOW_HEIGHT/4
   let BOTTOM_LINE_Y = WINDOW_HEIGHT*3/4
-  let INC_BUTTONS_HEIGHT = BAR_HEIGHT/2.75
+  let BAR_HEIGHT = (BOTTOM_LINE_Y - TOP_LINE_Y)/5
+  let BAR_STEP = (BOTTOM_LINE_Y - TOP_LINE_Y)/4
+  let INC_BUTTONS_HEIGHT = BAR_HEIGHT*0.7
   let DY = (BOTTOM_LINE_Y - TOP_LINE_Y - 4*BAR_HEIGHT)/3
   let Y1 =  BOTTOM_LINE_Y - BAR_HEIGHT
   let Y2 = BOTTOM_LINE_Y - 2*BAR_HEIGHT - DY
   let Y3 = BOTTOM_LINE_Y - 3*BAR_HEIGHT - 2*DY
   let Y4 = TOP_LINE_Y
-  let ANCHORS = [Y1,Y2,Y3,Y4]    
+  let ANCHORS = [Y1,Y2,Y3,Y4]   
+
 
 
 
@@ -65,8 +66,7 @@ export const init = (app, setup) => {
   let PlusButton = new PIXI.Sprite.from(ASSETS.PLUS_SQUARE)
   
   PlusButton.interactive = true
-  PlusButton.anchor.x = 1
-  PlusButton.anchor.y = 0.5
+  PlusButton.anchor.set(0.5)
   PlusButton.on('pointerdown',()=>{
     PlusButton.interactive = false
     incActiveFrac(1)
@@ -78,8 +78,7 @@ export const init = (app, setup) => {
 
   let MinusButton = new PIXI.Sprite.from(ASSETS.MINUS_SQUARE)
   MinusButton.interactive = true
-  MinusButton.anchor.x = 1
-  MinusButton.anchor.y = 0.5
+  MinusButton.anchor.set(0.5)
   MinusButton.on('pointerdown',()=>{
     MinusButton.interactive = false
     incActiveFrac(-1)
@@ -91,20 +90,20 @@ export const init = (app, setup) => {
 
   function placeButtons(){
 
-    let w = Rows[ActiveIndex].container.width
-    let h = Rows[ActiveIndex].container.height 
-    let x = Rows[ActiveIndex].container.x + w + 1.5*INC_BUTTONS_HEIGHT
-    let y = Rows[ActiveIndex].container.y
+    let w = ActiveRow.container.width
+    let h = ActiveRow.container.height 
+    let x = ActiveRow.container.x + w 
+    let y = ActiveRow.container.y
 
     PlusButton.width = INC_BUTTONS_HEIGHT
     PlusButton.height = INC_BUTTONS_HEIGHT
     MinusButton.width = INC_BUTTONS_HEIGHT
     MinusButton.height = INC_BUTTONS_HEIGHT
   
-    PlusButton.x = x - PlusButton.width/8
-    PlusButton.y = y + BAR_HEIGHT/4
-    MinusButton.x = x - MinusButton.width/8
-    MinusButton.y = y + BAR_HEIGHT*3/4
+    PlusButton.x = x +  BAR_HEIGHT/2
+    PlusButton.y = y + BAR_HEIGHT/2
+    MinusButton.x = x - w - BAR_HEIGHT/2
+    MinusButton.y = y + BAR_HEIGHT/2
 
   }
 
@@ -132,7 +131,7 @@ export const init = (app, setup) => {
 
 
   function incActiveFrac(inc){
-    Rows[ActiveIndex].incDenonimator(inc)
+    ActiveRow.incDenonimator(inc)
   }
 
  
@@ -297,8 +296,12 @@ export const init = (app, setup) => {
     }
 
     this.sprite.x = WINDOW_WIDTH/2 - LINE_WIDTH/2
-    this.sprite.val = 8
-    app.stage.addChild(this.sprite)
+    this.sprite.val = 16
+    // Removing pin B for now
+    if (id == 0){
+      app.stage.addChild(this.sprite)
+    }
+
 
     this.sprite.round = () => {
 
@@ -378,7 +381,8 @@ function onBDragMove(event) {
     this.dragging = false;
     this.data = null;
     this.round()
-    Rows[ActiveIndex].draw(this.x - LINE_START)
+    ActiveRow.setValue()
+    ActiveRow.draw(this.x - LINE_START)
     drawWhiskers()
     placeButtons()
   }
@@ -386,7 +390,7 @@ function onBDragMove(event) {
   function onDragMove(event) {
     if (this.dragging) {
       let width = this.x - LINE_START
-      Rows[ActiveIndex].draw(width)
+      ActiveRow.draw(width)
       drawWhiskers()
       placeButtons()
       let newPosition = this.data.getLocalPosition(this.parent);
@@ -448,6 +452,7 @@ function onBDragMove(event) {
     // Internal Params
     let touching = true   
     let activated = true
+    this.value = 0
     
     // Default values
     this.numerator = num
@@ -478,10 +483,12 @@ function onBDragMove(event) {
     let myB = app.renderer.generateTexture(this.blockB)
 
     let g = new PIXI.Graphics()    
- 
-  
+
 
     this.incDenonimator = (inc) => {
+      console.log("this denomonicator - inc",this.denominator-inc)
+    if (this.denominator + inc >= 1) {
+      console.log("shouldn't exectuve if this.denominator is equal to 1",this.denominator)
       g.clear()
       g.lineStyle(3,0x000000) 
       g.drawRoundedRect(0,0,this.width,BAR_HEIGHT,1)
@@ -511,6 +518,12 @@ function onBDragMove(event) {
         }
         TweenMax.to(this, 0.25, {denominator: this.denominator-1,onUpdate: this.draw,onComplete: onComplete})
       }
+     }
+    }
+
+    this.setValue = ()=> {
+      this.value = Math.round(this.width/LINE_WIDTH*state.lineMax)
+      console.log("this.value",this.value)
     }
 
     this.draw = (width) => {
@@ -541,6 +554,9 @@ function onBDragMove(event) {
         this.sprites[i].x = this.blockWidth*i
         this.sprites[i].y = 0
       }
+
+      //.this.container.y = ANCHORS[this.id]
+
     }
 
     for (let i = 0;i<this.denominator;i++) {
@@ -598,7 +614,8 @@ function onBDragMove(event) {
      app.stage.addChild(this)
       activated = this.id == ActiveIndex
       ActiveIndex = this.id
-            disableAllRowsExceptActive()
+      ActiveRow = Rows[ActiveIndex]
+      disableAllRowsExceptActive()
       drawWhiskers()
       placeButtons()
       pinA.sprite.x = this.width + LINE_START
@@ -621,6 +638,7 @@ function onBDragMove(event) {
     }
 
     function containerPointerMove(event) {
+
       if (this.touching){
         const newPosition = this.data.getLocalPosition(this.parent);
         this.y = event.data.global.y + this.deltaTouch.y
@@ -642,6 +660,7 @@ function onBDragMove(event) {
 
 
     this.draw(width)
+    this.setValue()
 
   }
 
@@ -672,7 +691,7 @@ function onBDragMove(event) {
     
     let index;
     ANCHORS.forEach((a,i)=> {
-      let d = Math.abs(a-Rows[ActiveIndex].container.y)
+      let d = Math.abs(a-ActiveRow.container.y)
       if (d < BAR_STEP/2) {
         index = i
       }
@@ -681,7 +700,7 @@ function onBDragMove(event) {
 
     if (ActiveIndex != index){
       console.log("swapping",Rows)
-      let e = Rows[ActiveIndex]
+      let e = ActiveRow
       Rows.splice(ActiveIndex,1)
       Rows.splice(index,0,e)
       console.log("swapped",Rows)
@@ -693,12 +712,18 @@ function onBDragMove(event) {
       r.container.dragging = false
       r.id = i
       r.container.id = i
+      
       TweenMax.to(r.container, 0.2, {y: ANCHORS[i],onComplete: reEnableAllRows})})
 
-      //let dB = PlusButton.y - ANCHORS[ActiveIndex].container.y
-      // Nudge Buttons
-      TweenMax.to(PlusButton, 0.2, {y: ANCHORS[ActiveIndex]+BAR_HEIGHT/4,onUpdate: drawWhiskers})
-      TweenMax.to(MinusButton, 0.2, {y: ANCHORS[ActiveIndex]+3/4*BAR_HEIGHT})
+      const onComplete = ()=> {
+        RightWhisker.clear()
+        RightWhisker.lineStyle(LINE_THICKNESS/2,0x000000)
+        RightWhisker.moveTo(pinA.sprite.x,ActiveRow.container.y)
+        RightWhisker.lineTo(pinA.sprite.x,numberLine.line.y)
+      }
+      TweenMax.to(PlusButton,0.2,{y: ANCHORS[ActiveIndex]+BAR_HEIGHT/2,alpha: 1,onUpdate: drawWhiskers})
+      TweenMax.to(MinusButton,0.2,{y: ANCHORS[ActiveIndex]+1/2*BAR_HEIGHT,alpha: 1})
+      //drawWhiskers()
   }
 
 
@@ -727,12 +752,12 @@ function onBDragMove(event) {
 
       LeftWhisker.clear()
       LeftWhisker.lineStyle(WHISKER_THICKNESS,0x000000)
-      LeftWhisker.moveTo(Rows[ActiveIndex].container.x,Rows[ActiveIndex].container.y)
-      LeftWhisker.lineTo(Rows[ActiveIndex].container.x,numberLine.line.y)
+      LeftWhisker.moveTo(ActiveRow.container.x,ActiveRow.container.y)
+      LeftWhisker.lineTo(ActiveRow.container.x,numberLine.line.y)
 
       RightWhisker.clear()
       RightWhisker.lineStyle(WHISKER_THICKNESS,0x000000)
-      RightWhisker.moveTo(pinA.sprite.x,Rows[ActiveIndex].container.y)
+      RightWhisker.moveTo(pinA.sprite.x,ActiveRow.container.y)
       RightWhisker.lineTo(pinA.sprite.x,numberLine.line.y)
 
       MiddleWhisker.clear()
@@ -743,11 +768,11 @@ function onBDragMove(event) {
 
   function globalPointerUp(){
     // Ughhh...
-    Rows[ActiveIndex].container.touching = false
+    ActiveRow.container.touching = false
     pinA.sprite.dragging = false
     pinA.sprite.round()
     pinB.sprite.dragging = false
-    Rows[ActiveIndex].draw(pinA.sprite.x - LINE_START)
+    ActiveRow.draw(pinA.sprite.x - LINE_START)
     drawWhiskers()
     placeButtons()
     swapRows()
@@ -767,10 +792,16 @@ function onBDragMove(event) {
     topNumberLine.draw()
     backGround.draw()
     pinA.draw()
+    pinB.sprite.x = LINE_START
     incButton.draw()
     decButton.draw()
-    Rows.forEach(r=>r.draw())
+    Rows.forEach((r,i)=>{
+      r.draw(r.value/state.lineMax*LINE_WIDTH)
+      r.container.x = LINE_START
+      r.container.y = ANCHORS[i]
+    })
     drawWhiskers()
+    placeButtons()
   }
 
   function updateLayoutParams(newFrame){
@@ -794,6 +825,15 @@ function onBDragMove(event) {
     DX = LINE_WIDTH/state.lineMax
     LINE_START = WINDOW_WIDTH/2 - LINE_WIDTH/2
     STRIP_HEIGHT = LINE_WIDTH/12
+    BAR_HEIGHT = (BOTTOM_LINE_Y - TOP_LINE_Y)/5
+    BAR_STEP = (BOTTOM_LINE_Y - TOP_LINE_Y)/4
+    DY = (BOTTOM_LINE_Y - TOP_LINE_Y - 4*BAR_HEIGHT)/3
+    Y1 = BOTTOM_LINE_Y - BAR_HEIGHT
+    Y2 = BOTTOM_LINE_Y - 2*BAR_HEIGHT - DY
+    Y3 = BOTTOM_LINE_Y - 3*BAR_HEIGHT - 2*DY
+    Y4 = TOP_LINE_Y
+    ANCHORS = [Y1,Y2,Y3,Y4]   
+    
   }
 
   // Loading Script
@@ -818,6 +858,7 @@ function onBDragMove(event) {
     pinB = new makePin(1)
     pinB.sprite.y = TOP_LINE_Y - 1.65*MINOR_TICK_HEIGHT
     pinB.sprite.x = LINE_START
+    pinA.draw()
     incButton = makeArrowButton(5)
     decButton = makeArrowButton(-5)
     incButton.draw()
@@ -832,6 +873,7 @@ function onBDragMove(event) {
     ThirdRow.container.y = BOTTOM_LINE_Y - 3*BAR_HEIGHT - 2*DY
     FourthRow.container.y = TOP_LINE_Y
     Rows = [FirstRow,SecondRow,ThirdRow,FourthRow]
+    ActiveRow = Rows[ActiveIndex]
 
 
     app.stage.addChild(LeftWhisker)
