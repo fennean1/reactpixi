@@ -188,14 +188,17 @@ export const init = (app, setup) => {
          let txt = Math.round((pinA.sprite.x - LINE_START)/DX)
          label.text = txt
          // Hide if "subtracting"
-         if (pinA.sprite.x > pinB.sprite.x){label.text = null}
+         if (pinA.sprite.x > pinB.sprite.x){
+           label.x = LINE_START + (pinB.sprite.x - LINE_START)/2
+           label.text = Math.round((pinB.sprite.x - LINE_START)/DX)
+          }
          if (stripA.graphic.width <= DX){
            label.y = WINDOW_HEIGHT/2 - 1.5*STRIP_HEIGHT
          } else {
            label.y = WINDOW_HEIGHT/2 - STRIP_HEIGHT/2
          }
          // Hide for testing purposes
-         label.alpha = 0
+         //label.alpha = 0
       } else if (label.id == 1) {
          label.x = (pinA.sprite.x + pinB.sprite.x)/2
          label.y = label.y = WINDOW_HEIGHT/2 - STRIP_HEIGHT/2
@@ -306,7 +309,7 @@ export const init = (app, setup) => {
       numberLine.increment(inc)
       resize(null,false)
     })
-    app.stage.addChild(button)
+    //app.stage.addChild(button)
 
     button.draw = () => {
       if (button.inc == -5){

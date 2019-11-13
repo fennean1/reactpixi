@@ -96,6 +96,28 @@ export const init = (app, setup) => {
   MinusButton.height = BAR_HEIGHT/2.5
 
 
+  let resetButton = new PIXI.Sprite.from(CONST.ASSETS.RESET)
+  resetButton.interactive = true
+  resetButton.x = BAR_HEIGHT/2
+  resetButton.y = BAR_HEIGHT/2
+  resetButton.width = BAR_HEIGHT
+  resetButton.height = BAR_HEIGHT
+  resetButton.on('pointerdown',reset)
+
+
+  function reset(){
+    Dragging = false
+    ROWS.forEach((r,i)=>{
+      r.y = ANCHORS[i] + WALL_START_Y
+      r.sprites.forEach(e=>{
+        e.active = false
+        e.touched = false 
+        e.dragged = false
+      })
+      r.draw()
+    })
+  }
+
   function placeButtons(){
 
     let w = ActiveRow.width
@@ -163,7 +185,6 @@ export const init = (app, setup) => {
         s.on('pointerup',this.spritePointerUp)
         s.on('pointermove',this.spritePointerMoved)
         s.interactive = true
-        s.buttonMode = true
         s.active = false
         s.x = i*BAR_WIDTH/this.denominator
         s.y = 0
@@ -176,6 +197,7 @@ export const init = (app, setup) => {
       this.on('pointerdown',this.pointerDown)
       this.on('pointerup',this.pointerUp)
       this.on('pointermove',this.pointerMove)
+      this.on('pointerupoutside',this.pointerUp)
 
     }
 
@@ -263,8 +285,10 @@ export const init = (app, setup) => {
         console.log("sprites[i].active",this.sprites[i].active)
         if (this.sprites[i].active){
           this.sprites[i].texture = this.textureB
+          this.sprites[i].label.alpha = 1
         } else {
           this.sprites[i].texture = this.textureA
+          this.sprites[i].label.alpha = 0
         }
         if (BAR_HEIGHT > this.blockWidth){
           this.sprites[i].label.style.fontSize = this.blockWidth/2.2
@@ -317,8 +341,7 @@ export const init = (app, setup) => {
         y: this.y - event.data.global.y
       }
     }
-  
-  
+
  
    pointerUp(event) {
      console.log("pointerup")
@@ -331,6 +354,8 @@ export const init = (app, setup) => {
       ROWS.forEach((r,k)=> {
         TweenLite.to(r,0.2,{y: ANCHORS[k]+WALL_START_Y})
       })
+      console.log("ANCHORS",ANCHORS)
+      console.log("ROWS",ROWS)
     } 
       this.reset()
       this.dragged = false
@@ -351,6 +376,7 @@ export const init = (app, setup) => {
 
 
   function globalPointerUp(){
+    /*
     console.log("global pointer up")
     if (Dragging){
       console.log("dragging")
@@ -364,6 +390,7 @@ export const init = (app, setup) => {
           s.touched = false})
       })
     }
+    */
   }
   
   // Called on resize
@@ -408,6 +435,7 @@ export const init = (app, setup) => {
       app.stage.addChild(MinusButton)
       app.stage.addChild(PlusButton)
     }
+    app.stage.addChild(resetButton)
   }
 
   // Functions attached to app: (need to be destroyed)

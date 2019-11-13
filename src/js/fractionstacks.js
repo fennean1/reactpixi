@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import * as CONST from "./const.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
+import {Fraction} from "./api.js"
 const ASSETS = CONST.ASSETS
 
 export const init = (app, setup) => {
@@ -256,8 +257,6 @@ export const init = (app, setup) => {
      }
      this.init()
   }
-
-
 
   function makeBackground(){
     // Setup Background
@@ -883,6 +882,13 @@ function onBDragMove(event) {
     app.stage.addChild(MinusButton)
     drawWhiskers()
     placeButtons()
+
+
+    let f = new Fraction(1,900,50)
+    f.x = 50
+    f.y = 50
+    app.stage.addChild(f)
+
   }
 
   // Call load script
