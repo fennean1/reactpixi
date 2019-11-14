@@ -349,7 +349,7 @@ export const init = (app, setup) => {
             this.graphic.clear()
             this.graphic.lineStyle(t,CONST.COLORS.BLUE)
             this.graphic.beginFill(CONST.COLORS.BLUE)
-            this.graphic.drawRect(0,0,_w,_h)
+            this.graphic.drawRoundedRect(0,0,_w,_h,_h/10)
             this.graphic.width = _w 
             this.graphic.height = _h + t
             this.graphic.x = _x
@@ -366,7 +366,12 @@ export const init = (app, setup) => {
             this.graphic.lineStyle(2,CONST.COLORS.ORANGE)
             this.graphic.beginFill(CONST.COLORS.ORANGE)
             this.graphic.y = WINDOW_HEIGHT/2 - STRIP_HEIGHT - t/4
-            this.graphic.drawRect(0,0,w,STRIP_HEIGHT-t)
+            this.graphic.drawRoundedRect(0,0,w,STRIP_HEIGHT-t,STRIP_HEIGHT/10)
+            if(w == 0){
+              this.graphic.alpha = 0
+            } else {
+              this.graphic.alpha = 1
+            }
           }
           this.graphic.x = Math.min(pinA.sprite.x,pinB.sprite.x)
       }

@@ -11,6 +11,10 @@ import plus_ten from "../assets/PlusTen.png"
 import minus_ten from "../assets/MinusTen.png"
 import plus_one from "../assets/PlusOne.png"
 import minus_one from "../assets/MinusOne.png"
+import plus_five from "../assets/PlusFive.png"
+import minus_five from "../assets/MinusFive.png"
+import plus_three from "../assets/PlusThree.png"
+import minus_three from "../assets/MinusThree.png"
 import unlocked_lock  from "../assets/UnlockedLock.png"
 import locked_lock from "../assets/LockedLock.png"
 import sharp_pin from "../assets/SharpPin.png"
@@ -33,6 +37,10 @@ export const ASSETS = {
     EMPTY_CIRCLE: empty_circle,
     PLUS_TEN: plus_ten,
     MINUS_TEN: minus_ten,
+    PLUS_FIVE: plus_five,
+    MINUS_FIVE: minus_five,
+    PLUS_THREE: plus_three,
+    MINUS_THREE: minus_three,
     PLUS_ONE: plus_one,
     MINUS_ONE: minus_one,
     UNLOCKED_LOCK: unlocked_lock,
