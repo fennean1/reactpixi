@@ -59,6 +59,14 @@ export const init = (app, setup) => {
     f.x = 100 
     f.y = 100
     app.stage.addChild(f)
+    let f2 = new Fraction(3,4,100)
+    f2.x = 350 
+    f2.y = 100
+    app.stage.addChild(f2)
+    let f3 = new Fraction(3,40,100)
+    f3.x = 600 
+    f3.y = 100
+    app.stage.addChild(f3)
 
     let d = new Draggable(PIN_TEXTURE)
     app.stage.addChild(d)

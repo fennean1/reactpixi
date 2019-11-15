@@ -17,12 +17,14 @@ import * as CuisenaireToolScript from "./js/cuisenairetool.js";
 import * as FractionStacksScript from "./js/fractionstacks.js";
 import * as CalculatorScript from "./js/calculator.js";
 import * as OldFractionWallScript from "./js/oldfractionwall.js";
+import * as GridNodeScript from "./js/gridnodes.js";
 import * as ApiTestScript from "./js/apitest.js";
 import * as NewFractionStacksScript from "./js/newfractionwall.js";
 import * as CapacityTalkData from "./activitydata/CapacityTalk.json";
 import ActivityList from './components/ActivityList'
 import ManipulativeCarousel from "./components/ManipulativeCarousel"
 import SignIn from "./components/SignIn"
+
 
 Pixi.settings.RESOLUTION = 3
 let app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
@@ -44,6 +46,8 @@ const Main = () => (
     <Route exact path="/fractionstacks" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {FractionStacksScript.init}/>} />
     <Route exact path="/orderingblocks" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {OrderingToolScript.init}/>} />
     <Route exact path="/strips" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {NumberLineStripsScript.init}/>} />
+    <Route exact path="/gridnodes" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {GridNodeScript.init}/>} />
+    <Route exact path="/stripsopen" component={() => <Arena app = {app} fullscreen = {true} features  = {{'open': true}} lesson = {CapacityTalkData.default} script = {NumberLineStripsScript.init}/>} />
     <Route exact path="/" component={() => <ActivityList/>} />
     <Route exact path="/login" component={SignIn} />
     <Route exact path="/panels" component={Panels} />

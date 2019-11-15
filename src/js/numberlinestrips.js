@@ -7,6 +7,12 @@ const ASSETS = CONST.ASSETS
 
 export const init = (app, setup) => {
 
+
+  let features = {'strips': true,labels: true,open: false}
+  if (setup.props.features){
+    features = setup.props.features
+  }
+
   // Constants
   const BLUE_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.BLUE_CIRCLE)
   const LINE_PERCENTAGE = 0.8
@@ -96,6 +102,19 @@ export const init = (app, setup) => {
          // update tickspan etc. based on line max.
      }
 
+     // Could be more efficient by sending object with key value pairs for easy checking. (object.assign?)
+     this.keep = (values)=>{
+       let obj = {0: "I am here"};
+       values.forEach(v=>{obj[v] = 'I am here.'})
+       console.log("obj",obj)
+       console.log("ticks and labels",this.ticks,this.labels)
+       for (let i = 0;i<this.ticks.length;i++){
+        let a = obj[i] ? 1 : 0
+        this.ticks[i].alpha = a
+        this.labels[i].alpha = a
+       }
+     }
+
      this.increment = (inc) => {
          // Animation go here
          this.max += inc
@@ -144,7 +163,7 @@ export const init = (app, setup) => {
           if (i > this.max){
               e.x = LINE_WIDTH + this.line.x 
           } else {
-              e.x =  LINE_WIDTH/this.max*i + this.line.x
+              e.x =  LINE_WIDTH/this.max*i + this.line.xr
           }
        })
      }
@@ -245,7 +264,14 @@ export const init = (app, setup) => {
       } else if (this.sprite.id == 1){
         state.valB = this.sprite.val
       }
+
+      // CHECKPOINT!
+      if (features.open){
+        numberLine.keep([state.valA,state.valB])
+      }
     }
+
+
 
     this.draw = () => { 
       this.sprite.width = STRIP_HEIGHT
@@ -283,7 +309,10 @@ export const init = (app, setup) => {
       let newPosition = this.data.getLocalPosition(this.parent);
       this.x = newPosition.x + this.deltaTouch.x;
       //this.y = newPosition.y + this.deltaTouch.y;
+        state.valA = Math.round((pinA.sprite.x - LINE_START)/DX)
+        state.valB = Math.round((pinB.sprite.x - LINE_START)/DX)
 
+        //numberLine.keep([state.valA,state.valB])
         stripA.draw()
         stripB.draw()
         stripALabel.draw()
@@ -434,10 +463,6 @@ export const init = (app, setup) => {
 
   // Loading Script
   function load(){
-    let features = {'strips': true}
-    if (setup.props.features){
-      features = setup.props.features
-    }
     backGround = new makeBackground()
     numberLine = new makeNumberLine()
     pinA = new makePin(0)
@@ -446,6 +471,14 @@ export const init = (app, setup) => {
     stripB = new makeStrip(1)
     stripALabel = makeStripLabel(0)
     stripBLabel = makeStripLabel(1)
+
+    // HELLO!
+    if (features.open){
+      stripALabel.alpha = 0
+      stripBLabel.alpha = 0
+      numberLine.keep([state.valA,state.valB])
+    }
+
     incButton = makeArrowButton(5)
     decButton = makeArrowButton(-5)
     stripALabel.draw()
