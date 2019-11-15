@@ -21,8 +21,8 @@ export const init = (app, setup) => {
 
  // Initial State
   let state = {
-    valA: 8,
-    valB: 8,
+    valA: 1,
+    valB: 2,
     lineMax: 20,
   }
 
@@ -106,10 +106,9 @@ export const init = (app, setup) => {
      this.keep = (values)=>{
        let obj = {0: "I am here"};
        values.forEach(v=>{obj[v] = 'I am here.'})
-       console.log("obj",obj)
-       console.log("ticks and labels",this.ticks,this.labels)
        for (let i = 0;i<this.ticks.length;i++){
         let a = obj[i] ? 1 : 0
+        console.log("a",a)
         this.ticks[i].alpha = a
         this.labels[i].alpha = a
        }
@@ -163,7 +162,7 @@ export const init = (app, setup) => {
           if (i > this.max){
               e.x = LINE_WIDTH + this.line.x 
           } else {
-              e.x =  LINE_WIDTH/this.max*i + this.line.xr
+              e.x =  LINE_WIDTH/this.max*i + this.line.x
           }
        })
      }
@@ -245,7 +244,7 @@ export const init = (app, setup) => {
     this.sprite.on('pointermove',onDragMove)
     this.sprite.on('pointerup',onDragEnd)
     this.sprite.x = WINDOW_WIDTH/2 - LINE_WIDTH/2
-    this.sprite.val = 8
+    this.sprite.val = id == 0 ? state.valA : state.valB
     app.stage.addChild(this.sprite)
 
     this.sprite.round = () => {
@@ -472,12 +471,6 @@ export const init = (app, setup) => {
     stripALabel = makeStripLabel(0)
     stripBLabel = makeStripLabel(1)
 
-    // HELLO!
-    if (features.open){
-      stripALabel.alpha = 0
-      stripBLabel.alpha = 0
-      numberLine.keep([state.valA,state.valB])
-    }
 
     incButton = makeArrowButton(5)
     decButton = makeArrowButton(-5)
@@ -485,7 +478,14 @@ export const init = (app, setup) => {
     stripBLabel.draw()
     incButton.draw()
     decButton.draw()
-    
+
+    // HELLO!
+    if (features.open){
+      console.log("state",state)
+      stripALabel.alpha = 0
+      stripBLabel.alpha = 0
+      numberLine.keep([state.valA,state.valB])
+    }
   }
 
   // Call load script

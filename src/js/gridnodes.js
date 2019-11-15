@@ -67,6 +67,7 @@ export const init = (app, setup) => {
           n.scale.x = n.scale.x/1.2
           n.scale.y = n.scale.y/1.2
           n.alpha = 1
+          n.activated = false
         }
       })
       let xS = CurrenPolygon.map(p=> p[0])
@@ -99,7 +100,6 @@ export const init = (app, setup) => {
       app.stage.addChild(d)
       CurrenPolygon = []
     }
-
   }
 
   function set(a,b){
