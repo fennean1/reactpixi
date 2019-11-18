@@ -103,6 +103,7 @@ export class Fraction extends PIXI.Container {
   }
 
   draw(n,d,w){
+    console.log("n,d")
     this.numerator = n+""
     this.denominator = d+""
     this.numDigits = this.numerator.length
@@ -118,16 +119,26 @@ export class Fraction extends PIXI.Container {
       this.lineCompression = 25
     }
 
+    console.log("d",d)
+    if (d == 1){
+      this.L.alpha = 0
+      this.D.alpha = 0
+    } else {
+      this.L.alpha = 1
+      this.D.alpha = 1
+    }
     
     // Numerator
     this.N.x = this._width/2
     this.N.y = 0
     this.N.style.fontSize = this.fontSize*this.compression
+    this.N.text = n
 
     // Denominator
     this.D.x = this._width/2
     this.D.y = this.N.height
     this.D.style.fontSize = this.fontSize*this.compression
+    this.D.text = d
 
     // Line
     this.L.lineStyle(this._width/this.lineCompression,0x000000)
@@ -144,11 +155,7 @@ export class Fraction extends PIXI.Container {
     this.denominator = d
     this.N.text = n
     this.D.text = d
-
-    // Only sets text unless rezising is necessary.
-    if (nDigits != this.numDigits && dDigits != this.denDigits){
-      this.draw(n,d)
-    }
+    this.draw(n,d)
   }
 }
 
