@@ -21,6 +21,7 @@ export class Draggable extends PIXI.Sprite {
   }
 
   pointerDown(event){
+    console.log("Draggable Pointer Down")
     this.touching = true
     this.deltaTouch = {
       x: this.x - event.data.global.x,

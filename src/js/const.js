@@ -24,6 +24,10 @@ import plus_square from "../assets/PlusSquare.png"
 import minus_square from "../assets/MinusSquare.png"
 import measure_pin from "../assets/MeasurePin.png"
 import glass_circle from "../assets/GlassCircle.png"
+import rotate_right from "../assets/rotate-right.png"
+import rotate_left from "../assets/rotate-left.png"
+import flip_vert from "../assets/flip-icon.png"
+import duplicate from "../assets/Duplicate.png"
 
 
 export const ASSETS = {
@@ -52,7 +56,11 @@ export const ASSETS = {
     PLUS_SQUARE: plus_square,
     MINUS_SQUARE: minus_square,
     MEASURE_PIN: measure_pin,
-    GLASS_CIRCLE: glass_circle
+    GLASS_CIRCLE: glass_circle,
+    ROTATE_RIGHT: rotate_right,
+    ROTATE_LEFT: rotate_left,
+    FLIP_VERT: flip_vert,
+    DUPLICATE: duplicate
 }
 
 export const CUISENAIRE_COLORS = {

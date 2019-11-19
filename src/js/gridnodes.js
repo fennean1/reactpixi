@@ -5,6 +5,7 @@ import QuestionMark from '../assets/QuestionMark.png'
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
 import {Fraction, Draggable} from "./api.js"
 import { isObject } from "util";
+import { lchown } from "fs";
 const ASSETS = CONST.ASSETS
 
 
@@ -12,6 +13,9 @@ export const init = (app, setup) => {
 
   // Layout Parameters
   const LINE_PERCENTAGE = 0.8
+  const BLUE_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.GLASS_CIRCLE)
+  const DOT_TEXTURE = new PIXI.Texture.from(ASSETS.GLASS_CIRCLE)
+    
   let WINDOW_WIDTH = setup.width
   let BAR_HEIGHT = setup.height/15
   let WINDOW_HEIGHT = setup.height
@@ -25,11 +29,16 @@ export const init = (app, setup) => {
   let stencil;
   let Nodes = []
   let CurrentPolygon = []
-  let fraction;
+  let activePolygon = null
+  let polygons = []
+  let fractionObj;
+  let trashBtn;
+  let rotateLeftBtn;
+  let rotateRightBtn;
+  let duplicateBtn;
+  let flipVerticalBtn;
+  let flipHorizontalBtn;
 
-    // Constants
-  const BLUE_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.GLASS_CIRCLE)
-  const DOT_TEXTURE = new PIXI.Texture.from(ASSETS.GLASS_CIRCLE)
 
   function makeBackground(){
     // Setup Background
@@ -48,15 +57,13 @@ export const init = (app, setup) => {
     }
   }
 
+
   class Stencil extends PIXI.Graphics {
     constructor(){
       super()
     }
 
     draw(nodes){
-      console.log("draw called")
-
-      console.log("nodes",nodes)
       this.clear()
       this.lineStyle(4,0xff3b55)
       this.moveTo(nodes[0][0],nodes[0][1])
@@ -68,67 +75,107 @@ export const init = (app, setup) => {
     }
   }
 
+  function drawHeaderButtons(){
+    
+  }
+
   function linesIntersect(l1,l2){
     let m1 = l1.m
     let m2 = l2.m 
     let b1 = l1.b
     let b2 = l2.b
 
-    let xIntersect = (m1 - m2)/(b2-b1)
-    let yIntersect = l1.yOf(xIntersect)
-    
-    let inYRange1 = (yIntersect > l1.yMin) && (yIntersect < l1.yMax)
-    let inXRange1 = (xIntersect > l1.xMin) && (yIntersect < l1.xMax)
-    let inYRange2 = (yIntersect > l2.yMin) && (yIntersect < l2.yMax)
-    let inXRange2 = (xIntersect > l2.xMin) && (xIntersect < l2.xMax)
-    
-    return (inXRange1 && inXRange2 && inYRange1 && inYRange2)
+    if (l1.vertical && l2.vertical){
+      return false
+    } else if (l1.horizontal && l2.horizontal){
+      return false
+    } else {
+
+
+      let xIntersect = (b1 - b2)/(m2-m1)
+
+      let yIntersect = null
+
+      if (l1.vertical){ 
+        yIntersect = l2.yOf(l1.x1)
+        xIntersect = l1.x1
+      } else if (l2.vertical){
+
+        yIntersect = l1.yOf(l2.x1)
+        xIntersect = l2.x1
+      } else {
+        yIntersect = l1.yOf(xIntersect)
+      }
+
+      yIntersect = Math.trunc(yIntersect*1000)/1000
+      xIntersect = Math.trunc(xIntersect*1000)/1000
+
+
+      // Padding 
+      let p = 4
+      let inYRange1 = l1.horizontal ? true : (yIntersect > l1.yMin+p) && (yIntersect < l1.yMax-p)
+      let inXRange1 = l1.vertical ? true : (xIntersect > l1.xMin+p) && (xIntersect < l1.xMax-p)
+      let inYRange2 = l2.horizontal ? true : (yIntersect > l2.yMin+p) && (yIntersect <= l2.yMax-p)
+      let inXRange2 = l2.vertical ? true : (xIntersect > l2.xMin+p) && (xIntersect < l2.xMax-p)
+
+
+      return (inXRange1 && inXRange2 && inYRange1 && inYRange2)
+    } 
+  }
+
+  function appxEq(a,b,t){
+    return Math.abs(a-b) < t
   }
 
 
 
-  /*
-  function intersects(lineOnePointPair,lineTwoPointPair){
-    let x11 = lineOnePointPair[0][0]
-    let y11 = lineOnePointPair[0][1]
-    let x21 = lineOnePointPair[1][0]
-    let y21 = lineOnePointPair[1][1]
-    let x12 = lineTwoPointPair[0][0]
-    let y12 = lineTwoPointPair[0][1]
-    let x22 = lineTwoPointPair[1][0]
-    let y22 = lineTwoPointPair[1][1]
-
-    let yMax1 = Math.max(y11,y21)
-    let yMin1 = Math.min(y11,y21)
-    let xMax1 = Math.max(x11,x21)
-    let xMin1 = Math.min(x11,x21)
-
-    let yMax2 = Math.max(y12,y22)
-    let yMin2 = Math.min(y12,y22)
-    let xMax2 = Math.max(x12,x22)
-    let xMin2 = Math.min(x12,x22)
-
-
-    let m1 = (y21 - y11)/(x21-x11)
-    let m2 = (y22 - y12)/(x22-x12)
-    let b1 = y11 - m1*x11
-    let b2 = y12 - m2*x12
-    
-    const y1 = x=>m1*x+b1
-    const y2 = x=>m2*x+b2
-
-    let xIntersect = (m1 - m2)/(b2-b1)
-    let yIntersect = y1(xIntersect)
-    
-    let inYRange1 = (yIntersect > yMin1) && (yIntersect < yMax1)
-    let inXRange1 = (xIntersect > xMin1) && (yIntersect < xMax1)
-    let inYRange2 = (yIntersect > yMin2) && (yIntersect < yMax2)
-    let inXRange2 = (xIntersect > xMin2) && (xIntersect < xMax2)
-    
-    return (inXRange1 && inXRange2 && inYRange1 && inYRange2)
-
+  function lineContains(line,p){
+    // Tolerance
+    let x = p[0]
+    let y = p[1]
+    let t = 0.001
+    if (line.vertical){
+      if (appxEq(line.x1,x,t)){
+        if (y>line.yMin && y < line.yMax) {
+          return true
+        }
+      }
+    } else if (line.horizontal){
+      if (appxEq(line.y1,y,t)){
+        if (x>line.xMin && x < line.xMax) {
+          return true
+        }
+      }
+    } else if (appxEq(line.yOf(x),y,t)) {
+        console.log("calculating ranges")
+        let inXRange = x > line.xMin && x < line.xMax
+        let inYRange = y > line.yMin && y < line.yMax
+        console.log("ranges",inXRange,inYRange)
+        if (inXRange && inYRange){
+          return true
+        }
+    } else {
+      return false
+    }
   }
-  */
+
+  function activateNodesInPath(line){
+    let valid = true
+    Nodes.forEach(n=>{
+      if (lineContains(line,[n.x,n.y])){
+        console.log("found one!")
+       if (n.activated){
+          console.log("THIS SHOULDN NOT BE!!!!")
+          valid = false
+        } else {
+          n.activated = true 
+          n.scale.x = n.scale.x*1.2
+          n.scale.y = n.scale.y*1.2
+        }
+      }
+    })
+    return valid
+  }
 
   class Line {
     constructor(p1,p2){
@@ -146,10 +193,16 @@ export const init = (app, setup) => {
       this.p2 = p2
 
       this.m = (this.y2-this.y1)/(this.x2-this.x1)
-      this.b = this.y1 - this.m*this.x1
+
+      this.vertical = Math.abs(this.m) > 1000 ? true : false 
+      this.horizontal = Math.abs(this.m) < 0.001 ? true : false
+
+      this.b = this.vertical ? null : this.y1 - this.m*this.x1
+
     }
 
     yOf(x){
+      console.log("this.m,x,this.b,",this.m,x,this.b)
       return this.m*x+this.b
     }
 
@@ -159,21 +212,51 @@ export const init = (app, setup) => {
 
   }
 
-  function polyToLines(poly){
-      let n = poly.length
-      let lines = poly.map((p,i)=>{
-        return  new Line(p,poly[(i+1)%n])
-      })
+  function showErrorAt(point){
+    let from = CurrentPolygon[CurrentPolygon.length-1]
+    let g = new PIXI.Graphics()
+    g.lineStyle(4,0x000000)
+    g.moveTo(from[0],from[1])
+    g.lineTo(point[0],point[1])
+    g.alpha = 0
+    app.stage.addChild(g)
+    const onComplete = () => g.destroy(true)
+    TweenLite.to(g,0.1,{alpha: 1,onComplete: onComplete})
   }
 
-  function doesNewLineCrossCurrentLines(lines,newLine){
-    let contains = false
-    lines.forEach(l => {
-      if (linesIntersect(l,newLine)){
-        return true
+  function getLinesFromPoly(poly,wrap = false){
+      let n = poly.length
+      let lines = poly.map((p,i)=>{
+       // console.log("making a line")
+        return new Line(p,poly[(i+1)%n])
+      })
+      if (!wrap){
+        lines.pop()
       }
-    })
-    return contains
+      return lines
+  }
+
+  function isNewPointValid(poly,newPoint){
+    let valid = true
+    if (poly.length == 0){
+      // console.log("length is zero")
+      return true
+    } else {
+      let last = poly[poly.length-1]
+     // console.log("last,newpoint",last,newPoint)
+      let newLine = new Line(last,newPoint)
+
+      let lines = getLinesFromPoly(poly)
+     // console.log("there are the lines",lines)
+      lines.forEach(l => {
+      //  console.log("iterating")
+        if (linesIntersect(l,newLine)){
+          //console.log("lines interesect!!!!")
+          valid = false
+        }
+      })
+      return valid && activateNodesInPath(newLine)
+    }
   }
 
 
@@ -181,8 +264,8 @@ export const init = (app, setup) => {
     constructor(){
       super()
       this.on('pointerdown',this.pointerDown)
-      this.on('pointerup',this.pointerUp)
-      this.on('pointerupoutside',this.pointerUpOutside)
+      //this.on('pointerup',this.pointerUp)
+      //this.on('pointerupoutside',this.pointerUpOutside)
       this.anchor.set(0.5)
       this.activated = false
       this.interactive = true
@@ -190,81 +273,59 @@ export const init = (app, setup) => {
     }
 
     pointerDown(){
+      Nodes.forEach((n)=>{app.stage.addChild(n)})
       if (this.first){
+        let newPoint = [this.x,this.y]
+        if (CurrentPolygon.length > 2 && isNewPointValid(CurrentPolygon,newPoint)){
+          let newPoly = new DraggablePoly(CurrentPolygon)
+          app.stage.addChild(newPoly)
+        }
+        Nodes.forEach(n=>{
+          if (n.activated){
+            n.scale.x = n.scale.x/1.2
+            n.scale.y = n.scale.y/1.2
+            n.activated = false
+          }
+        })
         this.first = false
         stencil.clear()
-        this.generatePolygon()
+        CurrentPolygon = []
       } else {
+        //console.log("else?")
         if (CurrentPolygon.length == 0){
           this.first = true
+          this.activated = true
+          this.scale.x = this.scale.x*1.2
+          this.scale.y = this.scale.y*1.2
+          CurrentPolygon.push([this.x,this.y])
+        } else if (!this.activated){
+            let newPoint = [this.x,this.y]
+            let valid = isNewPointValid(CurrentPolygon,newPoint)
+            console.log("new point valid",valid)
+            if (valid) {
+              this.activated = true
+              this.scale.x = this.scale.x*1.2
+              this.scale.y = this.scale.y*1.2
+              let lastPoint = CurrentPolygon[CurrentPolygon.length -1]
+              CurrentPolygon.push(newPoint)
+              stencil.draw(CurrentPolygon)
+              app.stage.addChild(this)
+            } else {
+              showErrorAt([this.x,this.y])
+            }
         }
-        CurrentPolygon.push([this.x,this.y])
-        this.activated = true
-        this.scale.x = this.scale.x*1.2
-        this.scale.y = this.scale.y*1.2
-        stencil.draw(CurrentPolygon)
-        app.stage.addChild(this)
       }
     }
-
-    pointerUpOutside(){
-
-    }
-
-    pointerUp(){
-      
-    }
-
-    generatePolygon(){
-      Nodes.forEach(n=>{
-        if (n.activated){
-          n.scale.x = n.scale.x/1.2
-          n.scale.y = n.scale.y/1.2
-          n.activated = false
-        }
-      })
-
-      let xS = CurrentPolygon.map(p=> p[0])
-      let yS = CurrentPolygon.map(p=> p[1])
-      let minX = Math.min(...xS)
-      let minY = Math.min(...yS)
-
-      let flatPolygon = []
-      CurrentPolygon.forEach(p=>{
-        flatPolygon.push(p[0]-minX)
-        flatPolygon.push(p[1]-minY)
-      })
-
-      let a = polygonArea(CurrentPolygon)/SQUARE_AREA
-      let f = decimalToFrac(a)
-      console.log("polyarea",a)
-      console.log("areatofrac",decimalToFrac(a))
-
-      fraction.set(f[0],f[1])
-      
-
-      var graphics = new PIXI.Graphics();
-      graphics.beginFill(0xff3b55);
-      graphics.lineStyle(2,0xffffff)
-      graphics.drawPolygon(flatPolygon);
-      graphics.endFill();
-
-      let d = new Draggable()
-      d.hitArea = new PIXI.Polygon(flatPolygon)
-      let t = app.renderer.generateTexture(graphics)
-      d.texture = t
-      d.x = minX
-      d.y = minY
-      app.stage.addChild(d)   
-    }
   }
+
+
 
   function set(a,b){
     let dx = SQUARE_DIM/(a-1)
     let dy = SQUARE_DIM/(b-1)
     let dim = SQUARE_DIM/15
     for (let i=0;i<a;i++){
-      for (let j=0;j<a;j++){
+      for (let j=0;j<b;j++){
         let n = new Node()
         Nodes.push(n)
         n.x = WINDOW_WIDTH/2 - SQUARE_DIM/2 + i*dx 
@@ -274,6 +335,50 @@ export const init = (app, setup) => {
         n.width = dim
         app.stage.addChild(n)
       }
+    }
+  }
+
+
+  class DraggablePoly extends Draggable {
+    constructor(points){
+
+      let xS = points.map(p=> p[0])
+      let yS = points.map(p=> p[1])
+      let minX = Math.min(...xS)
+      let minY = Math.min(...yS)
+
+      let flatPolygon = []
+      points.forEach(p=>{
+        flatPolygon.push(p[0]-minX)
+        flatPolygon.push(p[1]-minY)
+      })
+
+      let a = polygonArea(points)/SQUARE_AREA
+      let f = decimalToFrac(a)
+      fractionObj.set(f[0],f[1])
+     
+      var graphics = new PIXI.Graphics();
+      graphics.beginFill(0xff3b55);
+      graphics.lineStyle(2,0xffffff)
+      graphics.drawPolygon(flatPolygon);
+      graphics.endFill();
+      let t = app.renderer.generateTexture(graphics)
+      super(t)
+
+      this.hitArea = new PIXI.Polygon(flatPolygon)
+      this.points = points
+
+      this.pivot.x = this.width/2
+      this.pivot.y = this.height/2
+      this.x = minX + this.width/2
+      this.y = minY + this.height/2
+      this.interactive = true
+      this.on('pointerdown',this.polyPointerDown)
+    }
+    polyPointerDown(){
+      console.log("pointerdownpolygon")
+      activePolygon = this
+      app.stage.addChild(this)
     }
   }
 
@@ -330,7 +435,7 @@ export const init = (app, setup) => {
 
   // Loading Script
   function load(){
-    console.log('load called')
+    app.loaded = true
     let features = {}
     if (setup.props.features){
       features = setup.props.features
@@ -338,13 +443,73 @@ export const init = (app, setup) => {
 
     let backGround = new makeBackground()
 
-    set(4,4)
+    rotateLeftBtn = new PIXI.Sprite.from(ASSETS.ROTATE_LEFT)
+    rotateLeftBtn.width = 100
+    rotateLeftBtn.height = 100
+    rotateLeftBtn.interactive = true
+    app.stage.addChild(rotateLeftBtn)
+    rotateLeftBtn.on('pointerdown',()=>{
+      if (activePolygon != null){
+        TweenLite.to(activePolygon,0.2,{rotation: activePolygon.rotation - Math.PI/2})
+      }
+    })
 
+    flipVerticalBtn = new PIXI.Sprite.from(ASSETS.FLIP_VERT)
+    flipVerticalBtn.y = 100
+    flipVerticalBtn.width = 100
+    flipVerticalBtn.height = 100
+    flipVerticalBtn.interactive = true
+    app.stage.addChild(flipVerticalBtn)
+    flipVerticalBtn.on('pointerdown',()=>{
+      if (activePolygon != null){
+        TweenLite.to(activePolygon.scale,0.2,{y: activePolygon.scale.y*(-1)})
+      }
+    })
 
-    fraction = new Fraction(0,1,100)
-    fraction.x = SQUARE_DIM/10
-    fraction.y = SQUARE_DIM/10
-    app.stage.addChild(fraction)
+    duplicateBtn = new PIXI.Sprite.from(ASSETS.DUPLICATE)
+    duplicateBtn.y = 200
+    duplicateBtn.width = 100
+    duplicateBtn.height = 100
+    duplicateBtn.interactive = true
+    app.stage.addChild(duplicateBtn)
+    duplicateBtn.on('pointerdown',()=>{
+      let newPoly = new DraggablePoly(activePolygon.points)
+      newPoly.x = activePolygon.x + 30
+      newPoly.y = activePolygon.y + 30
+      newPoly.rotation = activePolygon.rotation 
+      newPoly.scale.x = activePolygon.scale.x 
+      newPoly.scale.y = activePolygon.scale.y
+      app.stage.addChild(newPoly)
+    })
+
+    /*
+
+    trashBtn = new PIXI.Sprite.from(ASSETS.DUPLICATE)
+    trashBtn.y = 200
+    trashBtn.width = 100
+    trashBtn.height = 100
+    trashBtn.interactive = true
+    app.stage.addChild(trashBtn)
+    trashBtn.on('pointerdown',()=>{
+      let newPoly = new DraggablePoly(activePolygon.points)
+      newPoly.x = activePolygon.x + 30
+      newPoly.y = activePolygon.y + 30
+      newPoly.rotation = activePolygon.rotation 
+      newPoly.scale.x = activePolygon.scale.x 
+      newPoly.scale.y = activePolygon.scale.y
+      app.stage.addChild(newPoly)
+    })
+    */
+
+    let {x,y,descriptor} = setup.props.features
+    set(x,y)
+
+    fractionObj = new Fraction(0,1,100)
+    fractionObj.x = WINDOW_WIDTH*0.8
+    fractionObj.y = SQUARE_DIM/10
+    if (descriptor){
+      app.stage.addChild(fractionObj)
+    }
 
     stencil = new Stencil()
     stencil.lineStyle(4,0xff3b55)
@@ -352,19 +517,11 @@ export const init = (app, setup) => {
     stencil.y = 0
     app.stage.addChild(stencil)
 
-    let l1 = new Line([0,0],[100,100])
-    let l2 = new Line([0,100],[100,0])
-    console.log("do these intersect?",linesIntersect(l1,l2))
-
-    stencil.lineTo(100,100)
-    stencil.moveTo(0,100)
-    stencil.lineTo(100,0)
-
   }
 
   // Call load script
   load()
   // Not sure where else to put this.
   app.resize = (frame) => resize(frame)
-  app.resizable = true
+  app.resizable = false
 };

@@ -23,6 +23,7 @@ import * as NewFractionStacksScript from "./js/newfractionwall.js";
 import * as CapacityTalkData from "./activitydata/CapacityTalk.json";
 import ActivityList from './components/ActivityList'
 import ManipulativeCarousel from "./components/ManipulativeCarousel"
+import StudentDashboard from "./components/StudentDashboard"
 import SignIn from "./components/SignIn"
 
 
@@ -46,12 +47,13 @@ const Main = () => (
     <Route exact path="/fractionstacks" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {FractionStacksScript.init}/>} />
     <Route exact path="/orderingblocks" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {OrderingToolScript.init}/>} />
     <Route exact path="/strips" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {NumberLineStripsScript.init}/>} />
-    <Route exact path="/gridnodes" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {GridNodeScript.init}/>} />
+    <Route exact path="/gridnodes" component={() => <Arena app = {app} features = {{x: 3,y: 3}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {GridNodeScript.init}/>} />
     <Route exact path="/stripsopen" component={() => <Arena app = {app} fullscreen = {true} features  = {{'open': true}} lesson = {CapacityTalkData.default} script = {NumberLineStripsScript.init}/>} />
     <Route exact path="/" component={() => <ActivityList/>} />
     <Route exact path="/login" component={SignIn} />
     <Route exact path="/panels" component={Panels} />
     <Route exact path="/manipulatives" component={ManipulativeCarousel} />
+    <Route exact path="/studentdashboard" component={StudentDashboard} />
   </div>
 );
 
