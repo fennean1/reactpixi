@@ -3,7 +3,7 @@ import blueGradient from "../assets/blue-gradient.png";
 import * as CONST from "./const.js";
 import QuestionMark from '../assets/QuestionMark.png'
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
-import {Fraction, Draggable} from "./api.js"
+import {Fraction, Draggable, distance} from "./api.js"
 import { isObject } from "util";
 import { lchown } from "fs";
 const ASSETS = CONST.ASSETS
@@ -38,6 +38,7 @@ export const init = (app, setup) => {
   let duplicateBtn;
   let flipVerticalBtn;
   let flipHorizontalBtn;
+  let resetBtn;
 
 
   function makeBackground(){
@@ -278,6 +279,7 @@ export const init = (app, setup) => {
         let newPoint = [this.x,this.y]
         if (CurrentPolygon.length > 2 && isNewPointValid(CurrentPolygon,newPoint)){
           let newPoly = new DraggablePoly(CurrentPolygon)
+          polygons.push(newPoly)
           app.stage.addChild(newPoly)
         }
         Nodes.forEach(n=>{
@@ -374,13 +376,29 @@ export const init = (app, setup) => {
       this.y = minY + this.height/2
       this.interactive = true
       this.on('pointerdown',this.polyPointerDown)
+      this.on('pointerup',this.polyPointerUp)
     }
+
+    
     polyPointerDown(){
       console.log("pointerdownpolygon")
       activePolygon = this
       app.stage.addChild(this)
     }
+
+    polyPointerUp(){
+      console.log("distance",distance([this.x,this.y],[trashBtn.x,trashBtn.y]))
+      console.log("trashbuttonwidth",trashBtn.width)
+      if (distance([this.x,this.y],[trashBtn.x,trashBtn.y]) < 200) {
+        console.log("REMOVING THIS")
+        let i = polygons.indexOf(this)
+        polygons.splice(i,1)
+        app.stage.removeChild(this)
+        this.destroy(true)
+      }
+    }
   }
+
 
 
   function decimalToFrac(dec){
@@ -466,6 +484,22 @@ export const init = (app, setup) => {
       }
     })
 
+    resetBtn = new PIXI.Sprite.from(ASSETS.RESET)
+    resetBtn.y = 300
+    resetBtn.width = 100
+    resetBtn.height = 100
+    resetBtn.interactive = true
+    app.stage.addChild(resetBtn)
+    resetBtn.on('pointerdown',()=>{
+      console.log("balllllllllls")
+      console.log('polygons',polygons)
+      polygons.forEach(p=>{
+        console.log('for each?')
+        app.stage.removeChild(p)
+      })
+      polygons = []
+    })
+
     duplicateBtn = new PIXI.Sprite.from(ASSETS.DUPLICATE)
     duplicateBtn.y = 200
     duplicateBtn.width = 100
@@ -474,6 +508,7 @@ export const init = (app, setup) => {
     app.stage.addChild(duplicateBtn)
     duplicateBtn.on('pointerdown',()=>{
       let newPoly = new DraggablePoly(activePolygon.points)
+      polygons.push(newPoly)
       newPoly.x = activePolygon.x + 30
       newPoly.y = activePolygon.y + 30
       newPoly.rotation = activePolygon.rotation 
@@ -482,31 +517,21 @@ export const init = (app, setup) => {
       app.stage.addChild(newPoly)
     })
 
-    /*
 
-    trashBtn = new PIXI.Sprite.from(ASSETS.DUPLICATE)
-    trashBtn.y = 200
-    trashBtn.width = 100
-    trashBtn.height = 100
+    trashBtn = new PIXI.Sprite.from(ASSETS.TRASH)
+    trashBtn.width = 80
+    trashBtn.height = 80
+    trashBtn.x = WINDOW_WIDTH - trashBtn.width*1.1
+    trashBtn.y = trashBtn.width*0.1
     trashBtn.interactive = true
     app.stage.addChild(trashBtn)
-    trashBtn.on('pointerdown',()=>{
-      let newPoly = new DraggablePoly(activePolygon.points)
-      newPoly.x = activePolygon.x + 30
-      newPoly.y = activePolygon.y + 30
-      newPoly.rotation = activePolygon.rotation 
-      newPoly.scale.x = activePolygon.scale.x 
-      newPoly.scale.y = activePolygon.scale.y
-      app.stage.addChild(newPoly)
-    })
-    */
-
+ 
     let {x,y,descriptor} = setup.props.features
     set(x,y)
 
     fractionObj = new Fraction(0,1,100)
     fractionObj.x = WINDOW_WIDTH*0.8
-    fractionObj.y = SQUARE_DIM/10
+    fractionObj.y = WINDOW_HEIGHT/3
     if (descriptor){
       app.stage.addChild(fractionObj)
     }

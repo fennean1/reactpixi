@@ -50,7 +50,13 @@ export class Draggable extends PIXI.Sprite {
   }
 }
 
-
+export function distance(a,b){
+  let dx = a[0] - b[0]
+  let dy = a[1] - b[1]
+  let dx2 = dx*dx 
+  let dy2 = dy*dy
+  return Math.sqrt(dx2+dy2)
+}
 
 export class Fraction extends PIXI.Container {
   constructor(n,d,w){
