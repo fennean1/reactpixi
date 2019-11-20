@@ -14,7 +14,8 @@ export const init = (app, setup) => {
   // Layout Parameters
   const LINE_PERCENTAGE = 0.8
   const BLUE_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.GLASS_CIRCLE)
-  const DOT_TEXTURE = new PIXI.Texture.from(ASSETS.GLASS_CIRCLE)
+  const CLOSED_CIRCLE_TEXTURE = new PIXI.Texture.from(ASSETS.CLOSED_CIRCLE)
+  const OPEN_CIRCLE_TEXTURE = new PIXI.Texture.from(ASSETS.OPEN_CIRCLE)
     
   let WINDOW_WIDTH = setup.width
   let BAR_HEIGHT = setup.height/15
@@ -25,7 +26,8 @@ export const init = (app, setup) => {
   let ARENA_HEIGHT = LANDSCAPE ? setup.height : 3/4*setup.width
   let SQUARE_DIM = ARENA_HEIGHT*0.6
   let SQUARE_AREA = SQUARE_DIM*SQUARE_DIM
-  
+  let BTN_DIM = SQUARE_DIM/6
+
   let stencil;
   let Nodes = []
   let CurrentPolygon = []
@@ -40,7 +42,8 @@ export const init = (app, setup) => {
   let flipHorizontalBtn;
   let resetBtn;
 
-
+  let fadeAnimation = new TimelineLite({paused: true})
+ 
   function makeBackground(){
     // Setup Background
     this.sprite = new PIXI.Sprite.from(CONST.ASSETS.BLUE_GRADIENT);
@@ -66,7 +69,7 @@ export const init = (app, setup) => {
 
     draw(nodes){
       this.clear()
-      this.lineStyle(4,0xff3b55)
+      this.lineStyle(4,0x000000)
       this.moveTo(nodes[0][0],nodes[0][1])
       for (let n of nodes){
         let x = n[0]
@@ -170,8 +173,7 @@ export const init = (app, setup) => {
           valid = false
         } else {
           n.activated = true 
-          n.scale.x = n.scale.x*1.2
-          n.scale.y = n.scale.y*1.2
+          n.texture = CLOSED_CIRCLE_TEXTURE
         }
       }
     })
@@ -270,7 +272,7 @@ export const init = (app, setup) => {
       this.anchor.set(0.5)
       this.activated = false
       this.interactive = true
-      this.texture = DOT_TEXTURE
+      this.texture = OPEN_CIRCLE_TEXTURE
     }
 
     pointerDown(){
@@ -284,8 +286,7 @@ export const init = (app, setup) => {
         }
         Nodes.forEach(n=>{
           if (n.activated){
-            n.scale.x = n.scale.x/1.2
-            n.scale.y = n.scale.y/1.2
+            n.texture = OPEN_CIRCLE_TEXTURE
             n.activated = false
           }
         })
@@ -297,8 +298,7 @@ export const init = (app, setup) => {
         if (CurrentPolygon.length == 0){
           this.first = true
           this.activated = true
-          this.scale.x = this.scale.x*1.2
-          this.scale.y = this.scale.y*1.2
+          this.texture = CLOSED_CIRCLE_TEXTURE
           CurrentPolygon.push([this.x,this.y])
         } else if (!this.activated){
             let newPoint = [this.x,this.y]
@@ -306,11 +306,10 @@ export const init = (app, setup) => {
             console.log("new point valid",valid)
             if (valid) {
               this.activated = true
-              this.scale.x = this.scale.x*1.2
-              this.scale.y = this.scale.y*1.2
               let lastPoint = CurrentPolygon[CurrentPolygon.length -1]
               CurrentPolygon.push(newPoint)
               stencil.draw(CurrentPolygon)
+              this.texture = CLOSED_CIRCLE_TEXTURE
               app.stage.addChild(this)
             } else {
               showErrorAt([this.x,this.y])
@@ -357,15 +356,22 @@ export const init = (app, setup) => {
 
       let a = polygonArea(points)/SQUARE_AREA
       let f = decimalToFrac(a)
-      fractionObj.set(f[0],f[1])
      
       var graphics = new PIXI.Graphics();
       graphics.beginFill(0xff3b55);
-      graphics.lineStyle(2,0xffffff)
+      graphics._fillStyle.alpha = 0.85
+      graphics.lineStyle(4,0xffffff)
       graphics.drawPolygon(flatPolygon);
       graphics.endFill();
+  
       let t = app.renderer.generateTexture(graphics)
+
+      // Construct Super
       super(t)
+
+      this.n = f[0]
+      this.d = f[1]
+      fractionObj.draw(this.n,this.d,BTN_DIM)
 
       this.hitArea = new PIXI.Polygon(flatPolygon)
       this.points = points
@@ -377,24 +383,42 @@ export const init = (app, setup) => {
       this.interactive = true
       this.on('pointerdown',this.polyPointerDown)
       this.on('pointerup',this.polyPointerUp)
+      this.on('pointermove',this.polyPointerMove)
+      this.on('pointerleave',this.polyPointerLeave)
+    }
+
+    polyPointerLeave(){
+      console.log("pointerleave!!!!")
+      //fadeAnimation.play("tag")
     }
 
     
     polyPointerDown(){
-      console.log("pointerdownpolygon")
+      fadeAnimation.stop()
+      rotateLeftBtn.alpha = 1
+      flipVerticalBtn.alpha = 1
       activePolygon = this
+      fractionObj.draw(this.n,this.d,BTN_DIM)
       app.stage.addChild(this)
     }
 
+    polyPointerMove(){
+      if (this.touching){
+        placeButtons(0)
+      }
+    }
+
     polyPointerUp(){
-      console.log("distance",distance([this.x,this.y],[trashBtn.x,trashBtn.y]))
-      console.log("trashbuttonwidth",trashBtn.width)
+      placeButtons(1)
+      fadeAnimation.restart()
       if (distance([this.x,this.y],[trashBtn.x,trashBtn.y]) < 200) {
-        console.log("REMOVING THIS")
         let i = polygons.indexOf(this)
         polygons.splice(i,1)
         app.stage.removeChild(this)
         this.destroy(true)
+        if (polygons.length == 0){
+          activePolygon = polygons[0]
+        }
       }
     }
   }
@@ -451,6 +475,22 @@ export const init = (app, setup) => {
     ARENA_HEIGHT = LANDSCAPE ? frame.height : 3/4*frame.width
   }
 
+  function placeButtons(alpha){
+    app.stage.addChild(rotateLeftBtn)
+    app.stage.addChild(flipVerticalBtn)
+    rotateLeftBtn.alpha = alpha 
+    flipVerticalBtn.alpha = alpha
+    rotateLeftBtn.interactive = alpha == 0 ? false : true
+    flipVerticalBtn.interactive = alpha == 0 ? false : true
+
+    if (activePolygon != null){
+      rotateLeftBtn.x = activePolygon.x - activePolygon.width/2 - BTN_DIM
+      rotateLeftBtn.y = activePolygon.y - activePolygon.height/2 - BTN_DIM
+      flipVerticalBtn.x = activePolygon.x - activePolygon.width/2 - BTN_DIM
+      flipVerticalBtn.y = activePolygon.y - activePolygon.height/2 
+    }
+  }
+
   // Loading Script
   function load(){
     app.loaded = true
@@ -462,9 +502,11 @@ export const init = (app, setup) => {
     let backGround = new makeBackground()
 
     rotateLeftBtn = new PIXI.Sprite.from(ASSETS.ROTATE_LEFT)
-    rotateLeftBtn.width = 100
-    rotateLeftBtn.height = 100
+    rotateLeftBtn.width = BTN_DIM
+    rotateLeftBtn.height = BTN_DIM
+    rotateLeftBtn.x = - BTN_DIM
     rotateLeftBtn.interactive = true
+    rotateLeftBtn.alpha = 0
     app.stage.addChild(rotateLeftBtn)
     rotateLeftBtn.on('pointerdown',()=>{
       if (activePolygon != null){
@@ -473,9 +515,10 @@ export const init = (app, setup) => {
     })
 
     flipVerticalBtn = new PIXI.Sprite.from(ASSETS.FLIP_VERT)
-    flipVerticalBtn.y = 100
-    flipVerticalBtn.width = 100
-    flipVerticalBtn.height = 100
+    flipVerticalBtn.x = - BTN_DIM
+    flipVerticalBtn.y = BTN_DIM
+    flipVerticalBtn.width = BTN_DIM
+    flipVerticalBtn.height = BTN_DIM
     flipVerticalBtn.interactive = true
     app.stage.addChild(flipVerticalBtn)
     flipVerticalBtn.on('pointerdown',()=>{
@@ -485,42 +528,43 @@ export const init = (app, setup) => {
     })
 
     resetBtn = new PIXI.Sprite.from(ASSETS.RESET)
-    resetBtn.y = 300
-    resetBtn.width = 100
-    resetBtn.height = 100
+    resetBtn.y = 0*BTN_DIM
+    resetBtn.width = BTN_DIM
+    resetBtn.height = BTN_DIM
     resetBtn.interactive = true
     app.stage.addChild(resetBtn)
     resetBtn.on('pointerdown',()=>{
-      console.log("balllllllllls")
-      console.log('polygons',polygons)
       polygons.forEach(p=>{
-        console.log('for each?')
         app.stage.removeChild(p)
+        p.destroy(true)
       })
       polygons = []
+      activePolygon = null 
     })
 
     duplicateBtn = new PIXI.Sprite.from(ASSETS.DUPLICATE)
-    duplicateBtn.y = 200
-    duplicateBtn.width = 100
-    duplicateBtn.height = 100
+    duplicateBtn.y = BTN_DIM
+    duplicateBtn.width = BTN_DIM
+    duplicateBtn.height = BTN_DIM
     duplicateBtn.interactive = true
     app.stage.addChild(duplicateBtn)
     duplicateBtn.on('pointerdown',()=>{
-      let newPoly = new DraggablePoly(activePolygon.points)
-      polygons.push(newPoly)
-      newPoly.x = activePolygon.x + 30
-      newPoly.y = activePolygon.y + 30
-      newPoly.rotation = activePolygon.rotation 
-      newPoly.scale.x = activePolygon.scale.x 
-      newPoly.scale.y = activePolygon.scale.y
-      app.stage.addChild(newPoly)
+      if (activePolygon != null){
+        let newPoly = new DraggablePoly(activePolygon.points)
+        polygons.push(newPoly)
+        newPoly.x = activePolygon.x + 30
+        newPoly.y = activePolygon.y + 30
+        newPoly.rotation = activePolygon.rotation 
+        newPoly.scale.x = activePolygon.scale.x 
+        newPoly.scale.y = activePolygon.scale.y
+        app.stage.addChild(newPoly)   
+      }
     })
 
 
     trashBtn = new PIXI.Sprite.from(ASSETS.TRASH)
-    trashBtn.width = 80
-    trashBtn.height = 80
+    trashBtn.width = BTN_DIM*0.8
+    trashBtn.height = BTN_DIM*0.8
     trashBtn.x = WINDOW_WIDTH - trashBtn.width*1.1
     trashBtn.y = trashBtn.width*0.1
     trashBtn.interactive = true
@@ -529,7 +573,7 @@ export const init = (app, setup) => {
     let {x,y,descriptor} = setup.props.features
     set(x,y)
 
-    fractionObj = new Fraction(0,1,100)
+    fractionObj = new Fraction(0,1,BTN_DIM)
     fractionObj.x = WINDOW_WIDTH*0.8
     fractionObj.y = WINDOW_HEIGHT/3
     if (descriptor){
@@ -537,10 +581,19 @@ export const init = (app, setup) => {
     }
 
     stencil = new Stencil()
-    stencil.lineStyle(4,0xff3b55)
+    stencil.lineStyle(4,0x000000)
     stencil.x = 0 
     stencil.y = 0
     app.stage.addChild(stencil)
+
+    const onComplete = () => {
+      rotateLeftBtn.interactive = false
+      flipVerticalBtn.interactive = false
+    }
+    fadeAnimation.to([rotateLeftBtn,flipVerticalBtn],0.2,{alpha: 0,onComplete: onComplete},"+=2")
+
+
+    //fadeAnimation.play()
 
   }
 

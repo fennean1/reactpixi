@@ -28,6 +28,8 @@ import rotate_right from "../assets/rotate-right.png"
 import rotate_left from "../assets/rotate-left.png"
 import flip_vert from "../assets/flip-icon.png"
 import duplicate from "../assets/Duplicate.png"
+import open_circle from "../assets/OpenCircle.png"
+import closed_circle from "../assets/ClosedCircle.png"
 
 
 export const ASSETS = {
@@ -60,7 +62,9 @@ export const ASSETS = {
     ROTATE_RIGHT: rotate_right,
     ROTATE_LEFT: rotate_left,
     FLIP_VERT: flip_vert,
-    DUPLICATE: duplicate
+    DUPLICATE: duplicate,
+    CLOSED_CIRCLE: closed_circle,
+    OPEN_CIRCLE: open_circle
 }
 
 export const CUISENAIRE_COLORS = {

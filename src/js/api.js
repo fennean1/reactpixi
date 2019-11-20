@@ -73,10 +73,10 @@ export class Fraction extends PIXI.Container {
     this.lineCompression = 20
 
     if (this.maxDigits == 3){
-      this.compression = 0.8
+      this.compression = 1.5
       this.lineCompression = 30
     } else if (this.maxDigits == 2){
-      this.compression = 0.7
+      this.compression = 1.3
       this.lineCompression = 25
     }
 
@@ -106,17 +106,16 @@ export class Fraction extends PIXI.Container {
     this.addChild(this.L)
 
     this.draw(n,d,w)
-
   }
 
   draw(n,d,w){
-    console.log("n,d")
     this.numerator = n+""
     this.denominator = d+""
     this.numDigits = this.numerator.length
     this.denDigits = this.denominator.length 
     this.maxDigits = Math.max(this.numDigits,this.denDigits)
-    this.fontSize = this.width/(this.maxDigits)
+    this.fontSize = w/(this.maxDigits)
+    this.compression = 0.9
 
     if (this.maxDigits == 3){
       this.compression = 1.5
@@ -126,7 +125,6 @@ export class Fraction extends PIXI.Container {
       this.lineCompression = 25
     }
 
-    console.log("d",d)
     if (d == 1){
       this.L.alpha = 0
       this.D.alpha = 0
@@ -136,33 +134,23 @@ export class Fraction extends PIXI.Container {
     }
     
     // Numerator
-    this.N.x = this._width/2
+    this.N.x = w/2
     this.N.y = 0
     this.N.style.fontSize = this.fontSize*this.compression
     this.N.text = n
 
     // Denominator
-    this.D.x = this._width/2
+    this.D.x = w/2
     this.D.y = this.N.height
     this.D.style.fontSize = this.fontSize*this.compression
     this.D.text = d
 
     // Line
-    this.L.lineStyle(this._width/this.lineCompression,0x000000)
-    this.L.lineTo(this._width,0)
+    this.L.lineStyle(w/this.lineCompression,0x000000)
+    this.L.lineTo(w,0)
     this.L.y = this.N.height
 
     //this.pivot.set(this.width/2,this.height/2)
-  }
-
-  set(n,d){
-    let nDigits = n.toString().length
-    let dDigits = d.toString().length 
-    this.numerator = n 
-    this.denominator = d
-    this.N.text = n
-    this.D.text = d
-    this.draw(n,d)
   }
 }
 
