@@ -412,6 +412,8 @@ export const init = (app, setup) => {
       placeButtons(1)
       fadeAnimation.restart()
       if (distance([this.x,this.y],[trashBtn.x,trashBtn.y]) < 200) {
+        placeButtons(0)
+        fadeAnimation.stop()
         let i = polygons.indexOf(this)
         polygons.splice(i,1)
         app.stage.removeChild(this)
@@ -563,8 +565,9 @@ export const init = (app, setup) => {
       if (activePolygon != null){
         let newPoly = new DraggablePoly(activePolygon.points)
         polygons.push(newPoly)
-        newPoly.x = activePolygon.x + 30
-        newPoly.y = activePolygon.y + 30
+        newPoly.x = activePolygon.x + 40
+        newPoly.y = activePolygon.y + 20
+        newPoly.rotated = activePolygon.rotated
         newPoly.rotation = activePolygon.rotation 
         newPoly.scale.x = activePolygon.scale.x 
         newPoly.scale.y = activePolygon.scale.y
