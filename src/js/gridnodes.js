@@ -395,8 +395,6 @@ export const init = (app, setup) => {
     
     polyPointerDown(){
       fadeAnimation.stop()
-      rotateLeftBtn.alpha = 1
-      flipVerticalBtn.alpha = 1
       activePolygon = this
       fractionObj.draw(this.n,this.d,BTN_DIM)
       app.stage.addChild(this)
@@ -409,8 +407,10 @@ export const init = (app, setup) => {
     }
 
     polyPointerUp(){
-      placeButtons(1)
-      fadeAnimation.restart()
+      if(!this.dragged){
+        placeButtons(1)
+        fadeAnimation.restart()
+      }
       if (distance([this.x,this.y],[trashBtn.x,trashBtn.y]) < 200) {
         let i = polygons.indexOf(this)
         polygons.splice(i,1)
@@ -590,7 +590,7 @@ export const init = (app, setup) => {
       rotateLeftBtn.interactive = false
       flipVerticalBtn.interactive = false
     }
-    fadeAnimation.to([rotateLeftBtn,flipVerticalBtn],0.2,{alpha: 0,onComplete: onComplete},"+=2")
+    fadeAnimation.to([rotateLeftBtn,flipVerticalBtn],0.5,{alpha: 0,onComplete: onComplete},"+=3")
 
 
     //fadeAnimation.play()
