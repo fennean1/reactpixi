@@ -484,10 +484,14 @@ export const init = (app, setup) => {
     flipVerticalBtn.interactive = alpha == 0 ? false : true
 
     if (activePolygon != null){
-      rotateLeftBtn.x = activePolygon.x - activePolygon.width/2 - BTN_DIM
-      rotateLeftBtn.y = activePolygon.y - activePolygon.height/2 - BTN_DIM
-      flipVerticalBtn.x = activePolygon.x - activePolygon.width/2 - BTN_DIM
-      flipVerticalBtn.y = activePolygon.y - activePolygon.height/2 
+      console.log("active polygon rotated",activePolygon.rotated)
+      let width = activePolygon.rotated ? activePolygon.height : activePolygon.width
+      let height = activePolygon.rotated ? activePolygon.width : activePolygon.height  
+
+      rotateLeftBtn.x = activePolygon.x - BTN_DIM
+      rotateLeftBtn.y = activePolygon.y - height/2 - 1.15*BTN_DIM
+      flipVerticalBtn.x = activePolygon.x
+      flipVerticalBtn.y = activePolygon.y - height/2 - 1.15*BTN_DIM
     }
   }
 
@@ -511,6 +515,7 @@ export const init = (app, setup) => {
     rotateLeftBtn.on('pointerdown',()=>{
       if (activePolygon != null){
         activePolygon.rotated = !activePolygon.rotated
+        placeButtons(1)
         TweenLite.to(activePolygon,0.2,{rotation: activePolygon.rotation - Math.PI/2})
       }
     })
