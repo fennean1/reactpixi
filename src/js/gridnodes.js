@@ -376,6 +376,8 @@ export const init = (app, setup) => {
       this.hitArea = new PIXI.Polygon(flatPolygon)
       this.points = points
 
+      this.rotated = false
+
       this.pivot.x = this.width/2
       this.pivot.y = this.height/2
       this.x = minX + this.width/2
@@ -407,10 +409,8 @@ export const init = (app, setup) => {
     }
 
     polyPointerUp(){
-      if(!this.dragged){
-        placeButtons(1)
-        fadeAnimation.restart()
-      }
+      placeButtons(1)
+      fadeAnimation.restart()
       if (distance([this.x,this.y],[trashBtn.x,trashBtn.y]) < 200) {
         let i = polygons.indexOf(this)
         polygons.splice(i,1)
@@ -510,6 +510,7 @@ export const init = (app, setup) => {
     app.stage.addChild(rotateLeftBtn)
     rotateLeftBtn.on('pointerdown',()=>{
       if (activePolygon != null){
+        activePolygon.rotated = !activePolygon.rotated
         TweenLite.to(activePolygon,0.2,{rotation: activePolygon.rotation - Math.PI/2})
       }
     })
@@ -523,7 +524,12 @@ export const init = (app, setup) => {
     app.stage.addChild(flipVerticalBtn)
     flipVerticalBtn.on('pointerdown',()=>{
       if (activePolygon != null){
-        TweenLite.to(activePolygon.scale,0.2,{y: activePolygon.scale.y*(-1)})
+        if (!activePolygon.rotated){
+          TweenLite.to(activePolygon.scale,0.2,{y: activePolygon.scale.y*(-1)})
+        } else {
+          TweenLite.to(activePolygon.scale,0.2,{x: activePolygon.scale.x*(-1)})
+        }
+
       }
     })
 
@@ -590,7 +596,7 @@ export const init = (app, setup) => {
       rotateLeftBtn.interactive = false
       flipVerticalBtn.interactive = false
     }
-    fadeAnimation.to([rotateLeftBtn,flipVerticalBtn],0.5,{alpha: 0,onComplete: onComplete},"+=3")
+    fadeAnimation.to([rotateLeftBtn,flipVerticalBtn],1,{alpha: 0,onComplete: onComplete},"+=2")
 
 
     //fadeAnimation.play()
