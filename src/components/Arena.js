@@ -8,19 +8,13 @@ import * as Pixi from "pixi.js";
 class Arena extends Component {
   constructor() {
     super();
-    this.app = {};
-    this.state = {
-      open: false,
-      loaded: false,
-    }
   }
-
- handleClose() {
-  this.setState({open: false})
-  };
 
   componentWillUnmount(){
     // Static apps are not dismantlced upon unmounting.
+    this.props.app.active = false
+    this.props.app.loaded = false
+    // If the app is static, don't deconstruct.
     if (this.props.app.static == false){
       // Remove assigned app items.
       this.props.app.resizable = false
@@ -31,40 +25,30 @@ class Arena extends Component {
     }
   }
 
-  componentWillMount() {
-    // Setting up app.
-    //this.props.app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
-    window.onresize = () => this.resize()
-    if (!this.props.app.loaded){
-      this.props.app.renderer.backgroundColor = 0xffffff;
-      this.props.app.renderer.resolution = 3
-      this.props.app.renderer.autoDensity = true
-      // One of the scripts offsets y so we have to reset this.
-      this.props.app.stage.y = 0
-    }
-  }
-
-  loadInstructions(){
-    this.setState({open: true})
-  }
-
+  // Resizes the view it it's mounted and resizable. (Old versions don't always have a resize function)
   resize(){
+    // Active means the app is mounted and currently being use (Not in the background)
     if (this.props.app.active){
+      // Does this have a resize option?
       if (this.props.app.resizable){
         this.props.app.resize({width: this.gameCanvas.clientWidth,height: this.gameCanvas.clientHeight})
       } else {
-        // Unless the app has an assign resizable function, we just redraw but we reload the script. (This erasing everything)
+        // Unless the app has an assign resizable function, we just redraw but we reload the script. (This erases everything)
         this.redraw()
       }
    }
-}
+  }
 
   redraw(){
+
+    // IDEA: Extend your own "Pixi.Application and put these methods inside of it.
+    // Removes all children and destroys them.
     let children = this.props.app.stage.children
     this.props.app.stage.y = 0
     for (var i = children.length - 1; i >= 0; i--) {	this.props.app.stage.removeChild(children[i]);};
     for (var i = children.length - 1; i >= 0; i--) {	children[i].destroy(true);};
 
+    // Recalculate setup
     const setup = {
       height: this.gameCanvas.clientHeight,
       width: this.props.width != null ? this.props.width : this.gameCanvas.clientWidth,
@@ -75,65 +59,46 @@ class Arena extends Component {
     this.props.script(this.props.app, setup);
   }
 
+
   componentDidMount() {
-    console.log("this.props.app.loaded",this.props.app.loaded)
-      console.log("loading!!!!!")
-      this.setState({loaded: true})
-      this.setState({panelNumber: this.props.panelNumber})
-      // Attached app view to gameCanvas
-      this.gameCanvas.appendChild(this.props.app.view);
+
+      console.log("this.props",this.props)
+
+      window.onresize = () => this.resize()
+      
       this.props.app.active = true
-      this.props.app.resizable = false
+      this.props.app.resizable = false // Why?
+      this.props.app.renderer.backgroundColor = 0xffffff;
+      this.props.app.renderer.resolution = 3
+      this.props.app.renderer.autoDensity = true
+      this.props.app.renderer.resize(this.gameCanvas.clientWidth,this.gameCanvas.clientHeight)
+      this.gameCanvas.appendChild(this.props.app.view);
 
       const setup = {
         height: this.gameCanvas.clientHeight,
         width: this.props.width != null ? this.props.width : this.gameCanvas.clientWidth,
         props: this.props
       };
-
-      this.props.app.help = () => this.loadInstructions()
-      this.props.app.renderer.resize(this.gameCanvas.clientWidth,this.gameCanvas.clientHeight)
-      if (!this.props.app.loaded){
+      
+      if (!this.props.app.loaded){        
+        // One of the scripts offsets y so we have to reset this. (was that the fraction wall?)
+        this.props.app.stage.y = 0
         this.props.app.loaded = true
         this.props.script(this.props.app, setup);
+      } else {
+        if (this.props.app.resizable == true){
+          this.redraw()
+        }
       }
-  }
-
-  printList(items){
-    console.log('items',items)
-    if (items){return items.map(q=>{return <p>{"\u2022 \u0085"+q}<br/><br/></p>})}
- 
-  }
-
-  animate(){
-    var tl = new TimelineMax()
-    tl.to(this.gameCanvas, 0.5, {x: this.gameCanvas.clientWidth,alpha: 0})
-      .to(this.gameCanvas,0, {x: -this.gameCanvas.clientWidth,alpha: 1})
-      .to(this.gameCanvas,1,{x: 0})
   }
 
   render() { 
     let styleType = this.props.fullscreen ? { height: "100vh",marginTop: 0 } : null;
-
-    if (this.state.loaded && this.props.panelNumber != this.state.panelNumber) {
-      setTimeout(()=>this.redraw(),500) 
-      this.setState({panelNumber: this.props.panelNumber})
-    }
-
+    console.log("remounded")
     return (
-        <div>
-        <Drawer anchor="left"  open={this.state.open} onClose={this.handleClose.bind(this)}>
-          <Paper className = "padded margins ">
-            <span >Questions</span>
-              <p>{this.printList(this.props.lesson.questions)}</p>
-          </Paper>
-        </Drawer>
         <div style = {styleType}
-          ref={me => {
-            this.gameCanvas = me;
-          }}
+          ref={me => this.gameCanvas = me }
         />
-      </div>
     );
   }
 }

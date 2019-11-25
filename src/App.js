@@ -24,7 +24,9 @@ import * as CapacityTalkData from "./activitydata/CapacityTalk.json";
 import ActivityList from './components/ActivityList'
 import ManipulativeCarousel from "./components/ManipulativeCarousel"
 import StudentDashboard from "./components/StudentDashboard"
+import TeacherDashboard from "./components/TeacherDashboard"
 import SignIn from "./components/SignIn"
+import Test from "./components/ResizeTest"
 
 
 Pixi.settings.RESOLUTION = 3
@@ -54,6 +56,8 @@ const Main = () => (
     <Route exact path="/panels" component={Panels} />
     <Route exact path="/manipulatives" component={ManipulativeCarousel} />
     <Route exact path="/studentdashboard" component={StudentDashboard} />
+    <Route path="/teacherdashboard" component={TeacherDashboard} />
+    <Route exact path="/resizetest" component={Test} />
   </div>
 );
 

@@ -43,6 +43,8 @@ const useStyles = makeStyles(theme => ({
 
 Pixi.settings.RESOLUTION = 3
 var globalApp = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
+globalApp.static = false
+globalApp.loaded = false
 
 var arenaOne
 
