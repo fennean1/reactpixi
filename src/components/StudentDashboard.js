@@ -28,6 +28,8 @@ app1.static = true
 app2.static = true
 app1.loaded = false
 app2.loaded = false
+app1.active = false 
+app2.active = false
 
 
 function TabContainer({ children, dir }) {

@@ -5,12 +5,14 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Arena from "./Arena";
-import * as FractionWallScript from "../js/fractionwall.js";
+import * as FractionWallScript from "../js/newfractionwall.js";
 import * as NumberLineToolScript from "../js/numberlinetool.js";
 import * as GridToolScript from "../js/gridtool.js";
 import * as OrderingToolScript from "../js/orderingtool.js";
 import * as SharingToolScript from "../js/sharingtool.js";
 import * as HundredsArrayScript from "../js/hundredsarray.js";
+import * as FractionBarScript from "../js/fractionbar.js";
+import * as GridNodeScript from "../js/gridnodes.js";
 import * as NumberStripsScript from "../js/numberlinestrips.js";
 import * as CuisenaireToolScript from "../js/cuisenairetool.js";
 import * as FractionStacksScript from "../js/fractionstacks.js";
@@ -84,18 +86,16 @@ export default function ManipulativeCarousel(props) {
         onChange={handleChange}
         indicatorColor="primary"
         textColor="primary"
-        variant="scrollable"
+        variant = "fullWidth"
+        centered
+
       >
-        <Tab className = "white" label="Number Strips" />
-        <Tab className = "white" label="Hundreds Grid" />
-        <Tab className = "white" label="Number Line" />
         <Tab className = "white" label="Fraction Wall" />
-        <Tab className = "white" label="Grid Tool" />
-        <Tab className = "white" label="Ordering Tool" />
-        <Tab className = "white" label="Sharing Tool" />
-        <Tab className = "white" label="Cuisenaire" />
         <Tab className = "white" label="Factor Wall" />
-        <Tab className = "white" label="Fraction Stacks" />
+        <Tab className = "white" label="Fraction Line" />
+        <Tab className = "white" label="Ordering" />
+        <Tab className = "white" label="Fraction Grid" />
+        <Tab className = "white" label="Fraction Bars" />
       </Tabs>
 
       <SwipeableViews
@@ -105,110 +105,56 @@ export default function ManipulativeCarousel(props) {
       >
         <TabContainer dir={theme.direction}>
           {value == 0 && (
-            <div ref = {me=> arenaOne = me}>
             <Arena
               app = {app}
-              lesson = {CapacityTalkData.default}
               setup={false}
               fullscreen={true}
-              script={NumberStripsScript.init}
+              script={FractionWallScript.init}
             />
-            </div>
           )}
         </TabContainer>
         <TabContainer dir={theme.direction}>
           {value == 1 && (
-            <Arena
-             app = {app}
-              lesson = {CapacityTalkData.default}
-              setup={false}
-              fullscreen={true}
-              script={HundredsArrayScript.init}
-            />
+              <FactorBlocks/>
            )}
         </TabContainer>
         <TabContainer dir={theme.direction}>
           {value == 2 && (
-            <div ref = {me=> arenaOne = me}>
             <Arena
               app = {app}
-              lesson = {CapacityTalkData.default}
-              setup={false}
               fullscreen={true}
               script={NumberLineToolScript.init}
             />
-            </div>
           )}
         </TabContainer>
         <TabContainer dir={theme.direction}>
           {value == 3 && (
             <Arena
              app = {app}
-              lesson = {CapacityTalkData.default}
-              setup={false}
-              fullscreen={true}
-              script={FractionWallScript.init}
-            />
-           )}
-        </TabContainer>
-        <TabContainer dir={theme.direction}>
-          {value == 4 && (
-            <Arena
-              app = {app}
-              lesson = {CapacityTalkData.default}
-              setup={false}
-              fullscreen={true}
-              script={GridToolScript.init}
-            />
-           )}
-        </TabContainer>
-        <TabContainer dir={theme.direction}>
-          {value == 5 && (
-            <Arena
-              app = {app}
-              lesson = {CapacityTalkData.default}
-              setup={false}
               fullscreen={true}
               script={OrderingToolScript.init}
             />
            )}
         </TabContainer>
         <TabContainer dir={theme.direction}>
-          {value == 6 && (
-            <Arena
-              app = {app}
-              lesson = {CapacityTalkData.default}
-              setup={false}
-              fullscreen={true}
-              script={SharingToolScript.init}
-            />
+          {value == 4 && (
+              <Arena
+                app = {app}
+                setup={false}
+                fullscreen={true}
+                features = {{x: 5,y: 5,descriptor: true}}
+                script={GridNodeScript.init}
+              />
            )}
         </TabContainer>
         <TabContainer dir={theme.direction}>
-          {value == 7 && (
-            <Arena
-              app = {app}
-              lesson = {CapacityTalkData.default}
-              setup={false}
-              fullscreen={true}
-              script={CuisenaireToolScript.init}
-            />
-           )}
-        </TabContainer>
-        <TabContainer dir={theme.direction}>
-          {value == 8 && (
-            <FactorBlocks/>
-           )}
-        </TabContainer>
-        <TabContainer dir={theme.direction}>
-          {value == 9 && (
-            <Arena
-              app = {app}
-              lesson = {CapacityTalkData.default}
-              setup={false}
-              fullscreen={true}
-              script={FractionStacksScript.init}
-            />
+          {value == 5 && (
+              <Arena
+                app = {app}
+                setup={false}
+                fullscreen={true}
+                script={FractionBarScript.init}
+              />
            )}
         </TabContainer>
       </SwipeableViews>

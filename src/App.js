@@ -52,6 +52,7 @@ const Main = () => (
     <Route exact path="/gridnodes" component={() => <Arena app = {app} features = {{x: 3,y: 3}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {GridNodeScript.init}/>} />
     <Route exact path="/stripsopen" component={() => <Arena app = {app} fullscreen = {true} features  = {{'open': true}} lesson = {CapacityTalkData.default} script = {NumberLineStripsScript.init}/>} />
     <Route exact path="/" component={() => <ActivityList/>} />
+    <Route exact path="/gridnodes4x4" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 5,y: 5,descriptor: true}} script = {GridNodeScript.init}/>} />
     <Route exact path="/login" component={SignIn} />
     <Route exact path="/panels" component={Panels} />
     <Route exact path="/manipulatives" component={ManipulativeCarousel} />

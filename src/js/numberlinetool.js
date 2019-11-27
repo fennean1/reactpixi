@@ -1638,7 +1638,7 @@ export const init = (app, setup) => {
     questionButton.height = dx
     questionButton.interactive = true
     questionButton.on('pointerdown',()=> {app.help()})
-    app.stage.addChild(questionButton)
+    //app.stage.addChild(questionButton)
 
 
     function resize(newFrame){

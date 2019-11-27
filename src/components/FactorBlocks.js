@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-
+import TextField from '@material-ui/core/TextField';
+import { fontStyle, fontSize } from "@material-ui/system";
 const CORAL = "#FF4848";
 const BLUE = "#51D0FF";
 const GREEN = "#7ADA64";
@@ -48,11 +49,14 @@ class FractionList extends Component {
     let color = n > this.colors.length ? BLUE_GREY : this.colors[n - 1];
 
     const liStyle = {
-      background: ORANGE,
+      background: BLUE,
       margin: 2,
+      height: window.innerHeight/20,
       flexGrow: 1,
       textAlign: "center",
-      verticalAlign: "center"
+      verticalAlign: "center",
+      color: "white",
+      fontSize: window.innerHeight/28
     };
 
     return arr.map(e => (
@@ -84,13 +88,17 @@ class FractionList extends Component {
   }
   render() {
     return (
-      <div>
-        <input
-          className="center"
-          //type="text"
-          value={this.state.whole}
-          onChange={this.handleChange.bind(this)}
-        />
+      <div className = 'container'>
+              <TextField
+            margin="normal"
+            variant = 'outlined'
+            className = "blue-outline"
+            fullWidth
+            label="Type a Number"
+            name="Factor"
+            onChange = {this.handleChange.bind(this)}
+            defaultValue =  "24"
+          />
         <div className="scroller">{this.renderRows(this.state.whole)}</div>
       </div>
     );

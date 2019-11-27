@@ -13,15 +13,17 @@ class Arena extends Component {
   componentWillUnmount(){
     // Static apps are not dismantlced upon unmounting.
     this.props.app.active = false
-    this.props.app.loaded = false
     // If the app is static, don't deconstruct.
     if (this.props.app.static == false){
       // Remove assigned app items.
       this.props.app.resizable = false
       this.props.app.active = false
+      this.props.app.loaded = false
       let children = this.props.app.stage.children
       for (var i = children.length - 1; i >= 0; i--) {	this.props.app.stage.removeChild(children[i]);};
       for (var i = children.length - 1; i >= 0; i--) {	children[i].destroy(true);};
+    } else {
+      this.props.app.active = false
     }
   }
 
@@ -40,7 +42,6 @@ class Arena extends Component {
   }
 
   redraw(){
-
     // IDEA: Extend your own "Pixi.Application and put these methods inside of it.
     // Removes all children and destroys them.
     let children = this.props.app.stage.children
@@ -62,12 +63,9 @@ class Arena extends Component {
 
   componentDidMount() {
 
-      console.log("this.props",this.props)
-
       window.onresize = () => this.resize()
       
       this.props.app.active = true
-      this.props.app.resizable = false // Why?
       this.props.app.renderer.backgroundColor = 0xffffff;
       this.props.app.renderer.resolution = 3
       this.props.app.renderer.autoDensity = true
@@ -94,7 +92,6 @@ class Arena extends Component {
 
   render() { 
     let styleType = this.props.fullscreen ? { height: "100vh",marginTop: 0 } : null;
-    console.log("remounded")
     return (
         <div style = {styleType}
           ref={me => this.gameCanvas = me }

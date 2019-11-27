@@ -47,7 +47,10 @@ class ActivityPage extends Component {
         <br />
         <div className="center">
           <Button variant="outlined" color="primary">
-            Hello
+            Launch Student
+          </Button>
+          <Button variant="outlined" color="primary">
+            Launch Teacher
           </Button>
         </div>
       </div>
