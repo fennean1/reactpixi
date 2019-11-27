@@ -418,9 +418,12 @@ export const init = (app, setup) => {
         polygons.splice(i,1)
         app.stage.removeChild(this)
         this.destroy(true)
-        if (polygons.length == 0){
+        if (polygons.length != 0){
           activePolygon = polygons[0]
+        } else {
+          activePolygon = null
         }
+        fractionObj.draw(0,1,BTN_DIM)
       }
     }
   }
@@ -486,7 +489,6 @@ export const init = (app, setup) => {
     flipVerticalBtn.interactive = alpha == 0 ? false : true
 
     if (activePolygon != null){
-      console.log("active polygon rotated",activePolygon.rotated)
       let width = activePolygon.rotated ? activePolygon.height : activePolygon.width
       let height = activePolygon.rotated ? activePolygon.width : activePolygon.height  
 
@@ -553,6 +555,7 @@ export const init = (app, setup) => {
       })
       polygons = []
       activePolygon = null 
+      fractionObj.draw(0,1,BTN_DIM)
     })
 
     duplicateBtn = new PIXI.Sprite.from(ASSETS.DUPLICATE)

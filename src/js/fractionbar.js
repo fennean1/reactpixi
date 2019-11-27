@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js";
 import blueGradient from "../assets/blue-gradient.png";
 import * as CONST from "./const.js";
 import QuestionMark from '../assets/QuestionMark.png'
-import Reset from '../assets/Minus.png'
+import Reset from '../assets/Reset.png'
 
 const createjs = window.createjs
 
@@ -128,10 +128,6 @@ function createJijiAsset() {
 }
 
 function reset() {
-  let x = getFractangleAt(0,0)
-  console.log("return value",x)
-  
-  /*
   for (let r of rows) {
     for (let b of r) {
       app.stage.removeChild(b);
@@ -139,7 +135,6 @@ function reset() {
   }
   mostRecentRow = 0;
   rows = [[], [], [], [], [], [], [], []];
-  */
 }
 
 function createContainer(w, h) {

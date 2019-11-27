@@ -67,7 +67,7 @@ class FractionList extends Component {
   }
 
   handleChange(event) {
-    this.setState({ whole: event.target.value });
+      this.setState({ whole: event.target.value });
   }
 
   renderRows(n) {
@@ -88,8 +88,8 @@ class FractionList extends Component {
   }
   render() {
     return (
-      <div className = 'container'>
-              <TextField
+      <div >
+          <TextField
             margin="normal"
             variant = 'outlined'
             className = "blue-outline"
@@ -99,7 +99,10 @@ class FractionList extends Component {
             onChange = {this.handleChange.bind(this)}
             defaultValue =  "24"
           />
-        <div className="scroller">{this.renderRows(this.state.whole)}</div>
+        <div className="scroller">
+             {(this.state.whole <= 250) && this.renderRows(this.state.whole)}
+             {(this.state.whole > 250) && <p> Too Big!</p>}
+        </div>
       </div>
     );
   }
