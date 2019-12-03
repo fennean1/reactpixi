@@ -16,7 +16,7 @@ export const ACTIVITY = {
     TOOL: "/orderingblocks",
     MENU: ['Link One',"Link Two"],
     SEQUENCE: [{img: Slide1,tips: ['']},{img: Slide2,tips: []},{img: Slide3,tips: ['Discuss the picture']},{img: Slide4,tips: ['']},{img: Slide5,tips: ['']},{img: Slide6,tips: ['']},{img: Slide7,tips: ['']},{img: Slide8,tips: ['']}],
-    DESCRIPTION: 'Students have to use fractional parts to optimize the amount of jelly beans they can buy. For example  "Should I get 1/3 of 30 or 1/2 of 24?"',
+    DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
     LONG_DESCRIPTION: "Here is a very long description of what is happeneing in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think?",
     INSTRUCTIONS: 'Students should...',
     STANDARD_ID: "3.NF.A.3.A",
