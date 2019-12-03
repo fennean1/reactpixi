@@ -34,23 +34,23 @@ let app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
 
 const Main = () => (
   <div>
-    <Route exact path="/calculator" component={() => <Arena app = {app} features = {{'lock': false}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {CalculatorScript.init}/>} />
-    <Route exact path="/hundreds" component={() => <Arena app = {app} features = {{'lock': false}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {HundredsArrayScript.init}/>} />
-    <Route exact path="/hundredslock" component={() => <Arena app = {app} features = {{'lock': true}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {HundredsArrayScript.init}/>} />
-    <Route exact path="/hundredsregroup" component={() => <Arena app = {app} features = {{'lock': true,'regroup': true}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {HundredsArrayScript.init}/>} />
-    <Route exact path="/fractionwall" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {NewFractionStacksScript.init}/>} />
-    <Route exact path="/fractionwallodd" component={() => <Arena app = {app} features = {{'values': [1,3,5,7,9,11]}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {NewFractionStacksScript.init}/>} />
-    <Route exact path="/fractionwalladjustable" component={() => <Arena app = {app} features = {{'values': [1,2,3,4,5,6,7,8,9,10,11,12],'adjustable': true}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {NewFractionStacksScript.init}/>} />
-    <Route exact path="/fractionwalleven" component={() => <Arena app = {app} features = {{'values': [2,4,6,8,10,12]}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {NewFractionStacksScript.init}/>} />
-    <Route exact path="/oldfractionwall" component={() => <Arena app = {app} features = {{'lock': true,'regroup': true}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {OldFractionWallScript.init}/>} />
+    <Route exact path="/calculator" component={() => <Arena app = {app} features = {{'lock': false}} fullscreen = {true}  script = {CalculatorScript.init}/>} />
+    <Route exact path="/hundreds" component={() => <Arena app = {app} features = {{'lock': false}} fullscreen = {true}  script = {HundredsArrayScript.init}/>} />
+    <Route exact path="/hundredslock" component={() => <Arena app = {app} features = {{'lock': true}} fullscreen = {true}  script = {HundredsArrayScript.init}/>} />
+    <Route exact path="/hundredsregroup" component={() => <Arena app = {app} features = {{'lock': true,'regroup': true}} fullscreen = {true}  script = {HundredsArrayScript.init}/>} />
+    <Route exact path="/fractionwall" component={() => <Arena app = {app} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
+    <Route exact path="/fractionwallodd" component={() => <Arena app = {app} features = {{'values': [1,3,5,7,9,11]}} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
+    <Route exact path="/fractionwalladjustable" component={() => <Arena app = {app} features = {{'values': [1,2,3,4,5,6,7,8,9,10,11,12],'adjustable': true}} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
+    <Route exact path="/fractionwalleven" component={() => <Arena app = {app} features = {{'values': [2,4,6,8,10,12]}} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
+    <Route exact path="/oldfractionwall" component={() => <Arena app = {app} features = {{'lock': true,'regroup': true}} fullscreen = {true}  script = {OldFractionWallScript.init}/>} />
     <Route exact path="/activities/:activity" component={Panels}/>
-    <Route exact path="/fractionline" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {FractionLineScript.init}/>} />
-    <Route exact path="/apitest" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {ApiTestScript.init}/>} />
-    <Route exact path="/fractionstacks" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {FractionStacksScript.init}/>} />
-    <Route exact path="/orderingblocks" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {OrderingToolScript.init}/>} />
-    <Route exact path="/strips" component={() => <Arena app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {NumberLineStripsScript.init}/>} />
-    <Route exact path="/gridnodes" component={() => <Arena app = {app} features = {{x: 3,y: 3}} fullscreen = {true} lesson = {CapacityTalkData.default} script = {GridNodeScript.init}/>} />
-    <Route exact path="/stripsopen" component={() => <Arena app = {app} fullscreen = {true} features  = {{'open': true}} lesson = {CapacityTalkData.default} script = {NumberLineStripsScript.init}/>} />
+    <Route exact path="/fractionline" component={() => <Arena app = {app} fullscreen = {true}  script = {FractionLineScript.init}/>} />
+    <Route exact path="/apitest" component={() => <Arena app = {app} fullscreen = {true}  script = {ApiTestScript.init}/>} />
+    <Route exact path="/fractionstacks" component={() => <Arena app = {app} fullscreen = {true}  script = {FractionStacksScript.init}/>} />
+    <Route exact path="/orderingblocks" component={() => <Arena app = {app} features = {{numberOfBlocks: 3}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
+    <Route exact path="/strips" component={() => <Arena app = {app} fullscreen = {true}  script = {NumberLineStripsScript.init}/>} />
+    <Route exact path="/gridnodes" component={() => <Arena app = {app} features = {{x: 3,y: 3}} fullscreen = {true}  script = {GridNodeScript.init}/>} />
+    <Route exact path="/stripsopen" component={() => <Arena app = {app} fullscreen = {true} features  = {{'open': true}}  script = {NumberLineStripsScript.init}/>} />
     <Route exact path="/" component={() => <ActivityList/>} />
     <Route exact path="/gridnodes4x4" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 5,y: 5,descriptor: true}} script = {GridNodeScript.init}/>} />
     <Route exact path="/login" component={SignIn} />

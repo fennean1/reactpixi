@@ -72,7 +72,7 @@ function layoutGridTools(numberOfTools) {
   }
 }
 
-layoutGridTools(BUILDER_STATES.ORDERER);
+layoutGridTools(setup.props.features.numberOfBlocks);
 
 
 function createGridTool() {
@@ -567,7 +567,7 @@ function inRect(a, b) {
   let dx = a.x - b.x;
   let dy = a.y - b.y;
   let d = Math.sqrt(dx * dx + dy * dy);
-  if (d < CONTAINER_WIDTH / 2) {
+  if (d < CONTAINER_WIDTH ) {
     return true;
   } else {
     return false;
