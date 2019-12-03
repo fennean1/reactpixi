@@ -7,7 +7,7 @@ import ActivityCard from "./ActivityCard";
 import * as CapacityTalk from "../activitydata/CapacityTalk.json";
 import * as HundredsActivity from "../activitydata/hundredsgrid/buildingnumbers/building_numbers_data.js"
 import * as JellyBeanActivity from "../activitydata/fractionline/jellybean/jelly_bean_data.js"
-
+import * as GasActivity from "../activitydata/orderingblocks/numberline/ordering_blocks_number_line_data.js"
 class ActivityList extends Component {
   constructor(props) {
     super(props);
@@ -23,13 +23,10 @@ class ActivityList extends Component {
           </div>
         </div>
         <div className="row">
-        <div className="col s6">
-          <ActivityCard data={HundredsActivity.ACTIVITY} />
+        < div className="col s6">
+           <ActivityCard data={GasActivity.ACTIVITY} />
           </div>
-          <div className="col s6">
-          <ActivityCard data={JellyBeanActivity.ACTIVITY} />
-          </div>
-          </div>
+        </div>
       </div>
     );
   }

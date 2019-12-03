@@ -47,9 +47,18 @@ function Test() {
 
   return (
     <div>
-    <a onClick = {onClick}>resize</a>
+    <a href = "pdfs/test.pdf" >resize</a>
       <div ref = {me => { arena = me} }>
-         <Arena key = {switchKey} app = {app} fullscreen = {true} lesson = {CapacityTalkData.default} script = {HundredsArrayScript.init}/>
+      <iframe
+        src="pdfs/test.pdf"
+        width="100%"
+        height="1000"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+      >
+        Loading...
+      </iframe>
       </div>
     </div>
   );
