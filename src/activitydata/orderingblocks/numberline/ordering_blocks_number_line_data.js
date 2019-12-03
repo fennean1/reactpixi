@@ -15,7 +15,7 @@ export const ACTIVITY = {
     TIME: 30,
     TOOL: "/orderingblocks",
     MENU: ['Link One',"Link Two"],
-    SEQUENCE: [{img: Slide1,tips: ['']},{img: Slide2,tips: []},{img: Slide3,tips: ['Discuss the picture']},{img: Slide4,tips: ['']},{img: Slide5,tips: ['']},{img: Slide6,tips: ['']},{img: Slide7,tips: ['']},{img: Slide8,tips: ['']}],
+    SEQUENCE: [{img: Slide1,tips: ['Have students explore the tool.']},{img: Slide2,tips: ['Which one is in the middle?','Which one is closest to a half?']},{img: Slide3,tips: ['Is the tank more than half or less than half?','What about the gauge?']},{img: Slide4,tips: ['']},{img: Slide5,tips: ['']},{img: Slide6,tips: ['']},{img: Slide7,tips: ['']},{img: Slide8,tips: ['']}],
     DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
     LONG_DESCRIPTION: "Here is a very long description of what is happeneing in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think?",
     INSTRUCTIONS: 'Students should...',
