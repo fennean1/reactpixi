@@ -324,14 +324,14 @@ export const init = (app, setup) => {
   function set(a,b){
     let dx = SQUARE_DIM/(a-1)
     let dy = SQUARE_DIM/(b-1)
-    let dim = SQUARE_DIM/15
+    let dim = SQUARE_DIM/30
     for (let i=0;i<a;i++){
       for (let j=0;j<b;j++){
         let n = new Node()
         Nodes.push(n)
         n.x = WINDOW_WIDTH/2 - SQUARE_DIM/2 + i*dx 
         n.y = WINDOW_HEIGHT/2 - SQUARE_DIM/2+j*dy
-        n.w = dx/10
+        n.w = dx/20
         n.height = dim
         n.width = dim
         app.stage.addChild(n)
