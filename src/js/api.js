@@ -2,7 +2,6 @@ import * as PIXI from "pixi.js";
 import * as CONST from "./const.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
 import { thisExpression } from "@babel/types";
-const ASSETS = CONST.ASSETS
 
 
 export class Draggable extends PIXI.Sprite {
@@ -155,6 +154,187 @@ export class Fraction extends PIXI.Container {
   }
 }
 
+export function decimalToFrac(dec) {
+  for (let i=1;i<100;i++){
+    for (let j=0;j<=i;j++){
+      if (Math.abs(j/i - dec) < 0.001) {
+        return [j,i]
+      }
+    }
+  }
+}
+
+export function polygonArea(poly) {
+  let xS = poly.map(p => p[0])
+  let yS = poly.map(p => p[1])
+
+   // Calculate value of shoelace formula 
+   let n = poly.length
+   let j = n - 1 
+   let area = 0
+   for (let i = 0; i < n; i++) { 
+       area = area + (xS[j] + xS[i]) * (yS[j] - yS[i]);
+       j = i;  // j is previous vertex to i 
+   } 
+ 
+   // Return absolute value (why over 2?)
+   return Math.abs(area / 2)
+} 
+
+
+
+export function linesIntersect(l1,l2){
+  let m1 = l1.m
+  let m2 = l2.m 
+  let b1 = l1.b
+  let b2 = l2.b
+
+  if (l1.vertical && l2.vertical){
+    return false
+  } else if (l1.horizontal && l2.horizontal){
+    return false
+  } else {
+
+
+    let xIntersect = (b1 - b2)/(m2-m1)
+
+    let yIntersect = null
+
+    if (l1.vertical){ 
+      yIntersect = l2.yOf(l1.x1)
+      xIntersect = l1.x1
+    } else if (l2.vertical){
+
+      yIntersect = l1.yOf(l2.x1)
+      xIntersect = l2.x1
+    } else {
+      yIntersect = l1.yOf(xIntersect)
+    }
+
+    yIntersect = Math.trunc(yIntersect*1000)/1000
+    xIntersect = Math.trunc(xIntersect*1000)/1000
+
+
+    // Padding 
+    let p = 4
+    let inYRange1 = l1.horizontal ? true : (yIntersect > l1.yMin+p) && (yIntersect < l1.yMax-p)
+    let inXRange1 = l1.vertical ? true : (xIntersect > l1.xMin+p) && (xIntersect < l1.xMax-p)
+    let inYRange2 = l2.horizontal ? true : (yIntersect > l2.yMin+p) && (yIntersect <= l2.yMax-p)
+    let inXRange2 = l2.vertical ? true : (xIntersect > l2.xMin+p) && (xIntersect < l2.xMax-p)
+
+
+    return (inXRange1 && inXRange2 && inYRange1 && inYRange2)
+  } 
+}
+
+
+
+function lineContains(line,p){
+  // Tolerance
+  let x = p[0]
+  let y = p[1]
+  let t = 0.001
+  if (line.vertical){
+    if (appxEq(line.x1,x,t)){
+      if (y>line.yMin && y < line.yMax) {
+        return true
+      }
+    }
+  } else if (line.horizontal){
+    if (appxEq(line.y1,y,t)){
+      if (x>line.xMin && x < line.xMax) {
+        return true
+      }
+    }
+  } else if (appxEq(line.yOf(x),y,t)) {
+      console.log("calculating ranges")
+      let inXRange = x > line.xMin && x < line.xMax
+      let inYRange = y > line.yMin && y < line.yMax
+      console.log("ranges",inXRange,inYRange)
+      if (inXRange && inYRange){
+        return true
+      }
+  } else {
+    return false
+  }
+}
+
+
+// Lines API
+
+class Line {
+  constructor(p1,p2){
+    this.x1  = p1[0]
+    this.y1 = p1[1]
+    this.x2  = p2[0]
+    this.y2 = p2[1]
+
+    this.yMax = Math.max(this.y1,this.y2)
+    this.yMin = Math.min(this.y1,this.y2)
+    this.xMax = Math.max(this.x1,this.x2)
+    this.xMin = Math.min(this.x1,this.x2)
+
+    this.p1 = p1
+    this.p2 = p2
+
+    this.m = (this.y2-this.y1)/(this.x2-this.x1)
+
+    this.vertical = Math.abs(this.m) > 1000 ? true : false 
+    this.horizontal = Math.abs(this.m) < 0.001 ? true : false
+
+    this.b = this.vertical ? null : this.y1 - this.m*this.x1
+
+  }
+
+  yOf(x){
+    console.log("this.m,x,this.b,",this.m,x,this.b)
+    return this.m*x+this.b
+  }
+
+  xOf(y){
+    return (y-this.b)/this.m
+  }
+}
+
+function appxEq(a,b,t){
+  return Math.abs(a-b) < t
+}
+
+
+
+export function getLinesFromPoly(poly){
+  let n = poly.length
+  let lines = poly.map((p,i)=>{
+   // console.log("making a line")
+    return new Line(p,poly[(i+1)%n])
+  })
+  return lines
+}
+
+export function splitPolygon(line,poly) {
+  let polyA; 
+  let polyB;
+
+  let lines = getLinesFromPoly()
+
+  let intersectingLines = []
+
+  lines.forEach((l,i) => {
+      if (linesIntersect(l,line)){
+         intersectingLines.push(l)
+      }
+  })
+
+  return [polyA,polyB]
+}
+
+export function getIntersectionPoints(line,poly) {
+
+}
+
+export function makeLineArrayFromPoly(poly){
+
+}
 
 
 // TODO: Change this to extended class.

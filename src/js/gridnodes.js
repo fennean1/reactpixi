@@ -79,9 +79,6 @@ export const init = (app, setup) => {
     }
   }
 
-  function drawHeaderButtons(){
-    
-  }
 
   function linesIntersect(l1,l2){
     let m1 = l1.m

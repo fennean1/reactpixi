@@ -132,6 +132,7 @@ export default function ManipulativeCarousel(props) {
             <Arena
              app = {app}
               fullscreen={true}
+              features = {{numberOfBlocks: 5}}
               script={OrderingToolScript.init}
             />
            )}
