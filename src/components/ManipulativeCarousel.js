@@ -86,7 +86,7 @@ export default function ManipulativeCarousel(props) {
         onChange={handleChange}
         indicatorColor="primary"
         textColor="primary"
-        variant = "fullWidth"
+   
         centered
 
       >
