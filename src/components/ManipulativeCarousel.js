@@ -86,7 +86,7 @@ export default function ManipulativeCarousel(props) {
         onChange={handleChange}
         indicatorColor="primary"
         textColor="primary"
-   
+        variant = "scrollable"
         centered
 
       >
@@ -94,7 +94,8 @@ export default function ManipulativeCarousel(props) {
         <Tab className = "white" label="Factor Wall" />
         <Tab className = "white" label="Fraction Line" />
         <Tab className = "white" label="Ordering" />
-        <Tab className = "white" label="Fraction Grid" />
+        <Tab className = "white" label="Fourths Fraction Grid" />
+        <Tab className = "white" label="Thirds Fraction Grid" />
         <Tab className = "white" label="Fraction Bars" />
         <Tab className = "white" label="Fraction Stacks" />
       </Tabs>
@@ -155,12 +156,23 @@ export default function ManipulativeCarousel(props) {
                 app = {app}
                 setup={false}
                 fullscreen={true}
-                script={FractionBarScript.init}
+                features = {{x: 4,y: 4,descriptor: false}}
+                script={GridNodeScript.init}
               />
            )}
         </TabContainer>
         <TabContainer dir={theme.direction}>
           {value == 6 && (
+              <Arena
+                app = {app}
+                setup={false}
+                fullscreen={true}
+                script={FractionBarScript.init}
+              />
+           )}
+        </TabContainer>
+        <TabContainer dir={theme.direction}>
+          {value == 7 && (
               <Arena
                 app = {app}
                 setup={false}
