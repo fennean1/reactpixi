@@ -96,6 +96,7 @@ export default function ManipulativeCarousel(props) {
         <Tab className = "white" label="Ordering" />
         <Tab className = "white" label="Fraction Grid" />
         <Tab className = "white" label="Fraction Bars" />
+        <Tab className = "white" label="Fraction Stacks" />
       </Tabs>
 
       <SwipeableViews
@@ -143,7 +144,7 @@ export default function ManipulativeCarousel(props) {
                 app = {app}
                 setup={false}
                 fullscreen={true}
-                features = {{x: 5,y: 5,descriptor: true}}
+                features = {{x: 5,y: 5,descriptor: false}}
                 script={GridNodeScript.init}
               />
            )}
@@ -155,6 +156,16 @@ export default function ManipulativeCarousel(props) {
                 setup={false}
                 fullscreen={true}
                 script={FractionBarScript.init}
+              />
+           )}
+        </TabContainer>
+        <TabContainer dir={theme.direction}>
+          {value == 6 && (
+              <Arena
+                app = {app}
+                setup={false}
+                fullscreen={true}
+                script={FractionStacksScript.init}
               />
            )}
         </TabContainer>
