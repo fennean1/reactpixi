@@ -156,7 +156,7 @@ export default function ManipulativeCarousel(props) {
                 app = {app}
                 setup={false}
                 fullscreen={true}
-                features = {{x: 4,y: 4,descriptor: false}}
+                features = {{x: 4,y: 4,descriptor: true}}
                 script={GridNodeScript.init}
               />
            )}
