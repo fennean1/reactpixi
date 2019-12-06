@@ -94,8 +94,8 @@ export default function ManipulativeCarousel(props) {
         <Tab className = "white" label="Factor Wall" />
         <Tab className = "white" label="Fraction Line" />
         <Tab className = "white" label="Ordering" />
-        <Tab className = "white" label="Fourths Fraction Grid" />
-        <Tab className = "white" label="Thirds Fraction Grid" />
+        <Tab className = "white" label="4x4 Fraction Grid" />
+        <Tab className = "white" label="3x3 Fraction Grid" />
         <Tab className = "white" label="Fraction Bars" />
         <Tab className = "white" label="Fraction Stacks" />
       </Tabs>
