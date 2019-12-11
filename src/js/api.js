@@ -307,7 +307,7 @@ export function linesIntersect(l1,l2){
 
 
     // Padding 
-    let p = 0
+    let p = -20
     let inYRange1 = l1.horizontal ? true : (yIntersect > l1.yMin+p) && (yIntersect < l1.yMax-p)
     let inXRange1 = l1.vertical ? true : (xIntersect > l1.xMin+p) && (xIntersect < l1.xMax-p)
     let inYRange2 = l2.horizontal ? true : (yIntersect > l2.yMin+p) && (yIntersect <= l2.yMax-p)
@@ -430,6 +430,12 @@ export function splitMultiplePolygons(line,polys){
   return newPolys
 }
 
+
+export function pointsApproximatelyEqual(points,tolerance){
+  return distance(points[0],points[1]) < tolerance
+}
+
+
 export function splitPolygon(line,poly) {
   console.log("calling split polygon")
 
@@ -438,7 +444,7 @@ export function splitPolygon(line,poly) {
 
   // Check to make sure it was a valid cut.
   let points = getIntersectionPoints(line,poly)
-  if (points.length != 2){
+  if (points.length < 2){
     return [poly]
   }
 
@@ -456,12 +462,15 @@ export function splitPolygon(line,poly) {
        }
 
        if (intersect){
+         if (pointsApproximatelyEqual([intersect,l.start],10)){
+           console.log("POINTS APPROXIMATELY EQUAL")
+         } else {
            primaryPoly.push(intersect)
            secondaryPoly.push(intersect)
            primary = !primary
+         }
        }
   })
-
   return [primaryPoly,secondaryPoly]
 }
 

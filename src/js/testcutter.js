@@ -134,6 +134,10 @@ export const init = (app, setup) => {
           pObj.on("pointerdown",()=> {dragging = true})
           pObj.on("pointerup",()=> {dragging = false})
         })
+
+        let copyOfPolygons = polygonObjects.map(pObj=>{
+          return pObj.getPolyPoints()})
+          console.log("copy of polygons!!!!!",copyOfPolygons)
         setTimeout(()=>{
           testLineObject.clear()
         },1500)
