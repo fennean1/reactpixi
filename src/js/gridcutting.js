@@ -174,7 +174,6 @@ export const init = (app, setup) => {
     }
   }
 
-
   function decimalToFrac(dec){
     for (let i=1;i<100;i++){
       for (let j=0;j<=i;j++){
@@ -311,10 +310,15 @@ export const init = (app, setup) => {
     duplicateBtn.interactive = true
     app.stage.addChild(duplicateBtn)
     duplicateBtn.on('pointerdown',()=>{
-      cut()
-      linePoints = []
-      Nodes.forEach((n)=>{n.texture = OPEN_CIRCLE_TEXTURE})
-      stencil.clear()
+      if (linePoints.length != 2){
+
+      } else {
+        cut()
+        linePoints = []
+        Nodes.forEach((n)=>{n.texture = OPEN_CIRCLE_TEXTURE})
+        stencil.clear()
+      }
+
     })
 
 
