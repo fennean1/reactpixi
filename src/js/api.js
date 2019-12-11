@@ -435,6 +435,24 @@ export function pointsApproximatelyEqual(points,tolerance){
   return distance(points[0],points[1]) < tolerance
 }
 
+export function removeDuplicatePoints(points,tolerance){
+  console.log("before removal",points.length)
+  let removed = []
+  points.forEach(p=>{
+    let addMe = true
+    removed.forEach(r=>{
+      if (pointsApproximatelyEqual([p,r],tolerance)){
+        addMe = false
+      }
+    })
+    if (addMe){
+      removed.push(p)
+    }
+  })
+  console.log("after removal",removed.length)
+  return removed
+}
+
 
 export function splitPolygon(line,poly) {
   console.log("calling split polygon")
@@ -462,7 +480,8 @@ export function splitPolygon(line,poly) {
        }
 
        if (intersect){
-         if (pointsApproximatelyEqual([intersect,l.start],10)){
+         let approximatelyEqual = pointsApproximatelyEqual([intersect,l.start],5) || pointsApproximatelyEqual([intersect,l.end],5)
+         if (pointsApproximatelyEqual([intersect,l.end],5)){
            console.log("POINTS APPROXIMATELY EQUAL")
          } else {
            primaryPoly.push(intersect)
@@ -471,7 +490,11 @@ export function splitPolygon(line,poly) {
          }
        }
   })
-  return [primaryPoly,secondaryPoly]
+
+  let primaryCleaned = removeDuplicatePoints(primaryPoly,5)
+  let secondaryCleaned = removeDuplicatePoints(secondaryPoly,5)
+
+  return [primaryCleaned,secondaryCleaned]
 }
 
 
