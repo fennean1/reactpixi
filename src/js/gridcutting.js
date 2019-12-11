@@ -45,6 +45,7 @@ export const init = (app, setup) => {
   let cutting = false
   let linePoints = []
   let polygonObjects = []
+  let features = {}
 
   let fadeAnimation = new TimelineLite({paused: true})
  
@@ -140,19 +141,19 @@ export const init = (app, setup) => {
   }
 
   function snap(){
-    /*
-      let originX = this.x - this.width/2
-      let originY = this.y - this.height/2
+    if (features.snapping){
+      let vertices = this.getPolyPoints()
+      let first = vertices.shift()
+      let originX = first[0]
+      let originY = first[1]
+      let deltaX = originX - this.x 
+      let deltaY = originY - this.y
       console.log("originaXY",originX,originY)
       let i = Math.round(originX/DX)*DX
       let j = Math.round(originY/DY)*DY
-      console.log('i,j',i,j)
-      let deltaX = originX - i   
-      let deltaY = originY - j
-      console.log("deltas",deltaX,deltaY)
-      this.x = i + this.width/2
-      this.y = j + this.height/2
-      */
+      this.x = i - deltaX
+      this.y = j - deltaY
+    }
   } 
 
   function setNodes(a,b){
@@ -246,7 +247,6 @@ export const init = (app, setup) => {
   // Loading Script
   function load(){
     app.loaded = true
-    let features = {}
     if (setup.props.features){
       features = setup.props.features
     }
