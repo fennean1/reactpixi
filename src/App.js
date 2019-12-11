@@ -18,8 +18,10 @@ import * as FractionStacksScript from "./js/fractionstacks.js";
 import * as CalculatorScript from "./js/calculator.js";
 import * as OldFractionWallScript from "./js/oldfractionwall.js";
 import * as GridNodeScript from "./js/gridnodes.js";
-import * as ApiTestScript from "./js/apitest.js";
+import * as ApiTestScript from "./js/testapi.js";
+import * as CutterTestScript from "./js/testcutter.js";
 import * as NewFractionStacksScript from "./js/newfractionwall.js";
+import * as GridCuttingScript from "./js/gridcutting.js";
 import * as CapacityTalkData from "./activitydata/CapacityTalk.json";
 import ActivityList from './components/ActivityList'
 import ManipulativeCarousel from "./components/ManipulativeCarousel"
@@ -55,6 +57,8 @@ const Main = () => (
     <Route exact path="/gridnodes4x4" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 5,y: 5,descriptor: true}} script = {GridNodeScript.init}/>} />
     <Route exact path="/gridnodes3x3" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false}} script = {GridNodeScript.init}/>} />
     <Route exact path="/gridnodes12x12" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 13,y: 13,descriptor: true}} script = {GridNodeScript.init}/>} />
+    <Route exact path="/cutter" component={() => <Arena app = {app} fullscreen = {true}  script = {CutterTestScript.init}/>} />
+    <Route exact path="/gridcutting" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false}} script = {GridCuttingScript.init}/>} />
     <Route exact path="/login" component={SignIn} />
     <Route exact path="/panels" component={Panels} />
     <Route exact path="/manipulatives" component={ManipulativeCarousel} />

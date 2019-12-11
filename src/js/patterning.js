@@ -20,8 +20,6 @@ const buttonTypes = {
   'halfTriangleBtn':[[0,0],[0,4*dB],[4*dB,0]]
 }
 
-
-
 const types = {
   'whole': [[0,0],[4*dx,0],[4*dx,4*dx],[0,4*dx]],
   'fourthRect': [[0,0],[0,4*dx],[dx,4*dx],[dx,0]],
@@ -33,7 +31,6 @@ const types = {
   'halfTriangle':[[0,0],[0,4*dx],[4*dx,0]],
   'eighthTriangle': [[0,0],[0,2*dx],[2*dx,0]]
 }
-
 
 let activePoly;
 let theWhole;

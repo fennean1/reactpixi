@@ -3,7 +3,6 @@ import * as CONST from "./const.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
 import { thisExpression } from "@babel/types";
 
-
 export class Draggable extends PIXI.Sprite {
   constructor(texture){
     super()
@@ -28,6 +27,7 @@ export class Draggable extends PIXI.Sprite {
       y: this.y - event.data.global.y
     }
   }
+
   
   pointerMove(event){
     if (this.touching){
@@ -154,6 +154,98 @@ export class Fraction extends PIXI.Container {
   }
 }
 
+export class DraggablePoly extends Draggable {
+  constructor(points,app){
+
+
+    let xS = points.map(p=> p[0])
+    let yS = points.map(p=> p[1])
+    let minX = Math.min(...xS)
+    let minY = Math.min(...yS)
+
+    let flatPolygon = []
+    points.forEach(p=>{
+      flatPolygon.push(p[0]-minX)
+      flatPolygon.push(p[1]-minY)
+    })
+    let DUMMY = 100
+    let a = polygonArea(points)/DUMMY
+    let f = decimalToFrac(a)
+   
+    var graphics = new PIXI.Graphics();
+    graphics.beginFill(0xff3b55);
+    graphics._fillStyle.alpha = 0.85
+    graphics.lineStyle(2,0xffffff)
+    graphics.drawPolygon(flatPolygon);
+    graphics.endFill();
+
+    let t = app.renderer.generateTexture(graphics)
+
+    // Construct Super
+    super(t)
+
+    this.hitArea = new PIXI.Polygon(flatPolygon)
+    this.points = points
+
+    this.rotated = false
+    this.pivot.x = this.width/2
+    this.pivot.y = this.height/2
+    this.x = minX + this.width/2
+    this.y = minY + this.height/2
+    this.interactive = true
+    this.on('pointerdown',this.polyPointerDown)
+    this.on('pointerup',this.polyPointerUp)
+    this.on('pointermove',this.polyPointerMove)
+    this.on('pointerleave',this.polyPointerLeave)
+  }
+
+  polyPointerLeave(){
+  }
+
+  
+  polyPointerDown(){
+    
+  }
+
+  polyPointerMove(){
+   
+  }
+
+  getPolyPoints(){
+    let w = this.width 
+    let h = this.height
+    console.log("this.x,this.y",this.x,this.y)
+    let originX = this.x - this.width/2
+    let originY = this.y - this.height/2
+    console.log("originX, originY",originX,originY)
+    
+    let xS = []
+    let yS = []
+    this.hitArea.points.forEach((e,i)=>{
+    if (i%2 == 1){
+        yS.push(e+originY)
+      } else {
+        xS.push(e+originX)
+      }
+    })
+    console.log("xS,yS",xS,yS)
+    let polyPoints = xS.map((x,i) =>{
+      return [x,yS[i]]
+    })
+    console.log("polyPoints",polyPoints)
+    return polyPoints
+  }
+
+  polyPointerUp(){
+    console.log("hit area",this.hitArea.points)
+    this.getPolyPoints()
+  }
+}
+
+
+
+
+
 export function decimalToFrac(dec) {
   for (let i=1;i<100;i++){
     for (let j=0;j<=i;j++){
@@ -195,9 +287,7 @@ export function linesIntersect(l1,l2){
     return false
   } else {
 
-
     let xIntersect = (b1 - b2)/(m2-m1)
-
     let yIntersect = null
 
     if (l1.vertical){ 
@@ -211,19 +301,21 @@ export function linesIntersect(l1,l2){
       yIntersect = l1.yOf(xIntersect)
     }
 
+    // Chopping off decimals.
     yIntersect = Math.trunc(yIntersect*1000)/1000
     xIntersect = Math.trunc(xIntersect*1000)/1000
 
 
     // Padding 
-    let p = 4
+    let p = 0
     let inYRange1 = l1.horizontal ? true : (yIntersect > l1.yMin+p) && (yIntersect < l1.yMax-p)
     let inXRange1 = l1.vertical ? true : (xIntersect > l1.xMin+p) && (xIntersect < l1.xMax-p)
     let inYRange2 = l2.horizontal ? true : (yIntersect > l2.yMin+p) && (yIntersect <= l2.yMax-p)
     let inXRange2 = l2.vertical ? true : (xIntersect > l2.xMin+p) && (xIntersect < l2.xMax-p)
 
+    console.log("inYRange1,inXRange1,inYRange2,inXRange2",inYRange1,inXRange1,inYRange2,inXRange2)
 
-    return (inXRange1 && inXRange2 && inYRange1 && inYRange2)
+    return (inXRange1 && inXRange2 && inYRange1 && inYRange2) && [xIntersect, yIntersect]
   } 
 }
 
@@ -264,6 +356,8 @@ function lineContains(line,p){
 
 class Line {
   constructor(p1,p2){
+    this.start = p1 
+    this.end = p2
     this.x1  = p1[0]
     this.y1 = p1[1]
     this.x2  = p2[0]
@@ -279,15 +373,15 @@ class Line {
 
     this.m = (this.y2-this.y1)/(this.x2-this.x1)
 
-    this.vertical = Math.abs(this.m) > 1000 ? true : false 
-    this.horizontal = Math.abs(this.m) < 0.001 ? true : false
+    // Relaxed this criteria because its need for really steep lines (the ones for grid nodees were almost perfect so it didn't matter)
+    this.vertical = Math.abs(this.m) > 100 ? true : false 
+    this.horizontal = Math.abs(this.m) < 0.01 ? true : false
 
     this.b = this.vertical ? null : this.y1 - this.m*this.x1
 
   }
 
   yOf(x){
-    console.log("this.m,x,this.b,",this.m,x,this.b)
     return this.m*x+this.b
   }
 
@@ -302,6 +396,21 @@ function appxEq(a,b,t){
 
 
 
+export function getIntersectionPoints(lineEndPoints,polyPoints){
+  let line = new Line(lineEndPoints[0],lineEndPoints[1]) // Line
+  let lines = getLinesFromPoly(polyPoints) // Array of Lines
+
+  let intersectionPoints = []
+
+  lines.forEach((l,i) => {
+      let intersectionPoint = linesIntersect(l,line)
+      intersectionPoints.push(intersectionPoint)
+  })
+  console.log("intersectinglines count",intersectionPoints)
+  
+  return intersectionPoints.filter(e=> e != false)
+}
+
 export function getLinesFromPoly(poly){
   let n = poly.length
   let lines = poly.map((p,i)=>{
@@ -311,33 +420,59 @@ export function getLinesFromPoly(poly){
   return lines
 }
 
+export function splitMultiplePolygons(line,polys){
+  let newPolys  = []
+  polys.forEach(p=>{
+    // Returns original polygon if it can't be split.
+    let splitPoly = splitPolygon(line,p)
+    newPolys.push(...splitPoly)
+  })
+  return newPolys
+}
+
 export function splitPolygon(line,poly) {
-  let polyA; 
-  let polyB;
+  console.log("calling split polygon")
 
-  let lines = getLinesFromPoly()
+  // Make the array of lines.
+  let lines = getLinesFromPoly(poly)
 
-  let intersectingLines = []
+  // Check to make sure it was a valid cut.
+  let points = getIntersectionPoints(line,poly)
+  if (points.length != 2){
+    return [poly]
+  }
+
+  let primaryPoly = []
+  let secondaryPoly = []
+  let primary = true
+  let cutter = new Line(line[0],line[1])
 
   lines.forEach((l,i) => {
-      if (linesIntersect(l,line)){
-         intersectingLines.push(l)
-      }
+      let intersect = linesIntersect(l,cutter)
+       if (primary){
+         primaryPoly.push(l.start)
+       } else {
+         secondaryPoly.push(l.start)
+       }
+
+       if (intersect){
+           primaryPoly.push(intersect)
+           secondaryPoly.push(intersect)
+           primary = !primary
+       }
   })
 
-  return [polyA,polyB]
+  return [primaryPoly,secondaryPoly]
 }
 
-export function getIntersectionPoints(line,poly) {
-
-}
 
 export function makeLineArrayFromPoly(poly){
 
 }
 
 
-// TODO: Change this to extended class.
+
+
 /*
 export class NumberLine extends PIXI.Container {
   constructor(width,height,max){
