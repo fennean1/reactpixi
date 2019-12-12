@@ -143,8 +143,7 @@ export const init = (app, setup) => {
 
 
   function checkRotation(){
-    //this.rotation = this.rotation + Math.PI/2
-    //console.log("points",this.getPolyPoints())
+      activePolygon = this
   }
 
   function snap(){
@@ -236,6 +235,7 @@ export const init = (app, setup) => {
   }
 
   function placeButtons(alpha){
+    /*
     app.stage.addChild(rotateLeftBtn)
     app.stage.addChild(flipVerticalBtn)
     rotateLeftBtn.alpha = alpha 
@@ -252,6 +252,7 @@ export const init = (app, setup) => {
       flipVerticalBtn.x = activePolygon.x
       flipVerticalBtn.y = activePolygon.y - height/2 - 1.15*BTN_DIM
     }
+    */
   }
 
   // Loading Script
@@ -266,9 +267,8 @@ export const init = (app, setup) => {
     rotateLeftBtn = new PIXI.Sprite.from(ASSETS.ROTATE_LEFT)
     rotateLeftBtn.width = BTN_DIM
     rotateLeftBtn.height = BTN_DIM
-    rotateLeftBtn.x = - BTN_DIM
+    rotateLeftBtn.y = 2*BTN_DIM
     rotateLeftBtn.interactive = true
-    rotateLeftBtn.alpha = 0
     app.stage.addChild(rotateLeftBtn)
     rotateLeftBtn.on('pointerdown',()=>{
       if (activePolygon != null){
@@ -292,25 +292,27 @@ export const init = (app, setup) => {
         } else {
           TweenLite.to(activePolygon.scale,0.2,{x: activePolygon.scale.x*(-1)})
         }
-
       }
     })
 
     
     resetBtn = new PIXI.Sprite.from(ASSETS.RESET)
-    resetBtn.y = 0*BTN_DIM
+    resetBtn.y = BTN_DIM
     resetBtn.width = BTN_DIM
     resetBtn.height = BTN_DIM
     resetBtn.interactive = true
     app.stage.addChild(resetBtn)
     resetBtn.on('pointerdown',()=>{
-      polygons.forEach(p=>{
-        app.stage.removeChild(p)
-        p.destroy(true)
+      polygonObjects.forEach(pObj=>{
+        pObj.destroy(true)
+        app.stage.removeChild(pObj)
       })
-      polygons = []
-      activePolygon = null 
-      fractionObj.draw(0,1,BTN_DIM)
+      let newStartingSquare = new DraggablePoly(SQUARE,app)
+      newStartingSquare.x = DX*5
+      newStartingSquare.y = DX*3
+      newStartingSquare.on('pointerup',snap)
+      app.stage.addChild(newStartingSquare)
+      polygonObjects = [newStartingSquare]
     })
     
 
@@ -329,7 +331,6 @@ export const init = (app, setup) => {
         Nodes.forEach((n)=>{n.texture = OPEN_CIRCLE_TEXTURE})
         stencil.clear()
       }
-
     })
 
 
@@ -351,6 +352,8 @@ export const init = (app, setup) => {
     stencil.y = 0
     app.stage.addChild(stencil)
 
+    initialPolygon.x = DX*5
+    initialPolygon.y = DX*3
     app.stage.addChild(initialPolygon)
     polygonObjects.push(initialPolygon)
     initialPolygon.on('pointerup',snap)
