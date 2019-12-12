@@ -4,7 +4,7 @@ import * as CONST from "./const.js";
 import QuestionMark from '../assets/QuestionMark.png'
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
 import {Fraction, Draggable, distance} from "./api.js"
-import {Line, polygonArea,DraggablePoly,getIntersectionPoints,splitPolygon, splitMultiplePolygons} from "./api.js";
+import {getIndexOfNearestVertice, Line, polygonArea,DraggablePoly,getIntersectionPoints,splitPolygon, splitMultiplePolygons} from "./api.js";
 const ASSETS = CONST.ASSETS
 
 
@@ -143,7 +143,9 @@ export const init = (app, setup) => {
   function snap(){
     if (features.snapping){
       let vertices = this.getPolyPoints()
-      let first = vertices.shift()
+      let indexOfNearestNode = getIndexOfNearestVertice(vertices,DX)
+      console.log("snapping, indexOfNearestNode",indexOfNearestNode)
+      let first = vertices[indexOfNearestNode]
       let originX = first[0]
       let originY = first[1]
       let deltaX = originX - this.x 

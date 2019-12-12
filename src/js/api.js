@@ -307,7 +307,7 @@ export function linesIntersect(l1,l2){
 
 
     // Padding 
-    let p = -20
+    let p = -5
     let inYRange1 = l1.horizontal ? true : (yIntersect > l1.yMin+p) && (yIntersect < l1.yMax-p)
     let inXRange1 = l1.vertical ? true : (xIntersect > l1.xMin+p) && (xIntersect < l1.xMax-p)
     let inYRange2 = l2.horizontal ? true : (yIntersect > l2.yMin+p) && (yIntersect <= l2.yMax-p)
@@ -407,8 +407,10 @@ export function getIntersectionPoints(lineEndPoints,polyPoints){
       intersectionPoints.push(intersectionPoint)
   })
   console.log("intersectinglines count",intersectionPoints)
+  let filtered = intersectionPoints.filter(e=> e != false)
+  let deduped = removeDuplicatePoints(filtered,5)
   
-  return intersectionPoints.filter(e=> e != false)
+  return deduped
 }
 
 export function getLinesFromPoly(poly){
@@ -480,7 +482,6 @@ export function splitPolygon(line,poly) {
        }
 
        if (intersect){
-         let approximatelyEqual = pointsApproximatelyEqual([intersect,l.start],5) || pointsApproximatelyEqual([intersect,l.end],5)
          if (pointsApproximatelyEqual([intersect,l.end],5)){
            console.log("POINTS APPROXIMATELY EQUAL")
          } else {
@@ -490,11 +491,34 @@ export function splitPolygon(line,poly) {
          }
        }
   })
+  let primaryPolyDeduped = removeDuplicatePoints(primaryPoly,5)
+  let secondaryPolyDeduped = removeDuplicatePoints(secondaryPoly,5)
 
-  let primaryCleaned = removeDuplicatePoints(primaryPoly,5)
-  let secondaryCleaned = removeDuplicatePoints(secondaryPoly,5)
+  return [primaryPolyDeduped,secondaryPolyDeduped]
+}
 
-  return [primaryCleaned,secondaryCleaned]
+export function distanceFromNearestNode(x,y,dxy){
+  let deltaX = Math.abs(Math.round(x/dxy)*dxy-x)
+  let deltaY = Math.abs(Math.round(y/dxy)*dxy-y)
+  let distance = Math.sqrt(deltaX*deltaX+deltaY*deltaY)
+  console.log("distance",distance)
+  return distance
+}
+
+export function getIndexOfNearestVertice(vertices,dxy){
+  console.log("verices",vertices)
+  let distance = 100000
+  let index = null
+  vertices.forEach((v,i)=>{
+    let x = v[0]
+    let y = v[1]
+    let newDistance = distanceFromNearestNode(x,y,dxy)
+    if (newDistance <  distance){
+      index = i
+      distance = newDistance
+    }
+  })
+  return index
 }
 
 
