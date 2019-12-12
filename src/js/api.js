@@ -214,25 +214,29 @@ export class DraggablePoly extends Draggable {
   getPolyPoints(){
     let w = this.width 
     let h = this.height
-    console.log("this.x,this.y",this.x,this.y)
     let originX = this.x - this.width/2
     let originY = this.y - this.height/2
-    console.log("originX, originY",originX,originY)
-    
     let xS = []
     let yS = []
+    console.log("original points",this.hitArea.points)
     this.hitArea.points.forEach((e,i)=>{
     if (i%2 == 1){
-        yS.push(e+originY)
+        yS.push(e)
       } else {
-        xS.push(e+originX)
+        xS.push(e)
       }
     })
-    console.log("xS,yS",xS,yS)
     let polyPoints = xS.map((x,i) =>{
       return [x,yS[i]]
     })
-    console.log("polyPoints",polyPoints)
+
+    console.log("massaged points",polyPoints)
+    console.log("this rotation",this.rotation)
+    polyPoints = polyPoints.map(p=>{return rotatePoint(p[0]-this.width/2,p[1]-this.height/2,this.rotation)})
+    console.log("rotatedpoints",polyPoints)
+
+    polyPoints = polyPoints.map(p=>{return [p[0]+originX+this.width/2,p[1]+originY+this.height/2]})
+
     return polyPoints
   }
 
@@ -503,6 +507,12 @@ export function distanceFromNearestNode(x,y,dxy){
   let distance = Math.sqrt(deltaX*deltaX+deltaY*deltaY)
   console.log("distance",distance)
   return distance
+}
+
+export function rotatePoint(x,y,theta){
+  let _x = x*Math.cos(theta) - y*Math.sin(theta)
+  let _y = y*Math.cos(theta) + x*Math.sin(theta)
+  return [_x,_y]
 }
 
 export function getIndexOfNearestVertice(vertices,dxy){

@@ -116,7 +116,6 @@ export const init = (app, setup) => {
         linePoints.push([this.x,this.y])
       }
     }
-
   }
 
   function cut(){
@@ -137,10 +136,19 @@ export const init = (app, setup) => {
       app.stage.addChild(pObj)
       polygonObjects.push(pObj)
       pObj.on('pointerup',snap)
+      pObj.on('pointerdown',checkRotation)
     })
   }
 
+
+
+  function checkRotation(){
+    //this.rotation = this.rotation + Math.PI/2
+    //console.log("points",this.getPolyPoints())
+  }
+
   function snap(){
+  
     if (features.snapping){
       let vertices = this.getPolyPoints()
       let indexOfNearestNode = getIndexOfNearestVertice(vertices,DX)
@@ -156,6 +164,7 @@ export const init = (app, setup) => {
       this.x = i - deltaX
       this.y = j - deltaY
     }
+  
   } 
 
   function setNodes(a,b){
