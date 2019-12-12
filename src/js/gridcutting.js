@@ -296,7 +296,7 @@ export const init = (app, setup) => {
       }
     })
 
-    /*
+    
     resetBtn = new PIXI.Sprite.from(ASSETS.RESET)
     resetBtn.y = 0*BTN_DIM
     resetBtn.width = BTN_DIM
@@ -312,7 +312,7 @@ export const init = (app, setup) => {
       activePolygon = null 
       fractionObj.draw(0,1,BTN_DIM)
     })
-    */
+    
 
     duplicateBtn = new PIXI.Sprite.from(ASSETS.SCISSORS)
     duplicateBtn.y = 0

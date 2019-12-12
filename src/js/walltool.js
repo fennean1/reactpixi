@@ -11,6 +11,8 @@ export const init = (app, setup) => {
  
 
   // Constants
+  let fadeAnimation = new TimelineLite({paused: true})
+ 
 
   // Layout Parameters
   let WINDOW_WIDTH = setup.width
@@ -113,9 +115,9 @@ export const init = (app, setup) => {
       let height = activePolygon.rotated ? activePolygon.width : activePolygon.height  
 
       rotateLeftBtn.x = activePolygon.x - BTN_DIM/2
-      rotateLeftBtn.y = activePolygon.y - height/2 - 1.15*BTN_DIM/2
+      rotateLeftBtn.y = activePolygon.y + height/1.9
       flipVerticalBtn.x = activePolygon.x
-      flipVerticalBtn.y = activePolygon.y - height/2 - 1.15*BTN_DIM/2
+      flipVerticalBtn.y = activePolygon.y + height/1.9
     }
   }
 
@@ -325,7 +327,13 @@ export const init = (app, setup) => {
     trashBtn.y = trashBtn.width*0.1
     trashBtn.interactive = true
     app.stage.addChild(trashBtn)
- 
+
+    const onComplete = () => {
+      rotateLeftBtn.interactive = false
+      flipVerticalBtn.interactive = false
+    }
+    fadeAnimation.to([rotateLeftBtn,flipVerticalBtn],1,{alpha: 0,onComplete: onComplete},"+=2")
+
 
   }
 
