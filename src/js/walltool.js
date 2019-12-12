@@ -113,7 +113,6 @@ export const init = (app, setup) => {
     if (activePolygon != null){
       let width = activePolygon.rotated ? activePolygon.height : activePolygon.width
       let height = activePolygon.rotated ? activePolygon.width : activePolygon.height  
-
       rotateLeftBtn.x = activePolygon.x - BTN_DIM/2
       rotateLeftBtn.y = activePolygon.y + height/1.9
       flipVerticalBtn.x = activePolygon.x
@@ -171,6 +170,7 @@ export const init = (app, setup) => {
       let p = new DraggablePoly(this.points,app)
       p.on('pointerup',pointerUp)
       p.on('pointerdown',pointerDown)
+      p.on('pointermove',pointerMove)
       p.x = WINDOW_WIDTH/2 
       p.y = WINDOW_HEIGHT/2
       polygons.push(p)
@@ -180,15 +180,23 @@ export const init = (app, setup) => {
 
   function pointerDown(){
     activePolygon = this
+    fadeAnimation.stop()
+    placeButtons(1)
+  }
+
+  function pointerMove(){
+    if (this.touching){
+      placeButtons(0)
+    }
   }
 
   function pointerUp(){
     round(this,d12)
     placeButtons(1)
-    //fadeAnimation.restart()
+    fadeAnimation.restart()
     if (distance([this.x,this.y],[trashBtn.x,trashBtn.y]) < 200) {
       placeButtons(0)
-      //fadeAnimation.stop()
+      fadeAnimation.stop()
       let i = polygons.indexOf(this)
       polygons.splice(i,1)
       app.stage.removeChild(this)
