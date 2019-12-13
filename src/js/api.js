@@ -3,6 +3,8 @@ import * as CONST from "./const.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
 import { thisExpression } from "@babel/types";
 
+
+
 export class Draggable extends PIXI.Sprite {
   constructor(texture){
     super()
@@ -114,6 +116,7 @@ export class Fraction extends PIXI.Container {
     this.numDigits = this.numerator.length
     this.denDigits = this.denominator.length 
     this.maxDigits = Math.max(this.numDigits,this.denDigits)
+    this.minDigits = Math.min(this.numDigits,this.denDigits)
     this.fontSize = w/(this.maxDigits)
     this.compression = 0.9
 
@@ -138,16 +141,19 @@ export class Fraction extends PIXI.Container {
     this.N.y = 0
     this.N.style.fontSize = this.fontSize*this.compression
     this.N.text = n
+    this.addChild(this.N)
 
     // Denominator
     this.D.x = w/2
     this.D.y = this.N.height
     this.D.style.fontSize = this.fontSize*this.compression
     this.D.text = d
+    this.addChild(this.D)
 
     // Line
+    console.log("line width",w)
     this.L.lineStyle(w/this.lineCompression,0x000000)
-    this.L.lineTo(w,0)
+    this.L.lineTo(1.01*w,0)
     this.L.y = this.N.height
 
     //this.pivot.set(this.width/2,this.height/2)
@@ -179,8 +185,9 @@ export class DraggablePoly extends Draggable {
     graphics.drawPolygon(flatPolygon);
     graphics.endFill();
 
-    let t = app.renderer.generateTexture(graphics)
 
+    let t = app.renderer.generateTexture(graphics)
+ 
     // Construct Super
     super(t)
 
@@ -247,6 +254,13 @@ export class DraggablePoly extends Draggable {
 }
 
 
+// Helpers
+
+function appxEq(a,b,t){
+  return Math.abs(a-b) < t
+}
+
+
 
 
 
@@ -277,6 +291,7 @@ export function polygonArea(poly) {
    return Math.abs(area / 2)
 } 
 
+// Lines & Polygons
 
 
 export function linesIntersect(l1,l2){
@@ -323,41 +338,6 @@ export function linesIntersect(l1,l2){
   } 
 }
 
-
-
-function lineContains(line,p){
-  // Tolerance
-  let x = p[0]
-  let y = p[1]
-  let t = 0.001
-  if (line.vertical){
-    if (appxEq(line.x1,x,t)){
-      if (y>line.yMin && y < line.yMax) {
-        return true
-      }
-    }
-  } else if (line.horizontal){
-    if (appxEq(line.y1,y,t)){
-      if (x>line.xMin && x < line.xMax) {
-        return true
-      }
-    }
-  } else if (appxEq(line.yOf(x),y,t)) {
-      console.log("calculating ranges")
-      let inXRange = x > line.xMin && x < line.xMax
-      let inYRange = y > line.yMin && y < line.yMax
-      console.log("ranges",inXRange,inYRange)
-      if (inXRange && inYRange){
-        return true
-      }
-  } else {
-    return false
-  }
-}
-
-
-// Lines API
-
 class Line {
   constructor(p1,p2){
     this.start = p1 
@@ -394,11 +374,35 @@ class Line {
   }
 }
 
-function appxEq(a,b,t){
-  return Math.abs(a-b) < t
+function lineContains(line,p){
+  // Tolerance
+  let x = p[0]
+  let y = p[1]
+  let t = 0.001
+  if (line.vertical){
+    if (appxEq(line.x1,x,t)){
+      if (y>line.yMin && y < line.yMax) {
+        return true
+      }
+    }
+  } else if (line.horizontal){
+    if (appxEq(line.y1,y,t)){
+      if (x>line.xMin && x < line.xMax) {
+        return true
+      }
+    }
+  } else if (appxEq(line.yOf(x),y,t)) {
+      console.log("calculating ranges")
+      let inXRange = x > line.xMin && x < line.xMax
+      let inYRange = y > line.yMin && y < line.yMax
+      console.log("ranges",inXRange,inYRange)
+      if (inXRange && inYRange){
+        return true
+      }
+  } else {
+    return false
+  }
 }
-
-
 
 export function getIntersectionPoints(lineEndPoints,polyPoints){
   let line = new Line(lineEndPoints[0],lineEndPoints[1]) // Line
@@ -531,140 +535,103 @@ export function getIndexOfNearestVertice(vertices,dxy){
   return index
 }
 
+// Number Line
 
-export function makeLineArrayFromPoly(poly){
-
-}
-
-
-
-
-/*
 export class NumberLine extends PIXI.Container {
   constructor(width,height,max){
     super()
+    console.log("thiswidth,thisheight",width,height)
     this.max = max 
-    this.height = height
-    this.width = width
+    this._height = height
+    this._width = width
+    this.showFractions = false 
+    this.flipped = false
+    this.lineThickness = height/10
+    this.minorTickHeight = height/2
+    this.majorTickHeight = height
+    this.dx = this._width/max
+    console.log("this.width,this.height",this.width,this.height)
 
     this.ticks = []
     this.labels = []
     this.line = new PIXI.Graphics()
-
   }
 
+  init = () => {
+    console.log('thislinethickness',this.lineThickness)
+     this.line.lineStyle(this.lineThickness,0x000000)
+     this.line.x = 0
+     this.line.y = 0
+     this.line.lineTo(this._width,0)
+     this.addChild(this.line)
 
-  init = (n) => {
-     this.line.lineStyle(LINE_THICKNESS,0x000000)
-     this.line.x = LINE_START
-     this.line.y = ARENA_HEIGHT/2
-     this.line.lineTo(LINE_WIDTH,0)
-     app.stage.addChild(this.line)
-
-     for (let i = 0;i<this.max;i++){
+    console.log("this.max",this.max)
+     for (let i = 0;i<100;i++){
+         let _x = i > this.max ? this.line.width : this.dx*i 
          let newTick = new PIXI.Graphics()
-         newTick.lineStyle(LINE_THICKNESS,0x000000)
-         newTick.x = this.line.x 
-         if(flip){
-           newTick.y = this.line.y + LINE_THICKNESS/2
-           newTick.lineTo(0,-MINOR_TICK_HEIGHT)
-         } else {
-           newTick.y = this.line.y - LINE_THICKNESS/2
-           newTick.lineTo(0,MINOR_TICK_HEIGHT)
-         }
-         app.stage.addChild(newTick)
+         newTick.lineStyle(this.lineThickness,0x000000)
+  
+         newTick.x = _x
+         newTick.y = -this.minorTickHeight/2
+         newTick.lineTo(0,this.minorTickHeight)
+    
+         this.addChild(newTick)
          this.ticks.push(newTick)
 
-         // Setup Labels Here
+        let newLabel = new Fraction(i,4,this.dx/2)
+
+         /* Setup Labels Here
          let newLabel = new PIXI.Text(i,{
            fontFamily: "Arial",
-           fontSize: DX/2,
+           fontSize: this.dx/2,
            fill: "0x000000",
            align: "center"
          })
-         newLabel.anchor.x = 0.5
+         */
+         //newLabel.anchor.x = 0.5
          this.labels.push(newLabel)
-         newLabel.x = this.line.x + DX*i
-         newLabel.y = this.line.y + MINOR_TICK_HEIGHT
-         if (flip){
-           newLabel.y = this.line.y - 2*MINOR_TICK_HEIGHT
+         newLabel.x = _x - newLabel.width/2
+        
+         newLabel.y = this.line.y + this.minorTickHeight
+         if (this.flipped){
+           newLabel.y = this.line.y - 2*this.minorTickHeight
            newLabel.anchor.y = 1
            newLabel.text.anchor.y = 0.5
          }
-         app.stage.addChild(newLabel)
+         this.addChild(newLabel)
+        
      }
      this.increment(0)
+  
   }
 
-  this.getSetup = ()=> {
-      // update tickspan etc. based on line max.
-  }
 
-  this.increment = (inc) => {
+  increment(inc) {
+      console.log("width,height,x,y",this.width,this.height,this.x,this.y)
       // Animation go here
       this.max += inc
-
-      // Update State - (Context Specific)
-      state.lineMax = this.max
-      updateLayoutParams()
-
+      this.dx = this._width/this.max
+      console.log("this.max",this.max)
       this.ticks.forEach((e,i)=> {
          if (i > this.max){
-             TweenLite.to(e,0.5,{x: LINE_WIDTH + this.line.x })
+             TweenLite.to(e,0.5,{x: this._width})
          } else {
-             TweenLite.to(e,0.5,{x: LINE_WIDTH/this.max*i + this.line.x})
+             TweenLite.to(e,0.5,{x: this.dx*i})
          }
       })
 
       this.labels.forEach((e,i)=> {
+       e.alpha = 0
+       e.draw(i,4,this.dx/2)
+       console.log('e.width',e.width)
        if (i > this.max){
-           TweenLite.to(e,0.5,{x: LINE_WIDTH + this.line.x })
+           TweenLite.to(e,0.5,{x: this._width})
            TweenLite.to(e,0.5,{alpha: 0})
        } else {
-           TweenLite.to(e,0.5,{x: LINE_WIDTH/this.max*i + this.line.x})
+         console.log('setting to one')
+           TweenLite.to(e,0.5,{x: this.dx*i-e.width/2})
            TweenLite.to(e,0.5,{alpha: 1})
        }
     })
   }
-
-  this.draw = () => {
-    let _y;
-    if (flip){
-     _y = TOP_LINE_Y
-    } else {
-      _y = BOTTOM_LINE_Y
-    }
-     this.line.width = LINE_WIDTH
-     this.line.height = LINE_THICKNESS
-     this.line.x = LINE_START
-     this.line.y = _y
-     this.ticks.forEach((e,i)=> {
-         e.width = TICK_THICKNESS
-         e.height = MINOR_TICK_HEIGHT
-         e.y = this.line.y - LINE_THICKNESS/2
-         if (flip){
-           e.y = this.line.y + LINE_THICKNESS/2
-         }
-         if (i > this.max){
-             e.x = LINE_WIDTH + this.line.x 
-         } else {
-             e.x =  LINE_WIDTH/this.max*i + this.line.x
-         }
-      })
-      this.labels.forEach((e,i)=> {
-       e.y = this.line.y + MINOR_TICK_HEIGHT
-       if (flip){
-         e.y = this.line.y - MINOR_TICK_HEIGHT
-       }
-       e.style.fontSize = DX/2
-       if (i > this.max){
-           e.x = LINE_WIDTH + this.line.x 
-       } else {
-           e.x =  LINE_WIDTH/this.max*i + this.line.x
-       }
-    })
-  }
-  this.init()
 }
-
-*/
