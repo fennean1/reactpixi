@@ -55,6 +55,20 @@ export const init = (app, setup) => {
     return [[0,0],[k/4,0],[k/4,k/2],[0,k/2]]
   }
 
+  const fourth_rectangle = k => {
+    return [[0,0],[k/4,0],[k/4,k],[0,k]]
+  }
+
+  const fourth_right_triangle = k => {
+    return [[0,0],[k/2,k],[0,k]]
+  }
+
+  const eighth_triangle = k => {
+    return [[0,0],[k/2,k/2],[0,k/2]]
+  }
+
+
+
   let whole1 
   let whole2
   let rotateLeftBtn;
@@ -235,6 +249,19 @@ export const init = (app, setup) => {
 
     let eighthRectangle = new PolyGenerator(eighth_rectangle(SQUARE_DIM))
     shapes.push(eighthRectangle)
+
+    let fourthRectangle = new PolyGenerator(fourth_rectangle(SQUARE_DIM))
+    shapes.push(fourthRectangle)
+
+    let fourthRightTriangle = new PolyGenerator(fourth_right_triangle(SQUARE_DIM))
+    shapes.push(fourthRightTriangle)
+
+    let eighthTriangle = new PolyGenerator(eighth_triangle(SQUARE_DIM))
+    shapes.push(eighthTriangle)
+
+
+
+
 
     let inc = d12
     shapes.forEach(s=>{
