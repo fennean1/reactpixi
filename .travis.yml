@@ -1,0 +1,26 @@
+sudo: required #Travis-CI intends to drop support for builds inside of containers https://blog.travis-ci.com/2018-10-04-combining-linux-infrastructures
+language: node_js
+node_js:
+  - "8"
+git:
+  depth: 3
+  quiet: true
+  submodules: false
+script: 
+ - CI=false npm run build
+before_install:
+  - npm install
+deploy:
+  -
+    provider: s3
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    bucket: $S3_BUCKET
+    region: $AWS_DEFAULT_REGION
+    skip_cleanup: true
+    local_dir: build
+    upload-dir: $S3_PREFIX
+    detect_encoding: true
+    on:
+      all_branches: true
+      condition: $TRAVIS_BRANCH =~ ^develop|master$

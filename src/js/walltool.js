@@ -185,8 +185,7 @@ export const init = (app, setup) => {
       p.on('pointerup',pointerUp)
       p.on('pointerdown',pointerDown)
       p.on('pointermove',pointerMove)
-      p.x = WINDOW_WIDTH/2 
-      p.y = WINDOW_HEIGHT/2
+      TweenLite.to(p,0.5,{x: WINDOW_WIDTH/2,y: WINDOW_HEIGHT/2})
       polygons.push(p)
       app.stage.addChild(p)
     }
@@ -258,9 +257,6 @@ export const init = (app, setup) => {
 
     let eighthTriangle = new PolyGenerator(eighth_triangle(SQUARE_DIM))
     shapes.push(eighthTriangle)
-
-
-
 
 
     let inc = d12

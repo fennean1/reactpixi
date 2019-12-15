@@ -68,7 +68,7 @@ export const init = (app, setup) => {
 
     let x = new makeBackground()
 
-    let numberline = new NumberLine(500,20,30)
+    let numberline = new NumberLine(WINDOW_WIDTH*0.7,20,30)
     numberline.init(30)
     numberline.x = 200 
     numberline.y = 200
