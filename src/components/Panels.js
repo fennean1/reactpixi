@@ -16,16 +16,10 @@ import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, Timeline
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { ACTIVITIES } from "../activitydata/activities.js"
-//import { Document } from '@react-pdf/renderer'
-//pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-/* <Document
-file="pdf/NumberLineLesson.pdf"
->
-  <Page pageNumber={1} />
-</Document>
+import { Document, Page,pdfjs } from 'react-pdf';
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-*/
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -52,7 +46,7 @@ export default function LessonPanel(props) {
   const data = ACTIVITIES[activity]
   console.log("activity",activity)
   console.log("data",data)
-  const [panelNumber,setPanel] = React.useState(0)
+  const [panelNumber,setPanel] = React.useState(1)
   const [label,setLabel] = React.useState("Problem 1")
   const keys = [0,1,2]
   let numberOfPanels = 1
@@ -119,7 +113,9 @@ useEffect(()=> {
       </div>
       </div>
         <div className = 'center' ref = {me => panel = me } > 
-          <img style = {{width: '95%'}} src = {data.SEQUENCE[panelNumber].img}/>
+        <Document file="/pdfs/NumberLineProblems.pdf">
+             <Page pageNumber={panelNumber} />
+        </Document>
         </div>
       </div>
     );
