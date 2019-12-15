@@ -4,6 +4,7 @@ import './App.css';
 import Arena from "./components/Arena"
 import Panels from "./components/Panels"
 import * as Pixi from "pixi.js";
+import { Document, Page } from 'react-pdf';
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import * as HundredsArrayScript from "./js/hundredsarray.js"
 import * as NumberLineStripsScript from "./js/numberlinestrips.js"
@@ -32,6 +33,8 @@ import TeacherDashboard from "./components/TeacherDashboard"
 import SignIn from "./components/SignIn"
 import Test from "./components/ResizeTest"
 
+import { pdfjs } from 'react-pdf';
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 Pixi.settings.RESOLUTION = 3
 let app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
@@ -74,10 +77,16 @@ const Main = () => (
   </div>
 );
 
+
+
 function App() {
   return (
        <BrowserRouter className = "container">
-          <Main />
+        <Document
+          file="pdfs/NumberLineProblems.pdf"
+        >
+          <Page pageNumber={1} />
+        </Document>
         </BrowserRouter>
   );
 }
