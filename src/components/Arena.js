@@ -64,6 +64,8 @@ class Arena extends Component {
   componentDidMount() {
 
       window.onresize = () => this.resize()
+
+      console.log("game canvas height and width",this.gameCanvas.clientHeight,this.gameCanvas.clientWidth)
       
       this.props.app.active = true
       this.props.app.renderer.backgroundColor = 0xffffff;
@@ -91,7 +93,7 @@ class Arena extends Component {
   }
 
   render() { 
-    let styleType = this.props.fullscreen ? { height: "100vh",marginTop: 0 } : null;
+    let styleType = this.props.fullscreen ? { height: "100vh",marginTop: 0 } : {height: "50vh"};
     return (
         <div style = {styleType}
           ref={me => this.gameCanvas = me }

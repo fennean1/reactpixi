@@ -63,13 +63,13 @@ export function distance(a,b){
 export class Fraction extends PIXI.Container {
   constructor(n,d,w){
     super()
-    console.log("w",w)
     this._width = w
     this.numerator = n+""
     this.denominator = d+""
+    this.makeWhole = false
     this.numDigits = this.numerator.length
     this.denDigits = this.denominator.length 
-    this.maxDigits = Math.max(this.numDigits,this.denDigits)
+    this.maxDigits = 2
     this.fontSize = w/(this.maxDigits)
     this.compression = 0.9
     this.lineCompression = 20
@@ -110,14 +110,23 @@ export class Fraction extends PIXI.Container {
     this.draw(n,d,w)
   }
 
-  draw(n,d,w){
+  draw(n,d,_w){
+
     this.numerator = n+""
     this.denominator = d+""
+
+    if (this.numerator%this.denominator == 0 && this.makeWhole){
+      console.log("making whole")
+      this.numerator = this.numerator/this.denominator
+      this.denominator = 1
+    }
+
+
     this.numDigits = this.numerator.length
     this.denDigits = this.denominator.length 
     this.maxDigits = Math.max(this.numDigits,this.denDigits)
     this.minDigits = Math.min(this.numDigits,this.denDigits)
-    this.fontSize = w/(this.maxDigits)
+    this.fontSize = _w/2
     this.compression = 0.9
 
     if (this.maxDigits == 3){
@@ -126,34 +135,41 @@ export class Fraction extends PIXI.Container {
     } else if (this.maxDigits == 2){
       this.compression = 1.3
       this.lineCompression = 25
+    } else if (this.maxDigits == 1) {
+      console.log("maxDigits == 1")
+      this.compression = 1.3
+      this.lineCompression = 15
+      _w = _w/1.5
     }
 
-    if (d == 1){
+    if (this.denominator == 1){
+      console.log("setting alphas")
       this.L.alpha = 0
       this.D.alpha = 0
+      this.fontSize = _w
     } else {
       this.L.alpha = 1
       this.D.alpha = 1
     }
     
     // Numerator
-    this.N.x = w/2
+    this.N.x = _w/2
     this.N.y = 0
     this.N.style.fontSize = this.fontSize*this.compression
-    this.N.text = n
+    this.N.text = this.numerator
     this.addChild(this.N)
 
     // Denominator
-    this.D.x = w/2
+    this.D.x = _w/2
     this.D.y = this.N.height
     this.D.style.fontSize = this.fontSize*this.compression
-    this.D.text = d
+    this.D.text = this.denominator
     this.addChild(this.D)
 
     // Line
-    console.log("line width",w)
-    this.L.lineStyle(w/this.lineCompression,0x000000)
-    this.L.lineTo(1.01*w,0)
+    this.L.clear()
+    this.L.lineStyle(_w/this.lineCompression,0x000000)
+    this.L.lineTo(_w,0)
     this.L.y = this.N.height
 
     //this.pivot.set(this.width/2,this.height/2)
@@ -550,6 +566,8 @@ export class NumberLine extends PIXI.Container {
     this.minorTickHeight = height/2
     this.majorTickHeight = height
     this.dx = this._width/max
+    this.everyOther = false
+    this.denominator = 1
     console.log("this.width,this.height",this.width,this.height)
 
     this.ticks = []
@@ -578,17 +596,9 @@ export class NumberLine extends PIXI.Container {
          this.addChild(newTick)
          this.ticks.push(newTick)
 
-        let newLabel = new Fraction(i,4,this.dx/2)
+         let newLabel = new Fraction(i,this.denominator,this.dx/2)
+         newLabel.makeWhole = true
 
-         /* Setup Labels Here
-         let newLabel = new PIXI.Text(i,{
-           fontFamily: "Arial",
-           fontSize: this.dx/2,
-           fill: "0x000000",
-           align: "center"
-         })
-         */
-         //newLabel.anchor.x = 0.5
          this.labels.push(newLabel)
          newLabel.x = _x - newLabel.width/2
         
@@ -622,7 +632,7 @@ export class NumberLine extends PIXI.Container {
 
       this.labels.forEach((e,i)=> {
        e.alpha = 0
-       e.draw(i,4,this.dx/2)
+       e.draw(i,this.denominator,this.dx/2)
        console.log('e.width',e.width)
        if (i > this.max){
            TweenLite.to(e,0.5,{x: this._width})

@@ -9,6 +9,8 @@ import * as OrderingToolScript from "../js/orderingtool.js";
 import * as SharingToolScript from "../js/sharingtool.js";
 import * as CuisenaireToolScript from "../js/cuisenairetool.js";
 import * as CapacityTalkData from "../activitydata/CapacityTalk.json";
+import * as HundredsGridScript from '../js/hundredsarray.js'
+
 import { Grid , TextField} from "@material-ui/core";
 import * as Pixi from "pixi.js";
 import Drawer from "@material-ui/core/Drawer";
@@ -20,6 +22,10 @@ import { ACTIVITIES } from "../activitydata/activities.js"
 import { Document, Page,pdfjs } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
+Pixi.settings.RESOLUTION = 3
+var app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
+app.static = false
+app.loaded = false
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -54,6 +60,7 @@ export default function LessonPanel(props) {
   let page1;
   const [tipsOpen,setTipsOpen] = React.useState(false)
   const [menuOpen,setMenuOpen] = React.useState(false)
+  let testRef = {}
 
 
 
@@ -66,6 +73,7 @@ export default function LessonPanel(props) {
 // So that the correct panel is highlighted on startup
 useEffect(()=> {
   numberOfPanels = data.SEQUENCE.length
+  console.log('testref',testRef.clientWidth,testRef.clientHeight)
 })
   function animate(k){
     console.log("numberOfPanels",panelNumber,numberOfPanels,panelNumber%numberOfPanels)
@@ -90,7 +98,7 @@ useEffect(()=> {
 
 
     return (
-      <div>
+      <div style = {{height: "100vh"}}>
       <Drawer anchor="left"  open={menuOpen} onClose={()=>setMenuOpen(false)}>
             <div className = "flow-text" style = {{margin: 10,width: window.innerWidth/3}}> 
             <Link target = "_blank" to = {data.TOOL}>Tool </Link>
@@ -112,10 +120,15 @@ useEffect(()=> {
         <a onClick = {()=> setTipsOpen(true)}className ="btn orange right"><i className="material-icons">forum</i></a>
       </div>
       </div>
-        <div className = 'center' ref = {me => panel = me } > 
-        <Document file="/pdfs/NumberLineProblems.pdf">
-             <Page pageNumber={panelNumber} />
-        </Document>
+        <div style = {{display: "flex",flexDirection: "column"}} ref = {me => panel = me } >
+          <div style ={{flex: 1}} > 
+          <Document file="/pdfs/PanoramicTest.pdf">
+              <Page width = {window.innerWidth} pageNumber={panelNumber} />
+          </Document>
+          </div>
+          <div ref = {me => {testRef = me}} style = {{flex: 1}}>
+          <Arena  app = {app} script = {NumberLineToolScript.init}/>
+          </div>
         </div>
       </div>
     );
