@@ -63,7 +63,6 @@ export default function LessonPanel(props) {
   let testRef = {}
 
 
-
   function printList(items){
     console.log("items",items)
     if (items){return items.map(q=>{return <p>{q}<br/><br/></p>})}
@@ -122,14 +121,12 @@ useEffect(()=> {
       </div>
         <div style = {{display: "flex",flexDirection: "column"}} ref = {me => panel = me } >
           <div style ={{flex: 1}} > 
-          <Document file="/pdfs/PanoramicTest.pdf">
-              <Page width = {window.innerWidth} pageNumber={panelNumber} />
+          <Document loading = {<div style = {{height: "27.5vw"}}><p>Loading</p></div>} file="/pdfs/PanoramicTest.pdf">
+              <Page loading = {<div style = {{height: "27.5vw"}}><p>Loading</p></div>}  width = {window.innerWidth} pageNumber={panelNumber} />
           </Document>
           </div>
-          <div ref = {me => {testRef = me}} style = {{flex: 1}}>
-          <Arena  app = {app} script = {NumberLineToolScript.init}/>
-          </div>
         </div>
+          <Arena  app = {app} script = {NumberLineToolScript.init}/>
       </div>
     );
 }
