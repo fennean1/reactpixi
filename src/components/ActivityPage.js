@@ -23,6 +23,12 @@ import Divider from "@material-ui/core/Divider";
 import AgendaItem from "./AgendaItem";
 import ActivityItem from "./ActivityItem";
 
+  Pixi.settings.RESOLUTION = 3
+  var app = new Pixi.Application(0, 0, { backgroundColor: 0xffffff, antialias: true });
+  app.static = false
+  app.loaded = false
+
+
 class ActivityPage extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +38,6 @@ class ActivityPage extends Component {
   }
 
   changeTab(event, newValue) {
-    console.log("this is what's passed", newValue);
     this.setState({ tabIndex: newValue });
   }
 

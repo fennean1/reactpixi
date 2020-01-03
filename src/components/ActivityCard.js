@@ -57,29 +57,10 @@ export default function ActivityCard(props) {
   const [expanded, setExpanded] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  function handleExpandClick() {
-    setExpanded(!expanded);
-  }
-
-  function handleClick(event) {
-    setAnchorEl(event.currentTarget);
-  }
-
-  function handleClose() {
-    setAnchorEl(null);
-  }
-
-  function printSteps(){
-    console.log("steps",props.data.steps)
-    return props.data.steps.map(s=>{return <p>{"\u2022 \u0085"+s}</p>})
-  }
-
-
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   const activitypath = '/activities/' + props.data.ID
   const pdf = `${props.PRINTOUTS}` 
-  console.log("activity path",props.PRINTOUTS)
 
   return (
     <div className="card sticky-action">

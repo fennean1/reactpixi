@@ -3,11 +3,8 @@ import ReactDOM from "react-dom";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ActivityCard from "./ActivityCard";
 
-// Activity File Imports
-import * as CapacityTalk from "../activitydata/CapacityTalk.json";
-import * as HundredsActivity from "../activitydata/hundredsgrid/buildingnumbers/building_numbers_data.js"
-import * as JellyBeanActivity from "../activitydata/fractionline/jellybean/jelly_bean_data.js"
-import * as GasActivity from "../activitydata/orderingblocks/numberline/ordering_blocks_number_line_data.js"
+import  {ACTIVITIES} from "../activitydata/activities.js"
+
 class ActivityList extends Component {
   constructor(props) {
     super(props);
@@ -24,10 +21,15 @@ class ActivityList extends Component {
         </div>
         <div className="row">
         < div className="col s6">
-           <ActivityCard data={GasActivity.ACTIVITY} />
+           <ActivityCard data={ACTIVITIES.ordering_blocks_number_line} />
           </div>
           <div className="col s6">
-           <ActivityCard data={HundredsActivity.ACTIVITY} />
+           <ActivityCard data={ACTIVITIES.hundred_grid_building_numbers} />
+          </div>
+        </div>
+        <div className="row">
+        < div className="col s6">
+           <ActivityCard data={ACTIVITIES.jiji_sharing_pizza} />
           </div>
         </div>
       </div>

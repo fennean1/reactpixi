@@ -38,7 +38,7 @@ export const init = (app, setup) => {
   let trashBtn;
   let rotateLeftBtn;
   let rotateRightBtn;
-  let duplicateBtn;
+  let scissorBtn;
   let flipVerticalBtn;
   let flipHorizontalBtn;
   let resetBtn;
@@ -94,13 +94,15 @@ export const init = (app, setup) => {
     constructor(){
       super()
       this.on('pointerdown',this.pointerDown)
-      //this.on('pointerup',this.pointerUp)
+      this.on('pointerup',placeScissors)
       //this.on('pointerupoutside',this.pointerUpOutside)
       this.anchor.set(0.5)
       this.activated = false
       this.interactive = true
       this.texture = OPEN_CIRCLE_TEXTURE
     }
+
+
 
     pointerDown(){
       Nodes.forEach((n)=>{app.stage.addChild(n)})
@@ -147,8 +149,8 @@ export const init = (app, setup) => {
   }
 
   function snap(){
-  
-    if (features.snapping){
+    // Previosly "features.snapping"
+    if (true){
       let vertices = this.getPolyPoints()
       let indexOfNearestNode = getIndexOfNearestVertice(vertices,DX)
       console.log("snapping, indexOfNearestNode",indexOfNearestNode)
@@ -184,16 +186,6 @@ export const init = (app, setup) => {
     }
   }
 
-  function decimalToFrac(dec){
-    for (let i=1;i<100;i++){
-      for (let j=0;j<=i;j++){
-        if (Math.abs(j/i - dec) < 0.001) {
-          return [j,i]
-        }
-      }
-    }
-  }
-
   // Called on resize
   function resize(newFrame,flex){
     // Make sure all layout parameters are up to date.
@@ -202,22 +194,6 @@ export const init = (app, setup) => {
   }
 
 
-  function polygonArea(poly) {
-     let area = 0
-     let xS = poly.map(p=> p[0])
-     let yS = poly.map(p=> p[1])
- 
-      // Calculate value of shoelace formula 
-      let n = poly.length
-      let j = n - 1 
-      for (let i = 0; i < n; i++) { 
-          area = area + (xS[j] + xS[i]) * (yS[j] - yS[i]);
-          j = i;  // j is previous vertex to i 
-      } 
-    
-      // Return absolute value 
-      return Math.abs(area / 2)
-  } 
 
   function updateLayoutParams(newFrame){
     let frame;
@@ -255,6 +231,15 @@ export const init = (app, setup) => {
     */
   }
 
+  function placeScissors(){
+    if (linePoints.length == 2){
+      scissorBtn.x = this.x
+      scissorBtn.y = this.y
+      scissorBtn.alpha = 1
+      app.stage.addChild(scissorBtn)
+    }
+  }
+
   // Loading Script
   function load(){
     app.loaded = true
@@ -267,7 +252,7 @@ export const init = (app, setup) => {
     rotateLeftBtn = new PIXI.Sprite.from(ASSETS.ROTATE_LEFT)
     rotateLeftBtn.width = BTN_DIM
     rotateLeftBtn.height = BTN_DIM
-    rotateLeftBtn.y = 2*BTN_DIM
+    rotateLeftBtn.y = BTN_DIM
     rotateLeftBtn.interactive = true
     app.stage.addChild(rotateLeftBtn)
     rotateLeftBtn.on('pointerdown',()=>{
@@ -297,7 +282,7 @@ export const init = (app, setup) => {
 
     
     resetBtn = new PIXI.Sprite.from(ASSETS.RESET)
-    resetBtn.y = BTN_DIM
+    resetBtn.y = 0
     resetBtn.width = BTN_DIM
     resetBtn.height = BTN_DIM
     resetBtn.interactive = true
@@ -307,22 +292,23 @@ export const init = (app, setup) => {
         pObj.destroy(true)
         app.stage.removeChild(pObj)
       })
+      // Ugh - hate that I have to pass the app just to get the renderer here.
       let newStartingSquare = new DraggablePoly(SQUARE,app)
-      newStartingSquare.x = DX*5
-      newStartingSquare.y = DX*3
+      newStartingSquare.x = DX*3.5
+      newStartingSquare.y = DX*3.5
       newStartingSquare.on('pointerup',snap)
       app.stage.addChild(newStartingSquare)
       polygonObjects = [newStartingSquare]
     })
     
 
-    duplicateBtn = new PIXI.Sprite.from(ASSETS.SCISSORS)
-    duplicateBtn.y = 0
-    duplicateBtn.width = BTN_DIM
-    duplicateBtn.height = BTN_DIM
-    duplicateBtn.interactive = true
-    app.stage.addChild(duplicateBtn)
-    duplicateBtn.on('pointerdown',()=>{
+    scissorBtn = new PIXI.Sprite.from(ASSETS.SCISSORS)
+    scissorBtn.alpha = 0
+    scissorBtn.width = BTN_DIM
+    scissorBtn.height = BTN_DIM
+    scissorBtn.interactive = true
+    app.stage.addChild(scissorBtn)
+    scissorBtn.on('pointerdown',()=>{
       if (linePoints.length != 2){
 
       } else {
@@ -330,17 +316,10 @@ export const init = (app, setup) => {
         linePoints = []
         Nodes.forEach((n)=>{n.texture = OPEN_CIRCLE_TEXTURE})
         stencil.clear()
+        scissorBtn.alpha = 0
       }
     })
 
-
-    trashBtn = new PIXI.Sprite.from(ASSETS.TRASH)
-    trashBtn.width = BTN_DIM*0.8
-    trashBtn.height = BTN_DIM*0.8
-    trashBtn.x = WINDOW_WIDTH - trashBtn.width*1.1
-    trashBtn.y = trashBtn.width*0.1
-    trashBtn.interactive = true
-    app.stage.addChild(trashBtn)
  
     let {x,y,descriptor} = setup.props.features
     setNodes(x,y)
@@ -352,8 +331,8 @@ export const init = (app, setup) => {
     stencil.y = 0
     app.stage.addChild(stencil)
 
-    initialPolygon.x = DX*5
-    initialPolygon.y = DX*3
+    initialPolygon.x = DX*3.5
+    initialPolygon.y = DX*3.5
     app.stage.addChild(initialPolygon)
     polygonObjects.push(initialPolygon)
     initialPolygon.on('pointerup',snap)

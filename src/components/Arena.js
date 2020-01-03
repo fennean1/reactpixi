@@ -5,47 +5,49 @@ import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, Timeline
 
 import * as Pixi from "pixi.js";
 
+
 class Arena extends Component {
   constructor() {
     super();
+    this.topOffset = 0
   }
 
   componentWillUnmount(){
-    // Static apps are not dismantlced upon unmounting.
+    // Static this.props.apps are not dismantlced upon unmounting.
     this.props.app.active = false
-    // If the app is static, don't deconstruct.
+    // If the this.props.app is static, don't deconstruct.
     if (this.props.app.static == false){
-      // Remove assigned app items.
+      // Remove assigned this.props.app items.
       this.props.app.resizable = false
       this.props.app.active = false
       this.props.app.loaded = false
       let children = this.props.app.stage.children
       for (var i = children.length - 1; i >= 0; i--) {	this.props.app.stage.removeChild(children[i]);};
       for (var i = children.length - 1; i >= 0; i--) {	children[i].destroy(true);};
-    } else {
-      this.props.app.active = false
-    }
+    } 
   }
 
   // Resizes the view it it's mounted and resizable. (Old versions don't always have a resize function)
   resize(){
-    // Active means the app is mounted and currently being use (Not in the background)
+    console.log("resizing!!!")
+    // Active means the this.props.app is mounted and currently being use (Not in the background)
+    console.log('active?',this.props.app.active)
     if (this.props.app.active){
+
       // Does this have a resize option?
       if (this.props.app.resizable){
+        console.log("resizable!")
         this.props.app.resize({width: this.gameCanvas.clientWidth,height: this.gameCanvas.clientHeight})
       } else {
-        // Unless the app has an assign resizable function, we just redraw but we reload the script. (This erases everything)
+        // Unless the this.props.app has an assign resizable function, we just redraw but we reload the script. (This erases everything)
+        console.log("redrawing")
         this.redraw()
       }
    }
   }
 
   redraw(){
-    // IDEA: Extend your own "Pixi.Application and put these methods inside of it.
-    // Removes all children and destroys them.
     let children = this.props.app.stage.children
-    this.props.app.stage.y = 0
     for (var i = children.length - 1; i >= 0; i--) {	this.props.app.stage.removeChild(children[i]);};
     for (var i = children.length - 1; i >= 0; i--) {	children[i].destroy(true);};
 
@@ -60,13 +62,23 @@ class Arena extends Component {
     this.props.script(this.props.app, setup);
   }
 
+  
+  shouldComponentUpdate(nextProps,nextState){
+    console.log("should componente update called")
+    if (this.props.panelNumber != nextProps.panelNumber){
+      return false
+    } else {
+      return true
+    }
+  }
+  
 
   componentDidMount() {
 
-      window.onresize = () => this.resize()
+      window.onresize = () => {
+        this.resize()
+      }
 
-      console.log("game canvas height and width",this.gameCanvas.clientHeight,this.gameCanvas.clientWidth)
-      
       this.props.app.active = true
       this.props.app.renderer.backgroundColor = 0xffffff;
       this.props.app.renderer.resolution = 3
@@ -80,8 +92,9 @@ class Arena extends Component {
         props: this.props
       };
       
+      // What's the different between active and loaded?
       if (!this.props.app.loaded){        
-        // One of the scripts offsets y so we have to reset this. (was that the fraction wall?)
+        // One of the scripts offsets y so we have to reset this. (was that the fraction wall?) - maybe we don't need this anymore
         this.props.app.stage.y = 0
         this.props.app.loaded = true
         this.props.script(this.props.app, setup);
@@ -90,10 +103,16 @@ class Arena extends Component {
           this.redraw()
         }
       }
+
   }
 
   render() { 
-    let styleType = this.props.fullscreen ? { height: "100vh",marginTop: 0 } : {height: "50vh"};
+    let styleType = this.props.fullscreen ? { height: "100vh",marginTop: 0 } : {height: this.props.screenstate.height,width: this.props.screenstate.width};
+    
+    if (this.props.app.multilayoutenabled){
+      this.resize()
+    }
+   
     return (
         <div style = {styleType}
           ref={me => this.gameCanvas = me }

@@ -63,11 +63,21 @@ export const init = (app, setup) => {
     return [[0,0],[k/2,k],[0,k]]
   }
 
+  const fourth_square = k => {
+    return [[0,0],[k/2,0],[k/2,k/2],[0,k/2]]
+  }
+
   const eighth_triangle = k => {
     return [[0,0],[k/2,k/2],[0,k/2]]
   }
 
+  const sixth_triangle = k => {
+    return [[0,0],[k/3,k],[0,k]]
+  }
 
+  const third_rectangle = k => {
+    return [[0,0],[k/3,0],[k/3,k],[0,k]]
+  }
 
   let whole1 
   let whole2
@@ -243,20 +253,20 @@ export const init = (app, setup) => {
     let fourthEqTriangle = new PolyGenerator(fourth_eq_triangle(SQUARE_DIM))
     shapes.push(fourthEqTriangle)
 
-    let halfTriangle = new PolyGenerator(half_triangle(SQUARE_DIM))
-    shapes.push(halfTriangle)
-
     let eighthRectangle = new PolyGenerator(eighth_rectangle(SQUARE_DIM))
     shapes.push(eighthRectangle)
 
-    let fourthRectangle = new PolyGenerator(fourth_rectangle(SQUARE_DIM))
-    shapes.push(fourthRectangle)
+    let fourthSquare = new PolyGenerator(fourth_square(SQUARE_DIM))
+    shapes.push(fourthSquare)
 
-    let fourthRightTriangle = new PolyGenerator(fourth_right_triangle(SQUARE_DIM))
-    shapes.push(fourthRightTriangle)
+    let thirdRectangle = new PolyGenerator(third_rectangle(SQUARE_DIM))
+    shapes.push(thirdRectangle)
 
     let eighthTriangle = new PolyGenerator(eighth_triangle(SQUARE_DIM))
     shapes.push(eighthTriangle)
+
+    let sixthTriangle = new PolyGenerator(sixth_triangle(SQUARE_DIM))
+    shapes.push(sixthTriangle)
 
 
     let inc = d12
@@ -328,28 +338,6 @@ export const init = (app, setup) => {
       activePolygon = null 
     })
 
-    /*
-    duplicateBtn = new PIXI.Sprite.from(ASSETS.DUPLICATE)
-    duplicateBtn.y = BTN_DIM
-    duplicateBtn.width = BTN_DIM
-    duplicateBtn.height = BTN_DIM
-    duplicateBtn.interactive = true
-    app.stage.addChild(duplicateBtn)
-    duplicateBtn.on('pointerdown',()=>{
-      if (activePolygon != null){
-        let newPoly = new DraggablePoly(activePolygon.points)
-        polygons.push(newPoly)
-        newPoly.x = activePolygon.x + 40
-        newPoly.y = activePolygon.y + 20
-        newPoly.rotated = activePolygon.rotated
-        newPoly.rotation = activePolygon.rotation 
-        newPoly.scale.x = activePolygon.scale.x 
-        newPoly.scale.y = activePolygon.scale.y
-        app.stage.addChild(newPoly)   
-      }
-    })
-    */
-
 
     trashBtn = new PIXI.Sprite.from(ASSETS.TRASH)
     trashBtn.width = BTN_DIM*0.8
@@ -364,8 +352,6 @@ export const init = (app, setup) => {
       flipVerticalBtn.interactive = false
     }
     fadeAnimation.to([rotateLeftBtn,flipVerticalBtn],1,{alpha: 0,onComplete: onComplete},"+=2")
-
-
   }
 
   // Call load script

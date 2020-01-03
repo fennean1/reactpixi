@@ -31,6 +31,7 @@ import StudentDashboard from "./components/StudentDashboard"
 import TeacherDashboard from "./components/TeacherDashboard"
 import SignIn from "./components/SignIn"
 import Test from "./components/ResizeTest"
+import testCSS from "./components/testCSS"
 
 import { Document, Page,pdfjs } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -68,6 +69,7 @@ const Main = () => (
     <Route exact path="/walltool" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {WallToolScript.init}/>} />
     <Route exact path="/gridcuttingsnap4x4" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 5,y: 5,descriptor: false,snapping: true}} script = {GridCuttingScript.init}/>} />
     <Route exact path="/login" component={SignIn} />
+    <Route exact path="/testCSS" component={testCSS} />
     <Route exact path="/panels" component={Panels} />
     <Route exact path="/manipulatives" component={ManipulativeCarousel} />
     <Route exact path="/studentdashboard" component={StudentDashboard} />

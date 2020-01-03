@@ -116,7 +116,6 @@ export class Fraction extends PIXI.Container {
     this.denominator = d+""
 
     if (this.numerator%this.denominator == 0 && this.makeWhole){
-      console.log("making whole")
       this.numerator = this.numerator/this.denominator
       this.denominator = 1
     }
@@ -136,14 +135,12 @@ export class Fraction extends PIXI.Container {
       this.compression = 1.3
       this.lineCompression = 25
     } else if (this.maxDigits == 1) {
-      console.log("maxDigits == 1")
       this.compression = 1.3
       this.lineCompression = 15
       _w = _w/1.5
     }
 
     if (this.denominator == 1){
-      console.log("setting alphas")
       this.L.alpha = 0
       this.D.alpha = 0
       this.fontSize = _w
@@ -556,19 +553,20 @@ export function getIndexOfNearestVertice(vertices,dxy){
 export class NumberLine extends PIXI.Container {
   constructor(width,height,max){
     super()
-    console.log("thiswidth,thisheight",width,height)
+
     this.max = max 
-    this._height = height
-    this._width = width
     this.showFractions = false 
     this.flipped = false
+    this.everyOther = false
+    this.denominator = 1
+
+    // Layout parameters
+    this._height = height
+    this._width = width
     this.lineThickness = height/10
     this.minorTickHeight = height/2
     this.majorTickHeight = height
     this.dx = this._width/max
-    this.everyOther = false
-    this.denominator = 1
-    console.log("this.width,this.height",this.width,this.height)
 
     this.ticks = []
     this.labels = []
@@ -576,14 +574,11 @@ export class NumberLine extends PIXI.Container {
   }
 
   init = () => {
-    console.log('thislinethickness',this.lineThickness)
      this.line.lineStyle(this.lineThickness,0x000000)
      this.line.x = 0
      this.line.y = 0
      this.line.lineTo(this._width,0)
      this.addChild(this.line)
-
-    console.log("this.max",this.max)
      for (let i = 0;i<100;i++){
          let _x = i > this.max ? this.line.width : this.dx*i 
          let newTick = new PIXI.Graphics()
@@ -612,16 +607,48 @@ export class NumberLine extends PIXI.Container {
         
      }
      this.increment(0)
-  
   }
 
+  redraw(width,height){
+    // Update layout parameters.
+    this._height = height
+    this._width = width
+    this.lineThickness = height/10
+    this.minorTickHeight = height/2
+    this.majorTickHeight = height
+    this.dx = width/this.max
+
+    this.line.clear()
+    this.line.lineStyle(this.lineThickness,0x000000)
+    this.line.x = 0
+    this.line.y = 0
+    this.line.lineTo(this._width,0)
+
+    this.labels.forEach((l,i)=>{
+      let _x = i > this.max ? this.line.width : this.dx*i 
+      l.draw(l.numerator,l.denominator,this.dx/2)
+      l.x = _x - l.width/2
+    })
+
+    this.ticks.forEach((t,j)=>{
+      let _x = j > this.max ? this.line.width : this.dx*j
+      t.clear()
+      t.x = _x
+      t.y = -this.minorTickHeight/2
+      t.lineStyle(this.lineThickness,0x000000)
+      t.lineTo(0,this.minorTickHeight)
+    })
+
+  }
+
+  flexByDx(dx){
+    this.ticks.forEach(t=>{})
+    this.labels.forEach(l=>{})
+  }
 
   increment(inc) {
-      console.log("width,height,x,y",this.width,this.height,this.x,this.y)
-      // Animation go here
       this.max += inc
       this.dx = this._width/this.max
-      console.log("this.max",this.max)
       this.ticks.forEach((e,i)=> {
          if (i > this.max){
              TweenLite.to(e,0.5,{x: this._width})
@@ -633,7 +660,6 @@ export class NumberLine extends PIXI.Container {
       this.labels.forEach((e,i)=> {
        e.alpha = 0
        e.draw(i,this.denominator,this.dx/2)
-       console.log('e.width',e.width)
        if (i > this.max){
            TweenLite.to(e,0.5,{x: this._width})
            TweenLite.to(e,0.5,{alpha: 0})

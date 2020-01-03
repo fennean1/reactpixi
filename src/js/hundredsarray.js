@@ -261,10 +261,10 @@ export const init = (app, setup) => {
     WINDOW_WIDTH = frame.width
     WINDOW_HEIGHT = frame.height
     // Recompute
-    H_W_RATIO= newFrame.height/newFrame.width
+    H_W_RATIO= frame.height/frame.width
     LANDSCAPE = H_W_RATIO < 3/4
-    ARENA_WIDTH = LANDSCAPE ? 4/3*newFrame.height : newFrame.width
-    ARENA_HEIGHT = LANDSCAPE ? newFrame.height : 3/4*newFrame.width
+    ARENA_WIDTH = LANDSCAPE ? 4/3*frame.height : frame.width
+    ARENA_HEIGHT = LANDSCAPE ? frame.height : 3/4*frame.width
     GRID_HEIGHT = 0.75*WINDOW_HEIGHT
     GRID_WIDTH = GRID_HEIGHT
 

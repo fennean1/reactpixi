@@ -7,17 +7,11 @@ import Tab from "@material-ui/core/Tab";
 import Arena from "./Arena";
 import * as FractionWallScript from "../js/newfractionwall.js";
 import * as NumberLineToolScript from "../js/numberlinetool.js";
-import * as GridToolScript from "../js/gridtool.js";
 import * as OrderingToolScript from "../js/orderingtool.js";
-import * as SharingToolScript from "../js/sharingtool.js";
-import * as HundredsArrayScript from "../js/hundredsarray.js";
 import * as FractionBarScript from "../js/fractionbar.js";
 import * as GridNodeScript from "../js/gridnodes.js";
-import * as NumberStripsScript from "../js/numberlinestrips.js";
-import * as CuisenaireToolScript from "../js/cuisenairetool.js";
 import * as FractionStacksScript from "../js/fractionstacks.js";
 import FactorBlocks from "./FactorBlocks";
-import * as CapacityTalkData from "../activitydata/CapacityTalk.json";
 import * as Pixi from "pixi.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
 
