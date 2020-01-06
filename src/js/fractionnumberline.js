@@ -3,7 +3,7 @@ import blueGradient from "../assets/blue-gradient.png";
 import * as CONST from "./const.js";
 import QuestionMark from '../assets/QuestionMark.png'
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
-import {Fraction, Draggable,NumberLine} from "./api.js"
+import {Fraction, Draggable,NumberLine,FractionTag} from "./api.js"
 import { number } from "prop-types";
 const ASSETS = CONST.ASSETS
 
@@ -16,6 +16,7 @@ export const init = (app, setup) => {
   let numberline;
   let background;
   let draggableItem;
+  let tags = []
   
  
 
@@ -85,6 +86,18 @@ export const init = (app, setup) => {
     }
   }
 
+
+  function tagPointerMove(){
+    if (this.touching){
+      let n = Math.round((this.x+this.width - numberline.x) / numberline.dx)
+      let _x = numberline.dx*n
+      this.fraction.draw(n,numberline.denominator,numberline.width/20)
+      this.x = numberline.x + _x - this.width/2
+      this.whiskerTo(Math.abs(this.y-numberline.y))
+    }
+  }
+
+
   // Loading Script
   function load(){
     if (setup.props.features){
@@ -96,13 +109,18 @@ export const init = (app, setup) => {
 
     // Number Line
     numberline = new NumberLine(LINE_WIDTH,WINDOW_HEIGHT/20,20,4)
-    //numberline.hideFractions = true
+    numberline.hideFractions = true
     numberline.init()
     numberline.x = WINDOW_WIDTH/2 - LINE_WIDTH/2
     numberline.y = WINDOW_HEIGHT/2
     app.stage.addChild(numberline)
 
-
+    let firstTag = new FractionTag(1,2,numberline.dx)
+    firstTag.x = numberline.x + firstTag.width/2
+    firstTag.y = numberline.y
+    firstTag.on('pointermove',tagPointerMove)
+    app.stage.addChild(firstTag)
+    tags.push(firstTag)
 
   }
   

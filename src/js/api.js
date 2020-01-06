@@ -72,15 +72,34 @@ export class FractionTag extends PIXI.Container{
     this.lockY = false
     this.tag = new PIXI.Graphics()
     this.fraction = new Fraction(num,den,width)
+    this.whisker = new PIXI.Graphics()
+    this.addChild(this.fraction)
+
+    this.on('pointerdown',this.pointerDown)
+    this.on('pointermove',this.pointerMove)
+    this.on('pointerup',this.pointerUp)
+    this.on('pointerupoutside',this.pointerUpOutside)
+
   }
 
   pointerDown(event){
+    console.log("pointerdown")
     this.touching = true
     this.dragged = false
     this.deltaTouch = {
       x: this.x - event.data.global.x,
       y: this.y - event.data.global.y
     }
+  }
+
+  whiskerTo(length){
+    this.whisker.clear()
+    console.log(this.whisker.x)
+    this.whisker.lineStyle(2,0x000000)
+    this.whisker.lineTo(0,length-this.fraction.height)
+    this.whisker.x = this.width/2
+    this.whisker.y = this.fraction.height
+    this.addChild(this.whisker)
   }
 
   
@@ -633,6 +652,8 @@ export function getIndexOfNearestVertice(vertices,dxy){
 export class NumberLine extends PIXI.Container {
   constructor(width,height,max,denominator){
     super()
+
+    this.onDragEnded = ()=>{}
 
     this.max = max 
     this.hideFractions = false
