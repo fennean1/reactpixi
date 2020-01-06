@@ -692,6 +692,7 @@ export class NumberLine extends PIXI.Container {
     this.pin.on('pointermove',()=>{
       if (this.pin.touching){
         this.set(this.pin.x)
+        this.onDragEnded()
       }
     })
     this.pin.on('pointerup',()=>{

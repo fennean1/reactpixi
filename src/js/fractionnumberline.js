@@ -17,6 +17,7 @@ export const init = (app, setup) => {
   let background;
   let draggableItem;
   let tags = []
+  let activeTag;
   
  
 
@@ -97,6 +98,10 @@ export const init = (app, setup) => {
     }
   }
 
+  function tagPointerDown(){
+    activeTag = this
+  }
+
 
   // Loading Script
   function load(){
@@ -113,14 +118,26 @@ export const init = (app, setup) => {
     numberline.init()
     numberline.x = WINDOW_WIDTH/2 - LINE_WIDTH/2
     numberline.y = WINDOW_HEIGHT/2
+    numberline.onDragEnded = ()=>{
+      for (let t of tags){
+        let _x = t.fraction.numerator/t.fraction.denominator*numberline.whole
+        t.x = numberline.x + _x - t.width/2
+        t.whiskerTo(Math.abs(t.y-numberline.y))
+      }
+    }
     app.stage.addChild(numberline)
 
-    let firstTag = new FractionTag(1,2,numberline.dx)
-    firstTag.x = numberline.x + firstTag.width/2
-    firstTag.y = numberline.y
-    firstTag.on('pointermove',tagPointerMove)
-    app.stage.addChild(firstTag)
-    tags.push(firstTag)
+    for (let i = 0;i<3;i++){
+      let newTag = new FractionTag(1,2,numberline.dx)
+      newTag.x = numberline.x + newTag.width/2
+      newTag.y = numberline.y - 50
+      newTag.on('pointermove',tagPointerMove)
+      newTag.on('pointerdown',tagPointerDown)
+      app.stage.addChild(newTag)
+      tags.push(newTag)
+    }
+
+    activeTag = tags[0]
 
   }
   
