@@ -183,6 +183,7 @@ export const init = (app, setup) => {
 
   function checkRotation(){
       activePolygon = this
+      console.log("just to check")
   }
 
   function snap(){
