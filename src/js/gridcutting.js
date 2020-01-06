@@ -10,6 +10,8 @@ const ASSETS = CONST.ASSETS
 
 export const init = (app, setup) => {
 
+  console.log("SETTING UP AGAIN")
+
   // Layout Parameters
   const LINE_PERCENTAGE = 0.8
   const BLUE_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.GLASS_CIRCLE)
@@ -23,12 +25,20 @@ export const init = (app, setup) => {
   let LANDSCAPE = H_W_RATIO < 3/4
   let ARENA_WIDTH = LANDSCAPE ? 4/3*setup.height : setup.width
   let ARENA_HEIGHT = LANDSCAPE ? setup.height : 3/4*setup.width
-  let SQUARE_DIM = ARENA_HEIGHT*0.6
+  let SQUARE_DIM = ARENA_HEIGHT*0.5
   let SQUARE_AREA = SQUARE_DIM*SQUARE_DIM
+  let OLD_FRAME = {WINDOW_WIDTH,WINDOW_HEIGHT}
   let BTN_DIM = SQUARE_DIM/6
-  let DX;
-  let DY
+  let DX = SQUARE_DIM/(setup.props.features.x-1)
+  let DY = SQUARE_DIM/(setup.props.features.y-1)
+  let OLD_DX = DX
+  let J = Math.floor(WINDOW_HEIGHT/DY)
+  let I = Math.floor(WINDOW_WIDTH/DX)
 
+
+
+
+  let backGround; 
   let stencil;
   let Nodes = []
   let CurrentPolygon = []
@@ -121,7 +131,6 @@ export const init = (app, setup) => {
   }
 
   function cut(){
-    console.log("linepoints",linePoints)
     let rawCopyOfPolygons = polygonObjects.map(pObj=>{
       return pObj.getPolyPoints()})
     // Destroy old ones.
@@ -142,7 +151,35 @@ export const init = (app, setup) => {
     })
   }
 
+  function redrawPolys(oldFrame,newFrame){
+    let rawCopyOfPolygons = polygonObjects.map(pObj=>{
+      return pObj.getPolyPoints()})
 
+    polygonObjects.forEach(pObj=>{
+      pObj.destroy(true)
+      app.stage.removeChild(pObj)
+    })
+    polygonObjects = []
+
+    // Scale Polys
+    let scaledPolygons = []
+    rawCopyOfPolygons.forEach(p=>{
+      console.log("p",p)
+      let newPoly = p.map(pt=>{
+        return [pt[0]/OLD_DX*DX,pt[1]/OLD_DX*DX]
+      })
+      scaledPolygons.push(newPoly)
+    })
+
+
+    scaledPolygons.forEach(p=>{
+      let pObj = new DraggablePoly(p,app)
+      app.stage.addChild(pObj)
+      polygonObjects.push(pObj)
+      pObj.on('pointerup',snap)
+      pObj.on('pointerdown',checkRotation)
+    })
+  }
 
   function checkRotation(){
       activePolygon = this
@@ -168,16 +205,31 @@ export const init = (app, setup) => {
   
   } 
 
-  function setNodes(a,b){
-    DX = SQUARE_DIM/(a-1)
-    DY = SQUARE_DIM/(b-1)
+  function resetNodes(){
     let dim = SQUARE_DIM/15
-    for (let i=0;i<10;i++){
-      for (let j=0;j<10;j++){
+    let k = -1
+    for (let i=0;i<=20;i++){
+      for (let j=0;j<=20;j++){
+        k += 1
+        let n = Nodes[k]
+        n.x = i*DX
+        n.y = j*DX
+        n.w = DX/10
+        n.height = dim
+        n.width = dim
+      }
+    }
+  }
+
+  function setNodes(){
+    
+    let dim = SQUARE_DIM/15
+    for (let i=0;i<=20;i++){
+      for (let j=0;j<=20;j++){
         let n = new Node()
         Nodes.push(n)
         n.x = i*DX
-        n.y = j*DY
+        n.y = j*DX
         n.w = DX/10
         n.height = dim
         n.width = dim
@@ -187,10 +239,16 @@ export const init = (app, setup) => {
   }
 
   // Called on resize
-  function resize(newFrame,flex){
-    // Make sure all layout parameters are up to date.
-    updateLayoutParams(newFrame)
-    app.renderer.resize(WINDOW_WIDTH,WINDOW_HEIGHT)
+  let timeout;
+  function resize(newFrame){
+    clearTimeout(timeout)
+    timeout = setTimeout(()=>{
+      updateLayoutParams(newFrame)
+      app.renderer.resize(WINDOW_WIDTH,WINDOW_HEIGHT)
+      resetNodes()
+      redrawPolys(OLD_FRAME,newFrame)
+      backGround.draw()
+    },1000)
   }
 
 
@@ -202,12 +260,18 @@ export const init = (app, setup) => {
     } else {
       frame = {width: WINDOW_WIDTH,height: WINDOW_HEIGHT}
     }
+    OLD_FRAME = {width: WINDOW_WIDTH,height: WINDOW_HEIGHT}
     WINDOW_WIDTH = frame.width
     WINDOW_HEIGHT = frame.height
     H_W_RATIO = frame.height/frame.width
     LANDSCAPE = H_W_RATIO < 3/4
     ARENA_WIDTH = LANDSCAPE ? 4/3*frame.height : frame.width
     ARENA_HEIGHT = LANDSCAPE ? frame.height : 3/4*frame.width
+    SQUARE_DIM = ARENA_HEIGHT*0.5
+    BTN_DIM = SQUARE_DIM/6
+    OLD_DX = DX
+    DX = SQUARE_DIM/(setup.props.features.x-1)
+    DY = SQUARE_DIM/(setup.props.features.y-1)
   }
 
   function placeButtons(alpha){
@@ -247,7 +311,7 @@ export const init = (app, setup) => {
       features = setup.props.features
     }
 
-    let backGround = new makeBackground()
+    backGround = new makeBackground()
 
     rotateLeftBtn = new PIXI.Sprite.from(ASSETS.ROTATE_LEFT)
     rotateLeftBtn.width = BTN_DIM
@@ -331,8 +395,8 @@ export const init = (app, setup) => {
     stencil.y = 0
     app.stage.addChild(stencil)
 
-    initialPolygon.x = DX*3.5
-    initialPolygon.y = DX*3.5
+    initialPolygon.x = DX*Math.floor(I/3) + initialPolygon.width/2
+    initialPolygon.y = DY*Math.floor(J/3) + initialPolygon.height/2
     app.stage.addChild(initialPolygon)
     polygonObjects.push(initialPolygon)
     initialPolygon.on('pointerup',snap)
@@ -342,5 +406,5 @@ export const init = (app, setup) => {
   load()
   // Not sure where else to put this.
   app.resize = (frame) => resize(frame)
-  app.resizable = false
+  app.resizable = true
 };
