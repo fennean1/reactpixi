@@ -76,7 +76,7 @@ export const init = (app, setup) => {
     }
   }
 
-  const SQUARE = [[0,0],[0,SQUARE_DIM],[SQUARE_DIM,SQUARE_DIM],[SQUARE_DIM,0]]
+  let SQUARE = [[0,0],[0,SQUARE_DIM],[SQUARE_DIM,SQUARE_DIM],[SQUARE_DIM,0]]
   let initialPolygon = new DraggablePoly(SQUARE,app)
   app.stage.addChild(initialPolygon)
 
@@ -203,7 +203,6 @@ export const init = (app, setup) => {
       this.x = i - deltaX
       this.y = j - deltaY
     }
-  
   } 
 
   function resetNodes(){
@@ -249,10 +248,8 @@ export const init = (app, setup) => {
       resetNodes()
       redrawPolys(OLD_FRAME,newFrame)
       backGround.draw()
-    },1000)
+    },100)
   }
-
-
 
   function updateLayoutParams(newFrame){
     let frame;
@@ -358,6 +355,7 @@ export const init = (app, setup) => {
         app.stage.removeChild(pObj)
       })
       // Ugh - hate that I have to pass the app just to get the renderer here.
+      SQUARE = [[0,0],[0,SQUARE_DIM],[SQUARE_DIM,SQUARE_DIM],[SQUARE_DIM,0]]
       let newStartingSquare = new DraggablePoly(SQUARE,app)
       newStartingSquare.x = DX*3.5
       newStartingSquare.y = DX*3.5

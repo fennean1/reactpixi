@@ -64,11 +64,6 @@ export default function LessonPanel(props) {
     if (items) { return items.map((q, i) => { return <p key={i}>{q}<br /><br /></p> }) }
   }
 
-  // So that the correct panel is highlighted on startup
-  useEffect(() => {
-  
-  })
-
 
   function onLoadSuccess({numPages}){
     setNumPanels(numPages)
