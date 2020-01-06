@@ -60,6 +60,51 @@ export function distance(a,b){
   return Math.sqrt(dx2+dy2)
 }
 
+
+export class FractionTag extends PIXI.Container{
+
+  constructor(num,den,width){
+    super()
+    this.dragged = false
+    this.touching = false
+    this.interactive = true
+    this.lockX = false 
+    this.lockY = false
+    this.tag = new PIXI.Graphics()
+    this.fraction = new Fraction(num,den,width)
+  }
+
+  pointerDown(event){
+    this.touching = true
+    this.dragged = false
+    this.deltaTouch = {
+      x: this.x - event.data.global.x,
+      y: this.y - event.data.global.y
+    }
+  }
+
+  
+  pointerMove(event){
+    if (this.touching){
+      if (!this.lockX){
+        this.x = event.data.global.x + this.deltaTouch.x
+      } 
+      if (!this.lockY){
+        this.y = event.data.global.y + this.deltaTouch.y
+      }
+      this.dragged = true
+    }
+  }
+
+  pointerUp(event){
+    this.touching = false
+  }
+  
+  pointerUpOutside(event){
+    this.touching = false
+  }
+}
+
 export class Fraction extends PIXI.Container {
   constructor(n,d,w){
     super()
@@ -73,6 +118,11 @@ export class Fraction extends PIXI.Container {
     this.fontSize = w/(this.maxDigits)
     this.compression = 0.9
     this.lineCompression = 20
+    this.dragged = false
+    this.touching = false
+    this.interactive = true
+    this.lockX = false 
+    this.lockY = false
 
     if (this.maxDigits == 3){
       this.compression = 1.5
@@ -110,6 +160,43 @@ export class Fraction extends PIXI.Container {
     this.draw(n,d,w)
   }
 
+  makeDraggable() {
+    this.on('pointerdown',this.pointerDown)
+    this.on('pointermove',this.pointerMove)
+    this.on('pointerup',this.pointerUp)
+    this.on('pointerupoutside',this.pointerUpOutside)  
+  }
+
+  pointerDown(event){
+    this.touching = true
+    this.dragged = false
+    this.deltaTouch = {
+      x: this.x - event.data.global.x,
+      y: this.y - event.data.global.y
+    }
+  }
+
+  
+  pointerMove(event){
+    if (this.touching){
+      if (!this.lockX){
+        this.x = event.data.global.x + this.deltaTouch.x
+      } 
+      if (!this.lockY){
+        this.y = event.data.global.y + this.deltaTouch.y
+      }
+      this.dragged = true
+    }
+  }
+
+  pointerUp(event){
+    this.touching = false
+  }
+  
+  pointerUpOutside(event){
+    this.touching = false
+  }
+
   draw(n,d,_w){
 
     this.numerator = n+""
@@ -119,7 +206,6 @@ export class Fraction extends PIXI.Container {
       this.numerator = this.numerator/this.denominator
       this.denominator = 1
     }
-
 
     this.numDigits = this.numerator.length
     this.denDigits = this.denominator.length 
@@ -169,7 +255,6 @@ export class Fraction extends PIXI.Container {
     this.L.lineTo(_w,0)
     this.L.y = this.N.height
 
-    //this.pivot.set(this.width/2,this.height/2)
   }
 }
 
@@ -197,7 +282,6 @@ export class DraggablePoly extends Draggable {
     graphics.lineStyle(2,0xffffff)
     graphics.drawPolygon(flatPolygon);
     graphics.endFill();
-
 
     let t = app.renderer.generateTexture(graphics)
  
@@ -231,6 +315,7 @@ export class DraggablePoly extends Draggable {
    
   }
 
+  // Extracts the global location of the points from the hit area.
   getPolyPoints(){
     let w = this.width 
     let h = this.height
@@ -238,7 +323,8 @@ export class DraggablePoly extends Draggable {
     let originY = this.y - this.height/2
     let xS = []
     let yS = []
-    console.log("original points",this.hitArea.points)
+
+    // Extract x and y
     this.hitArea.points.forEach((e,i)=>{
     if (i%2 == 1){
         yS.push(e)
@@ -246,22 +332,22 @@ export class DraggablePoly extends Draggable {
         xS.push(e)
       }
     })
+
+    // Zip x and y
     let polyPoints = xS.map((x,i) =>{
       return [x,yS[i]]
     })
 
-    console.log("massaged points",polyPoints)
-    console.log("this rotation",this.rotation)
+    // Rotate
     polyPoints = polyPoints.map(p=>{return rotatePoint(p[0]-this.width/2,p[1]-this.height/2,this.rotation)})
-    console.log("rotatedpoints",polyPoints)
-
+    // Offset
     polyPoints = polyPoints.map(p=>{return [p[0]+originX+this.width/2,p[1]+originY+this.height/2]})
 
     return polyPoints
   }
 
+  // I don't think I need this here.
   polyPointerUp(){
-    console.log("hit area",this.hitArea.points)
     this.getPolyPoints()
   }
 }
@@ -272,10 +358,6 @@ export class DraggablePoly extends Draggable {
 function appxEq(a,b,t){
   return Math.abs(a-b) < t
 }
-
-
-
-
 
 export function decimalToFrac(dec) {
   for (let i=1;i<100;i++){
@@ -305,7 +387,6 @@ export function polygonArea(poly) {
 } 
 
 // Lines & Polygons
-
 
 export function linesIntersect(l1,l2){
   let m1 = l1.m
@@ -504,7 +585,6 @@ export function splitPolygon(line,poly) {
 
        if (intersect){
          if (pointsApproximatelyEqual([intersect,l.end],5)){
-           console.log("POINTS APPROXIMATELY EQUAL")
          } else {
            primaryPoly.push(intersect)
            secondaryPoly.push(intersect)
@@ -551,14 +631,14 @@ export function getIndexOfNearestVertice(vertices,dxy){
 // Number Line
 
 export class NumberLine extends PIXI.Container {
-  constructor(width,height,max){
+  constructor(width,height,max,denominator){
     super()
 
     this.max = max 
-    this.showFractions = false 
+    this.hideFractions = false
     this.flipped = false
     this.everyOther = false
-    this.denominator = 1
+    this.denominator = denominator
 
     // Layout parameters
     this._height = height
@@ -567,22 +647,72 @@ export class NumberLine extends PIXI.Container {
     this.minorTickHeight = height/2
     this.majorTickHeight = height
     this.dx = this._width/max
+    this.whole = this.dx*this.denominator
 
+
+    // Elements
     this.ticks = []
     this.labels = []
     this.line = new PIXI.Graphics()
+    this.incDenominatorBtn = new PIXI.Sprite.from(CONST.ASSETS.PLUS)
+    this.decDenominatorBtn = new PIXI.Sprite.from(CONST.ASSETS.MINUS)
+    
+    this.incDenominatorBtn.interactive = true
+    this.incDenominatorBtn.on('pointerdown',()=>{this.incDenominator(1)})
+    this.decDenominatorBtn.interactive = true
+    this.decDenominatorBtn.on('pointerdown',()=>{this.incDenominator(-1)})
+
+    const PIN_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.SHARP_PIN)
+    this.pin = new Draggable(PIN_TEXTURE)
+    this.pin.lockY = true
+    this.pin.anchor.set(0.5,-1)
+    this.pin.width = this._height*2
+    this.pin.height = this._height*2
+    this.pin.on('pointermove',()=>{
+      if (this.pin.touching){
+        this.set(this.pin.x)
+      }
+    })
+    this.pin.on('pointerup',()=>{
+      this.incDenominator(0)
+      this.addChild(this.pin)
+    })
+    this.pin.on('pointerupoutside',()=>{
+      this.incDenominator(0)
+      this.addChild(this.pin)
+    })
+   this.addChild(this.pin)
+   this.init()
   }
 
+
   init = () => {
+
+    this.incDenominatorBtn.width = this._height
+    this.incDenominatorBtn.height = this._height
+    this.incDenominatorBtn.x = 1.05*this._width + this.incDenominatorBtn.width
+    this.incDenominatorBtn.y = 0
+    this.incDenominatorBtn.anchor.set(0.5)
+    this.addChild(this.incDenominatorBtn)
+
+    this.decDenominatorBtn.width = this._height
+    this.decDenominatorBtn.height = this._height
+    this.decDenominatorBtn.x = 1.05*this._width
+    this.decDenominatorBtn.y = 0
+    this.decDenominatorBtn.anchor.set(0.5)
+    this.addChild(this.decDenominatorBtn)
+
      this.line.lineStyle(this.lineThickness,0x000000)
      this.line.x = 0
      this.line.y = 0
      this.line.lineTo(this._width,0)
      this.addChild(this.line)
+
      for (let i = 0;i<100;i++){
          let _x = i > this.max ? this.line.width : this.dx*i 
          let newTick = new PIXI.Graphics()
          newTick.lineStyle(this.lineThickness,0x000000)
+
   
          newTick.x = _x
          newTick.y = -this.minorTickHeight/2
@@ -598,25 +728,21 @@ export class NumberLine extends PIXI.Container {
          newLabel.x = _x - newLabel.width/2
         
          newLabel.y = this.line.y + this.minorTickHeight
-         if (this.flipped){
-           newLabel.y = this.line.y - 2*this.minorTickHeight
-           newLabel.anchor.y = 1
-           newLabel.text.anchor.y = 0.5
-         }
          this.addChild(newLabel)
-        
      }
-     this.increment(0)
+     this.pin.x = this.dx*this.denominator
+     this.incDenominator(0)
   }
 
   redraw(width,height){
     // Update layout parameters.
+    this.whole = this.whole/this._width*width
     this._height = height
     this._width = width
     this.lineThickness = height/10
     this.minorTickHeight = height/2
     this.majorTickHeight = height
-    this.dx = width/this.max
+    this.dx = this.whole/this.denominator
 
     this.line.clear()
     this.line.lineStyle(this.lineThickness,0x000000)
@@ -624,50 +750,120 @@ export class NumberLine extends PIXI.Container {
     this.line.y = 0
     this.line.lineTo(this._width,0)
 
+  
+
     this.labels.forEach((l,i)=>{
-      let _x = i > this.max ? this.line.width : this.dx*i 
+      if (this.dx*6 > this._width){
+        l.draw(i,this.denominator,this._width/12)
+      } else if (!this.hideFractions){
+        console.log("greater than width!!!")
+        l.draw(i,this.denominator,this.dx/2)
+      } else {
+        l.draw(i,this.denominator,this._height)
+      }
+      let _x = i*this.dx > this._width  ? this.line.width : this.dx*i 
       l.draw(l.numerator,l.denominator,this.dx/2)
       l.x = _x - l.width/2
     })
 
     this.ticks.forEach((t,j)=>{
-      let _x = j > this.max ? this.line.width : this.dx*j
+      let _x = j*this.dx > this._width ? this.line.width : this.dx*j
       t.clear()
       t.x = _x
       t.y = -this.minorTickHeight/2
       t.lineStyle(this.lineThickness,0x000000)
       t.lineTo(0,this.minorTickHeight)
     })
+    
+
+
+      // Redraw the pin
+      this.pin.x = this.whole
+      this.pin.y = this.dx/2 - this.pin.height/2
+
+      // Redraw Inc Button
+      this.incDenominatorBtn.width = this._height
+      this.incDenominatorBtn.height = this._height
+      this.incDenominatorBtn.x = 1.05*this._width + this.incDenominatorBtn.width
+      this.incDenominatorBtn.y = 0
+
+    
+      // Redraw Dec Button
+      this.decDenominatorBtn.width = this._height
+      this.decDenominatorBtn.height = this._height
+      this.decDenominatorBtn.x = 1.05*this._width
+      this.decDenominatorBtn.y = 0
 
   }
 
-  flexByDx(dx){
-    this.ticks.forEach(t=>{})
-    this.labels.forEach(l=>{})
-  }
 
-  increment(inc) {
-      this.max += inc
-      this.dx = this._width/this.max
-      this.ticks.forEach((e,i)=> {
-         if (i > this.max){
-             TweenLite.to(e,0.5,{x: this._width})
+  set(whole){
+    this.whole = whole
+    this.dx = whole/this.denominator
+    let newMax = Math.round(this.line.width/this.dx)
+    this.max = newMax
+    this.ticks.forEach((e,i)=> {
+      let _x = this.dx*i
+       if (_x > this._width){
+          e.x = this._width
+          e.alpha = 0
+       } else {
+           e.x = _x
+           e.alpha = 1
+       }
+    })
+
+    this.labels.forEach((e,i)=> {
+    let _x = this.dx*i
+     if (_x>this._width){
+         e.x = this._width
+         e.alpha = 0
+     } else {
+         e.x = this.dx*i-e.width/2
+         if (e.denominator != 1 && this.hideFractions){
+           e.alpha = 0
          } else {
-             TweenLite.to(e,0.5,{x: this.dx*i})
+           e.alpha = 1
          }
+     }
+   })
+  }
+
+  incDenominator(inc){
+    console.log("incrementing denominator")
+      this.denominator += inc
+      this.dx = this.whole/this.denominator
+      this.ticks.forEach((e,i)=> {
+        let _x = this.dx*i 
+        if (_x > this._width){
+            TweenLite.to(e,0.5,{x: this._width,alpha: 0})
+        } else {
+            TweenLite.to(e,0.5,{x: this.dx*i,alpha: 1})
+        }
       })
 
       this.labels.forEach((e,i)=> {
-       e.alpha = 0
-       e.draw(i,this.denominator,this.dx/2)
-       if (i > this.max){
-           TweenLite.to(e,0.5,{x: this._width})
-           TweenLite.to(e,0.5,{alpha: 0})
-       } else {
-         console.log('setting to one')
-           TweenLite.to(e,0.5,{x: this.dx*i-e.width/2})
-           TweenLite.to(e,0.5,{alpha: 1})
-       }
+      
+      // HELLO - this is some resizing logic to prevent the numbers from getting too small or two big. Duplicated in "redraw" - consider re
+      if (this.dx*6 > this._width){
+        e.draw(i,this.denominator,this._width/12)
+      } else if (!this.hideFractions){
+        console.log("greater than width!!!")
+        e.draw(i,this.denominator,this.dx/2)
+      } else {
+        e.draw(i,this.denominator,this._height)
+      }
+      let _x = this.dx*i 
+      if (_x > this._width){
+          TweenLite.to(e,0.5,{x: this._width,alpha: 0})
+      } else {
+          TweenLite.to(e,0,{x: this.dx*i-e.width/2})
+          if (e.denominator != 1 && this.hideFractions){
+            e.alpha = 0
+          } else {
+            e.alpha = 1
+          }
+      }
     })
   }
 }

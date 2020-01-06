@@ -31,7 +31,7 @@ import duplicate from "../assets/Duplicate.png"
 import open_circle from "../assets/OpenCircle.png"
 import scissors from "../assets/Scissors.png"
 import closed_circle from "../assets/ClosedCircle.png"
-
+import glass_square from "../assets/GlassSquare.png"
 
 export const ASSETS = {
     BLUE_GRADIENT: blue_gradient,
@@ -66,7 +66,8 @@ export const ASSETS = {
     DUPLICATE: duplicate,
     CLOSED_CIRCLE: closed_circle,
     OPEN_CIRCLE: open_circle,
-    SCISSORS: scissors
+    SCISSORS: scissors,
+    GLASS_SQUARE: glass_square
 }
 
 export const CUISENAIRE_COLORS = {

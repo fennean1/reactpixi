@@ -59,6 +59,7 @@ export default function LessonPanel(props) {
   const [flexDirect, setFlexDirect] = React.useState("row")
 
   function printList(items) {
+    console.log("printlistcalled")
     if (items) { return items.map((q, i) => { return <p key={i}>{q}<br /><br /></p> }) }
   }
 
@@ -113,7 +114,7 @@ export default function LessonPanel(props) {
     <div style={{ height: "100vh", flexDirection: "column", display: "flex" }}>
     <Drawer anchor="right" open={tipsOpen} onClose={() => setTipsOpen(false)}>
       <div className="flow-text" style={{ margin: 10, width: window.innerWidth / 3 }}>
-        {printList(data.SEQUENCE[panelNumber].tips)}
+        {printList(data.SEQUENCE[panelNumber-1])}
       </div>
     </Drawer>
     <div ref={me => menuBar = me} style={{display: 'flex', width: '100%' }} >

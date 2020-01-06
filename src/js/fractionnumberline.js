@@ -10,10 +10,14 @@ const ASSETS = CONST.ASSETS
 
 export const init = (app, setup) => {
  
+  const PIN_TEXTURE = new PIXI.Texture.from(ASSETS.GLASS_SQUARE)
 
   // UI Elements
   let numberline;
   let background;
+  let draggableItem;
+  
+ 
 
   // Global Variables
   let features;
@@ -45,22 +49,25 @@ export const init = (app, setup) => {
     ARENA_HEIGHT = LANDSCAPE ? frame.height : 3/4*frame.width
   }
 
-
   // Called on resize
-  function resize(newFrame,flex){
+  function resize(newFrame){
 
     // Make sure all layout parameters are up to date.
     updateLayoutParams(newFrame)
+
+    // Resize renderer.
     app.renderer.resize(WINDOW_WIDTH,WINDOW_HEIGHT)
+    
+    // Resize Number Line
     numberline.redraw(newFrame.width*0.7,newFrame.height/20)
     numberline.x = WINDOW_WIDTH/2 - LINE_WIDTH/2
     numberline.y = WINDOW_HEIGHT/2
+
+    // Resize Background
     background.draw()
   }
 
-
   // Constructors
-
   function makeBackground(){
     // Setup Background
     this.sprite = new PIXI.Sprite.from(CONST.ASSETS.BLUE_GRADIENT);
@@ -78,8 +85,6 @@ export const init = (app, setup) => {
     }
   }
 
-
-
   // Loading Script
   function load(){
     if (setup.props.features){
@@ -90,18 +95,15 @@ export const init = (app, setup) => {
     background = new makeBackground()
 
     // Number Line
-    numberline = new NumberLine(LINE_WIDTH,WINDOW_HEIGHT/20,20)
-    numberline.denominator = 2
-    numberline.init(20)
+    numberline = new NumberLine(LINE_WIDTH,WINDOW_HEIGHT/20,20,4)
+    //numberline.hideFractions = true
+    numberline.init()
     numberline.x = WINDOW_WIDTH/2 - LINE_WIDTH/2
     numberline.y = WINDOW_HEIGHT/2
     app.stage.addChild(numberline)
 
-    // Stage
-    app.stage.interactive = true  
-    app.stage.on('pointerdown',()=>{
-      numberline.denominator = 1
-      numberline.increment(-5)})
+
+
   }
   
   // Call load script
