@@ -5,7 +5,7 @@ export const ACTIVITY = {
     ICON: null,
     TIME: 30,
     PAGES: 14,
-    TOOL: "/fractionline",
+    TOOL: "/cuttinggridsnap4x4",
     SCRIPT: "CUTTING_GRID",
     FEATURES: {x: 5,y: 5},
     MENU: ['Link One',"Link Two"],

@@ -114,7 +114,7 @@ export const init = (app, setup) => {
 
     // Number Line
     numberline = new NumberLine(LINE_WIDTH,WINDOW_HEIGHT/20,20,4)
-    numberline.hideFractions = true
+    //numberline.hideFractions = true
     numberline.init()
     numberline.x = WINDOW_WIDTH/2 - LINE_WIDTH/2
     numberline.y = WINDOW_HEIGHT/2

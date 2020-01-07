@@ -44,7 +44,9 @@ export default function LessonPanel(props) {
 
   const classes = useStyles();
   const { activity } = props.match.params
+  console.log("activity from params",activity)
   const data = ACTIVITIES[activity]
+  console.log("data from activity",data)
   const [panelNumber, setPanel] = React.useState(1)
   let panel;
   let wholeArea;
@@ -52,7 +54,7 @@ export default function LessonPanel(props) {
   const [tipsOpen, setTipsOpen] = React.useState(false)
   const [showPrompt, setShowPrompt] = React.useState(false)
   const [arenaWidth, setArenaWidth] = React.useState('60vw')
-  const [arenaHeight, setArenaHeight] = React.useState('90vh')
+  const [arenaHeight, setArenaHeight] = React.useState('93vh')
   const [promptHeight, setPromptHeight] = React.useState(null)
   const [promptWidth, setPromptWidth] = React.useState(0.35 * window.innerWidth)
   const [numPanels,setNumPanels] = React.useState(1)

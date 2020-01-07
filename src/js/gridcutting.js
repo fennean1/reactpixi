@@ -5,6 +5,7 @@ import QuestionMark from '../assets/QuestionMark.png'
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
 import {Fraction, Draggable, distance} from "./api.js"
 import {getIndexOfNearestVertice, Line, polygonArea,DraggablePoly,getIntersectionPoints,splitPolygon, splitMultiplePolygons} from "./api.js";
+import { fade } from "@material-ui/core/styles";
 const ASSETS = CONST.ASSETS
 
 
@@ -115,14 +116,19 @@ export const init = (app, setup) => {
 
 
     pointerDown(){
+      rotateLeftBtn.alpha = 0
+      rotateLeftBtn.interactive = false
       Nodes.forEach((n)=>{app.stage.addChild(n)})
       this.texture = CLOSED_CIRCLE_TEXTURE
       if (linePoints.length < 2 ){
         linePoints.push([this.x,this.y])
         stencil.draw(linePoints)
+        app.stage.addChild(stencil)
+        scissorBtn.alpha = 0
       } else {
         linePoints = []
         stencil.clear()
+        scissorBtn.alpha = 0
         Nodes.forEach((n)=>{n.texture = OPEN_CIRCLE_TEXTURE})
         this.texture = CLOSED_CIRCLE_TEXTURE
         linePoints.push([this.x,this.y])
@@ -131,24 +137,31 @@ export const init = (app, setup) => {
   }
 
   function cut(){
+    cutting = true
     let rawCopyOfPolygons = polygonObjects.map(pObj=>{
       return pObj.getPolyPoints()})
     // Destroy old ones.
-    console.log("polygonObjects",polygonObjects)
-    polygonObjects.forEach(pObj=>{
-      pObj.destroy(true)
-      app.stage.removeChild(pObj)
-    })
-    polygonObjects = []
 
     let newPolygons = splitMultiplePolygons(linePoints,rawCopyOfPolygons)
-    newPolygons.forEach(p=>{
-      let pObj = new DraggablePoly(p,app)
-      app.stage.addChild(pObj)
-      polygonObjects.push(pObj)
-      pObj.on('pointerup',snap)
-      pObj.on('pointerdown',checkRotation)
-    })
+
+    if (newPolygons.length != polygonObjects.length) {
+        polygonObjects.forEach(pObj=>{
+          pObj.destroy(true)
+          app.stage.removeChild(pObj)
+        })
+        polygonObjects = []
+
+      
+        newPolygons.forEach(p=>{
+          let pObj = new DraggablePoly(p,app)
+          app.stage.addChild(pObj)
+          polygonObjects.push(pObj)
+          pObj.on('pointerup',polyPointerUp)
+          pObj.on('pointerdown',polyPointerDown)
+          pObj.on('pointermove',polyPointerMove)
+        })
+      setTimeout(()=>{cutting = false},1000)
+   }
   }
 
   function redrawPolys(oldFrame,newFrame){
@@ -176,40 +189,37 @@ export const init = (app, setup) => {
       let pObj = new DraggablePoly(p,app)
       app.stage.addChild(pObj)
       polygonObjects.push(pObj)
-      pObj.on('pointerup',snap)
-      pObj.on('pointerdown',checkRotation)
+      pObj.on('pointerup',polyPointerUp)
+      pObj.on('pointerdown',polyPointerDown)
+      pObj.on('pointermove',polyPointerMove)
     })
   }
 
-  function checkRotation(){
-      activePolygon = this
-      console.log("just to check")
-  }
 
-  function snap(){
+  function snap(poly){
     // Previosly "features.snapping"
     if (true){
-      let vertices = this.getPolyPoints()
+      let vertices = poly.getPolyPoints()
       let indexOfNearestNode = getIndexOfNearestVertice(vertices,DX)
       console.log("snapping, indexOfNearestNode",indexOfNearestNode)
       let first = vertices[indexOfNearestNode]
       let originX = first[0]
       let originY = first[1]
-      let deltaX = originX - this.x 
-      let deltaY = originY - this.y
+      let deltaX = originX - poly.x 
+      let deltaY = originY - poly.y
       console.log("originaXY",originX,originY)
       let i = Math.round(originX/DX)*DX
       let j = Math.round(originY/DY)*DY
-      this.x = i - deltaX
-      this.y = j - deltaY
+      poly.x = i - deltaX
+      poly.y = j - deltaY
     }
   } 
 
   function resetNodes(){
     let dim = SQUARE_DIM/15
     let k = -1
-    for (let i=0;i<=20;i++){
-      for (let j=0;j<=20;j++){
+    for (let i=1;i<=20;i++){
+      for (let j=1;j<=20;j++){
         k += 1
         let n = Nodes[k]
         n.x = i*DX
@@ -217,6 +227,11 @@ export const init = (app, setup) => {
         n.w = DX/10
         n.height = dim
         n.width = dim
+        if (n.x > WINDOW_WIDTH || n.y > 0.95*WINDOW_HEIGHT){
+          n.alpha = 0
+        } else {
+          n.alpha = 1
+        }
       }
     }
   }
@@ -224,8 +239,8 @@ export const init = (app, setup) => {
   function setNodes(){
     
     let dim = SQUARE_DIM/15
-    for (let i=0;i<=20;i++){
-      for (let j=0;j<=20;j++){
+    for (let i=1;i<=20;i++){
+      for (let j=1;j<=20;j++){
         let n = new Node()
         Nodes.push(n)
         n.x = i*DX
@@ -244,6 +259,8 @@ export const init = (app, setup) => {
     clearTimeout(timeout)
     timeout = setTimeout(()=>{
       updateLayoutParams(newFrame)
+      resetBtn.y = BTN_DIM/1.5
+      resetBtn.x = WINDOW_WIDTH - BTN_DIM/1.5
       app.renderer.resize(WINDOW_WIDTH,WINDOW_HEIGHT)
       resetNodes()
       redrawPolys(OLD_FRAME,newFrame)
@@ -273,11 +290,8 @@ export const init = (app, setup) => {
   }
 
   function placeButtons(alpha){
-    /*
     app.stage.addChild(rotateLeftBtn)
-    app.stage.addChild(flipVerticalBtn)
-    rotateLeftBtn.alpha = alpha 
-    flipVerticalBtn.alpha = alpha
+    rotateLeftBtn.alpha = 1
     rotateLeftBtn.interactive = alpha == 0 ? false : true
     flipVerticalBtn.interactive = alpha == 0 ? false : true
 
@@ -285,13 +299,32 @@ export const init = (app, setup) => {
       let width = activePolygon.rotated ? activePolygon.height : activePolygon.width
       let height = activePolygon.rotated ? activePolygon.width : activePolygon.height  
 
-      rotateLeftBtn.x = activePolygon.x - BTN_DIM
+      rotateLeftBtn.x = activePolygon.x - BTN_DIM/2
       rotateLeftBtn.y = activePolygon.y - height/2 - 1.15*BTN_DIM
-      flipVerticalBtn.x = activePolygon.x
-      flipVerticalBtn.y = activePolygon.y - height/2 - 1.15*BTN_DIM
+      //flipVerticalBtn.x = activePolygon.x
+      //flipVerticalBtn.y = activePolygon.y - height/2 - 1.15*BTN_DIM
     }
-    */
   }
+
+  function polyPointerDown(){
+    activePolygon = this
+  }
+
+  function polyPointerMove(){
+    if (this.touching){
+      rotateLeftBtn.alpha = 0
+      rotateLeftBtn.interactive = false
+    }
+  }
+
+  function polyPointerUp(){
+    if (!cutting){
+      fadeAnimation.restart()
+      snap(this)
+      placeButtons()
+    }
+  }
+
 
   function placeScissors(){
     if (linePoints.length == 2){
@@ -314,6 +347,7 @@ export const init = (app, setup) => {
     rotateLeftBtn = new PIXI.Sprite.from(ASSETS.ROTATE_LEFT)
     rotateLeftBtn.width = BTN_DIM
     rotateLeftBtn.height = BTN_DIM
+    rotateLeftBtn.alpha = 0 
     rotateLeftBtn.y = BTN_DIM
     rotateLeftBtn.interactive = true
     app.stage.addChild(rotateLeftBtn)
@@ -344,10 +378,12 @@ export const init = (app, setup) => {
 
     
     resetBtn = new PIXI.Sprite.from(ASSETS.RESET)
-    resetBtn.y = 0
+    resetBtn.y = BTN_DIM/1.5
+    resetBtn.x = WINDOW_WIDTH - BTN_DIM/1.5
     resetBtn.width = BTN_DIM
     resetBtn.height = BTN_DIM
     resetBtn.interactive = true
+    resetBtn.anchor.set(0.5)
     app.stage.addChild(resetBtn)
     resetBtn.on('pointerdown',()=>{
       polygonObjects.forEach(pObj=>{
@@ -357,11 +393,15 @@ export const init = (app, setup) => {
       // Ugh - hate that I have to pass the app just to get the renderer here.
       SQUARE = [[0,0],[0,SQUARE_DIM],[SQUARE_DIM,SQUARE_DIM],[SQUARE_DIM,0]]
       let newStartingSquare = new DraggablePoly(SQUARE,app)
-      newStartingSquare.x = DX*3.5
-      newStartingSquare.y = DX*3.5
-      newStartingSquare.on('pointerup',snap)
+      newStartingSquare.x = DX*Math.floor(I/3) + newStartingSquare.width/2
+      newStartingSquare.y = DY*Math.floor(J/3) + newStartingSquare.height/2
+      activePolygon = newStartingSquare
+      newStartingSquare.on('pointerup',polyPointerUp)
+                       .on('pointerdown',polyPointerDown)
+                       .on('pointermove',polyPointerMove)
       app.stage.addChild(newStartingSquare)
       polygonObjects = [newStartingSquare]
+      rotateLeftBtn.alpha = 0
     })
     
 
@@ -398,7 +438,15 @@ export const init = (app, setup) => {
     initialPolygon.y = DY*Math.floor(J/3) + initialPolygon.height/2
     app.stage.addChild(initialPolygon)
     polygonObjects.push(initialPolygon)
-    initialPolygon.on('pointerup',snap)
+    initialPolygon.on('pointerup',polyPointerUp)
+    initialPolygon.on('pointerdown',polyPointerDown)
+    initialPolygon.on('pointermove',polyPointerMove)
+
+    const onComplete = () => {
+      rotateLeftBtn.interactive = false
+      flipVerticalBtn.interactive = false
+    }
+    fadeAnimation.to([rotateLeftBtn,flipVerticalBtn],1,{alpha: 0,onComplete: onComplete},"+=2")
   }
 
   // Call load script

@@ -1,4 +1,4 @@
-import blue_gradient from "../assets/blue-gradient.png";
+import blue_gradient from "../assets/bordered-gradient.png";
 import plus from "../assets/Plus.png";
 import reset from "../assets/Reset.png"
 import trash from "../assets/Trash.png"
