@@ -70,8 +70,8 @@ export class FractionTag extends PIXI.Container{
     this.interactive = true
     this.lockX = false 
     this.lockY = false
-    this.tag = new PIXI.Graphics()
     this.fraction = new Fraction(num,den,width)
+    this.fraction.includeTag()
     this.whisker = new PIXI.Graphics()
     this.addChild(this.fraction)
 
@@ -142,6 +142,9 @@ export class Fraction extends PIXI.Container {
     this.interactive = true
     this.lockX = false 
     this.lockY = false
+    this.tag = new PIXI.Graphics()
+    this.tag.beginFill(0xffffff)
+    this.tag.drawRoundedRect(0,0,w,2*w,1)
 
     if (this.maxDigits == 3){
       this.compression = 1.5
@@ -179,12 +182,23 @@ export class Fraction extends PIXI.Container {
     this.draw(n,d,w)
   }
 
+  includeTag() {
+      this.addChild(this.tag)
+      this.addChild(this.L)
+    }
+
+  hide(mark){
+    this.N.text = mark
+    this.D.text = ""
+  }
+
   makeDraggable() {
     this.on('pointerdown',this.pointerDown)
     this.on('pointermove',this.pointerMove)
     this.on('pointerup',this.pointerUp)
     this.on('pointerupoutside',this.pointerUpOutside)  
   }
+
 
   pointerDown(event){
     this.touching = true
@@ -273,6 +287,10 @@ export class Fraction extends PIXI.Container {
     this.L.lineStyle(_w/this.lineCompression,0x000000)
     this.L.lineTo(_w,0)
     this.L.y = this.N.height
+
+    this.tag.clear()
+    this.tag.beginFill(0xffffff)
+    this.tag.drawRoundedRect(0,0,this.width,this.height,4)
 
   }
 }
@@ -653,7 +671,7 @@ export class NumberLine extends PIXI.Container {
   constructor(width,height,max,denominator){
     super()
 
-    this.onDragEnded = ()=>{}
+    this.onPinDrag = ()=>{}
 
     this.max = max 
     this.hideFractions = false
@@ -665,7 +683,7 @@ export class NumberLine extends PIXI.Container {
     this._height = height
     this._width = width
     this.lineThickness = height/10
-    this.minorTickHeight = height/2
+    this.minorTickHeight = height/1.25
     this.majorTickHeight = height
     this.dx = this._width/max
     this.whole = this.dx*this.denominator
@@ -692,7 +710,7 @@ export class NumberLine extends PIXI.Container {
     this.pin.on('pointermove',()=>{
       if (this.pin.touching){
         this.set(this.pin.x)
-        this.onDragEnded()
+        this.onPinDrag()
       }
     })
     this.pin.on('pointerup',()=>{
@@ -852,13 +870,12 @@ export class NumberLine extends PIXI.Container {
   }
 
   incDenominator(inc){
-    console.log("incrementing denominator")
       this.denominator += inc
       this.dx = this.whole/this.denominator
       this.ticks.forEach((e,i)=> {
         let _x = this.dx*i 
         if (_x > this._width){
-            TweenLite.to(e,0.5,{x: this._width,alpha: 0})
+            TweenLite.to(e,0,{x: this._width,alpha: 0})
         } else {
             TweenLite.to(e,0.5,{x: this.dx*i,alpha: 1})
         }
@@ -867,8 +884,8 @@ export class NumberLine extends PIXI.Container {
       this.labels.forEach((e,i)=> {
       
       // HELLO - this is some resizing logic to prevent the numbers from getting too small or two big. Duplicated in "redraw" - consider re
-      if (this.dx*6 > this._width){
-        e.draw(i,this.denominator,this._width/12)
+      if (this.dx*10 > this._width){
+        e.draw(i,this.denominator,this._width/20)
       } else if (!this.hideFractions){
         console.log("greater than width!!!")
         e.draw(i,this.denominator,this.dx/2)

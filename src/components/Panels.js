@@ -44,13 +44,14 @@ export default function LessonPanel(props) {
 
   const classes = useStyles();
   const { activity } = props.match.params
-  console.log("activity from params",activity)
   const data = ACTIVITIES[activity]
-  console.log("data from activity",data)
   const [panelNumber, setPanel] = React.useState(1)
+  const [promptOnly,setPromptState] = React.useState(false)
+  const [curtainWidth,setCurtainWidth] = React.useState(window.innerHeight*0.9)
   let panel;
+  let arena;
+  let curtain;
   let wholeArea;
-  let menuBar;
   const [tipsOpen, setTipsOpen] = React.useState(false)
   const [showPrompt, setShowPrompt] = React.useState(false)
   const [arenaWidth, setArenaWidth] = React.useState('60vw')
@@ -62,30 +63,39 @@ export default function LessonPanel(props) {
   const [flexDirect, setFlexDirect] = React.useState("row")
 
   function printList(items) {
-    console.log("printlistcalled")
     if (items) { return items.map((q, i) => { return <p key={i}>{q}<br /><br /></p> }) }
   }
-
 
   function onLoadSuccess({numPages}){
     setNumPanels(numPages)
   }
 
+  useEffect(()=>{
+    console.log("USE EFFECT")
+    TweenLite.to(curtain,0,{x: window.innerWidth/2 - window.innerHeight/2,y: 50,alpha: 0,zIndex: -1})
+  },[])
+
   function toggleFullscreen(){
-    console.log("show prompt going in",showPrompt)
     var tl = new TimelineMax()
     tl.to(wholeArea,0,{alpha: 0})
       .to(wholeArea,0.3,{alpha: 0})
-      .to(wholeArea,0.2,{alpha: 1})
     if (showPrompt){
-      console.log("showing prompt")
       setArenaWidth("60vw")
-      setPromptWidth(window.innerWidth*0.35)
+      setPromptWidth(0.35*window.innerWidth)
+      setPromptHeight(null)
+      if (promptOnly){
+        TweenLite.to(curtain,1,{alpha: 1})
+        TweenLite.to(wholeArea,0.4,{alpha: 0})
+      } else {
+        TweenLite.to(wholeArea,0.4,{alpha: 1})
+        TweenLite.to(curtain,0.4,{alpha: 0})
+      }
     } else {
-      console.log("hiding prompt")
+      TweenLite.to(curtain,0,{x: window.innerWidth/2 - window.innerHeight/2,y: 50,alpha: 0,zIndex: -1})
       setArenaWidth("100vw")
       setPromptWidth(1)
       setPromptHeight(null)
+      TweenLite.to(wholeArea,0.4,{alpha: 1})
     }
     setTimeout(()=>{setShowPrompt(!showPrompt)},50)
   }
@@ -94,6 +104,21 @@ export default function LessonPanel(props) {
 
   function animate(k) {
     var tl = new TimelineMax()
+    var tl2 = new TimelineMax()
+
+    if (data.SEQUENCE[panelNumber-1+k][0] == "Tool"){
+      tl2.to(wholeArea,0.5,{alpha: 0})
+         .to (wholeArea,0.5,{alpha: 0})
+         .to(curtain,0.5,{alpha: 1})
+       setPromptState(true)
+    } else {
+      tl2.to(curtain,0.5,{alpha: 0,zIndex: -1})
+        .to(wholeArea,0.5,{alpha: 1})
+      setPromptWidth(window.innerWidth*0.35)
+      setArenaWidth("60vw")
+      setPromptState(false)
+    }
+
     if (k == -1) {
       tl.to(panel, 0.5, { alpha: 0, y: window.innerHeight / 3 })
         .to(panel, 0, { y: -window.innerHeight / 3 })
@@ -115,7 +140,7 @@ export default function LessonPanel(props) {
         {printList(data.SEQUENCE[panelNumber-1])}
       </div>
     </Drawer>
-    <div ref={me => menuBar = me} style={{display: 'flex', width: '100%' }} >
+    <div style={{display: 'flex', width: '100%' }} >
       <div style={{ flex: 1, margin: 3 }}>
         <a onClick={() => toggleFullscreen()} className="btn orange left"><i className="material-icons">view_quilt</i></a>
       </div>
@@ -134,10 +159,15 @@ export default function LessonPanel(props) {
          <Page height={promptHeight} width={promptWidth} pageNumber={panelNumber} />
         </Document>
       </div>
-      <div style={{ flex: 1 }}>
+      <div ref = {me=>{arena = me}} style={{ flex: 1 }}>
         <Arena key={key} panelNumber = {panelNumber} features={data.FEATURES} fullscreen={false} screenstate={{ width: arenaWidth, height: arenaHeight }} app={App} script={SCRIPTS[data.SCRIPT]} />
       </div>
     </div>
+    <div style={{ position:'absolute'}} ref={me => curtain = me}>
+        <Document file={data.PDF} onLoadSuccess = {onLoadSuccess}>
+         <Page height={window.innerHeight} pageNumber={panelNumber} />
+        </Document>
+      </div>
     </div >
   );
 } 

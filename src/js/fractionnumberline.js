@@ -17,12 +17,14 @@ export const init = (app, setup) => {
   let background;
   let draggableItem;
   let tags = []
-  let activeTag;
+  let hideBtn;
+  let activeTag
   
  
 
   // Global Variables
   let features;
+  let hidden = false
 
 
   // Layout Parameters
@@ -92,14 +94,30 @@ export const init = (app, setup) => {
     if (this.touching){
       let n = Math.round((this.x+this.width - numberline.x) / numberline.dx)
       let _x = numberline.dx*n
-      this.fraction.draw(n,numberline.denominator,numberline.width/20)
-      this.x = numberline.x + _x - this.width/2
+      if (hidden){
+        this.fraction.hide(this.label)
+      } else {
+        this.fraction.hide("?")
+      }
       this.whiskerTo(Math.abs(this.y-numberline.y))
     }
   }
 
   function tagPointerDown(){
     activeTag = this
+  }
+
+  function tagPointerUp(){
+    let n = Math.round((this.x+this.width - numberline.x) / numberline.dx)
+    if (!hidden) {
+      this.fraction.draw(n,numberline.denominator,numberline.width/20)
+    } else {
+      this.fraction.draw(n,numberline.denominator,numberline.width/20)
+      this.fraction.hide(this.label)
+    }
+    let _x = numberline.dx*n
+    this.x = numberline.x + _x - this.width/2
+    this.whiskerTo(Math.abs(this.y-numberline.y))
   }
 
 
@@ -112,13 +130,31 @@ export const init = (app, setup) => {
     // Background
     background = new makeBackground()
 
+
+    hideBtn = new PIXI.Sprite.from(ASSETS.HIDE)
+    hideBtn.width = 70
+    hideBtn.height = 50
+    hideBtn.interactive = true
+    app.stage.addChild(hideBtn)
+    hideBtn.on('pointerdown',()=>{
+      for (let t of tags){
+        if (hidden){
+          t.fraction.draw(t.fraction.numerator,t.fraction.denominator,numberline.width/20)
+        } else {
+          t.fraction.hide(t.label)
+        }
+      }
+      hidden = !hidden
+    })
+
+
     // Number Line
     numberline = new NumberLine(LINE_WIDTH,WINDOW_HEIGHT/20,20,4)
-    //numberline.hideFractions = true
+    numberline.hideFractions = true
     numberline.init()
     numberline.x = WINDOW_WIDTH/2 - LINE_WIDTH/2
     numberline.y = WINDOW_HEIGHT/2
-    numberline.onDragEnded = ()=>{
+    numberline.onPinDrag = ()=>{
       for (let t of tags){
         let _x = t.fraction.numerator/t.fraction.denominator*numberline.whole
         t.x = numberline.x + _x - t.width/2
@@ -126,13 +162,16 @@ export const init = (app, setup) => {
       }
     }
     app.stage.addChild(numberline)
-
+    let labels = ['A','B','C']
     for (let i = 0;i<3;i++){
       let newTag = new FractionTag(1,2,numberline.dx)
       newTag.x = numberline.x + newTag.width/2
       newTag.y = numberline.y - 50
       newTag.on('pointermove',tagPointerMove)
       newTag.on('pointerdown',tagPointerDown)
+      newTag.on('pointerup',tagPointerUp)
+      newTag.on('pointerupoutside',tagPointerUp)
+      newTag.label = labels[i]
       app.stage.addChild(newTag)
       tags.push(newTag)
     }

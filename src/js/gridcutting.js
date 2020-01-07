@@ -177,7 +177,6 @@ export const init = (app, setup) => {
     // Scale Polys
     let scaledPolygons = []
     rawCopyOfPolygons.forEach(p=>{
-      console.log("p",p)
       let newPoly = p.map(pt=>{
         return [pt[0]/OLD_DX*DX,pt[1]/OLD_DX*DX]
       })

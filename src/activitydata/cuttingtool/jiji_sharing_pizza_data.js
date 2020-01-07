@@ -1,7 +1,7 @@
 
 export const ACTIVITY = {
     ID: "jiji_sharing_pizza",
-    TITLE : "Placing Fractions on a Number Line",
+    TITLE : "Pizza Sharing",
     ICON: null,
     TIME: 30,
     PAGES: 14,
@@ -12,6 +12,7 @@ export const ACTIVITY = {
     SEQUENCE: [
         ["Follow the prompt."],
         [
+        "Tool",
         "What you can do with this tool?",
         "How much of the ‘whole’ square is left after all your cuts?",
         "What part of the ‘whole’ square is this piece…?",
