@@ -9,31 +9,56 @@ const sequence =
     },
     {
       tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       tips: ["Follow the prompt."],
       screenType: SCREEN_TYPES.FULL_PROMPT,
-    }]
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.PANORAMIC,
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.FULL_PROMPT,
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.FULL_PROMPT,
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.FULL_PROMPT,
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.FULL_PROMPT,
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.FULL_PROMPT,
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.PANORAMIC,
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.PANORAMIC,
+    },
+    ]
 
 
 export const ACTIVITY = {
-    ID: "jiji_sharing_pizza",
-    TITLE : "Pizza Sharing",
-    SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
+    ID: "open_number_lines",
+    TITLE : "Open Number Lines",
+    SCREEN_TYPE: SCREEN_TYPES.PANORAMIC,
     ICON: null,
     TIME: 30,
-    PAGES: 14,
-    TOOL: "/cuttinggridsnap4x4",
-    SCRIPT: "CUTTING_GRID",
+    PAGES: 11,
+    TOOL: "/fractionnumberline",
+    SCRIPT: "FRACTION_NUMBER_LINE",
     FEATURES: {x: 5,y: 5},
     MENU: ['Link One',"Link Two"],
     SEQUENCE: sequence,
@@ -44,7 +69,7 @@ export const ACTIVITY = {
     STANDARD_DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
-    PDF: "/pdfs/JijiSharingPizza.pdf"
+    PDF: "/pdfs/OpenNumberLines.pdf"
   }
 
 

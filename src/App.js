@@ -24,7 +24,8 @@ import * as NewFractionStacksScript from "./js/newfractionwall.js";
 import * as WallToolScript from "./js/walltool.js";
 import * as GridCuttingScript from "./js/gridcutting.js";
 import * as FractionNumberLineScript from "./js/fractionnumberline.js";
-import * as CapacityTalkData from "./activitydata/CapacityTalk.json";
+import * as PlacingNumbersScript from "./js/placingnumbers.js";
+import * as BeakerGameScript from "./js/beakergame.js";
 import ActivityList from './components/ActivityList'
 import ManipulativeCarousel from "./components/ManipulativeCarousel"
 import StudentDashboard from "./components/StudentDashboard"
@@ -67,11 +68,12 @@ const Main = () => (
     <Route exact path="/cutter" component={() => <Arena app = {app} fullscreen = {true}  script = {CutterTestScript.init}/>} />
     <Route exact path="/gridcutting" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false}} script = {GridCuttingScript.init}/>} />
     <Route exact path="/gridcuttingsnap" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {GridCuttingScript.init}/>} />
+    <Route exact path="/placingnumbers" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {PlacingNumbersScript.init}/>} />
+    <Route exact path="/estimation" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {BeakerGameScript.init}/>} />
     <Route exact path="/walltool" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {WallToolScript.init}/>} />
     <Route exact path="/gridcuttingsnap4x4" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 5,y: 5,descriptor: false,snapping: true}} script = {GridCuttingScript.init}/>} />
     <Route exact path="/login" component={SignIn} />
     <Route exact path="/testCSS" component={testCSS} />
-    <Route exact path="/panels" component={Panels} />
     <Route exact path="/manipulatives" component={ManipulativeCarousel} />
     <Route exact path="/studentdashboard" component={StudentDashboard} />
     <Route path="/teacherdashboard" component={TeacherDashboard} />

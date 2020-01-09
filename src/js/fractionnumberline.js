@@ -89,17 +89,14 @@ export const init = (app, setup) => {
     }
   }
 
-
   function tagPointerMove(){
     if (this.touching){
-      let n = Math.round((this.x+this.width - numberline.x) / numberline.dx)
-      let _x = numberline.dx*n
-      if (hidden){
+      this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y)
+      if (this.y < numberline.y){
         this.fraction.hide(this.label)
-      } else {
-        this.fraction.hide("?")
-      }
-      this.whiskerTo(Math.abs(this.y-numberline.y))
+      } 
+      this.fraction.N.alpha = 0
+      this.fraction.D.alpha = 0
     }
   }
 
@@ -108,7 +105,9 @@ export const init = (app, setup) => {
   }
 
   function tagPointerUp(){
-    let n = Math.round((this.x+this.width - numberline.x) / numberline.dx)
+    this.fraction.N.alpha = 1
+    this.fraction.D.alpha = 1
+    let n = Math.round((this.x+this.width/2 - numberline.x) / numberline.dx)
     if (!hidden) {
       this.fraction.draw(n,numberline.denominator,numberline.width/20)
     } else {
@@ -117,7 +116,7 @@ export const init = (app, setup) => {
     }
     let _x = numberline.dx*n
     this.x = numberline.x + _x - this.width/2
-    this.whiskerTo(Math.abs(this.y-numberline.y))
+    this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y)
   }
 
 
@@ -135,7 +134,7 @@ export const init = (app, setup) => {
     hideBtn.width = 70
     hideBtn.height = 50
     hideBtn.interactive = true
-    app.stage.addChild(hideBtn)
+    //app.stage.addChild(hideBtn)
     hideBtn.on('pointerdown',()=>{
       for (let t of tags){
         if (hidden){
@@ -158,7 +157,7 @@ export const init = (app, setup) => {
       for (let t of tags){
         let _x = t.fraction.numerator/t.fraction.denominator*numberline.whole
         t.x = numberline.x + _x - t.width/2
-        t.whiskerTo(Math.abs(t.y-numberline.y))
+        t.whiskerTo(Math.abs(t.y-numberline.y),numberline.y)
       }
     }
     app.stage.addChild(numberline)

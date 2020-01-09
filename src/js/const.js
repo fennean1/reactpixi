@@ -33,6 +33,7 @@ import scissors from "../assets/Scissors.png"
 import closed_circle from "../assets/ClosedCircle.png"
 import glass_square from "../assets/GlassSquare.png"
 import hide from  "../assets/Hide.png"
+import side_jiji from "../assets/side-jiji.png"
 
 export const ASSETS = {
     BLUE_GRADIENT: blue_gradient,
@@ -70,6 +71,7 @@ export const ASSETS = {
     SCISSORS: scissors,
     GLASS_SQUARE: glass_square,
     HIDE: hide,    
+    SIDE_JIJI: side_jiji
 }
 
 export const CUISENAIRE_COLORS = {
@@ -116,20 +118,3 @@ export const FRACTION_BAR_COLORS = {
   "12": 0xff77e8
 };
   
-
-/*
-
-const ACTIVITY = {
-  1: {
-    TEACHER_COMPONENT: 
-    QUICK PROMPT:
-    COMPONENT: <Arena props />
-  }
-  2: {
-    TEACHER_PANEL:
-    QUICK PROMPT:
-    COMPONENT: null (same as last one)
-  }
-}
-
-*/

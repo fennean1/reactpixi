@@ -73,6 +73,7 @@ export class FractionTag extends PIXI.Container{
     this.fraction = new Fraction(num,den,width)
     this.fraction.includeTag()
     this.whisker = new PIXI.Graphics()
+    this.addChild(this.whisker)
     this.addChild(this.fraction)
 
     this.on('pointerdown',this.pointerDown)
@@ -92,14 +93,20 @@ export class FractionTag extends PIXI.Container{
     }
   }
 
-  whiskerTo(length){
+  whiskerTo(length,numberlineY){
     this.whisker.clear()
-    console.log(this.whisker.x)
-    this.whisker.lineStyle(2,0x000000)
-    this.whisker.lineTo(0,length-this.fraction.height)
-    this.whisker.x = this.width/2
-    this.whisker.y = this.fraction.height
-    this.addChild(this.whisker)
+    if (this.y < numberlineY){
+      this.fraction.hide(this.label)
+      this.whisker.lineStyle(2,0x000000)
+      this.whisker.lineTo(0,length-this.fraction.height)
+      this.whisker.x = this.width/2
+      this.whisker.y = this.fraction.height
+    } else {
+      this.whisker.lineStyle(2,0x000000)
+      this.whisker.lineTo(0,-length)
+      this.whisker.x = this.width/2
+      this.whisker.y = 0
+    }
   }
 
   
