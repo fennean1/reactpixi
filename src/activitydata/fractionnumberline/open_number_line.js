@@ -9,15 +9,15 @@ const sequence =
     },
     {
       tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.PANORAMIC,
     },
     {
       tips: ["Follow the prompt."],
@@ -29,15 +29,7 @@ const sequence =
     },
     {
       tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       tips: ["Follow the prompt."],
@@ -45,11 +37,15 @@ const sequence =
     },
     {
       tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+      screenType: SCREEN_TYPES.PANORAMIC,
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.PANORAMIC,
     }]
 
 
