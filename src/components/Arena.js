@@ -66,7 +66,9 @@ class Arena extends Component {
   shouldComponentUpdate(nextProps,nextState){
     console.log("should componente update called")
     if (this.props.panelNumber != nextProps.panelNumber){
-      console.log("componenet should not update")
+      console.log("componenet should not")
+      return false
+    } else if (this.props.tipsOpen != nextProps.tipsOpen) {
       return false
     } else {
       return true

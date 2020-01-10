@@ -220,7 +220,7 @@ export default function LessonPanel(props) {
         </Document>
       </div>
       <div ref = {me=>{arena = me}} style={{ flex: 1 }}>
-        <Arena key={key} currentPanel = {data.SEQUENCE[(panelNumber-1)%numPanels]} panelNumber = {panelNumber} features={data.FEATURES} fullscreen={false} screenstate={{ width: arenaWidth, height: arenaHeight }} app={App} script={SCRIPTS[data.SCRIPT]} />
+        <Arena key={key} tipsOpen = {tipsOpen} currentPanel = {data.SEQUENCE[(panelNumber-1)%numPanels]} panelNumber = {panelNumber} features={data.FEATURES} fullscreen={false} screenstate={{ width: arenaWidth, height: arenaHeight }} app={App} script={SCRIPTS[data.SCRIPT]} />
       </div>
     </div>
     </div >
