@@ -41,9 +41,17 @@ export const init = (app, setup) => {
   let flipVerticalBtn;
   let flipHorizontalBtn;
   let resetBtn;
+  let square;
 
   let fadeAnimation = new TimelineLite({paused: true})
  
+  square = new PIXI.Graphics()
+  square.lineStyle(3,0xffffff)
+  square.drawRoundedRect(0,0,SQUARE_DIM,SQUARE_DIM,1)
+  square.x = WINDOW_WIDTH/2 - SQUARE_DIM/2
+  square.y = WINDOW_HEIGHT/2 - SQUARE_DIM/2
+
+
   function makeBackground(){
     // Setup Background
     this.sprite = new PIXI.Sprite.from(CONST.ASSETS.BLUE_GRADIENT);
@@ -58,6 +66,16 @@ export const init = (app, setup) => {
     this.draw = () => {
         this.sprite.width = WINDOW_WIDTH
         this.sprite.height = WINDOW_HEIGHT
+    }
+  }
+
+  class Square extends PIXI.Graphics {
+    constructor(){
+      square.lineStyle(3,0xffffff)
+      square.drawRoundedRect(0,0,SQUARE_DIM,SQUARE_DIM,1)
+      square.x = WINDOW_WIDTH/2 - SQUARE_DIM/2
+      square.y = WINDOW_HEIGHT/2 - SQUARE_DIM/2
+      super()
     }
   }
 
@@ -608,6 +626,8 @@ export const init = (app, setup) => {
 
 
     //fadeAnimation.play()
+
+    app.stage.addChild(square)
 
   }
 

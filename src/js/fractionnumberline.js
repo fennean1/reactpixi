@@ -92,9 +92,6 @@ export const init = (app, setup) => {
   function tagPointerMove(){
     if (this.touching){
       this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y)
-      if (this.y < numberline.y){
-        this.fraction.hide(this.label)
-      } 
       this.fraction.N.alpha = 0
       this.fraction.D.alpha = 0
     }
@@ -108,12 +105,9 @@ export const init = (app, setup) => {
     this.fraction.N.alpha = 1
     this.fraction.D.alpha = 1
     let n = Math.round((this.x+this.width/2 - numberline.x) / numberline.dx)
-    if (!hidden) {
-      this.fraction.draw(n,numberline.denominator,numberline.width/20)
-    } else {
-      this.fraction.draw(n,numberline.denominator,numberline.width/20)
-      this.fraction.hide(this.label)
-    }
+    console.log("DRAWING")
+    this.fraction.draw(n,numberline.denominator,numberline.width/20)
+    console.log("N,D,text",this.fraction.N.text,this.fraction.D.text)
     let _x = numberline.dx*n
     this.x = numberline.x + _x - this.width/2
     this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y)
@@ -161,9 +155,9 @@ export const init = (app, setup) => {
       }
     }
     app.stage.addChild(numberline)
-    let labels = ['A','B','C']
+    let labels = ['?','?','?']
     for (let i = 0;i<3;i++){
-      let newTag = new FractionTag(1,2,numberline.dx)
+      let newTag = new FractionTag(1,2,2*numberline.dx)
       newTag.x = numberline.x + newTag.width/2
       newTag.y = numberline.y - 50
       newTag.on('pointermove',tagPointerMove)

@@ -96,12 +96,12 @@ export class FractionTag extends PIXI.Container{
   whiskerTo(length,numberlineY){
     this.whisker.clear()
     if (this.y < numberlineY){
-      this.fraction.hide(this.label)
       this.whisker.lineStyle(2,0x000000)
       this.whisker.lineTo(0,length-this.fraction.height)
       this.whisker.x = this.width/2
       this.whisker.y = this.fraction.height
     } else {
+      this.fraction.hide(this.label)
       this.whisker.lineStyle(2,0x000000)
       this.whisker.lineTo(0,-length)
       this.whisker.x = this.width/2
@@ -195,8 +195,8 @@ export class Fraction extends PIXI.Container {
     }
 
   hide(mark){
-    this.N.text = mark
-    this.D.text = ""
+    this.N.text = "?"
+    this.D.text = "?"
   }
 
   makeDraggable() {
@@ -699,6 +699,7 @@ export class NumberLine extends PIXI.Container {
     // Elements
     this.ticks = []
     this.labels = []
+
     this.line = new PIXI.Graphics()
     this.incDenominatorBtn = new PIXI.Sprite.from(CONST.ASSETS.PLUS)
     this.decDenominatorBtn = new PIXI.Sprite.from(CONST.ASSETS.MINUS)
