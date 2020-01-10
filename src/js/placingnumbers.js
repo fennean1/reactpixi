@@ -27,6 +27,7 @@ let ARENA_HEIGHT = LANDSCAPE ? setup.height : 3/4*setup.width
 // Problem que setup
 let PROBLEM_QUE;
 const ACTIVITY_ID = setup.props.currentPanel.puzzle ? setup.props.currentPanel.puzzle : 'DEFAULT'
+console.log("Activity ID",ACTIVITY_ID)
 PROBLEM_QUE = PROBLEMS.NUMBERLINE_ACTIVITIES[ACTIVITY_ID];
 let numberOfProblems = PROBLEM_QUE.length;
 let PROBLEM_INDEX = 0;

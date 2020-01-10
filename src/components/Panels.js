@@ -70,6 +70,7 @@ export default function LessonPanel(props) {
   }
 
   function onLoadSuccess({numPages}){
+    console.log("num pages")
     setNumPanels(numPages)
   }
 
@@ -154,6 +155,13 @@ export default function LessonPanel(props) {
     backwardPanoramic.to(panel, 0.5, { alpha: 0, x: -window.innerHeight / 3 })
                     .to(panel, 0, { x: window.innerWidth / 3 })
                     .to(panel, 1, { alpha: 1,x: 0 })
+
+      let currentPanel;
+      if (k == -1){
+        currentPanel =  panelNumber > 1 ? panelNumber - 1 : numPanels
+      } else {
+        currentPanel = panelNumber % numPanels+1
+      }
 
 
       const OLD_TYPE = data.SEQUENCE[(panelNumber-1)%numPanels].screenType

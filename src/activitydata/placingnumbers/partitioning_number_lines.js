@@ -5,6 +5,7 @@ const sequence =
     [{
       screenType: SCREEN_TYPES.FULL_PROMPT,
       tips: ["Follow the prompt."],
+      puzzle: "DAY_ONE_WARM_UP"
     },
     {
       tips: ["Follow the prompt."],
@@ -13,44 +14,32 @@ const sequence =
     {
       tips: ["Follow the prompt."],
       screenType: SCREEN_TYPES.PANORAMIC,
+      puzzle: "DAY_ONE_TEACHER_WARM_UP"
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.FULL_PROMPT,
+    },
+    {
+      screenType: SCREEN_TYPES.FULL_PROMPT,
+      tips: ["Follow the prompt."],
       puzzle: "DAY_ONE_CLASSWORK"
     },
     {
       tips: ["Follow the prompt."],
       screenType: SCREEN_TYPES.PANORAMIC,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PANORAMIC,
-    },
-    {
-      screenType: SCREEN_TYPES.PANORAMIC,
-      tips: ["Follow the prompt."],
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PANORAMIC,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PANORAMIC,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PANORAMIC,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PANORAMIC,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PANORAMIC,
+      puzzle: 'DAY_ONE_TEACHER_CLASSWORK'
     },
     {
       tips: ["Follow the prompt."],
       screenType: SCREEN_TYPES.FULL_PROMPT,
-    }]
+      puzzle: "DAY_ONE_TEACHER_WARM_UP"
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.FULL_PROMPT,
+    }
+  ]
 
 
 
@@ -60,7 +49,7 @@ export const ACTIVITY = {
     SCREEN_TYPE: SCREEN_TYPES.PANORAMIC,
     ICON: ICON,
     TIME: 30,
-    PAGES: 14,
+    PAGES: 4,
     TOOL: "/cuttinggridsnap4x4",
     SCRIPT: "PLACING_NUMBERS",
     FEATURES: {x: 5,y: 5},
