@@ -1,7 +1,6 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
 import ICON from '../../assets/PizzaIcon.png'
-
 const sequence = 
     [{
       screenType: SCREEN_TYPES.FULL_PROMPT,
@@ -9,43 +8,44 @@ const sequence =
     },
     {
       tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
-    },
-    {
-      screenType: SCREEN_TYPES.FULL_PROMPT,
-      tips: ["Follow the prompt."],
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
-    },
-    {
-      tips: ["Follow the prompt."],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.PANORAMIC,
+      puzzle: "DAY_ONE_CLASSWORK"
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.PANORAMIC,
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.PANORAMIC,
+    },
+    {
+      screenType: SCREEN_TYPES.PANORAMIC,
+      tips: ["Follow the prompt."],
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.PANORAMIC,
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.PANORAMIC,
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.PANORAMIC,
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.PANORAMIC,
+    },
+    {
+      tips: ["Follow the prompt."],
+      screenType: SCREEN_TYPES.PANORAMIC,
     },
     {
       tips: ["Follow the prompt."],
@@ -53,15 +53,16 @@ const sequence =
     }]
 
 
+
 export const ACTIVITY = {
-    ID: "jiji_sharing_pizza",
-    TITLE : "Pizza Sharing",
-    SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
+    ID: "partitioning_number_lines",
+    TITLE : "Partitioning Number Lines",
+    SCREEN_TYPE: SCREEN_TYPES.PANORAMIC,
     ICON: ICON,
     TIME: 30,
     PAGES: 14,
     TOOL: "/cuttinggridsnap4x4",
-    SCRIPT: "CUTTING_GRID",
+    SCRIPT: "PLACING_NUMBERS",
     FEATURES: {x: 5,y: 5},
     MENU: ['Link One',"Link Two"],
     SEQUENCE: sequence,
@@ -72,7 +73,7 @@ export const ACTIVITY = {
     STANDARD_DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
-    PDF: "/pdfs/JijiSharingPizza.pdf"
+    PDF: "/pdfs/PartitioningNumberLines.pdf"
   }
 
 

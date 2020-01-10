@@ -26,7 +26,7 @@ let ARENA_HEIGHT = LANDSCAPE ? setup.height : 3/4*setup.width
 
 // Problem que setup
 let PROBLEM_QUE;
-const ACTIVITY_ID = 'DAY_ONE_WARM_UP';
+const ACTIVITY_ID = setup.props.currentPanel.puzzle ? setup.props.currentPanel.puzzle : 'DEFAULT'
 PROBLEM_QUE = PROBLEMS.NUMBERLINE_ACTIVITIES[ACTIVITY_ID];
 let numberOfProblems = PROBLEM_QUE.length;
 let PROBLEM_INDEX = 0;
@@ -1476,6 +1476,6 @@ function dropGameOverModal(action){
   createjs.Tween.get(gameOverModal).to({x: WINDOW_WIDTH/2,y: WINDOW_HEIGHT/2}, 500, createjs.Ease.getPowInOut(4))
 }
 
-
+app.resizable = false
 
 }

@@ -66,6 +66,7 @@ class Arena extends Component {
   shouldComponentUpdate(nextProps,nextState){
     console.log("should componente update called")
     if (this.props.panelNumber != nextProps.panelNumber){
+      console.log("componenet should not update")
       return false
     } else {
       return true
@@ -76,6 +77,7 @@ class Arena extends Component {
   componentDidMount() {
 
       window.onresize = () => {
+        console.log("ON RESIZE IS BEING CALLLLLLLLLLL  EED")
         this.resize()
       }
 
@@ -107,11 +109,14 @@ class Arena extends Component {
   }
 
   render() { 
+
+    console.log("re rendering!!!")
+
     let styleType = this.props.fullscreen ? { height: "100vh",marginTop: 0 } : {height: this.props.screenstate.height,width: this.props.screenstate.width};
     
     if (this.props.app.multilayoutenabled){
       this.resize()
-    }
+    } 
    
     return (
         <div style = {styleType}

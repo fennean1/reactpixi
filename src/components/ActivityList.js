@@ -21,15 +21,26 @@ class ActivityList extends Component {
         </div>
         <div className="row">
         < div className="col s6">
-           <ActivityCard data={ACTIVITIES.ordering_blocks_number_line} />
+        <ActivityCard data={ACTIVITIES.building_non_unit_fractions} />
           </div>
           <div className="col s6">
-           <ActivityCard data={ACTIVITIES.hundred_grid_building_numbers} />
+          <ActivityCard data={ACTIVITIES.jiji_sharing_pizza} />
           </div>
         </div>
         <div className="row">
         < div className="col s6">
-           <ActivityCard data={ACTIVITIES.jiji_sharing_pizza} />
+        <ActivityCard data={ACTIVITIES.partitioning_number_lines} />
+          </div>
+          < div className="col s6">
+           <ActivityCard data={ACTIVITIES.open_number_line} />
+          </div>
+        </div>
+        <div className="row">
+        < div className="col s6">
+           <ActivityCard data={ACTIVITIES.tile_less_than_one} />
+          </div>
+          < div className="col s6">
+          <ActivityCard data={ACTIVITIES.tile_greater_than_one} />
           </div>
         </div>
       </div>

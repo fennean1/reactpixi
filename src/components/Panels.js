@@ -62,7 +62,7 @@ export default function LessonPanel(props) {
   const [promptHeight, setPromptHeight] = React.useState(initialScreenState.promptHeightPercentage*window.innerHeight)
   const [promptWidth, setPromptWidth] = React.useState(initialScreenState.promptWidthPercentage*window.innerWidth)
   const [numPanels,setNumPanels] = React.useState(1)
-  const [key, switchKey] = React.useState(0)
+  const [key, switchKey] = React.useState(1)
   const [flexDirect, setFlexDirect] = React.useState(initialScreenState.direction)
   const [dummy,setDummy] = React.useState(false)
   function printList(items) {
@@ -159,17 +159,16 @@ export default function LessonPanel(props) {
       const OLD_TYPE = data.SEQUENCE[(panelNumber-1)%numPanels].screenType
       const NEW_TYPE = data.SEQUENCE[(panelNumber-1+k)%numPanels].screenType
 
-      setLayout(NEW_TYPE)
-
       if (OLD_TYPE != NEW_TYPE){
+        console.log("NEW TYPE")
         var tl = new TimelineMax()
         tl.to(wholeArea,0,{alpha: 0})
           .to(wholeArea,0.3,{alpha: 0})
           .to(wholeArea,0.3,{alpha: 1})
+        setLayout(NEW_TYPE)
       }
 
     if (k == -1) {
-    
       if (NEW_TYPE == SCREEN_TYPES.PANORAMIC){
         backwardPanoramic.play()
       } else {
@@ -178,7 +177,7 @@ export default function LessonPanel(props) {
       setTimeout(() =>{
         setPanel((panelNumber > 1 ? panelNumber - 1 : numPanels))
         setShowPrompt(false)
-      }, 500)
+      }, 0)
     } else if (k == 1) {
          
       if (NEW_TYPE == SCREEN_TYPES.PANORAMIC){
@@ -189,7 +188,7 @@ export default function LessonPanel(props) {
       setTimeout(() => {
         setPanel(panelNumber % numPanels+1)
         setShowPrompt(false)
-      }, 500)
+      }, 0)
     }
   }
 
@@ -221,20 +220,10 @@ export default function LessonPanel(props) {
         </Document>
       </div>
       <div ref = {me=>{arena = me}} style={{ flex: 1 }}>
-        <Arena key={key} panelNumber = {panelNumber} features={data.FEATURES} fullscreen={false} screenstate={{ width: arenaWidth, height: arenaHeight }} app={App} script={SCRIPTS[data.SCRIPT]} />
+        <Arena key={key} currentPanel = {data.SEQUENCE[(panelNumber-1)%numPanels]} panelNumber = {panelNumber} features={data.FEATURES} fullscreen={false} screenstate={{ width: arenaWidth, height: arenaHeight }} app={App} script={SCRIPTS[data.SCRIPT]} />
       </div>
     </div>
     </div >
   );
 }  
 
-
-/*
-
-    <div style={{ position:'absolute'}} ref={me => curtain = me}>
-        <Document loading = {null} file={data.PDF} onLoadSuccess = {onLoadSuccess}>
-         <Page loading = {null} height={window.innerHeight} pageNumber={panelNumber} />
-        </Document>
-      </div>
-
-  */
