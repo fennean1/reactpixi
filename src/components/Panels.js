@@ -152,6 +152,13 @@ export default function LessonPanel(props) {
                     .to(panel, 0, { x: window.innerWidth / 3 })
                     .to(panel, 1, { alpha: 1,x: 0 })
 
+    let flash = new TimelineMax({paused: true})
+               flash.to(panel, 0, { alpha: 0 })
+                    .to(panel, 0.5, { alpha: 1})
+
+
+
+
       let currentPanel;
       if (k == -1){
         currentPanel =  panelNumber > 1 ? panelNumber - 1 : numPanels
@@ -174,9 +181,11 @@ export default function LessonPanel(props) {
 
     if (k == -1) {
       if (NEW_TYPE == SCREEN_TYPES.PANORAMIC){
-        backwardPanoramic.play()
+        //backwardPanoramic.play()
+        flash.play()
       } else {
-        backwardPortrait.play()
+        //backwardPortrait.play()
+        flash.play()
       }
       setTimeout(() =>{
         setPanel((panelNumber > 1 ? panelNumber - 1 : numPanels))
@@ -185,9 +194,11 @@ export default function LessonPanel(props) {
     } else if (k == 1) {
          
       if (NEW_TYPE == SCREEN_TYPES.PANORAMIC){
-        forwardPanoramic.play()
+        //forwardPanoramic.play()
+        flash.play()
       } else {
-        forwardPortrait.play()
+        //forwardPortrait.play()
+        flash.play()
       }
       setTimeout(() => {
         setPanel(panelNumber % numPanels+1)
