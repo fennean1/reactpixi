@@ -15,15 +15,16 @@ export const init = (app, setup) => {
  
 
   // Layout Parameters
-  let WINDOW_WIDTH = setup.width
-  let WINDOW_HEIGHT = setup.height
-  let SQUARE_DIM = WINDOW_HEIGHT/2.5
-  let BTN_DIM = SQUARE_DIM/3
   let H_W_RATIO = setup.height/setup.width
-  let d12 = SQUARE_DIM/12
   let LANDSCAPE = H_W_RATIO < 3/4
   let ARENA_WIDTH = LANDSCAPE ? 4/3*setup.height : setup.width
   let ARENA_HEIGHT = LANDSCAPE ? setup.height : 3/4*setup.width
+  let WINDOW_WIDTH = setup.width
+  let WINDOW_HEIGHT = setup.height
+  let SQUARE_DIM = Math.min(ARENA_WIDTH,ARENA_HEIGHT)/2.75
+  let BTN_DIM = SQUARE_DIM/3
+  let d12 = SQUARE_DIM/12
+
 
   function makeBackground(){
     // Setup Background

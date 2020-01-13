@@ -82,8 +82,6 @@ export const ACTIVITY = {
 
 
   /*
-
-[
         ["Follow the prompt."],
         [
         "Tool",

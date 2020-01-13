@@ -26,6 +26,7 @@ const sequence =
     {
       screenType: SCREEN_TYPES.FULL_PROMPT,
       tips: ["Follow the prompt."],
+      banner: "this is short text for the top"
     },
     {
       tips: ["Follow the prompt."],

@@ -32,14 +32,6 @@ class ActivityList extends Component {
         <ActivityCard data={ACTIVITIES.partitioning_number_lines} />
           </div>
           < div className="col s6">
-           <ActivityCard data={ACTIVITIES.open_number_line} />
-          </div>
-        </div>
-        <div className="row">
-        < div className="col s6">
-           <ActivityCard data={ACTIVITIES.tile_less_than_one} />
-          </div>
-          < div className="col s6">
           <ActivityCard data={ACTIVITIES.tile_greater_than_one} />
           </div>
         </div>
