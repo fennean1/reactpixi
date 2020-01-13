@@ -5,39 +5,42 @@ const sequence =
     [{
       screenType: SCREEN_TYPES.FULL_PROMPT,
       tips: ["Follow the prompt."],
-      puzzle: "DAY_ONE_WARM_UP"
+      puzzle: "PARTITIONING_ACTIVITY_ONE"
     },
     {
       tips: ["Follow the prompt."],
       screenType: SCREEN_TYPES.FULL_PROMPT,
+      puzzle: "PARTITIONING_ACTIVITY_ONE"
     },
     {
       tips: ["Follow the prompt."],
       screenType: SCREEN_TYPES.PANORAMIC,
-      puzzle: "DAY_ONE_TEACHER_WARM_UP"
+      puzzle: "PARTITIONING_ACTIVITY_ONE_TEACHER"
     },
     {
       tips: ["Follow the prompt."],
       screenType: SCREEN_TYPES.FULL_PROMPT,
+      puzzle: "PARTITIONING_ACTIVITY_TWO"
     },
     {
       screenType: SCREEN_TYPES.FULL_PROMPT,
       tips: ["Follow the prompt."],
-      puzzle: "DAY_ONE_CLASSWORK"
+      puzzle: "PARTITIONING_ACTIVITY_TWO"
     },
     {
       tips: ["Follow the prompt."],
       screenType: SCREEN_TYPES.PANORAMIC,
-      puzzle: 'DAY_ONE_TEACHER_CLASSWORK'
+      puzzle: "PARTITIONING_ACTIVITY_TWO_TEACHER"
     },
     {
       tips: ["Follow the prompt."],
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      puzzle: "DAY_ONE_TEACHER_WARM_UP"
+      puzzle: "PARTITIONING_ACTIVITY_TWO_TEACHER"
     },
     {
       tips: ["Follow the prompt."],
       screenType: SCREEN_TYPES.FULL_PROMPT,
+      puzzle: "PARTITIONING_ACTIVITY_TWO_TEACHER"
     }
   ]
 

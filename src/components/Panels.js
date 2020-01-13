@@ -70,7 +70,6 @@ export default function LessonPanel(props) {
   }
 
   function onLoadSuccess({numPages}){
-    console.log("num pages")
     setNumPanels(numPages)
   }
 
@@ -85,14 +84,12 @@ export default function LessonPanel(props) {
     }
     let promptWidthPercentage = null 
     let promptHeightPercentage = null
-
-    console.log("TYPE",type)
   
     if (type == SCREEN_TYPES.FULL_PROMPT){
       if (data.SCREEN_TYPE == SCREEN_TYPES.PANORAMIC){
         promptWidthPercentage = 1
+        TweenLite.to(panel,0,{y: 0})
       } else {
-        console.log("this is where i WAN TO BEEEEEEEE!!!")
         promptHeightPercentage = 0.93
         TweenLite.to(panel,0,{x: window.innerWidth/2 - window.innerHeight/2})
       }
@@ -101,7 +98,6 @@ export default function LessonPanel(props) {
       promptWidthPercentage = layoutProps.promptWidthPercentage
       TweenLite.to(panel,0,{x: 0})
     }
-  
   
 
     setArenaWidth(layoutProps.arenaWidth)

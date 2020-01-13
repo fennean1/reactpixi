@@ -359,7 +359,7 @@ const DAY1_CLASSWORK_P1 = {
   prompt: "Place the fractions on the number line. Use the pins and bar models to accurately find the point for each fraction.",
   blocks: [],
   indexOfMarkedBlock: null, // DON'T KNOW THAT THIS IS OR WAS SUPPOSED TO BE FOR
-  pinKeys: [0, 1, 0],
+  pinKeys: [0, 0, 0],
   presetPinKeys: [1, 0, 1],
   pinWidget: false,
   partitionsPerWhole: 2,
@@ -377,6 +377,7 @@ const DAY1_CLASSWORK_P1 = {
   ],
   unique: true,
   endPins: true,
+  dontScorePins: true,
 }
 
 const DAY1_CLASSWORK_P2 = {
@@ -402,7 +403,8 @@ const DAY1_CLASSWORK_P2 = {
   ],
   unique: true,
   endPins: true,
-  discussionQuestion: true
+  discussionQuestion: true,
+  dontScorePins: true
 }
 
 const DAY1_CLASSWORK_P3 = {
@@ -1144,7 +1146,257 @@ const DAY_THREE_CLASSWORK_TWO = [DAY3_CLASSWORK_TWO_P1, DAY3_CLASSWORK_TWO_P2, D
 
 const DAY_THREE_TEACHER_CLASSWORK_TWO = [DAY3_CLASSWORK_TWO_P3]
 
+/// Fractions unit 2.0
+
+// PLACING
+
+const PLACING_FOURTHS = {
+  prompt: "Place the fractions on the number line. Use the pins and bar models to accurately find the point for each fraction.",
+  blocks: [],
+  indexOfMarkedBlock: null, // DON'T KNOW THAT THIS IS OR WAS SUPPOSED TO BE FOR
+  pinKeys: [0, 0, 0, 0, 0],
+  presetPinKeys: [1, 0, 0, 0, 1],
+  pinWidget: false,
+  partitionsPerWhole: 4,
+  max: 1,
+  min: 0,
+  ticks: null,
+  tolerance: 0.1,
+  partitionsPerLine: 4,
+  presetLabels: [
+    [0, 1],
+    [1, 1]
+  ],
+  labels: [
+    [3, 4],
+    [2, 4],
+    [1, 4]
+  ],
+  unique: true,
+  endPins: true,
+  discussionQuestion: true,
+  dontScorePins: true
+}
+
+const PLACING_HALVES = {
+  prompt: "Place the fractions on the number line. Use the pins and bar models to accurately find the point for each fraction.",
+  blocks: [],
+  indexOfMarkedBlock: null, // DON'T KNOW THAT THIS IS OR WAS SUPPOSED TO BE FOR
+  pinKeys: [0, 0, 0],
+  presetPinKeys: [1, 0, 1],
+  pinWidget: false,
+  partitionsPerWhole: 2,
+  max: 1,
+  min: 0,
+  ticks: null,
+  tolerance: 0.1,
+  partitionsPerLine: 2,
+  presetLabels: [
+    [0, 1],
+    [1, 1]
+  ],
+  labels: [
+    [1, 2],
+  ],
+  unique: true,
+  endPins: true,
+  discussionQuestion: true,
+  dontScorePins: true
+}
+
+
+const PLACING_THIRDS = {
+  prompt: "Place the fractions on the number line. Use the pins and bar models to accurately find the point for each fraction.",
+  blocks: [],
+  indexOfMarkedBlock: null, // DON'T KNOW THAT THIS IS OR WAS SUPPOSED TO BE FOR
+  pinKeys: [0,0,0,0],
+  presetPinKeys: [1, 0, 0, 1],
+  pinWidget: false,
+  partitionsPerWhole: 3,
+  max: 1,
+  min: 0,
+  ticks: null,
+  tolerance: 0.1,
+  partitionsPerLine: 3,
+  presetLabels: [
+    [0, 1],
+    [1, 1]
+  ],
+  labels: [
+    [1, 3],
+    [2,3],
+  ],
+  unique: true,
+  endPins: true,
+  discussionQuestion: true,
+  dontScorePins: true
+}
+
+const PLACING_SIXTHS = {
+  prompt: "Divide the line segment into equal lengths",
+  blocks: [],
+  indexOfMarkedBlock: null,
+  pinKeys: [0,0,0,0,0,0,0],
+  presetPinKeys: [1,0,0,0,0,0,1],
+  pinWidget: false,
+  partitionsPerWhole: 6,
+  max: 1,
+  min: 0,
+  tolerance: 0.1,
+  partitionsPerLine: 6,
+  presetLabels: [
+    [0, 1],
+    [1, 1]
+  ],
+  labels: [
+    [1,6],
+    [2,6],
+    [3,6],
+    [4,6],
+    [5,6],
+  ],
+  unique: true,
+  endPins: true,
+  discussionQuestion: true,
+  dontScorePins: true,
+}
+
+// PARTITIONING
+
+const PARTITIONING_HALVES = {
+  prompt: "Divide the line segment into equal lengths",
+  blocks: [],
+  indexOfMarkedBlock: null,
+  pinKeys: [0, 1, 0],
+  presetPinKeys: [1, 0, 1],
+  pinWidget: false,
+  partitionsPerWhole: 2,
+  max: 1,
+  min: 0,
+  tolerance: 0.1,
+  partitionsPerLine: 2,
+  presetLabels: [],
+  labels: [],
+  unique: true,
+  endPins: true,
+  discussionQuestion: true,
+  noFeedBlockLabel: true,
+}
+
+const PARTITIONING_FOURTHS = {
+  prompt: "Divide the line segment into equal lengths",
+  blocks: [],
+  indexOfMarkedBlock: null,
+  pinKeys: [0, 1, 1, 1, 0],
+  presetPinKeys: [1, 0, 0, 0, 1],
+  pinWidget: false,
+  partitionsPerWhole: 4,
+  max: 1,
+  min: 0,
+  tolerance: 0.1,
+  partitionsPerLine: 4,
+  presetLabels: [],
+  labels: [],
+  unique: true,
+  endPins: true,
+  discussionQuestion: true,
+  noFeedBlockLabel: true,
+}
+
+const PARTITIONING_FOURTHS_WITH_PIN = {
+  prompt: "Divide the line segment into equal lengths",
+  blocks: [],
+  indexOfMarkedBlock: null,
+  pinKeys: [0, 1, 0, 1, 0],
+  presetPinKeys: [1, 0, 1, 0, 1],
+  pinWidget: false,
+  partitionsPerWhole: 4,
+  max: 1,
+  min: 0,
+  tolerance: 0.1,
+  partitionsPerLine: 4,
+  presetLabels: [],
+  labels: [],
+  unique: true,
+  endPins: true,
+  discussionQuestion: true,
+  noFeedBlockLabel: true,
+}
+
+const PARTITIONING_THIRDS = {
+  prompt: "Divide the line segment into equal lengths",
+  blocks: [],
+  indexOfMarkedBlock: null,
+  pinKeys: [0, 1 ,1, 0],
+  presetPinKeys: [1, 0, 0, 1],
+  pinWidget: false,
+  partitionsPerWhole: 3,
+  max: 1,
+  min: 0,
+  tolerance: 0.1,
+  partitionsPerLine: 3,
+  presetLabels: [],
+  labels: [],
+  unique: true,
+  endPins: true,
+  discussionQuestion: true,
+  noFeedBlockLabel: true,
+}
+
+const PARTITIONING_SIXTHS = {
+  prompt: "Divide the line segment into equal lengths",
+  blocks: [],
+  indexOfMarkedBlock: null,
+  pinKeys: [0, 1,1,1,1,,1, 0],
+  presetPinKeys: [1, 0,0,0,0,0, 1],
+  pinWidget: false,
+  partitionsPerWhole: 6,
+  max: 1,
+  min: 0,
+  tolerance: 0.1,
+  partitionsPerLine: 6,
+  presetLabels: [],
+  labels: [],
+  unique: true,
+  endPins: true,
+  discussionQuestion: true,
+  noFeedBlockLabel: true,
+}
+
+const PARTITIONING_SIXTHS_WITH_PIN = {
+  prompt: "Divide the line segment into equal lengths",
+  blocks: [],
+  indexOfMarkedBlock: null,
+  pinKeys: [0,1,1,0,1,1, 0],
+  presetPinKeys: [1,0,0,1,0,0,1],
+  pinWidget: false,
+  partitionsPerWhole: 6,
+  max: 1,
+  min: 0,
+  tolerance: 0.1,
+  partitionsPerLine: 6,
+  presetLabels: [],
+  labels: [],
+  unique: true,
+  endPins: true,
+  discussionQuestion: true,
+  noFeedBlockLabel: true,
+}
+
+
+
+const PARTITIONING_ACTIVITY_ONE = [PARTITIONING_HALVES, PARTITIONING_THIRDS, PARTITIONING_FOURTHS, PARTITIONING_SIXTHS,PARTITIONING_FOURTHS_WITH_PIN,PARTITIONING_SIXTHS_WITH_PIN]
+const PARTITIONING_ACTIVITY_ONE_TEACHER = [PARTITIONING_FOURTHS]
+const PARTITIONING_ACTIVITY_TWO = [PLACING_HALVES,PLACING_HALVES,PLACING_FOURTHS,PLACING_THIRDS,PLACING_SIXTHS]
+const PARTITIONING_ACTIVITY_TWO_TEACHER = [PLACING_SIXTHS]
+const TEST = [PARTITIONING_SIXTHS_WITH_PIN,PARTITIONING_FOURTHS_WITH_PIN]
+
 export const NUMBERLINE_ACTIVITIES = {
+  'TEST': TEST,
+  'PARTITIONING_ACTIVITY_ONE': PARTITIONING_ACTIVITY_ONE,
+  'PARTITIONING_ACTIVITY_TWO': PARTITIONING_ACTIVITY_TWO,
+  'PARTITIONING_ACTIVITY_ONE_TEACHER': PARTITIONING_ACTIVITY_ONE_TEACHER,
+  'PARTITIONING_ACTIVITY_TWO_TEACHER': PARTITIONING_ACTIVITY_TWO_TEACHER,
   'DEFAULT': DAY_ONE_TEACHER_WARM_UP,
   'DAY_ONE_WARM_UP': DAY_ONE_WARM_UP,
   'DAY_ONE_TEACHER_WARM_UP': DAY_ONE_TEACHER_WARM_UP,

@@ -23,6 +23,12 @@ let LINE_WIDTH = WINDOW_WIDTH*0.7
 let LANDSCAPE = H_W_RATIO < 3/4
 let ARENA_WIDTH = LANDSCAPE ? 4/3*setup.height : setup.width
 let ARENA_HEIGHT = LANDSCAPE ? setup.height : 3/4*setup.width
+let NUMBER_LINE_Y = WINDOW_HEIGHT*4/9
+const dim = window.innerWidth / 12;
+const centerLine = window.innerHeight / 2;
+const lineWidth = 10 * dim;
+const topMargin = (3 / 4) * dim;
+const BLOCK_HEIGHT = dim/4
 
 // Problem que setup
 let PROBLEM_QUE;
@@ -32,22 +38,7 @@ PROBLEM_QUE = PROBLEMS.NUMBERLINE_ACTIVITIES[ACTIVITY_ID];
 let numberOfProblems = PROBLEM_QUE.length;
 let PROBLEM_INDEX = 0;
 
-let backDrop = new PIXI.Sprite.from(blueGradient);
-backDrop.width = WINDOW_WIDTH;
-backDrop.height = WINDOW_HEIGHT;
-backDrop.x = 0;
-backDrop.y = 0;
-backDrop.alpha = 0;
-app.stage.addChild(backDrop);
-createjs.Tween.get(backDrop).to(
-  {
-    alpha: 1
-  },
-  500,
-  createjs.Ease.getPowInOut(4)
-);
-
-let backGround = new PIXI.Sprite.from("../images/blue-gradient.png");
+let backGround = new PIXI.Sprite.from(blueGradient);
 backGround.width = WINDOW_WIDTH;
 backGround.height = WINDOW_HEIGHT;
 backGround.interactive = true;
@@ -63,10 +54,6 @@ createjs.Tween.get(backGround).to(
 
 // CONSTANTS
 
-const dim = window.innerWidth / 12;
-const centerLine = window.innerHeight / 2;
-const lineWidth = 10 * dim;
-const topMargin = (3 / 4) * dim;
 
 const pinkCircle = new PIXI.Graphics();
 pinkCircle.lineStyle(2, 0x000000, 2);
@@ -106,8 +93,6 @@ let pinWidget = {};
 
 let activeEntity = new PIXI.Sprite();
 
-let pinkCircleTexture = app.renderer.generateTexture(pinkCircle);
-
 let lineMax; // Max value of the line
 let wholeWidth; // physical width of "one whole" on the number line
 let minStep; // Minmum block width for measuring or placing pins/labels
@@ -119,49 +104,6 @@ let dT;
 let globalPinRef = [];
 let globalLabelRef = [];
 
-let activityQue;
-
-function createPrompt(prompt) {
-  let note = new PIXI.Container();
-  var graphics = new PIXI.Graphics();
-  graphics.lineStyle(0, 0x000000, 3);
-  graphics.drawRoundedRect(0, 0, 10 * dim, 0.9 * topMargin, 5);
-  graphics.endFill();
-
-  var texture = app.renderer.generateTexture(graphics);
-  let tile = new PIXI.Sprite(texture);
-  tile.anchor.set(0.5);
-
-  let promptLength = prompt.length;
-  console.log("promptLength", promptLength);
-  let textSize =
-    promptLength * 0.5 * topMargin > 10 * dim
-      ? (20 * dim) / promptLength
-      : 0.5 * topMargin;
-
-  let den = new PIXI.Text(prompt, {
-    fontFamily: "Chalkboard SE",
-    fontSize: textSize,
-    fill: 0x000000,
-    align: "center"
-  });
-  den.anchor.set(0.5);
-
-  let tileContainer = new PIXI.Container();
-
-  tileContainer.addChild(tile);
-  tileContainer.addChild(den);
-
-  tileContainer.active = false;
-  tileContainer.interactive = true;
-  tileContainer.buttonMode = true;
-  tileContainer.x = WINDOW_WIDTH / 2;
-  tileContainer.y = -2 * DX;
-
-  tileContainer.tile = tile;
-
-  return tileContainer;
-}
 
 function areAllPinsSet(pins) {
   let set = true;
@@ -277,7 +219,6 @@ function createActionButton(text, action) {
 
   var texture = app.renderer.generateTexture(graphics);
   let tile = new PIXI.Sprite(texture);
-  tile.anchor.set(0.5);
 
   let den = new PIXI.Text(text, {
     fontFamily: "Chalkboard SE",
@@ -286,6 +227,8 @@ function createActionButton(text, action) {
     align: "center"
   });
   den.anchor.set(0.5);
+  den.x = dim 
+  den.y = dim/4
 
   let tileContainer = new PIXI.Container();
 
@@ -364,7 +307,10 @@ function checkAnswer() {
   if (this.text.text == "Next Problem") {
     if (PROBLEM_INDEX + 1 >= PROBLEM_QUE.length) {
       dropGameOverModal(() => {
-        window.history.back();
+        /// GAME OVER MODAL CLICKED FUNTION GOES HERE
+        //window.history.back();
+        PROBLEM_INDEX = -1
+        loadNextGame()
       });
     } else {
       unfreezeView();
@@ -412,12 +358,12 @@ function checkAnswer() {
         label
       );
     });
-    //feedBackLabels = createFeedBackLbl(labelsOnLine)
-
-    // feed labels
+  
+    // Feed blocks setup
     feedBlocks.map(b => {
+      console.log("b.y",b.y)
       b.x = -b.width;
-      b.y = 3 * dim;
+      b.y = NUMBER_LINE_Y;
       app.stage.addChild(b);
     });
 
@@ -431,9 +377,6 @@ function checkAnswer() {
         0
       );
       this.checkAnswer = false;
-      for (let b of blocksOnLine) {
-        //app.stage.removeChild(b)
-      }
     } else {
       dropNotification("Make sure everything is in place.");
     }
@@ -444,7 +387,7 @@ function checkAnswer() {
     if (currentProblem.dontReset) {
       for (let b of feedBlocks) {
         b.x = -b.width;
-        b.y = 3 * dim;
+        b.y = NUMBER_LINE_Y;
       }
     } else {
       resetGame();
@@ -454,6 +397,8 @@ function checkAnswer() {
 
 let goButton = createActionButton("Go", checkAnswer);
 goButton.static = false;
+goButton.x = 10 
+goButton.y = 10
 
 app.stage.addChild(goButton);
 
@@ -492,7 +437,7 @@ function loadProblem(problem) {
           .on("pointermove", onPinDragMove)
           .on("pointerup", onPinDragEnd);
         p.x = 11 * dim - 1.2 * p.width * i;
-        p.y = 4 * dim;
+        p.y = NUMBER_LINE_Y + dim/2
         p.isSet = false;
         p.mutable = false;
         p.static = false;
@@ -501,7 +446,7 @@ function loadProblem(problem) {
         p.isSet = true;
         p.alpha = 0;
         p.x = dim + (lineWidth / problem.partitionsPerLine) * i;
-        p.y = 2.5 * dim;
+        p.y = NUMBER_LINE_Y - 0.5*dim;
         p.onLine = true;
         p.static = true;
         p.interactive = false;
@@ -516,7 +461,7 @@ function loadProblem(problem) {
     pinsInPlay = pinsInPlay.filter(p => p.onLine == false);
     pinsInPlay.forEach((p, i) => {
       p.x = 11 * dim - 1.2 * p.width * i;
-      p.y = 4 * dim;
+      p.y = NUMBER_LINE_Y + dim;
     });
   }
 
@@ -526,7 +471,7 @@ function loadProblem(problem) {
     });
     presetLabels.map(l => {
       l.x = dim + (wholeWidth * l._n) / l._d;
-      l.y = 3 * dim;
+      l.y = NUMBER_LINE_Y;
       flipLbl(l);
       l.static = true;
       app.stage.addChild(l);
@@ -541,7 +486,7 @@ function loadProblem(problem) {
     if (e == 1) {
       let p = createStaticPin();
       p.x = dim + (lineWidth / problem.partitionsPerLine) * i;
-      p.y = 2.5 * dim;
+      p.y = NUMBER_LINE_Y - 0.5*dim;
       app.stage.addChild(p);
       return p;
     } else {
@@ -574,7 +519,7 @@ function loadProblem(problem) {
     globalLabelRef = labelsOnLine;
 
     c.x = dim + 1.2 * c.width * i;
-    c.y = 3.75 * dim;
+    c.y = NUMBER_LINE_Y + dim*2/3
     c.originalLocation = [c.x, c.y];
     c.expectedLocation = dim + (wholeWidth * c._n) / c._d;
   });
@@ -597,10 +542,12 @@ function loadProblem(problem) {
 
   //dropNotification(currentProblem.prompt)
 
+  /*
   let prompt = createPrompt(currentProblem.prompt);
   app.stage.addChild(prompt);
   prompt.x = WINDOW_WIDTH / 2;
   prompt.y = topMargin / 2;
+  */
 }
 
 //dropNotification("Check Your Pins!")
@@ -790,7 +737,7 @@ function animateFeedBack(blocks, start, pins, labels, i) {
       .to(
         {
           x: animateTo[0],
-          y: animateTo[1]
+          y: NUMBER_LINE_Y - BLOCK_HEIGHT
         },
         500,
         createjs.Ease.getPowInOut(4)
@@ -842,7 +789,7 @@ function animateFeedBack(blocks, start, pins, labels, i) {
             .to(
               {
                 x: animateTo[0] + minStep,
-                y: 2.5 * dim
+                y: NUMBER_LINE_Y - 0.5*dim
               },
               500,
               createjs.Ease.getPowInOut(4)
@@ -852,7 +799,7 @@ function animateFeedBack(blocks, start, pins, labels, i) {
                 .to(
                   {
                     x: animateTo[0] + minStep,
-                    y: 3 * dim
+                    y: NUMBER_LINE_Y
                   },
                   500,
                   createjs.Ease.getPowInOut(4)
@@ -875,7 +822,7 @@ function animateFeedBack(blocks, start, pins, labels, i) {
             .to(
               {
                 x: animateTo[0] + minStep,
-                y: 2.5 * dim
+                y: NUMBER_LINE_Y - 0.5*dim
               },
               500,
               createjs.Ease.getPowInOut(4)
@@ -897,7 +844,7 @@ function animateFeedBack(blocks, start, pins, labels, i) {
             .to(
               {
                 x: animateTo[0] + minStep,
-                y: 3 * dim
+                y: NUMBER_LINE_Y
               },
               500,
               createjs.Ease.getPowInOut(4)
@@ -971,7 +918,7 @@ function createBlockWidget(blocks, wholeWidth) {
     block.beginFill(CONST.COLORS.BLUE);
     block.drawRoundedRect(
       dim,
-      topMargin + (i * 3 * dim) / 8,
+      topMargin + (i * NUMBER_LINE_Y) / 8,
       (wholeWidth / blocks[i].den) * blocks[i].num,
       dim / 4,
       5
@@ -1037,7 +984,7 @@ function createFeedBlock(width, num, den, label, custom) {
   block.beginFill(blockFill);
   let lineWidth = custom ? 1 : 0;
   block.lineStyle(lineWidth, 0x000000, 1);
-  block.drawRoundedRect(0, 0, width + 0.5, dim / 4, 5);
+  block.drawRoundedRect(0, 0, width + 0.5, BLOCK_HEIGHT, 5);
   block.endFill();
   let blockTexture = app.renderer.generateTexture(block);
   let blockSprite = new PIXI.Sprite(blockTexture);
@@ -1246,8 +1193,8 @@ app.stage.addChild(line);
 function createNumberLine(den) {
   let line = new PIXI.Graphics();
   line.lineStyle(4, 0x000000, 1);
-  line.moveTo(dim, 3 * dim);
-  line.lineTo(dim + 10 * dim, 3 * dim);
+  line.moveTo(dim, NUMBER_LINE_Y);
+  line.lineTo(dim + 10 * dim, NUMBER_LINE_Y);
   return line;
 }
 
@@ -1255,7 +1202,7 @@ function onBlockWidgetSelected() {
   let b = createMeasureBlock(this.width, this.num, this.den);
   app.stage.addChild(b);
   b.x = dim;
-  b.y = 3 * dim - b.height;
+  b.y = NUMBER_LINE_Y - b.height;
 }
 
 // Label Actions
@@ -1286,7 +1233,7 @@ function onLblDragMove() {
     var newPosition = this.data.getLocalPosition(this.parent);
     this.onLine = true;
     this.position.x = newPosition.x;
-    this.position.y = 3 * dim;
+    this.position.y = NUMBER_LINE_Y;
   }
 }
 
@@ -1363,12 +1310,8 @@ function onPinDragEnd() {
 function onPinDragMove() {
   if (this.dragging) {
     var newPosition = this.data.getLocalPosition(this.parent);
-    if (false) {
-      this.dragging = false;
-      this.alpha = 1;
-    }
     this.position.x = newPosition.x;
-    this.position.y = 2.5 * dim;
+    this.position.y = NUMBER_LINE_Y - 0.5*dim
   }
 }
 
