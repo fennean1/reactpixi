@@ -76,7 +76,8 @@ export const ACTIVITY = {
     STANDARD_DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
-    PDF: "/pdfs/JijiSharingPizza.pdf"
+    PDF: "/pdfs/JijiSharingPizza.pdf",
+    GRAPHIC_ORGANIZER: "pdf from erich goes here."
   }
 
 

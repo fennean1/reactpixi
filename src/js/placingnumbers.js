@@ -361,7 +361,6 @@ function checkAnswer() {
   
     // Feed blocks setup
     feedBlocks.map(b => {
-      console.log("b.y",b.y)
       b.x = -b.width;
       b.y = NUMBER_LINE_Y;
       app.stage.addChild(b);
