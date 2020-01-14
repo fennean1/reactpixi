@@ -64,7 +64,7 @@ export const ACTIVITY = {
     ICON: ICON,
     TIME: 30,
     PAGES: 14,
-    TOOL: "/cuttinggridsnap4x4",
+    TOOL: "/gridcuttingsnap4x4",
     SCRIPT: "CUTTING_GRID",
     FEATURES: {x: 5,y: 5},
     MENU: ['Link One',"Link Two"],
@@ -77,7 +77,8 @@ export const ACTIVITY = {
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/JijiSharingPizza.pdf",
-    GRAPHIC_ORGANIZER: "pdf from erich goes here."
+    GRAPHIC_ORGANIZER: "pdf from erich goes here.",
+    PRINTOUTS: 'something'
   }
 
 

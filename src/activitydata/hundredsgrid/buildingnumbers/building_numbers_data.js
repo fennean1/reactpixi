@@ -16,5 +16,6 @@ export const ACTIVITY = {
     STANDARD_DESCRIPTION: "Hello",
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
-    GROUPING: "whole class?"
+    GROUPING: "whole class?",
+    PRINTOUTS: 'something'
   }

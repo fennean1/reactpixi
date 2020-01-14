@@ -1,6 +1,6 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/PizzaIcon.png'
+import ICON from '../../assets/BuildingIcon.png'
 
 const sequence = 
     [{
@@ -50,7 +50,7 @@ export const ACTIVITY = {
     ICON: ICON,
     TIME: 30,
     PAGES: 14,
-    TOOL: "/cuttinggridsnap4x4",
+    TOOL: "/gridnodes2x2",
     SCRIPT: "NODES_GRID",
     FEATURES: {x: 3,y: 3},
     MENU: ['Link One',"Link Two"],
@@ -62,7 +62,8 @@ export const ACTIVITY = {
     STANDARD_DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
-    PDF: "/pdfs/BuildingNonUnitFractions.pdf"
+    PDF: "/pdfs/BuildingNonUnitFractions.pdf",
+    PRINTOUTS: "/pdfs/BuildingNonUnitFractions.pdf"
   }
 
 

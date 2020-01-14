@@ -1,6 +1,6 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/PizzaIcon.png'
+import ICON from '../../assets/PartitioningIcon.png'
 const sequence = 
     [{
       screenType: SCREEN_TYPES.FULL_PROMPT,
@@ -53,7 +53,7 @@ export const ACTIVITY = {
     ICON: ICON,
     TIME: 30,
     PAGES: 4,
-    TOOL: "/cuttinggridsnap4x4",
+    TOOL: "/placingnumbers",
     SCRIPT: "PLACING_NUMBERS",
     FEATURES: {x: 5,y: 5},
     MENU: ['Link One',"Link Two"],

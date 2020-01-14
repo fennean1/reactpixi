@@ -62,6 +62,13 @@ export default function ActivityCard(props) {
   const activitypath = '/activities/' + props.data.ID
   const pdf = `${props.PRINTOUTS}` 
 
+  console.log("printous",props.data)
+  const printouts = (props.data.PRINTOUTS && <Button className = "white"> 
+  <a target="_blank" className = "black-text" href = {`${props.data.PRINTOUTS}`}> 
+      Printouts
+  </a>
+  </Button>)
+
   return (
     <div className="card sticky-action">
     <div className="card-image waves-effect waves-block waves-light">
@@ -76,13 +83,8 @@ export default function ActivityCard(props) {
       <Link to = {props.data.TOOL}>
       <Button className = "white">Tool</Button>
       </Link>
-       <Button className = "white"> 
-        <a target="_blank" className = "black-text" href = {`${props.data.PRINTOUTS}`}> 
-            Printouts
-        </a>
-        </Button>
+      {printouts}
       </div>
-      
     <div className="card-reveal">
       <span className="card-title grey-text text-darken-4">{props.data.STANDARD_ID}<i className="material-icons right">close</i></span>
       <p>{props.data.DESCRIPTION}</p>
