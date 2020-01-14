@@ -196,12 +196,16 @@ export const init = (app, setup) => {
       p.on('pointerup',pointerUp)
       p.on('pointerdown',pointerDown)
       p.on('pointermove',pointerMove)
+      p.x = this.x + this.width/2
+      p.y = this.y + this.height/2
       TweenLite.to(p,0.5,{x: WINDOW_WIDTH/2,y: WINDOW_HEIGHT/2})
       polygons.push(p)
       app.stage.addChild(p)
     }
   }
 
+
+  // Regular poly pointer actions
   function pointerDown(){
     activePolygon = this
     fadeAnimation.stop()
@@ -218,7 +222,7 @@ export const init = (app, setup) => {
     round(this,d12)
     placeButtons(1)
     fadeAnimation.restart()
-    if (distance([this.x,this.y],[trashBtn.x,trashBtn.y]) < 200) {
+    if (distance([this.x,this.y],[trashBtn.x,trashBtn.y]) < SQUARE_DIM/2) {
       placeButtons(0)
       fadeAnimation.stop()
       let i = polygons.indexOf(this)
@@ -271,10 +275,15 @@ export const init = (app, setup) => {
 
 
     let inc = d12
+
+    const shapesWidth = shapes.reduce((a,cv)=>a + cv.width+d12,0)
+
+    const shapesStartAt = WINDOW_WIDTH/2 - shapesWidth/2
+
     shapes.forEach(s=>{
       app.stage.addChild(s)
       s.y = 0.95*WINDOW_HEIGHT-s.height
-      s.x = inc 
+      s.x = shapesStartAt + inc 
       inc = s.width + inc + d12
     })
 

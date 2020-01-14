@@ -321,11 +321,11 @@ export const init = (app, setup) => {
             console.log("new point valid",valid)
             if (valid) {
               this.activated = true
-              let lastPoint = CurrentPolygon[CurrentPolygon.length -1]
               CurrentPolygon.push(newPoint)
               stencil.draw(CurrentPolygon)
               this.texture = CLOSED_CIRCLE_TEXTURE
               app.stage.addChild(this)
+              app.stage.addChild(stencil)
             } else {
               showErrorAt([this.x,this.y])
             }
@@ -613,7 +613,7 @@ export const init = (app, setup) => {
     }
 
     stencil = new Stencil()
-    stencil.lineStyle(4,0x000000)
+    stencil.lineStyle(4,0xff3b55)
     stencil.x = 0 
     stencil.y = 0
     app.stage.addChild(stencil)

@@ -79,9 +79,9 @@ export default function ActivityCard(props) {
       <p>{props.data.TIME+ " Minutes"}</p>
     </div>
     <div className="card-action"><Link  to={{pathname: `${activitypath}`, state: {data: props.data}}}>
-      <Button className = "white">Slides</Button></Link>
+      <Button color = "primary" variant = "outlined" >Start</Button></Link>
       <Link to = {props.data.TOOL}>
-      <Button className = "white">Tool</Button>
+      <Button className = "white">Interactive</Button>
       </Link>
       {printouts}
       </div>
