@@ -1,71 +1,45 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/PizzaIcon.png'
-
+import ICON from '../../assets/PartitioningIcon.png'
 const sequence = 
     [{
       screenType: SCREEN_TYPES.FULL_PROMPT,
       tips: ["Follow the prompt."],
+      puzzle: "ACTIVITY_ONE"
     },
     {
       tips: ["Follow the prompt."],
       screenType: SCREEN_TYPES.FULL_PROMPT,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+      puzzle: "ACTIVITY_ONE"
     },
     {
       tips: ["Follow the prompt."],
       screenType: SCREEN_TYPES.PORTRAIT,
+      puzzle: "ACTIVITY_ONE_TEACHER"
     },
     {
       tips: ["Follow the prompt."],
       screenType: SCREEN_TYPES.FULL_PROMPT,
+      puzzle: "ACTIVITY_ONE"
     },
     {
       screenType: SCREEN_TYPES.FULL_PROMPT,
       tips: ["Follow the prompt."],
+      puzzle: "ACTIVITY_ONE"
     },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.PORTRAIT
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
-    },
-    {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
-    }]
+  ]
+
 
 
 export const ACTIVITY = {
-    ID: "jiji_sharing_pizza",
-    TITLE : "Pizza Sharing",
-    SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
+    ID: "beaker_estimation",
+    TITLE : "Beaker Estimation",
+    SCREEN_TYPE: SCREEN_TYPES.PANORAMIC,
     ICON: ICON,
     TIME: 30,
-    PAGES: 14,
-    TOOL: "/gridcuttingsnap4x4",
-    SCRIPT: "CUTTING_GRID",
+    PAGES: 4,
+    TOOL: "/placingnumbers",
+    SCRIPT: "BEAKER_ESTIMATION",
     FEATURES: {x: 5,y: 5},
     MENU: ['Link One',"Link Two"],
     SEQUENCE: sequence,
@@ -76,14 +50,14 @@ export const ACTIVITY = {
     STANDARD_DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
-    PDF: "/pdfs/JijiSharingPizza.pdf",
-    GRAPHIC_ORGANIZER: "pdf from erich goes here.",
-    PRINTOUTS: 'something',
-    STUDENT_LINKS: [{title: 'Tool',link: '/gridcuttingsnap4x4'}]
+    PDF: "/pdfs/PartitioningNumberLines.pdf",
+    STUDENT_LINKS: [{title: 'Game',link: '/estimation-game-one'}]
   }
 
 
   /*
+
+[
         ["Follow the prompt."],
         [
         "Tool",

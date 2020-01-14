@@ -14,11 +14,14 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import AppBar from "@material-ui/core/AppBar";
 import Divider from "@material-ui/core/Divider";
+import { ACTIVITIES } from "../activitydata/activities.js"
 
 
 class StudentActivityLandingPage extends Component {
   constructor(props) {
     super(props);
+    const { activity } = props.match.params
+    this.data = ACTIVITIES[activity]
     this.state = {
       tabIndex: 0
     };
@@ -30,18 +33,24 @@ class StudentActivityLandingPage extends Component {
   }
 
   render() {
+      const list = this.data.STUDENT_LINKS.map(l=>{
+          return (<Link to = {l.link}>
+            <Button style ={{margin: 5}} variant="outlined" color="primary">
+            {l.title}
+            </Button>
+        </Link>)
+      })
     return (
       <div className="row">
-        <Typography variant="h5" className="center">
-          Wait for your teacher before you start
-        </Typography>
-        <br />
-        <Divider />
+   <div className ="section no-pad-bot" id="index-banner">
+          <div className ="container">
+    <h1 className ="header center grey-text">{this.data.TITLE}</h1>
+          </div>
+        </div>
+        <br />  
         <br />
         <div className="center">
-          <Button variant="outlined" color="primary">
-            Hello
-          </Button>
+          {list}
         </div>
       </div>
     );

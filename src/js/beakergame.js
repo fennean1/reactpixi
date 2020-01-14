@@ -39,9 +39,8 @@ createjs.Tween.get(backDrop).to({
 }, 500, createjs.Ease.getPowInOut(4))
 
 
-let activity = 'ACTIVITY_TWO_TEACHER'
-console.log("Activity!", activity)
-let activityObj = PROBLEMS.EST_ACTIVITIES[activity]
+const ACTIVITY_ID = setup.props.currentPanel ? setup.props.currentPanel.puzzle : setup.props.activity
+let activityObj = PROBLEMS.EST_ACTIVITIES[ACTIVITY_ID]
 let problemSet = activityObj.problems
 let problemCount = problemSet.length
 let problemIndex = 0

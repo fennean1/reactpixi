@@ -63,7 +63,8 @@ export const ACTIVITY = {
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/BuildingNonUnitFractions.pdf",
-    PRINTOUTS: "/pdfs/BuildingNonUnitFractions.pdf"
+    PRINTOUTS: "/pdfs/BuildingNonUnitFractions.pdf",
+    STUDENT_LINKS: [{title: 'Tool',link: '/gridnodes2x2'}]
   }
 
 

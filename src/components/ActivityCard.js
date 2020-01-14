@@ -60,7 +60,7 @@ export default function ActivityCard(props) {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   const activitypath = '/activities/' + props.data.ID
-  const pdf = `${props.PRINTOUTS}` 
+  const studentpath = '/landing/' + props.data.ID
 
   console.log("printous",props.data)
   const printouts = (props.data.PRINTOUTS && <Button className = "white"> 
@@ -79,9 +79,9 @@ export default function ActivityCard(props) {
       <p>{props.data.TIME+ " Minutes"}</p>
     </div>
     <div className="card-action"><Link  to={{pathname: `${activitypath}`, state: {data: props.data}}}>
-      <Button color = "primary" variant = "outlined" >Start</Button></Link>
-      <Link to = {props.data.TOOL}>
-      <Button className = "white">Interactive</Button>
+      <Button color = "primary" variant = "outlined" >Teacher</Button></Link>
+      <Link to={{pathname: `${studentpath}`, state: {data: props.data}}}>
+      <Button color = "primary" variant = "outlined" >Student</Button>
       </Link>
       {printouts}
       </div>

@@ -58,7 +58,8 @@ export const ACTIVITY = {
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/TileGreaterThanOne.pdf",
-    PRINTOUTS: 'something'
+    PRINTOUTS: 'something',
+    STUDENT_LINKS: [{title: 'Tool',link: '/walltool'}]
   }
 
 
