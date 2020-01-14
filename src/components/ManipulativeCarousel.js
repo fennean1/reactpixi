@@ -10,6 +10,7 @@ import * as NumberLineToolScript from "../js/numberlinetool.js";
 import * as OrderingToolScript from "../js/orderingtool.js";
 import * as FractionBarScript from "../js/fractionbar.js";
 import * as GridNodeScript from "../js/gridnodes.js";
+import * as GridCuttingScript from "../js/gridcutting.js";
 import * as FractionStacksScript from "../js/fractionstacks.js";
 import FactorBlocks from "./FactorBlocks";
 import * as Pixi from "pixi.js";
@@ -85,12 +86,10 @@ export default function ManipulativeCarousel(props) {
 
       >
         <Tab className = "white" label="Fraction Wall" />
-        <Tab className = "white" label="Factor Wall" />
         <Tab className = "white" label="Fraction Line" />
         <Tab className = "white" label="Ordering" />
-        <Tab className = "white" label="4x4 Fraction Grid" />
-        <Tab className = "white" label="3x3 Fraction Grid" />
-        <Tab className = "white" label="Fraction Bars" />
+        <Tab className = "white" label="Builder Grid" />
+        <Tab className = "white" label="Cutting Grid" />
         <Tab className = "white" label="Fraction Stacks" />
       </Tabs>
 
@@ -111,11 +110,6 @@ export default function ManipulativeCarousel(props) {
         </TabContainer>
         <TabContainer dir={theme.direction}>
           {value == 1 && (
-              <FactorBlocks/>
-           )}
-        </TabContainer>
-        <TabContainer dir={theme.direction}>
-          {value == 2 && (
             <Arena
               app = {app}
               fullscreen={true}
@@ -124,7 +118,7 @@ export default function ManipulativeCarousel(props) {
           )}
         </TabContainer>
         <TabContainer dir={theme.direction}>
-          {value == 3 && (
+          {value == 2 && (
             <Arena
              app = {app}
               fullscreen={true}
@@ -134,7 +128,7 @@ export default function ManipulativeCarousel(props) {
            )}
         </TabContainer>
         <TabContainer dir={theme.direction}>
-          {value == 4 && (
+          {value == 3 && (
               <Arena
                 app = {app}
                 setup={false}
@@ -145,28 +139,18 @@ export default function ManipulativeCarousel(props) {
            )}
         </TabContainer>
         <TabContainer dir={theme.direction}>
+          {value == 4 && (
+              <Arena
+                app = {app}
+                setup={false}
+                fullscreen={true}
+                features = {{x: 5,y: 5,descriptor: false,snapping: true}}
+                script={GridCuttingScript.init}
+              />
+           )}
+        </TabContainer>
+        <TabContainer dir={theme.direction}>
           {value == 5 && (
-              <Arena
-                app = {app}
-                setup={false}
-                fullscreen={true}
-                features = {{x: 4,y: 4,descriptor: true}}
-                script={GridNodeScript.init}
-              />
-           )}
-        </TabContainer>
-        <TabContainer dir={theme.direction}>
-          {value == 6 && (
-              <Arena
-                app = {app}
-                setup={false}
-                fullscreen={true}
-                script={FractionBarScript.init}
-              />
-           )}
-        </TabContainer>
-        <TabContainer dir={theme.direction}>
-          {value == 7 && (
               <Arena
                 app = {app}
                 setup={false}
