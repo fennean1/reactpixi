@@ -215,6 +215,16 @@ export default function LessonPanel(props) {
         {printList(data.SEQUENCE[panelNumber-1].tips)}
       </div>
     </Drawer>
+    <div style={{ display: "flex", flexDirection: flexDirect}} ref={me => wholeArea = me}>
+     <div style={{ display: "flex", justifyContent: 'center', flex: 1 }} ref={me => panel = me}>
+        <Document file={data.PDF} onLoadSuccess = {onLoadSuccess}>
+         <Page loading = {<div style = {{height: window.innerHeight*0.3,width: 300}}/>}  height={promptHeight} width={promptWidth} pageNumber={panelNumber} />
+        </Document>
+      </div>
+      <div ref = {me=>{arena = me}} style={{ flex: 1 }}>
+        <Arena key={key} tipsOpen = {tipsOpen} currentPanel = {data.SEQUENCE[(panelNumber-1)%numPanels]} panelNumber = {panelNumber} features={data.FEATURES} fullscreen={false} screenstate={{ width: arenaWidth, height: arenaHeight }} app={App} script={SCRIPTS[data.SCRIPT]} />
+      </div>
+    </div>
     <div style={{display: 'flex', width: '100%' }} >
       <div style={{ flex: 1, margin: 3 }}>
         <a onClick={() => toggleFullscreen()} className="btn orange left"><i className="material-icons">view_quilt</i></a>
@@ -226,16 +236,6 @@ export default function LessonPanel(props) {
       </div>
       <div style={{ flex: 1, float: 'right' }}>
         <a onClick={() => setTipsOpen(true)} className="btn orange right"><i className="material-icons">forum</i></a>
-      </div>
-    </div>
-    <div style={{ display: "flex", flexDirection: flexDirect}} ref={me => wholeArea = me}>
-     <div style={{ display: "flex", justifyContent: 'center', flex: 1 }} ref={me => panel = me}>
-        <Document file={data.PDF} onLoadSuccess = {onLoadSuccess}>
-         <Page loading = {<div style = {{height: window.innerHeight*0.3,width: 300}}/>}  height={promptHeight} width={promptWidth} pageNumber={panelNumber} />
-        </Document>
-      </div>
-      <div ref = {me=>{arena = me}} style={{ flex: 1 }}>
-        <Arena key={key} tipsOpen = {tipsOpen} currentPanel = {data.SEQUENCE[(panelNumber-1)%numPanels]} panelNumber = {panelNumber} features={data.FEATURES} fullscreen={false} screenstate={{ width: arenaWidth, height: arenaHeight }} app={App} script={SCRIPTS[data.SCRIPT]} />
       </div>
     </div>
     </div >

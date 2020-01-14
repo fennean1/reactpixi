@@ -39,7 +39,7 @@ createjs.Tween.get(backDrop).to({
 }, 500, createjs.Ease.getPowInOut(4))
 
 
-let activity = 'estMultichoice'
+let activity = 'ACTIVITY_TWO_TEACHER'
 console.log("Activity!", activity)
 let activityObj = PROBLEMS.EST_ACTIVITIES[activity]
 let problemSet = activityObj.problems

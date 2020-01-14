@@ -250,8 +250,152 @@ const SET_ONE_P1 = {
     mc: true,
     problems: [EST_MULTICHOICE_2_P1, EST_MULTICHOICE_2_P2, EST_MULTICHOICE_2_P3, EST_MULTICHOICE_2_P4]
   }
+
+
+  // Problem Set One
+  const BEAKER_ACTIVITY_1_PROBLEM_1 = {
+    num: 1,
+    den: 2,
+  }
+
+  const BEAKER_ACTIVITY_1_PROBLEM_2 = {
+    num: 1,
+    den: 4,
+  }
+
+  const BEAKER_ACTIVITY_1_PROBLEM_3 = {
+    num: 1,
+    den: 6,
+  }
+
+  const BEAKER_ACTIVITY_1_PROBLEM_4 = {
+    num: 1,
+    den: 3,
+  }
+
+  const BEAKER_ACTIVITY_1_PROBLEM_5 = {
+    num: 3,
+    den: 4,
+  }
+
+  const BEAKER_ACTIVITY_1_PROBLEM_6 = {
+    num: 5,
+    den: 6,
+  }
+
+  const BEAKER_ACTIVITY_1_PROBLEM_7 = {
+    num: 7,
+    den: 8,
+  }
+
+  const BEAKER_ACTIVITY_1_PROBLEM_8 = {
+    num: 3,
+    den: 6,
+  }
+
+  const BEAKER_ACTIVITY_1_PROBLEM_9 = {
+    num: 2,
+    den: 4,
+  }
+
+  const BEAKER_ACTIVITY_1_PROBLEM_10 = {
+    num: 3,
+    den: 8,
+  }
+
+  const BEAKER_ACTIVITY_1_PROBLEM_11 = {
+    num: 2,
+    den: 5,
+  }
+
+  const BEAKER_ACTIVITY_1_PROBLEM_12 = {
+    num: 4,
+    den: 7,
+  }
+
+  // Problem Set One Teacher Debrief
+  const BEAKER_ACTIVITY_1_TEACHER_1 = {
+    num: 1,
+    den: 4,
+  }
   
+  // Problem Set Two
+  const BEAKER_ACTIVITY_2_TEACHER_1 = {
+    num: 4,
+    den: 6,
+    multichoice: [
+      [3, 4],
+      [3, 10],
+      [4, 6],
+      [1, 3]
+    ],
+  }
+
+  const BEAKER_ACTIVITY_2_TEACHER_2 = {
+    num: 2,
+    den: 8,
+    multichoice: [
+      [1, 2],
+      [2, 8],
+      [2, 3],
+      [5, 6]
+    ],
+  }
+  
+  const BEAKER_ACTIVITY_2_TEACHER_3 = {
+    num: 3,
+    den: 4,
+    multichoice: [
+      [2, 7],
+      [3, 4],
+      [8, 9],
+      [3, 6]
+    ],
+  }
+
+  // New Game
+
+  // First SEt
+   const ACTIVITY_ONE_PROBLEMS = [BEAKER_ACTIVITY_1_PROBLEM_1,
+    BEAKER_ACTIVITY_1_PROBLEM_2,
+    BEAKER_ACTIVITY_1_PROBLEM_3,
+    BEAKER_ACTIVITY_1_PROBLEM_4,
+    BEAKER_ACTIVITY_1_PROBLEM_5,
+    BEAKER_ACTIVITY_1_PROBLEM_6,
+    BEAKER_ACTIVITY_1_PROBLEM_7,
+    BEAKER_ACTIVITY_1_PROBLEM_8,
+    BEAKER_ACTIVITY_1_PROBLEM_9,
+    BEAKER_ACTIVITY_1_PROBLEM_10,
+    BEAKER_ACTIVITY_1_PROBLEM_11,
+    BEAKER_ACTIVITY_1_PROBLEM_12]
+
+    const ACTIVITY_ONE = {
+      prompt: "Answer the question as a class \n by showing the number to \n the answer you chose.",
+      discussion: "You're finished!",
+      mc: false,
+      problems: ACTIVITY_ONE_PROBLEMS
+    }
+
+    // Teacher Debrief
+
+    const ACTIVITY_ONE_TEACHER = {
+      prompt: "Answer the question as a class \n by showing the number to \n the answer you chose.",
+      discussion: "You're finished!",
+      mc: true,
+      problems: [BEAKER_ACTIVITY_1_TEACHER_1]
+    }
+
+   // Teacher with class estimation.
+   const ACTIVITY_TWO_TEACHER = {
+    prompt: "Answer the question as a class \n by showing the number to \n the answer you chose.",
+    discussion: "You're finished!",
+    mc: true,
+    problems: [BEAKER_ACTIVITY_2_TEACHER_1,BEAKER_ACTIVITY_2_TEACHER_2,BEAKER_ACTIVITY_2_TEACHER_3]
+  }
   export const EST_ACTIVITIES = {
+    'ACTIVITY_ONE': ACTIVITY_ONE,
+    'ACTIVITY_ONE_TEACHER': ACTIVITY_ONE_TEACHER,
+    'ACTIVITY_TWO_TEACHER': ACTIVITY_TWO_TEACHER,
     'estWarmup': EST_WARM_UP,
     'estHands': EST_HANDS,
     'estMultichoice': EST_MULTICHOICE,
