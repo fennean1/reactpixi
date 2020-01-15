@@ -381,7 +381,7 @@ const SET_ONE_P1 = {
     const ACTIVITY_ONE_TEACHER = {
       prompt: "Answer the question as a class \n by showing the number to \n the answer you chose.",
       discussion: "You're finished!",
-      mc: true,
+      mc: false,
       problems: [BEAKER_ACTIVITY_1_TEACHER_1]
     }
 

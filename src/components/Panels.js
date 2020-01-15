@@ -160,18 +160,18 @@ export default function LessonPanel(props) {
 
 
       let currentPanel;
+      let previousPanel;
       if (k == -1){
-        currentPanel =  panelNumber > 1 ? panelNumber - 1 : numPanels
+        currentPanel =  panelNumber > 1 ? panelNumber + k : numPanels
       } else {
         currentPanel = panelNumber % numPanels+1
       }
 
 
       const OLD_TYPE = data.SEQUENCE[(panelNumber-1)%numPanels].screenType
-      const NEW_TYPE = data.SEQUENCE[(panelNumber-1+k)%numPanels].screenType
+      const NEW_TYPE = data.SEQUENCE[(currentPanel-1)%numPanels].screenType
 
       if (OLD_TYPE != NEW_TYPE){
-        console.log("NEW TYPE")
         var tl = new TimelineMax()
         tl.to(wholeArea,0,{alpha: 0})
           .to(wholeArea,0.3,{alpha: 0})
@@ -188,7 +188,7 @@ export default function LessonPanel(props) {
         flash.play()
       }
       setTimeout(() =>{
-        setPanel((panelNumber > 1 ? panelNumber - 1 : numPanels))
+        setPanel((panelNumber > 1 ? panelNumber + k : numPanels))
         setShowPrompt(false)
       }, 0)
     } else if (k == 1) {

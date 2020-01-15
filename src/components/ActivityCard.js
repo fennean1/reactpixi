@@ -24,8 +24,6 @@ import Chip from "@material-ui/core/Chip";
 import Popover from "@material-ui/core/Popover";
 
 
-
-
 const useStyles = makeStyles(theme => ({
   card: {},
   media: {

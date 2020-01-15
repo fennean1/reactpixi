@@ -19,47 +19,47 @@ const sequence =
       tips: ["Describe what you can do with this tool.",
       "What can you do to a shape after building it?",
       "Who found something else you can do after building a shape?"],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+      screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 4,
       tips: ["How many fourths do you need to cover the whole?",
       "Describe your strategy for building fourths.",
       "What other shapes represent a fourth ¼ of the large square?"],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 5,
       tips: ["How do you know if the shape you made is ¼ of the large square?",
       "What other shapes represent a fourth ¼ of the large square?",
       "Record the different ways you used fourths to cover the square. See example."],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+      screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 6,
       tips: ["Check with your partner, does their work match this example?",
       "Work together to make any corrections needed."],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 7,
       tips: ["What unit fraction will we need to build 3 fourths?",
       "Describe your strategy making ¾.",
       "Is there another way to build ¾ ? Explain."],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 8,
       tips: ["What unit fraction will we need to build 3 fourths?",
       "Describe your strategy making ¾.",
       "Is there another way to build ¾ ? Explain."],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+      screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 9,
       tips: ["Check with your partner, does their work match this example?",
       "Work together to make any corrections needed."],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT
     },
     {
       slideNumber: 10,
@@ -67,7 +67,7 @@ const sequence =
       "How much of the shape is covered? Explain.",
       "Are all the shapes an equal share of the whole? Explain.",
       "How can you prove how much of the whole each piece represents?"],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
 ]
 
