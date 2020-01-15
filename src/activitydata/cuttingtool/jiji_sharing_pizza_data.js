@@ -99,7 +99,7 @@ const sequence =
 
 export const ACTIVITY = {
     ID: "jiji_sharing_pizza",
-    TITLE : "Pizza Sharing",
+    TITLE : "Equal Shares",
     SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
     ICON: ICON,
     TIME: 30,

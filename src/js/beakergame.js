@@ -184,8 +184,8 @@ feedBackContainer.alpha = 0
 
 let actionButton = createActionButton("Go", submitAnswer)
 app.stage.addChild(actionButton)
-actionButton.x = GO_BUTTON_CENTER[0]
-actionButton.y = GO_BUTTON_CENTER[1]
+actionButton.x = DIM/4
+actionButton.y = DIM/4
 app.stage.addChild(adjustableContainer)
 
 
@@ -551,12 +551,11 @@ function createActionButton(text, action) {
   let graphics = new PIXI.Graphics();
   graphics.lineStyle(0, 0xb7b7b7, 1)
   graphics.beginFill(CONST.COLORS.ORANGE);
-  graphics.drawRoundedRect(0, 0, DIM, DIM / 2, 5);
+  graphics.drawRoundedRect(0, 0, 2*DIM, DIM, 5);
   graphics.endFill();
 
   let texture = app.renderer.generateTexture(graphics);
   let tile = new PIXI.Sprite(texture)
-  tile.anchor.set(0.5)
 
   let den = new PIXI.Text(text, {
     fontFamily: 'Chalkboard SE',
@@ -565,6 +564,8 @@ function createActionButton(text, action) {
     align: 'center'
   });
   den.anchor.set(0.5)
+  den.x = tile.width/2
+  den.y = tile.height/2
 
   let tileContainer = new PIXI.Container()
 
@@ -1004,7 +1005,7 @@ function createNotification(messege){
       var graphics = new PIXI.Graphics();
       graphics.lineStyle(4, 0x000000, 3)
       graphics.beginFill(0xFFFFFF);
-      graphics.drawRoundedRect(2, 2,0.8*window.innerWidth,0.8*window.innerHeight,5);
+      graphics.drawRoundedRect(2, 2,0.8*WINDOW_WIDTH,0.8*WINDOW_HEIGHT,5);
       graphics.endFill();
   
       var texture = app.renderer.generateTexture(graphics);

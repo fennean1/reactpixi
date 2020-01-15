@@ -391,8 +391,7 @@ export const init = (app, setup) => {
         pObj.destroy(true)
         app.stage.removeChild(pObj)
       })
-
-      console.log("WINDOW 2",WINDOW_WIDTH,WINDOW_HEIGHT)
+      
       // Ugh - hate that I have to pass the app just to get the renderer here.
       SQUARE = [[0,0],[0,SQUARE_DIM],[SQUARE_DIM,SQUARE_DIM],[SQUARE_DIM,0]]
       let newStartingSquare = new DraggablePoly(SQUARE,app)
@@ -439,22 +438,23 @@ export const init = (app, setup) => {
     stencil.y = 0
     app.stage.addChild(stencil)
 
-    console.log("Initial I,J",I,J)
-    initialPolygon = new DraggablePoly(SQUARE,app)
-    initialPolygon.x = DX*Math.round(I/2) 
-    initialPolygon.y = DY*Math.round(J/2)
-    polygonObjects.push(initialPolygon)
-    initialPolygon.on('pointerup',polyPointerUp)
-    initialPolygon.on('pointerdown',polyPointerDown)
-    initialPolygon.on('pointermove',polyPointerMove)
-    app.stage.addChild(initialPolygon)
-
     const onComplete = () => {
       rotateLeftBtn.interactive = false
       flipVerticalBtn.interactive = false
     }
     fadeAnimation.to([rotateLeftBtn,flipVerticalBtn],1,{alpha: 0,onComplete: onComplete},"+=2")
 
+    setTimeout(()=>{ 
+      updateLayoutParams()
+      SQUARE = [[0,0],[0,SQUARE_DIM],[SQUARE_DIM,SQUARE_DIM],[SQUARE_DIM,0]]
+      initialPolygon = new DraggablePoly(SQUARE,app)
+      initialPolygon.x = DX*Math.round(I/2) 
+      initialPolygon.y = DY*Math.round(J/2)
+      polygonObjects.push(initialPolygon)
+      initialPolygon.on('pointerup',polyPointerUp)
+      initialPolygon.on('pointerdown',polyPointerDown)
+      initialPolygon.on('pointermove',polyPointerMove)
+      app.stage.addChild(initialPolygon)},3000)
   }
 
   // Call load script
