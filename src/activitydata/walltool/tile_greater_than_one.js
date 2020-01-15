@@ -2,40 +2,72 @@
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
 import ICON from '../../assets/TilingOverOneIcon.png'
 
+
+
 const sequence = 
     [{
+      slideNumber: 1,
       screenType: SCREEN_TYPES.FULL_PROMPT,
       tips: ["Follow the prompt."],
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 2,
+      tips: ["Can there be more than 1 solution? Explain.",
+            "Which shapes did you try? Explain."
+        ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 3,
+      tips: ["Can there be more than 1 solution? Explain.",
+        "Which shapes did you use? Let’s try it!",
+        "What is the value of each shape?", 
+        "How much of the squares is covered?"
+        ],
       screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 4,
+      tips: ["Record the solution on your paper",
+        "Check with your partner, does their work match this example?",
+        "Work together to make any corrections needed."        
+       ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 5,
+      tips: ["Which piece(s) do you think will work?",
+        "How many fourths cover 1 whole square?",
+        "How many more fourths would you need to cover both (2-whole) squares?"        
+        ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
+      slideNumber: 6,
+      tips: ["Which piece(s) do you think will work?",
+        "How many thirds cover 1 whole square?",
+        "How many more thirds would you need to cover both (2-whole) squares?"
+        ],
       screenType: SCREEN_TYPES.PORTRAIT,
-      tips: ["Follow the prompt."],
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 7,
+      tips: ["Record the solution on your paper.",
+        "Check with your partner, does their work match this example?",        
+        "Work together to make any corrections needed."
+        ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 8,
+      tips: ["Use your tool to solve the problem.",
+        "There may not be a ‘correct’ answer, but what are some reasonable estimates.",
+        "What is an unreasonable estimate?"
+        ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
-   ]
+]
+
 
 
 export const ACTIVITY = {
@@ -58,7 +90,7 @@ export const ACTIVITY = {
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/TileGreaterThanOne.pdf",
-    PRINTOUTS: 'something',
+    ORGANIZER: "/pdfs/TileGreaterThanOneOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: '/walltool'}]
   }
 

@@ -44,7 +44,7 @@ class StudentActivityLandingPage extends Component {
       <div className="row">
    <div className ="section no-pad-bot" id="index-banner">
           <div className ="container">
-    <h1 className ="header center grey-text">{this.data.TITLE}</h1>
+    <h1 className ="header center orange-text">{this.data.TITLE}</h1>
           </div>
         </div>
         <br />  

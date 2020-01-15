@@ -63,8 +63,8 @@ export default function ActivityCard(props) {
   const studentpath = '/landing/' + props.data.ID
 
   console.log("printous",props.data)
-  const printouts = (props.data.PRINTOUTS && <Button className = "white"> 
-  <a target="_blank" className = "black-text" href = {`${props.data.PRINTOUTS}`}> 
+  const printouts = (props.data.ORGANIZER && <Button className = "white"> 
+  <a target="_blank" className = "black-text" href = {`${props.data.ORGANIZER}`}> 
       Printouts
   </a>
   </Button>)

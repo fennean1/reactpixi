@@ -48,7 +48,7 @@ app.loaded = false
 const theme = createMuiTheme({
   palette: {
     primary: {
-        main: "#339e45"
+        main: "#57a5ff"
       }
     }
   },

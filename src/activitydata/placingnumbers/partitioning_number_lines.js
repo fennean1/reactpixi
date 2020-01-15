@@ -1,49 +1,79 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
 import ICON from '../../assets/PartitioningIcon.png'
+
+
 const sequence = 
     [{
+      slideNumber: 1,
       screenType: SCREEN_TYPES.FULL_PROMPT,
       tips: ["Follow the prompt."],
       puzzle: "PARTITIONING_ACTIVITY_ONE"
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 2,
+      tips: ["How are you figuring out where to put the pins?",
+        "Can you use ½ to help you place the other pins?",
+        "What strategies have you tried?" 
+        ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "PARTITIONING_ACTIVITY_ONE"
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 3,
+      tips: ["Compare guess/check strategy with repeated halving.",
+        "How far is the first pin from zero? ¼ of the whole (0 to 1)",
+        "How far are the second/third pins?",
+        "What unit fraction is the number line divided into? How do you know?",
+        ],
       screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "PARTITIONING_ACTIVITY_ONE_TEACHER"
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 4,
+      tips: ["Record the solution on your paper",
+        "Check with your partner, does their work match this example?",
+        "Work together to make any corrections needed."
+        ],
+      screenType: SCREEN_TYPES.FULL_PROMPT,
+      puzzle: "PARTITIONING_ACTIVITY_ONE_TEACHER"
+    },
+    {
+      slideNumber: 5,
+      tips: ["How are you figuring out where to put these fractions?",
+        "Why should these fractions be spaced equally between 0 and 1?",
+        "What is the distance from 2/n to 3/n?"
+        ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "PARTITIONING_ACTIVITY_TWO"
     },
     {
-      screenType: SCREEN_TYPES.FULL_PROMPT,
-      tips: ["Follow the prompt."],
-      puzzle: "PARTITIONING_ACTIVITY_TWO"
-    },
-    {
-      tips: ["Follow the prompt."],
+      slideNumber: 6,
+      tips: ["Compare guess/check strategy with finding ½ (3/6) then placing remaining fractions on NL.",
+        "How far is the ⅚  from zero? Prove it.",
+        "What is the distance between each point on the number line?"
+        ],
       screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "PARTITIONING_ACTIVITY_TWO_TEACHER"
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 7,
+      tips: ["Record the solution on your paper",
+        "Check with your partner, does their work match this example?",
+        "Work together to make any corrections needed."
+        ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "PARTITIONING_ACTIVITY_TWO_TEACHER"
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 8,
+      tips: ["What do you notice about these two number lines? Compare/Contrast",
+        "Why do you think this number line shows fourths but not the other?",
+        "Both number lines are divided into 4 distances, why aren’t they both fourths?"],
       screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "PARTITIONING_ACTIVITY_TWO_TEACHER"
-    }
-  ]
-
+    },
+]
 
 
 export const ACTIVITY = {
@@ -66,6 +96,7 @@ export const ACTIVITY = {
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/PartitioningNumberLines.pdf",
+    ORGANIZER: null,
     STUDENT_LINKS: [{title: 'Game One',link: '/numberline-partitioning-game-one'},{title: 'Game Two',link: '/numberline-partitioning-game-two'}]
   }
 

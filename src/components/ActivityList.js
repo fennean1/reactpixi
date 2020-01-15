@@ -16,7 +16,7 @@ class ActivityList extends Component {
       <div className = "container">
         <div className ="section no-pad-bot" id="index-banner">
           <div className ="container">
-            <h1 className ="header center grey-text">Activities</h1>
+            <h1 className ="header center orange-text">Lessons</h1>
           </div>
         </div>
         <div className="row">

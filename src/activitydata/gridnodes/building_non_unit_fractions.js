@@ -4,44 +4,72 @@ import ICON from '../../assets/BuildingIcon.png'
 
 const sequence = 
     [{
+      slideNumber: 1,
       screenType: SCREEN_TYPES.FULL_PROMPT,
       tips: ["Follow the prompt."],
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 2,
+      tips: ["Monitor students as they work.",
+      "Share out discoveries as students make them"],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 3,
+      tips: ["Describe what you can do with this tool.",
+      "What can you do to a shape after building it?",
+      "Who found something else you can do after building a shape?"],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 4,
+      tips: ["How many fourths do you need to cover the whole?",
+      "Describe your strategy for building fourths.",
+      "What other shapes represent a fourth ¼ of the large square?"],
       screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 5,
+      tips: ["How do you know if the shape you made is ¼ of the large square?",
+      "What other shapes represent a fourth ¼ of the large square?",
+      "Record the different ways you used fourths to cover the square. See example."],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
-      screenType: SCREEN_TYPES.FULL_PROMPT,
-      tips: ["Follow the prompt."],
-      banner: "this is short text for the top"
-    },
-    {
-      tips: ["Follow the prompt."],
+      slideNumber: 6,
+      tips: ["Check with your partner, does their work match this example?",
+      "Work together to make any corrections needed."],
       screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 7,
+      tips: ["What unit fraction will we need to build 3 fourths?",
+      "Describe your strategy making ¾.",
+      "Is there another way to build ¾ ? Explain."],
+      screenType: SCREEN_TYPES.PORTRAIT,
+    },
+    {
+      slideNumber: 8,
+      tips: ["What unit fraction will we need to build 3 fourths?",
+      "Describe your strategy making ¾.",
+      "Is there another way to build ¾ ? Explain."],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
-      tips: ["Follow the prompt."],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+      slideNumber: 9,
+      tips: ["Check with your partner, does their work match this example?",
+      "Work together to make any corrections needed."],
+      screenType: SCREEN_TYPES.PORTRAIT,
+    },
+    {
+      slideNumber: 10,
+      tips: ["Create these shapes with your tool.",
+      "How much of the shape is covered? Explain.",
+      "Are all the shapes an equal share of the whole? Explain.",
+      "How can you prove how much of the whole each piece represents?"],
+      screenType: SCREEN_TYPES.PORTRAIT,
     },
 ]
-
 
 export const ACTIVITY = {
     ID: "building_non_unit_fractions",
@@ -63,64 +91,7 @@ export const ACTIVITY = {
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/BuildingNonUnitFractions.pdf",
-    PRINTOUTS: "/pdfs/BuildingNonUnitFractions.pdf",
+    ORGANIZER: "/pdfs/BuildingNonUnitFractionsOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: '/gridnodes2x2'}]
   }
 
-
-  /*
-
-[
-        ["Follow the prompt."],
-        [
-        "Tool",
-        "What you can do with this tool?",
-        "How much of the ‘whole’ square is left after all your cuts?",
-        "What part of the ‘whole’ square is this piece…?",
-        "How can this tool help us learn about fractions?",
-        ],
-        ["Follow the prompt"],
-        [
-          "Use the cutting tool to show JiJi how to cut the pizza for two friends",
-          "How do you know the pieces are fair shares?",
-          "How many different ways can you find to make 2 equal shares?"
-        ],
-        [
-          "How do you know these pieces are fair shares?",
-          "What do we call these equal shares?",
-          "Record the different ways we cut the pizza into halves on your paper."
-        ],
-        ["tipOne","tipTwo"],
-        [
-          "Use the cutting tool to show JiJi how to cut the pizza for 4 friends.",
-          "How do you know the pieces are fair shares?",
-          "How many different ways can you find to make 4 equal shares?"],
-        [
-          "How do you know these pieces are fair shares?",
-          "What do we call these equal shares? (fourths)",
-          "Record the different ways we cut the pizza into fourths on your paper."
-        ],
-        ["Follow Prompt"],
-        ["Use the cutting tool to show JiJi how to cut the pizza for 8 friends.",
-        "How do you know the pieces are fair shares?",
-        "How many different ways can you find to make 8 equal shares?",
-        ],
-        [
-          "How do you know these pieces are fair shares?",
-          "What do we call these equal shares? (eighths)",
-          "Record the different ways we cut the pizza into eighths on your paper."],
-        ["Follow the prompt"],
-        [
-          "What patterns do you see?",
-          "What happens to the size of each piece with more cuts?",
-          "Record the unit fractions in order from least to greatest.",
-          "If 8 > 2, why is 1/8 < 1/2?"
-        ],
-        [
-          "Are these fourths? Why or why not?",
-          "Use your cutting tool to figure out how much of the whole each piece represents.",
-          "Record your solution on your paper."
-        ],
-    ],
-
-  */
