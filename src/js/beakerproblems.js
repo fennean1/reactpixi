@@ -313,10 +313,20 @@ const SET_ONE_P1 = {
     den: 7,
   }
 
+
   // Problem Set One Teacher Debrief
   const BEAKER_ACTIVITY_1_TEACHER_1 = {
     num: 1,
     den: 4,
+  }
+
+  const BEAKER_ACTIVITY_1_TEACHER_2 = {
+    num: 4,
+    den: 5,
+  }
+  const BEAKER_ACTIVITY_1_TEACHER_3 = {
+    num: 5,
+    den: 8,
   }
   
   // Problem Set Two
@@ -382,7 +392,7 @@ const SET_ONE_P1 = {
       prompt: "Answer the question as a class \n by showing the number to \n the answer you chose.",
       discussion: "You're finished!",
       mc: false,
-      problems: [BEAKER_ACTIVITY_1_TEACHER_1]
+      problems: [BEAKER_ACTIVITY_1_TEACHER_1,BEAKER_ACTIVITY_1_TEACHER_2,BEAKER_ACTIVITY_1_TEACHER_3]
     }
 
    // Teacher with class estimation.

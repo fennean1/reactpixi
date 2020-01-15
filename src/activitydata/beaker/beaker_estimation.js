@@ -56,7 +56,7 @@ const sequence =
     },
     {
       slideNumber: 7,
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
       tips: ["Which estimate(s) seem reasonable? Explain.",
         "Which of these fractions would not be reasonable? Explain.",
         "Are there other fractions not on the list that would be reasonable? Explain.",

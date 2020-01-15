@@ -35,6 +35,8 @@ export const init = (app, setup) => {
   let OLD_DX = DX
   let J = Math.floor(WINDOW_HEIGHT/DY)
   let I = Math.floor(WINDOW_WIDTH/DX)
+  let SQUARE = [[0,0],[0,SQUARE_DIM],[SQUARE_DIM,SQUARE_DIM],[SQUARE_DIM,0]]
+  console.log("WINDOW",WINDOW_WIDTH,WINDOW_HEIGHT)
 
 
 
@@ -57,6 +59,9 @@ export const init = (app, setup) => {
   let linePoints = []
   let polygonObjects = []
   let features = {}
+  let initialPolygon;
+
+
 
   let fadeAnimation = new TimelineLite({paused: true})
  
@@ -76,11 +81,6 @@ export const init = (app, setup) => {
         this.sprite.height = WINDOW_HEIGHT
     }
   }
-
-  let SQUARE = [[0,0],[0,SQUARE_DIM],[SQUARE_DIM,SQUARE_DIM],[SQUARE_DIM,0]]
-  let initialPolygon = new DraggablePoly(SQUARE,app)
-  app.stage.addChild(initialPolygon)
-
 
   class Stencil extends PIXI.Graphics {
     constructor(){
@@ -200,13 +200,11 @@ export const init = (app, setup) => {
     if (true){
       let vertices = poly.getPolyPoints()
       let indexOfNearestNode = getIndexOfNearestVertice(vertices,DX)
-      console.log("snapping, indexOfNearestNode",indexOfNearestNode)
       let first = vertices[indexOfNearestNode]
       let originX = first[0]
       let originY = first[1]
       let deltaX = originX - poly.x 
       let deltaY = originY - poly.y
-      console.log("originaXY",originX,originY)
       let i = Math.round(originX/DX)*DX
       let j = Math.round(originY/DY)*DY
       poly.x = i - deltaX
@@ -261,6 +259,7 @@ export const init = (app, setup) => {
       resetBtn.y = BTN_DIM/1.5
       resetBtn.x = WINDOW_WIDTH - BTN_DIM/1.5
       app.renderer.resize(WINDOW_WIDTH,WINDOW_HEIGHT)
+      
       resetNodes()
       redrawPolys(OLD_FRAME,newFrame)
       backGround.draw()
@@ -286,6 +285,9 @@ export const init = (app, setup) => {
     OLD_DX = DX
     DX = SQUARE_DIM/(setup.props.features.x-1)
     DY = SQUARE_DIM/(setup.props.features.y-1)
+    J = Math.floor(WINDOW_HEIGHT/DY)
+    I = Math.floor(WINDOW_WIDTH/DX)
+  
   }
 
   function placeButtons(alpha){
@@ -389,11 +391,15 @@ export const init = (app, setup) => {
         pObj.destroy(true)
         app.stage.removeChild(pObj)
       })
+
+      console.log("WINDOW 2",WINDOW_WIDTH,WINDOW_HEIGHT)
       // Ugh - hate that I have to pass the app just to get the renderer here.
       SQUARE = [[0,0],[0,SQUARE_DIM],[SQUARE_DIM,SQUARE_DIM],[SQUARE_DIM,0]]
       let newStartingSquare = new DraggablePoly(SQUARE,app)
-      newStartingSquare.x = DX*Math.floor(I/3) + newStartingSquare.width/2
-      newStartingSquare.y = DY*Math.floor(J/3) + newStartingSquare.height/2
+      console.log("I",I)
+      console.log("J",J)
+      newStartingSquare.x = DX*Math.round(I/2)
+      newStartingSquare.y = DY*Math.round(J/2)
       activePolygon = newStartingSquare
       newStartingSquare.on('pointerup',polyPointerUp)
                        .on('pointerdown',polyPointerDown)
@@ -433,19 +439,22 @@ export const init = (app, setup) => {
     stencil.y = 0
     app.stage.addChild(stencil)
 
-    initialPolygon.x = DX*Math.floor(I/3) + initialPolygon.width/2
-    initialPolygon.y = DY*Math.floor(J/3) + initialPolygon.height/2
-    app.stage.addChild(initialPolygon)
+    console.log("Initial I,J",I,J)
+    initialPolygon = new DraggablePoly(SQUARE,app)
+    initialPolygon.x = DX*Math.round(I/2) 
+    initialPolygon.y = DY*Math.round(J/2)
     polygonObjects.push(initialPolygon)
     initialPolygon.on('pointerup',polyPointerUp)
     initialPolygon.on('pointerdown',polyPointerDown)
     initialPolygon.on('pointermove',polyPointerMove)
+    app.stage.addChild(initialPolygon)
 
     const onComplete = () => {
       rotateLeftBtn.interactive = false
       flipVerticalBtn.interactive = false
     }
     fadeAnimation.to([rotateLeftBtn,flipVerticalBtn],1,{alpha: 0,onComplete: onComplete},"+=2")
+
   }
 
   // Call load script
