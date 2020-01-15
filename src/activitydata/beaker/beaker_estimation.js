@@ -4,38 +4,63 @@ import ICON from '../../assets/BeakerEstimationIcon.png'
 
 const sequence = 
     [{
+      slideNumber: 1,
       screenType: SCREEN_TYPES.FULL_PROMPT,
       tips: ["Follow the prompt."],
       puzzle: "ACTIVITY_ONE"
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 2,
+      tips: ["How does this fraction help you figure out how much of the beaker to fill?",
+        "Explain your strategy.",
+        "Do you have to have an exact answer? Why or why not?"
+        ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "ACTIVITY_ONE"
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 3,
+      tips: ["How does this fraction help you figure out how much of the beaker to fill?",
+      "Explain your strategy.",
+      "Do you have to have an exact answer? Why or why not?"
+      ],
       screenType: SCREEN_TYPES.PORTRAIT,
       puzzle: "ACTIVITY_ONE_TEACHER"
     },
     {
-      tips: ["Follow the prompt."],
+      slideNumber: 4,
+      tips: ["Record the solution on your paper",
+        "Check with your partner, does their work match this example?",
+        "Work together to make any corrections needed.",
+        ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      puzzle: "ACTIVITY_ONE"
+      puzzle: "ACTIVITY_ONE_TEACHER"
     },
     {
+      slideNumber: 5,
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      tips: ["Follow the prompt."],
-      puzzle: "ACTIVITY_ONE"
+      tips: ["Compare your solutions with your partner’s",
+        "Is there more than one reasonable answer? Why or why not.",
+        "What would be another reasonable answer to this problem? What would be unreasonable?"
+        ],
+        puzzle: "ACTIVITY_ONE_TEACHER"
     },
     {
-      screenType: SCREEN_TYPES.FULL_PROMPT,
-      tips: ["Follow the prompt."],
-      puzzle: "ACTIVITY_ONE"
-    },
-    {
+      slideNumber: 6,
       screenType: SCREEN_TYPES.PORTRAIT,
-      tips: ["Follow the prompt."],
+      tips: ["Which estimate(s) seem reasonable? Explain.",
+        "Which of these fractions would not be reasonable? Explain.",
+        "Are there other fractions not on the list that would be reasonable? Explain."
+        ],
+      puzzle: "ACTIVITY_TWO_TEACHER"
+    },
+    {
+      slideNumber: 7,
+      screenType: SCREEN_TYPES.PORTRAIT,
+      tips: ["Which estimate(s) seem reasonable? Explain.",
+        "Which of these fractions would not be reasonable? Explain.",
+        "Are there other fractions not on the list that would be reasonable? Explain.",
+        ],
       puzzle: "ACTIVITY_TWO_TEACHER"
     },
   ]
