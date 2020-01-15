@@ -35,11 +35,6 @@ class ActivityList extends Component {
           <ActivityCard data={ACTIVITIES.tile_greater_than_one} />
           </div>
         </div>
-        <div className="row">
-        < div className="col s6">
-            <ActivityCard data={ACTIVITIES.beaker_estimation} />
-          </div>
-        </div>
       </div>
     );
   }
