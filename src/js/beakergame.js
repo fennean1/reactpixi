@@ -55,8 +55,8 @@ const CONT_BORD = DIM / 10
 const LINE_WIDTH = 5 // Should be some fraction of DIM or window
 const WINDOW_CENTER_X = WINDOW_WIDTH / 2
 const TOP_MARGIN = DIM / 2
-const CONTAINER_HEIGHT = 3 * DIM + 4
-const CONTAINER_WIDTH = 3 * DIM + 4
+const CONTAINER_HEIGHT = 3 * DIM
+const CONTAINER_WIDTH = 3 * DIM
 const LEFT_CONTAINER_CENTER_X = WINDOW_WIDTH / 3
 const RIGHT_CONTAINER_CENTER_X = WINDOW_WIDTH / 3 * 2
 const CONTAINER_CENTER_Y = 2 / 3 * WINDOW_HEIGHT
@@ -71,8 +71,8 @@ const DELTA_BRIDGE = LEFT_CONTAINER_CENTER_X + 0.7 * CONTAINER_WIDTH - (RIGHT_CO
 const BRIDGE_LENGTH = Math.sqrt(TOLERANCE * TOLERANCE + DELTA_BRIDGE * DELTA_BRIDGE) + LINE_WIDTH / 2
 const ORIGINAL_WATER_LOCATION = [LEFT_CONTAINER_CENTER_X + CONTAINER_WIDTH / 2, CONTAINER_CENTER_Y + CONTAINER_HEIGHT / 2]
 const ORIGINAL_CONTAINER_LOCATION = [CENTER_CONTAINER_X, CONTAINER_CENTER_Y]
-const WATER_CENTER = CENTER_CONTAINER_X + CONTAINER_WIDTH / 2 - CONT_BORD / 2
-const WATER_LEFT = LEFT_CONTAINER_CENTER_X + 3 * DIM / 2 - CONT_BORD / 2
+const WATER_CENTER = CENTER_CONTAINER_X + CONTAINER_WIDTH / 2
+const WATER_LEFT = LEFT_CONTAINER_CENTER_X + 3 * DIM / 2
 
 // COMPUTED CONSTANTS
 const correct_ans_y = () => {
@@ -163,17 +163,18 @@ let slider = createSlider(DIM)
 app.stage.addChild(slider)
 slider.on('pointerdown', onSliderStart)
 slider.on('pointerup', onSliderEnd)
+slider.on('pointerupoutside',onSliderEnd)
 slider.on('pointermove', onSliderMove)
 slider.x = adjustableContainer.x + adjustableContainer.width / 2
-slider.y = CONTAINER_BOTTOM - slider.height / 2
+slider.y = CONTAINER_BOTTOM - slider.height/2
 
 
 let water = createWater()
 app.stage.addChild(water)
 water.y = CONTAINER_BOTTOM - CONT_BORD / 2
-water.x = adjustableContainer.x + 3 * DIM / 2
+water.x = adjustableContainer.x + adjustableContainer.width/2
 water.height = 0
-water.width = 3 * DIM - CONT_BORD / 2
+water.width = 3 * DIM
 
 
 let feedBackContainer = createContainer(3 * DIM)
@@ -203,7 +204,7 @@ function globalPointerUp() {
 
 // FUNCTIONS
 function queMultipleChoiceFormat() {
-  adjustableContainer.x = WINDOW_CENTER_X - CONT_BORD/2
+  adjustableContainer.x = WINDOW_CENTER_X
   slider.x = adjustableContainer.x + adjustableContainer.width / 2
   water.x = WATER_CENTER
 }
@@ -301,36 +302,6 @@ function checkMCAnswer() {
       animateAnswer(this.num, this.den)
     })
   }
-}
-
-
-function createMultipleChoice(text) {
-
-  var block = new PIXI.Graphics();
-  block.lineStyle(2, CONST.COLORS.DARK_GRAY, 2)
-  block.beginFill(0xFFFFFF);
-  block.drawRoundedRect(1, 1, DIM, DIM / 2, 5);
-  block.endFill();
-
-  let t = new PIXI.Text(text, {
-    fontFamily: 'Chalkboard SE',
-    fontSize: 12,
-    fill: 0x000000,
-    align: 'center'
-  });
-  t.anchor.set(0.5)
-
-  var blockTexture = app.renderer.generateTexture(block);
-  let tile = new PIXI.Sprite(blockTexture)
-  tile.anchor.set(0.5)
-
-  let blockContainer = new PIXI.Container()
-
-  blockContainer.addChild(tile)
-  blockContainer.addChild(t)
-  blockContainer.textVal = t
-
-  return blockContainer
 }
 
 
@@ -491,19 +462,24 @@ function animateBridge(startTheBlock) {
 
 function createContainer(width) {
   let containerGraphic = new PIXI.Graphics()
-  containerGraphic.lineStyle(CONT_BORD, 0x000000,1,1)
+  containerGraphic.lineStyle(CONT_BORD, 0x000000,1,0.5)
   containerGraphic.moveTo(0, 0)
   containerGraphic.lineTo(0, width)
   containerGraphic.lineTo(width, width)
   containerGraphic.lineTo(width, 0)
   containerGraphic.interactive = true
-  containerGraphic.x = CONT_BORD / 2.5
+  containerGraphic.x = 0
 
+  // Generate texture
   let containerTexture = app.renderer.generateTexture(containerGraphic)
+
   let containerSprite = new PIXI.Sprite(containerTexture)
   containerSprite.anchor.set(0.5)
   containerSprite.width = containerGraphic.width
   containerSprite.height = containerGraphic.height
+
+  // Get rid of graphic
+  containerGraphic.destroy(true)
   return containerSprite
 }
 
@@ -519,13 +495,15 @@ function createWater() {
   let waterSprite = new PIXI.Sprite(waterTexture)
   waterSprite.anchor.set(1)
 
+  // Getting rid of graphic
+  waterGraphic.destroy(true)
   return waterSprite
 }
 
 
 function adjustWaterLevel(val) {
   water.height = val
-  water.y = adjustableContainer.y + adjustableContainer.height / 2 - CONT_BORD / 2
+  water.y = CONTAINER_BOTTOM - CONT_BORD / 2
   water.x = LEFT_CONTAINER_CENTER_X + CONTAINER_WIDTH / 2 
 }
 
@@ -559,7 +537,7 @@ function createActionButton(text, action) {
 
   let den = new PIXI.Text(text, {
     fontFamily: 'Chalkboard SE',
-    fontSize: DX / 2,
+    fontSize: DIM / 2,
     fill: 0xFFFFFF,
     align: 'center'
   });
@@ -617,17 +595,17 @@ function createPartitionBlock(h, w) {
 function animateAnswer(num, den, numCords, denCords) {
   let dy = (CONTAINER_WIDTH) / den
   for (let i = 0; i < num; i++) {
-    let b = createFeedBlock(CONTAINER_WIDTH - 8, dy)
-    b.x = RIGHT_CONTAINER_CENTER_X - CONTAINER_WIDTH / 2 + LINE_WIDTH
-    b.y = CONTAINER_BOTTOM - dy * (i + 1) - LINE_WIDTH/2
+    let b = createFeedBlock(CONTAINER_WIDTH, dy)
+    b.x = RIGHT_CONTAINER_CENTER_X - CONTAINER_WIDTH / 2
+    b.y = CONTAINER_BOTTOM - dy * (i + 1)
     let f = createFrick(num_cords, [b.x + b.width / 2, b.y + b.height / 2])
     feedFricks.push(f)
     feedBlocks.push(b)
   }
   for (let j = 0; j < den; j++) {
     let b = createPartitionBlock(CONTAINER_WIDTH - LINE_WIDTH/2, dy)
-    b.x = RIGHT_CONTAINER_CENTER_X - CONTAINER_WIDTH / 2 + LINE_WIDTH
-    b.y = CONTAINER_BOTTOM - (dy) * (j + 1) - LINE_WIDTH/2
+    b.x = RIGHT_CONTAINER_CENTER_X - CONTAINER_WIDTH / 2
+    b.y = CONTAINER_BOTTOM - (dy) * (j + 1)
     let f = createFrick(den_cords, [b.x + b.width / 2, b.y + b.height / 2])
     frameFricks.push(f)
     frameBlocks.push(b)
@@ -677,7 +655,6 @@ function reset() {
   feedBlocks.forEach(b => {
     app.stage.removeChild(b)
   })
-  console.log("REMOVING feed FRICKS")
   feedFricks.forEach(f => {
     app.stage.removeChild(f)
   })
@@ -907,11 +884,10 @@ function onSliderStart(event) {
 
 function onSliderEnd() {
   let pointerPosition = this.data.getLocalPosition(this.parent);
-  let inRange = pointerPosition.y < CONTAINER_BOTTOM ? true : false
+  let inRange = pointerPosition.y - CONT_BORD < CONTAINER_BOTTOM ? true : false
   if (!inRange) {
-    createjs.Tween.get(this).to({
-      y: CONTAINER_BOTTOM - this.height / 2
-    }, 500, createjs.Ease.getPowInOut(4))
+    this.y =  CONTAINER_BOTTOM - this.height / 2
+    adjustWaterLevel(1)
   }
   this.data = null;
   this.dragging = false
@@ -920,10 +896,12 @@ function onSliderEnd() {
 function onSliderMove() {
   if (this.dragging) {
     let pointerPosition = this.data.getLocalPosition(this.parent);
-    let inRange = pointerPosition.y < CONTAINER_BOTTOM ? true : false
+    let inRange = pointerPosition.y - CONT_BORD < CONTAINER_BOTTOM ? true : false
     if (inRange) {
       this.position.y = pointerPosition.y - this.height / 2
-      adjustWaterLevel(CONTAINER_BOTTOM - LINE_WIDTH/2 - pointerPosition.y)
+      adjustWaterLevel(Math.abs(CONTAINER_BOTTOM - LINE_WIDTH/2 - pointerPosition.y))
+    } else {
+      this.position.y = CONTAINER_BOTTOM - this.height/2
     }
   }
 }

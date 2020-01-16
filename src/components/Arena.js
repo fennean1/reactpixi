@@ -27,16 +27,13 @@ class Arena extends Component {
       for (var i = children.length - 1; i >= 0; i--) {	this.props.app.stage.removeChild(children[i]);};
       for (var i = children.length - 1; i >= 0; i--) {	children[i].destroy(true);};
     } 
-   console.log("texture cache before",Pixi.utils.TextureCache)
-    Object.keys(Pixi.utils.TextureCache).forEach(function(texture) {  Pixi.utils.TextureCache[texture].destroy(true);});
-    console.log("texture cache",Pixi.utils.TextureCache)
+   Object.keys(Pixi.utils.TextureCache).forEach(function(texture) {  Pixi.utils.TextureCache[texture].destroy(true);});
   }
 
   // Resizes the view it it's mounted and resizable. (Old versions don't always have a resize function)
   resize(){
     // Active means the this.props.app is mounted and currently being use (Not in the background)
     if (this.props.app.active){
-
       // Does this have a resize option?
       if (this.props.app.resizable){
         this.props.app.resize({width: this.gameCanvas.clientWidth,height: this.gameCanvas.clientHeight})
