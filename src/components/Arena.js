@@ -14,9 +14,11 @@ class Arena extends Component {
 
   componentWillUnmount(){
     // Static this.props.apps are not dismantlced upon unmounting.
+    console.log("DESTROYING")
     this.props.app.active = false
     // If the this.props.app is static, don't deconstruct.
     if (this.props.app.static == false){
+      console.log("ACTUALLY DESTROYING")
       // Remove assigned this.props.app items.
       this.props.app.resizable = false
       this.props.app.active = false
@@ -25,28 +27,28 @@ class Arena extends Component {
       for (var i = children.length - 1; i >= 0; i--) {	this.props.app.stage.removeChild(children[i]);};
       for (var i = children.length - 1; i >= 0; i--) {	children[i].destroy(true);};
     } 
+   console.log("texture cache before",Pixi.utils.TextureCache)
+    Object.keys(Pixi.utils.TextureCache).forEach(function(texture) {  Pixi.utils.TextureCache[texture].destroy(true);});
+    console.log("texture cache",Pixi.utils.TextureCache)
   }
 
   // Resizes the view it it's mounted and resizable. (Old versions don't always have a resize function)
   resize(){
-    console.log("resizing!!!")
     // Active means the this.props.app is mounted and currently being use (Not in the background)
-    console.log('active?',this.props.app.active)
     if (this.props.app.active){
 
       // Does this have a resize option?
       if (this.props.app.resizable){
-        console.log("resizable!")
         this.props.app.resize({width: this.gameCanvas.clientWidth,height: this.gameCanvas.clientHeight})
       } else {
         // Unless the this.props.app has an assign resizable function, we just redraw but we reload the script. (This erases everything)
-        console.log("redrawing")
         this.redraw()
       }
    }
   }
 
   redraw(){
+    console.log("REDRAWING")
     let children = this.props.app.stage.children
     for (var i = children.length - 1; i >= 0; i--) {	this.props.app.stage.removeChild(children[i]);};
     for (var i = children.length - 1; i >= 0; i--) {	children[i].destroy(true);};
