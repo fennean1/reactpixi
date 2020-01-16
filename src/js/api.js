@@ -682,6 +682,7 @@ export class NumberLine extends PIXI.Container {
 
     this.onPinDrag = ()=>{}
     this.onIncrement = () => {}
+    this.onDecrement = () => {}
 
     this.max = max 
     this.hideFractions = false
@@ -736,19 +737,23 @@ export class NumberLine extends PIXI.Container {
    this.init()
   }
 
+  hideButtons(){
+    this.incDenominatorBtn.alpha = 0
+    this.decDenominatorBtn.alpha = 0
+  }
 
   init = () => {
 
     this.incDenominatorBtn.width = this._height
     this.incDenominatorBtn.height = this._height
-    this.incDenominatorBtn.x = 1.05*this._width + this.incDenominatorBtn.width
+    this.incDenominatorBtn.x = -0.05*this._width
     this.incDenominatorBtn.y = 0
     this.incDenominatorBtn.anchor.set(0.5)
     this.addChild(this.incDenominatorBtn)
 
     this.decDenominatorBtn.width = this._height
     this.decDenominatorBtn.height = this._height
-    this.decDenominatorBtn.x = 1.05*this._width
+    this.decDenominatorBtn.x = -0.05*this._width - this.decDenominatorBtn.width
     this.decDenominatorBtn.y = 0
     this.decDenominatorBtn.anchor.set(0.5)
     this.addChild(this.decDenominatorBtn)
@@ -801,13 +806,13 @@ export class NumberLine extends PIXI.Container {
     this.line.y = 0
     this.line.lineTo(this._width,0)
 
-  
+    this.incDenominator(0)
 
+    /*
     this.labels.forEach((l,i)=>{
       if (this.dx*6 > this._width){
-        l.draw(i,this.denominator,this._width/12)
+        l.draw(i,this.denominator,this._width/20)
       } else if (!this.hideFractions){
-        console.log("greater than width!!!")
         l.draw(i,this.denominator,this.dx/2)
       } else {
         l.draw(i,this.denominator,this._height)
@@ -816,6 +821,7 @@ export class NumberLine extends PIXI.Container {
       l.draw(l.numerator,l.denominator,this.dx/2)
       l.x = _x - l.width/2
     })
+    */
 
     this.ticks.forEach((t,j)=>{
       let _x = j*this.dx > this._width ? this.line.width : this.dx*j
@@ -830,7 +836,7 @@ export class NumberLine extends PIXI.Container {
 
       // Redraw the pin
       this.pin.x = this.whole
-      this.pin.y = this.dx/2 - this.pin.height/2
+      this.pin.y = this.width/20 - this.pin.height/2
 
       // Redraw Inc Button
       this.incDenominatorBtn.width = this._height
@@ -881,7 +887,12 @@ export class NumberLine extends PIXI.Container {
   }
 
   incDenominator(inc){
+    if (inc > 0){
       this.onIncrement()
+    } else if (inc < 0){
+      this.onDecrement()
+    } else {
+    
       this.denominator += inc
       this.dx = this.whole/this.denominator
       this.ticks.forEach((e,i)=> {
@@ -916,5 +927,6 @@ export class NumberLine extends PIXI.Container {
           }
       }
     })
+  }
   }
 }

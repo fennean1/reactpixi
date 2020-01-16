@@ -16,13 +16,16 @@ export const init = (app, setup) => {
   let draggableItem;
   let tags = []
   let hideBtn;
-  let activeTag
+  let activeTag;
+  let generatorTag;
+  let tagOnDeck;
   
  
 
   // Global Variables
   let features;
   let hidden = false
+  let currentDenominator = 4
 
 
   // Layout Parameters
@@ -33,6 +36,8 @@ export const init = (app, setup) => {
   let LANDSCAPE = H_W_RATIO < 3/4
   let ARENA_WIDTH = LANDSCAPE ? 4/3*setup.height : setup.width
   let ARENA_HEIGHT = LANDSCAPE ? setup.height : 3/4*setup.width
+  let DX = LINE_WIDTH/15
+
 
   // Updates the layout parameters used to position elements.
   function updateLayoutParams(newFrame){
@@ -49,6 +54,7 @@ export const init = (app, setup) => {
     LANDSCAPE = H_W_RATIO < 3/4
     ARENA_WIDTH = LANDSCAPE ? 4/3*frame.height : frame.width
     ARENA_HEIGHT = LANDSCAPE ? frame.height : 3/4*frame.width
+    DX = LINE_WIDTH/15
   }
 
   // Called on resize
@@ -65,9 +71,26 @@ export const init = (app, setup) => {
     numberline.x = WINDOW_WIDTH/2 - LINE_WIDTH/2
     numberline.y = WINDOW_HEIGHT/2
 
+    generatorTag.x = numberline.x - generatorTag.width/2 
+    generatorTag.y = numberline.y - 2*DX
+    generatorTag.fraction.draw(0,4,DX*2/3)
+    generatorTag.whiskerTo(Math.abs(generatorTag.y-numberline.y),numberline.y,false)
+    tagOnDeck.x = numberline.x - tagOnDeck.width/2 
+    tagOnDeck.y = numberline.y - 2*DX
+    tagOnDeck.fraction.draw(0,4,DX*2/3)
+    tagOnDeck.whiskerTo(Math.abs(tagOnDeck.y-numberline.y),numberline.y,false)
+
     // Resize Background
     background.draw()
+
+    for (let t of tags){
+      let _x = t.fraction.numerator/t.fraction.denominator*numberline.whole
+      t.y = 3*DX
+      t.x = numberline.x + _x - t.width/2
+      t.whiskerTo(Math.abs(t.y-numberline.y),numberline.y)
+    }
   }
+
 
   // Constructors
   function makeBackground(){
@@ -100,17 +123,41 @@ export const init = (app, setup) => {
   }
 
   function tagPointerUp(){
+    if (this.onDeck == true){
+      newTagOnDeck()
+      this.onDeck = false
+      tags.push(this)
+    }
+    let dx = numberline.whole/this.fraction.denominator
     this.fraction.N.alpha = 1
     this.fraction.D.alpha = 1
-    let dx = numberline.whole/this.fraction.denominator
     let n = Math.round((this.x+this.width/2 - numberline.x) / dx)
-    this.fraction.draw(n,this.fraction.denominator,numberline.width/20)
-    console.log("N,D,text",this.fraction.N.text,this.fraction.D.text)
+    this.fraction.draw(n,this.fraction.denominator,DX*2/3)
     let _x = dx*n
     this.x = numberline.x + _x - this.width/2
     this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y,hidden)
+
+    if (this.x < numberline.x){
+      let i = tags.indexOf(this)
+      tags.splice(i,1)
+      app.stage.removeChild(this)
+    }
+
   }
 
+  function newTagOnDeck(){
+    tagOnDeck = new FractionTag(0,numberline.denominator,DX)
+    tagOnDeck.fraction.draw(0,currentDenominator,DX*2/3)
+    tagOnDeck.x = numberline.x -  tagOnDeck.width/2
+    tagOnDeck.y = numberline.y - 2*DX
+    tagOnDeck.on('pointermove',tagPointerMove)
+    tagOnDeck.on('pointerdown',tagPointerDown)
+    tagOnDeck.on('pointerup',tagPointerUp)
+    tagOnDeck.on('pointerupoutside',tagPointerUp)
+    tagOnDeck.onDeck = true
+    tagOnDeck.whiskerTo(Math.abs(tagOnDeck.y-numberline.y),numberline.y,hidden)
+    app.stage.addChild(tagOnDeck)
+  }
 
   // Loading Script
   function load(){
@@ -140,9 +187,10 @@ export const init = (app, setup) => {
 
 
     // Number Line
-    numberline = new NumberLine(LINE_WIDTH,WINDOW_HEIGHT/20,20,4)
+    numberline = new NumberLine(LINE_WIDTH,WINDOW_HEIGHT/20,3,1)
     numberline.hideFractions = true
     numberline.init()
+    //numberline.hideButtons()
     numberline.x = WINDOW_WIDTH/2 - LINE_WIDTH/2
     numberline.y = WINDOW_HEIGHT/2
     numberline.onPinDrag = ()=>{
@@ -153,13 +201,34 @@ export const init = (app, setup) => {
       }
     }
     numberline.onIncrement = ()=>{
-
+      currentDenominator += 1
+      generatorTag.fraction.draw(0,currentDenominator,DX*2/3)
+      tagOnDeck.fraction.draw(0,currentDenominator,DX*2/3)
     }
+    numberline.onDecrement = ()=>{
+      currentDenominator = currentDenominator - 1
+      generatorTag.fraction.draw(0,currentDenominator,DX*2/3)
+      tagOnDeck.fraction.draw(0,currentDenominator,DX*2/3)
+    }
+
+    generatorTag = new FractionTag(0,numberline.denominator,DX)
+    generatorTag.interactive = false
+    generatorTag.fraction.draw(0,4,DX*2/3)
+    generatorTag.x = numberline.x -  generatorTag.width/2
+    generatorTag.y = numberline.y - 2*DX
+    generatorTag.whiskerTo(Math.abs(generatorTag.y-numberline.y),numberline.y,hidden)
+    generatorTag.hasTag = true
+    app.stage.addChild(generatorTag)
+
     app.stage.addChild(numberline)
+
+    newTagOnDeck()
+
+    /*
     let labels = ['?','?','?']
     for (let i = 0;i<5;i++){
-      let newTag = new FractionTag(0,numberline.denominator,numberline.dx)
-      newTag.fraction.draw(0,numberline.denominator,numberline.dx)
+      let newTag = new FractionTag(0,numberline.denominator,dx)
+      newTag.fraction.draw(0,4,dx*2/3)
       newTag.x = numberline.x - newTag.width/2
       newTag.y = numberline.y - 2*newTag.height
       newTag.on('pointermove',tagPointerMove)
@@ -173,6 +242,9 @@ export const init = (app, setup) => {
     }
 
     activeTag = tags[0]
+    */
+
+    numberline.addChild(numberline.pin)
 
   }
   
