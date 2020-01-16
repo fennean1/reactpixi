@@ -1,12 +1,6 @@
 
 import * as PIXI from "pixi.js";
-import blueGradient from "../assets/bordered-gradient.png";
 import * as CONST from "./const.js";
-import QuestionMark from '../assets/QuestionMark.png'
-import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
-import {Fraction, Draggable, distance} from "./api.js"
-import { isObject } from "util";
-import { lchown } from "fs";
 import * as PROBLEMS from "../js/beakerproblems.js"
 const ASSETS = CONST.ASSETS
 let createjs = window.createjs
@@ -25,7 +19,7 @@ let ARENA_HEIGHT = LANDSCAPE ? setup.height : 3/4*setup.width
 
 
 // Problem Sets
-let backDrop = new PIXI.Sprite.from(blueGradient)
+let backDrop = new PIXI.Sprite.from(ASSETS.BLUE_GRADIENT)
 backDrop.width = WINDOW_WIDTH
 backDrop.height = WINDOW_HEIGHT
 backDrop.x = 0

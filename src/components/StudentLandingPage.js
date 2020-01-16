@@ -33,8 +33,8 @@ class StudentActivityLandingPage extends Component {
   }
 
   render() {
-      const list = this.data.STUDENT_LINKS.map(l=>{
-          return (<Link to = {l.link}>
+      const list = this.data.STUDENT_LINKS.map((l,i)=>{
+          return (<Link key = {i} to = {l.link}>
             <Button style ={{margin: 5}} variant="outlined" color="primary">
             {l.title}
             </Button>

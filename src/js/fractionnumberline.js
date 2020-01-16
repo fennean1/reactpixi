@@ -1,7 +1,5 @@
 import * as PIXI from "pixi.js";
-import blueGradient from "../assets/blue-gradient.png";
 import * as CONST from "./const.js";
-import QuestionMark from '../assets/QuestionMark.png'
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
 import {Fraction, Draggable,NumberLine,FractionTag} from "./api.js"
 import { number } from "prop-types";
@@ -104,13 +102,13 @@ export const init = (app, setup) => {
   function tagPointerUp(){
     this.fraction.N.alpha = 1
     this.fraction.D.alpha = 1
-    let n = Math.round((this.x+this.width/2 - numberline.x) / numberline.dx)
-    console.log("DRAWING")
-    this.fraction.draw(n,numberline.denominator,numberline.width/20)
+    let dx = numberline.whole/this.fraction.denominator
+    let n = Math.round((this.x+this.width/2 - numberline.x) / dx)
+    this.fraction.draw(n,this.fraction.denominator,numberline.width/20)
     console.log("N,D,text",this.fraction.N.text,this.fraction.D.text)
-    let _x = numberline.dx*n
+    let _x = dx*n
     this.x = numberline.x + _x - this.width/2
-    this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y)
+    this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y,hidden)
   }
 
 
@@ -128,7 +126,7 @@ export const init = (app, setup) => {
     hideBtn.width = 70
     hideBtn.height = 50
     hideBtn.interactive = true
-    //app.stage.addChild(hideBtn)
+    app.stage.addChild(hideBtn)
     hideBtn.on('pointerdown',()=>{
       for (let t of tags){
         if (hidden){
@@ -154,17 +152,22 @@ export const init = (app, setup) => {
         t.whiskerTo(Math.abs(t.y-numberline.y),numberline.y)
       }
     }
+    numberline.onIncrement = ()=>{
+
+    }
     app.stage.addChild(numberline)
     let labels = ['?','?','?']
-    for (let i = 0;i<3;i++){
-      let newTag = new FractionTag(1,2,2*numberline.dx)
-      newTag.x = numberline.x + newTag.width/2
-      newTag.y = numberline.y - 50
+    for (let i = 0;i<5;i++){
+      let newTag = new FractionTag(0,numberline.denominator,numberline.dx)
+      newTag.fraction.draw(0,numberline.denominator,numberline.dx)
+      newTag.x = numberline.x - newTag.width/2
+      newTag.y = numberline.y - 2*newTag.height
       newTag.on('pointermove',tagPointerMove)
       newTag.on('pointerdown',tagPointerDown)
       newTag.on('pointerup',tagPointerUp)
       newTag.on('pointerupoutside',tagPointerUp)
       newTag.label = labels[i]
+      newTag.whiskerTo(Math.abs(newTag.y-numberline.y),numberline.y,hidden)
       app.stage.addChild(newTag)
       tags.push(newTag)
     }

@@ -43,6 +43,8 @@ Pixi.settings.RESOLUTION = 3
 let app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
 app.static = false
 app.loaded = false
+console.log("texture cache",Object.keys(Pixi.utils.TextureCache).length)
+Object.keys(Pixi.utils.TextureCache).forEach(function(texture) {  Pixi.utils.TextureCache[texture].destroy(true);});
 
 // Or Create your Own theme:
 const theme = createMuiTheme({
@@ -77,7 +79,7 @@ const Main = () => (
     <Route exact path="/strips" component={() => <Arena app = {app} fullscreen = {true}  script = {NumberLineStripsScript.init}/>} />
     <Route exact path="/gridnodes" component={() => <Arena app = {app} features = {{x: 3,y: 3}} fullscreen = {true}  script = {GridNodeScript.init}/>} />
     <Route exact path="/stripsopen" component={() => <Arena app = {app} fullscreen = {true} features  = {{'open': true}}  script = {NumberLineStripsScript.init}/>} />
-    <Route exact path="/" component={() => <ActivityList/>} />
+    <Route exact path="/" component={ActivityList} />
     <Route exact path="/gridnodes4x4" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 5,y: 5,descriptor: true}} script = {GridNodeScript.init}/>} />
     <Route exact path="/gridnodes2x2" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 3,y: 3,descriptor: false}} script = {GridNodeScript.init}/>} />
     <Route exact path="/gridnodes3x3" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false}} script = {GridNodeScript.init}/>} />

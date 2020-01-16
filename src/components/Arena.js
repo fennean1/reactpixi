@@ -13,8 +13,8 @@ class Arena extends Component {
   }
 
   componentWillUnmount(){
+    console.log("component umounting")
     // Static this.props.apps are not dismantlced upon unmounting.
-    console.log("DESTROYING")
     this.props.app.active = false
     // If the this.props.app is static, don't deconstruct.
     if (this.props.app.static == false){
@@ -27,7 +27,9 @@ class Arena extends Component {
       for (var i = children.length - 1; i >= 0; i--) {	this.props.app.stage.removeChild(children[i]);};
       for (var i = children.length - 1; i >= 0; i--) {	children[i].destroy(true);};
     } 
-   Object.keys(Pixi.utils.TextureCache).forEach(function(texture) {  Pixi.utils.TextureCache[texture].destroy(true);});
+  
+    console.log('texturecache length',Object.keys(Pixi.utils.TextureCache).length)
+    Object.keys(Pixi.utils.TextureCache).forEach(function(texture) {  Pixi.utils.TextureCache[texture].destroy(true);});
   }
 
   // Resizes the view it it's mounted and resizable. (Old versions don't always have a resize function)

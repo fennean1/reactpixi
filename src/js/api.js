@@ -93,7 +93,7 @@ export class FractionTag extends PIXI.Container{
     }
   }
 
-  whiskerTo(length,numberlineY){
+  whiskerTo(length,numberlineY,hide){
     this.whisker.clear()
     if (this.y < numberlineY){
       this.whisker.lineStyle(2,0x000000)
@@ -101,7 +101,9 @@ export class FractionTag extends PIXI.Container{
       this.whisker.x = this.width/2
       this.whisker.y = this.fraction.height
     } else {
-      this.fraction.hide(this.label)
+      if (hide) {
+        this.fraction.hide("")
+      }
       this.whisker.lineStyle(2,0x000000)
       this.whisker.lineTo(0,-length)
       this.whisker.x = this.width/2
@@ -679,6 +681,7 @@ export class NumberLine extends PIXI.Container {
     super()
 
     this.onPinDrag = ()=>{}
+    this.onIncrement = () => {}
 
     this.max = max 
     this.hideFractions = false
@@ -878,6 +881,7 @@ export class NumberLine extends PIXI.Container {
   }
 
   incDenominator(inc){
+      this.onIncrement()
       this.denominator += inc
       this.dx = this.whole/this.denominator
       this.ticks.forEach((e,i)=> {

@@ -1,11 +1,7 @@
 import * as PIXI from "pixi.js";
-import blueGradient from "../assets/blue-gradient.png";
 import * as CONST from "./const.js";
-import QuestionMark from '../assets/QuestionMark.png'
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
-import {Fraction, Draggable, distance} from "./api.js"
 import {getIndexOfNearestVertice, Line, polygonArea,DraggablePoly,getIntersectionPoints,splitPolygon, splitMultiplePolygons} from "./api.js";
-import { fade } from "@material-ui/core/styles";
 const ASSETS = CONST.ASSETS
 
 
