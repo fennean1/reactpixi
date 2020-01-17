@@ -713,12 +713,12 @@ export class NumberLine extends PIXI.Container {
     this.decDenominatorBtn.interactive = true
     this.decDenominatorBtn.on('pointerdown',()=>{this.incDenominator(-1)})
 
-    const PIN_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.SHARP_PIN)
+    const PIN_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.CLOSED_CIRCLE)
     this.pin = new Draggable(PIN_TEXTURE)
     this.pin.lockY = true
-    this.pin.anchor.set(0.5,-1)
-    this.pin.width = this._height*2
-    this.pin.height = this._height*2
+    this.pin.anchor.set(0.5,0.5)
+    this.pin.width = this._height
+    this.pin.height = this._height
     this.pin.on('pointermove',()=>{
       if (this.pin.touching){
         this.set(this.pin.x)
@@ -747,15 +747,15 @@ export class NumberLine extends PIXI.Container {
     this.incDenominatorBtn.width = this._height
     this.incDenominatorBtn.height = this._height
     this.incDenominatorBtn.x = -0.05*this._width
-    this.incDenominatorBtn.y = 0
-    this.incDenominatorBtn.anchor.set(0.5)
+    this.incDenominatorBtn.y = -3*this._height
+    //this.incDenominatorBtn.anchor.set(0.5)
     this.addChild(this.incDenominatorBtn)
 
     this.decDenominatorBtn.width = this._height
     this.decDenominatorBtn.height = this._height
-    this.decDenominatorBtn.x = -0.05*this._width - this.decDenominatorBtn.width
-    this.decDenominatorBtn.y = 0
-    this.decDenominatorBtn.anchor.set(0.5)
+    this.decDenominatorBtn.x = -0.05*this._width
+    this.decDenominatorBtn.y = -2*this._height
+    //this.decDenominatorBtn.anchor.set(0.5)
     this.addChild(this.decDenominatorBtn)
 
      this.line.lineStyle(this.lineThickness,0x000000)
@@ -836,20 +836,35 @@ export class NumberLine extends PIXI.Container {
 
       // Redraw the pin
       this.pin.x = this.whole
-      this.pin.y = this.width/20 - this.pin.height/2
+      this.pin.y = 0
 
       // Redraw Inc Button
+      /*
       this.incDenominatorBtn.width = this._height
       this.incDenominatorBtn.height = this._height
       this.incDenominatorBtn.x = 1.05*this._width + this.incDenominatorBtn.width
       this.incDenominatorBtn.y = 0
+      */
 
     
       // Redraw Dec Button
+      /*
       this.decDenominatorBtn.width = this._height
       this.decDenominatorBtn.height = this._height
       this.decDenominatorBtn.x = 1.05*this._width
       this.decDenominatorBtn.y = 0
+      */
+
+
+    this.incDenominatorBtn.width = this._height
+    this.incDenominatorBtn.height = this._height
+    this.incDenominatorBtn.x = -0.05*this._width
+    this.incDenominatorBtn.y = -3*this._height
+
+    this.decDenominatorBtn.width = this._height
+    this.decDenominatorBtn.height = this._height
+    this.decDenominatorBtn.x = -0.05*this._width
+    this.decDenominatorBtn.y = -2*this._height
 
   }
 

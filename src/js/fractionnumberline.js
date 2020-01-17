@@ -8,7 +8,7 @@ const ASSETS = CONST.ASSETS
 
 export const init = (app, setup) => {
  
-  const PIN_TEXTURE = new PIXI.Texture.from(ASSETS.GLASS_SQUARE)
+  const PIN_TEXTURE = new PIXI.Texture.from(ASSETS.GLASS_CIRCLE)
 
   // UI Elements
   let numberline;
@@ -72,11 +72,11 @@ export const init = (app, setup) => {
     numberline.y = WINDOW_HEIGHT/2
 
     generatorTag.x = numberline.x - generatorTag.width/2 
-    generatorTag.y = numberline.y - 2*DX
-    generatorTag.fraction.draw(0,4,DX*2/3)
+    generatorTag.y = numberline.y - 3*numberline._height
+    generatorTag.fraction.draw(0,currentDenominator,DX*2/3)
     generatorTag.whiskerTo(Math.abs(generatorTag.y-numberline.y),numberline.y,false)
     tagOnDeck.x = numberline.x - tagOnDeck.width/2 
-    tagOnDeck.y = numberline.y - 2*DX
+    tagOnDeck.y = numberline.y - 3*numberline._height
     tagOnDeck.fraction.draw(0,4,DX*2/3)
     tagOnDeck.whiskerTo(Math.abs(tagOnDeck.y-numberline.y),numberline.y,false)
 
@@ -149,7 +149,7 @@ export const init = (app, setup) => {
     tagOnDeck = new FractionTag(0,numberline.denominator,DX)
     tagOnDeck.fraction.draw(0,currentDenominator,DX*2/3)
     tagOnDeck.x = numberline.x -  tagOnDeck.width/2
-    tagOnDeck.y = numberline.y - 2*DX
+    tagOnDeck.y = numberline.y - 3*numberline._height
     tagOnDeck.on('pointermove',tagPointerMove)
     tagOnDeck.on('pointerdown',tagPointerDown)
     tagOnDeck.on('pointerup',tagPointerUp)
@@ -215,7 +215,7 @@ export const init = (app, setup) => {
     generatorTag.interactive = false
     generatorTag.fraction.draw(0,4,DX*2/3)
     generatorTag.x = numberline.x -  generatorTag.width/2
-    generatorTag.y = numberline.y - 2*DX
+    generatorTag.y = numberline.y - 3*numberline._height
     generatorTag.whiskerTo(Math.abs(generatorTag.y-numberline.y),numberline.y,hidden)
     generatorTag.hasTag = true
     app.stage.addChild(generatorTag)
