@@ -191,6 +191,10 @@ export const init = (app, setup) => {
     numberline = new NumberLine(LINE_WIDTH,WINDOW_HEIGHT/20,3,2)
     numberline.hideFractions = true
     numberline.init()
+    if (features.open){
+      numberline.incDenominator(-1)
+      numberline.open = true 
+    } 
     //numberline.hideButtons()
     numberline.x = WINDOW_WIDTH/2 - LINE_WIDTH/2
     numberline.y = WINDOW_HEIGHT/2

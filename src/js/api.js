@@ -689,6 +689,7 @@ export class NumberLine extends PIXI.Container {
     this.flipped = false
     this.everyOther = false
     this.denominator = denominator
+    this.open = false
 
     // Layout parameters
     this._height = height
@@ -744,17 +745,10 @@ export class NumberLine extends PIXI.Container {
 
   init = () => {
 
-    this.incDenominatorBtn.width = this._height
-    this.incDenominatorBtn.height = this._height
-    this.incDenominatorBtn.x = -0.05*this._width
-    this.incDenominatorBtn.y = -3*this._height
+    this.drawButtons()
     //this.incDenominatorBtn.anchor.set(0.5)
     this.addChild(this.incDenominatorBtn)
 
-    this.decDenominatorBtn.width = this._height
-    this.decDenominatorBtn.height = this._height
-    this.decDenominatorBtn.x = -0.05*this._width
-    this.decDenominatorBtn.y = -2*this._height
     //this.decDenominatorBtn.anchor.set(0.5)
     this.addChild(this.decDenominatorBtn)
 
@@ -833,7 +827,6 @@ export class NumberLine extends PIXI.Container {
     })
     
 
-
       // Redraw the pin
       this.pin.x = this.whole
       this.pin.y = 0
@@ -854,8 +847,11 @@ export class NumberLine extends PIXI.Container {
       this.decDenominatorBtn.x = 1.05*this._width
       this.decDenominatorBtn.y = 0
       */
+     this.drawButtons()
 
+  }
 
+  drawButtons(){
     this.incDenominatorBtn.width = this._height
     this.incDenominatorBtn.height = this._height
     this.incDenominatorBtn.x = -0.05*this._width
@@ -865,9 +861,7 @@ export class NumberLine extends PIXI.Container {
     this.decDenominatorBtn.height = this._height
     this.decDenominatorBtn.x = -0.05*this._width
     this.decDenominatorBtn.y = -2*this._height
-
   }
-
 
   set(whole){
     this.whole = whole
@@ -907,6 +901,8 @@ export class NumberLine extends PIXI.Container {
     } else if (inc < 0){
       this.onDecrement()
     } 
+
+    if(!this.open){
     
       this.denominator += inc
       this.dx = this.whole/this.denominator
@@ -942,278 +938,6 @@ export class NumberLine extends PIXI.Container {
           }
       }
     })
-  }
-}
-
-
-// Number Line
-
-export class OpenNumberLine extends PIXI.Container {
-  constructor(width,height,max,denominator){
-    super()
-
-    this.onPinDrag = ()=>{}
-    this.onIncrement = () => {}
-    this.onDecrement = () => {}
-
-    this.max = max 
-    this.hideFractions = false
-    this.flipped = false
-    this.everyOther = false
-    this.denominator = denominator
-
-    // Layout parameters
-    this._height = height
-    this._width = width
-    this.lineThickness = height/10
-    this.minorTickHeight = height/1.25
-    this.majorTickHeight = height
-    this.dx = this._width/max
-    this.whole = this.dx*this.denominator
-
-
-    // Elements
-    this.ticks = []
-    this.labels = []
-
-    this.line = new PIXI.Graphics()
-    this.incDenominatorBtn = new PIXI.Sprite.from(CONST.ASSETS.PLUS)
-    this.decDenominatorBtn = new PIXI.Sprite.from(CONST.ASSETS.MINUS)
-    
-    this.incDenominatorBtn.interactive = true
-    this.incDenominatorBtn.on('pointerdown',()=>{this.incDenominator(1)})
-    this.decDenominatorBtn.interactive = true
-    this.decDenominatorBtn.on('pointerdown',()=>{this.incDenominator(-1)})
-
-    const PIN_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.CLOSED_CIRCLE)
-    this.pin = new Draggable(PIN_TEXTURE)
-    this.pin.lockY = true
-    this.pin.anchor.set(0.5,0.5)
-    this.pin.width = this._height
-    this.pin.height = this._height
-    this.pin.on('pointermove',()=>{
-      if (this.pin.touching){
-        this.set(this.pin.x)
-        this.onPinDrag()
-      }
-    })
-    this.pin.on('pointerup',()=>{
-      this.incDenominator(0)
-      this.addChild(this.pin)
-    })
-    this.pin.on('pointerupoutside',()=>{
-      this.incDenominator(0)
-      this.addChild(this.pin)
-    })
-   this.addChild(this.pin)
-   this.init()
-  }
-
-  hideButtons(){
-    this.incDenominatorBtn.alpha = 0
-    this.decDenominatorBtn.alpha = 0
-  }
-
-  init = () => {
-
-    this.incDenominatorBtn.width = this._height
-    this.incDenominatorBtn.height = this._height
-    this.incDenominatorBtn.x = -0.05*this._width
-    this.incDenominatorBtn.y = -3*this._height
-    //this.incDenominatorBtn.anchor.set(0.5)
-    this.addChild(this.incDenominatorBtn)
-
-    this.decDenominatorBtn.width = this._height
-    this.decDenominatorBtn.height = this._height
-    this.decDenominatorBtn.x = -0.05*this._width
-    this.decDenominatorBtn.y = -2*this._height
-    //this.decDenominatorBtn.anchor.set(0.5)
-    this.addChild(this.decDenominatorBtn)
-
-     this.line.lineStyle(this.lineThickness,0x000000)
-     this.line.x = 0
-     this.line.y = 0
-     this.line.lineTo(this._width,0)
-     this.addChild(this.line)
-
-     for (let i = 0;i<100;i++){
-         let _x = i > this.max ? this.line.width : this.dx*i 
-         let newTick = new PIXI.Graphics()
-         newTick.lineStyle(this.lineThickness,0x000000)
-
-  
-         newTick.x = _x
-         newTick.y = -this.minorTickHeight/2
-         newTick.lineTo(0,this.minorTickHeight)
-    
-         this.addChild(newTick)
-         this.ticks.push(newTick)
-
-         let newLabel = new Fraction(i,this.denominator,this.dx/2)
-         newLabel.makeWhole = true
-
-         this.labels.push(newLabel)
-         newLabel.x = _x - newLabel.width/2
-        
-         newLabel.y = this.line.y + this.minorTickHeight
-         this.addChild(newLabel)
-     }
-     this.pin.x = this.dx*this.denominator
-     this.incDenominator(0)
-  }
-
-  redraw(width,height){
-    // Update layout parameters.
-    this.whole = this.whole/this._width*width
-    this._height = height
-    this._width = width
-    this.lineThickness = height/10
-    this.minorTickHeight = height/2
-    this.majorTickHeight = height
-    this.dx = this.whole/this.denominator
-
-    this.line.clear()
-    this.line.lineStyle(this.lineThickness,0x000000)
-    this.line.x = 0
-    this.line.y = 0
-    this.line.lineTo(this._width,0)
-
-    this.incDenominator(0)
-
-    /*
-    this.labels.forEach((l,i)=>{
-      if (this.dx*6 > this._width){
-        l.draw(i,this.denominator,this._width/20)
-      } else if (!this.hideFractions){
-        l.draw(i,this.denominator,this.dx/2)
-      } else {
-        l.draw(i,this.denominator,this._height)
-      }
-      let _x = i*this.dx > this._width  ? this.line.width : this.dx*i 
-      l.draw(l.numerator,l.denominator,this.dx/2)
-      l.x = _x - l.width/2
-    })
-    */
-
-    this.ticks.forEach((t,j)=>{
-      let _x = j*this.dx > this._width ? this.line.width : this.dx*j
-      t.clear()
-      t.x = _x
-      t.y = -this.minorTickHeight/2
-      t.lineStyle(this.lineThickness,0x000000)
-      t.lineTo(0,this.minorTickHeight)
-    })
-    
-
-
-      // Redraw the pin
-      this.pin.x = this.whole
-      this.pin.y = 0
-
-      // Redraw Inc Button
-      /*
-      this.incDenominatorBtn.width = this._height
-      this.incDenominatorBtn.height = this._height
-      this.incDenominatorBtn.x = 1.05*this._width + this.incDenominatorBtn.width
-      this.incDenominatorBtn.y = 0
-      */
-
-    
-      // Redraw Dec Button
-      /*
-      this.decDenominatorBtn.width = this._height
-      this.decDenominatorBtn.height = this._height
-      this.decDenominatorBtn.x = 1.05*this._width
-      this.decDenominatorBtn.y = 0
-      */
-
-
-    this.incDenominatorBtn.width = this._height
-    this.incDenominatorBtn.height = this._height
-    this.incDenominatorBtn.x = -0.05*this._width
-    this.incDenominatorBtn.y = -3*this._height
-
-    this.decDenominatorBtn.width = this._height
-    this.decDenominatorBtn.height = this._height
-    this.decDenominatorBtn.x = -0.05*this._width
-    this.decDenominatorBtn.y = -2*this._height
-
-  }
-
-
-  set(whole){
-    this.whole = whole
-    this.dx = whole/this.denominator
-    let newMax = Math.round(this.line.width/this.dx)
-    this.max = newMax
-    this.ticks.forEach((e,i)=> {
-      let _x = this.dx*i
-       if (_x > this._width){
-          e.x = this._width
-          e.alpha = 0
-       } else {
-           e.x = _x
-           e.alpha = 1
-       }
-    })
-
-    this.labels.forEach((e,i)=> {
-    let _x = this.dx*i
-     if (_x>this._width){
-         e.x = this._width
-         e.alpha = 0
-     } else {
-         e.x = this.dx*i-e.width/2
-         if (e.denominator != 1 && this.hideFractions){
-           e.alpha = 0
-         } else {
-           e.alpha = 1
-         }
-     }
-   })
-  }
-
-  incDenominator(inc){
-    if (inc > 0){
-      this.onIncrement()
-    } else if (inc < 0){
-      this.onDecrement()
-    } else {
-    
-      this.denominator += inc
-      this.dx = this.whole/this.denominator
-      this.ticks.forEach((e,i)=> {
-        let _x = this.dx*i 
-        if (_x > this._width){
-            TweenLite.to(e,0,{x: this._width,alpha: 0})
-        } else {
-            TweenLite.to(e,0.5,{x: this.dx*i,alpha: 1})
-        }
-      })
-
-      this.labels.forEach((e,i)=> {
-      
-      // HELLO - this is some resizing logic to prevent the numbers from getting too small or two big. Duplicated in "redraw" - consider re
-      if (this.dx*10 > this._width){
-        e.draw(i,this.denominator,this._width/20)
-      } else if (!this.hideFractions){
-        console.log("greater than width!!!")
-        e.draw(i,this.denominator,this.dx/2)
-      } else {
-        e.draw(i,this.denominator,this._height)
-      }
-      let _x = this.dx*i 
-      if (_x > this._width){
-          TweenLite.to(e,0.5,{x: this._width,alpha: 0})
-      } else {
-          TweenLite.to(e,0,{x: this.dx*i-e.width/2})
-          if (e.denominator != 1 && this.hideFractions){
-            e.alpha = 0
-          } else {
-            e.alpha = 1
-          }
-      }
-    })
-  }
+    }
   }
 }

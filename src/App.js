@@ -73,7 +73,8 @@ const Main = () => (
     <Route exact path="/landing/:activity" component={StudentLandingPage}/>
     <Route exact path="/fractionline" component={() => <Arena app = {app} fullscreen = {true}  script = {FractionLineScript.init}/>} />
     <Route exact path="/apitest" component={() => <Arena app = {app} fullscreen = {true}  script = {ApiTestScript.init}/>} />
-    <Route exact path="/fractionnumberline" component={() => <Arena app = {app} fullscreen = {true}  script = {FractionNumberLineScript.init}/>} />
+    <Route exact path="/fractionnumberlineopen" component={() => <Arena app = {app} fullscreen = {true} features = {{open: true}} script = {FractionNumberLineScript.init}/>} />
+    <Route exact path="/fractionnumberline" component={() => <Arena app = {app} fullscreen = {true} features = {{open: false}}  script = {FractionNumberLineScript.init}/>} />
     <Route exact path="/fractionstacks" component={() => <Arena app = {app} fullscreen = {true}  script = {FractionStacksScript.init}/>} />
     <Route exact path="/orderingblocks" component={() => <Arena app = {app} features = {{numberOfBlocks: 3}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
     <Route exact path="/strips" component={() => <Arena app = {app} fullscreen = {true}  script = {NumberLineStripsScript.init}/>} />
