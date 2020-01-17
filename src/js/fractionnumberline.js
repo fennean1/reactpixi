@@ -25,7 +25,7 @@ export const init = (app, setup) => {
   // Global Variables
   let features;
   let hidden = false
-  let currentDenominator = 4
+  let currentDenominator = 2
 
 
   // Layout Parameters
@@ -77,7 +77,7 @@ export const init = (app, setup) => {
     generatorTag.whiskerTo(Math.abs(generatorTag.y-numberline.y),numberline.y,false)
     tagOnDeck.x = numberline.x - tagOnDeck.width/2 
     tagOnDeck.y = numberline.y - 3*numberline._height
-    tagOnDeck.fraction.draw(0,4,DX*2/3)
+    tagOnDeck.fraction.draw(0,currentDenominator,DX*2/3)
     tagOnDeck.whiskerTo(Math.abs(tagOnDeck.y-numberline.y),numberline.y,false)
 
     // Resize Background
@@ -128,6 +128,7 @@ export const init = (app, setup) => {
       this.onDeck = false
       tags.push(this)
     }
+    let floatX = this.x
     let dx = numberline.whole/this.fraction.denominator
     this.fraction.N.alpha = 1
     this.fraction.D.alpha = 1
@@ -137,7 +138,7 @@ export const init = (app, setup) => {
     this.x = numberline.x + _x - this.width/2
     this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y,hidden)
 
-    if (this.x < numberline.x){
+    if (floatX < numberline.x){
       let i = tags.indexOf(this)
       tags.splice(i,1)
       app.stage.removeChild(this)
@@ -187,7 +188,7 @@ export const init = (app, setup) => {
 
 
     // Number Line
-    numberline = new NumberLine(LINE_WIDTH,WINDOW_HEIGHT/20,3,1)
+    numberline = new NumberLine(LINE_WIDTH,WINDOW_HEIGHT/20,3,2)
     numberline.hideFractions = true
     numberline.init()
     //numberline.hideButtons()
@@ -213,7 +214,7 @@ export const init = (app, setup) => {
 
     generatorTag = new FractionTag(0,numberline.denominator,DX)
     generatorTag.interactive = false
-    generatorTag.fraction.draw(0,4,DX*2/3)
+    generatorTag.fraction.draw(0,currentDenominator,DX*2/3)
     generatorTag.x = numberline.x -  generatorTag.width/2
     generatorTag.y = numberline.y - 3*numberline._height
     generatorTag.whiskerTo(Math.abs(generatorTag.y-numberline.y),numberline.y,hidden)
