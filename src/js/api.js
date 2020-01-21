@@ -28,8 +28,6 @@ export class FeedBlocks extends PIXI.Container {
       //newFeedBlockSprite.alpha = 0
       this.addChild(newFeedBlockSprite)
       this.blocks.push(newFeedBlockSprite)
-      
-
     }
   }
 
@@ -122,8 +120,8 @@ export class FractionTag extends PIXI.Container{
     this.whisker.lineStyle(2,0x000000)
     this.whisker.lineTo(0,20)
     this.partitionIndicator = new PIXI.Graphics()
-    this.partitionIndicator.beginFill(0xffffff)
-    this.partitionIndicator.drawCircle(0,0,3)
+    this.partitionIndicator.beginFill(0x000000)
+    this.partitionIndicator.drawRoundedRect(0,0,5,30,0)
     this.addChild(this.partitionIndicator)
     this.addChild(this.whisker)
     this.addChild(this.fraction)
@@ -157,12 +155,14 @@ export class FractionTag extends PIXI.Container{
       this.whisker.x = this.width/2
       this.whisker.y = this.fraction.height
       this.whisker.height = length - this.fraction.height
-      this.partitionIndicator.y = length 
+      this.partitionIndicator.x = this.width/2-this.partitionIndicator.width/2
+      this.partitionIndicator.y = length - this.partitionIndicator.height/2
     } else {
       if (hide) {
         this.fraction.hide("")
       }
-      this.partitionIndicator.y = -length 
+      this.partitionIndicator.y = -length - this.partitionIndicator.height/2
+      this.partitionIndicator.x = this.width/2-this.partitionIndicator.width/2
       this.whisker.height = -length
       this.whisker.x = this.width/2
       this.whisker.y = 0
