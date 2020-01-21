@@ -5,6 +5,52 @@ import { thisExpression } from "@babel/types";
 
 
 
+export class FeedBlocks extends PIXI.Container {
+  constructor(app,width){
+    super()
+    this.blocks = []
+    this.width = width
+    this.height = width/30
+    this.app = app
+    this.feedBlockTimeline = new TimelineLite({paused: true})
+    this.init()
+  }
+
+  init(){
+    for (let i = 0;i<100;i++){
+      let newFeedBlock = new PIXI.Graphics()
+      newFeedBlock.lineStyle(2,0x000000)
+      newFeedBlock.beginFill(CONST.COLORS.BLUE)
+      newFeedBlock.drawRoundedRect(0,0,100,30,0)
+
+      let newTexture = this.app.renderer.generateTexture(newFeedBlock)
+      let newFeedBlockSprite = new PIXI.Sprite.from(newTexture)
+      //newFeedBlockSprite.alpha = 0
+      this.addChild(newFeedBlockSprite)
+      this.blocks.push(newFeedBlockSprite)
+      
+
+    }
+  }
+
+  flash(num,den,whole,duration){ 
+    this.hide()
+    let width = whole/den
+    for (let i = 0;i<num;i++){
+      let block = this.blocks[i]
+      block.width = width 
+      block.x = i*width
+      TweenLite.to(block,1,{alpha: 1})
+      setTimeout(()=>{TweenLite.to(block,1,{alpha: 0})},duration)
+    }
+  }
+
+  hide(){
+    this.blocks.map(b=>{b.alpha = 0})
+  }
+
+}
+
 export class Draggable extends PIXI.Sprite {
   constructor(texture){
     super()

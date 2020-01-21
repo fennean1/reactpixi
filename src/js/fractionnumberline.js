@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 import * as CONST from "./const.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
-import {Fraction, Draggable,NumberLine,FractionTag} from "./api.js"
+import {Fraction, FeedBlocks, Draggable,NumberLine,FractionTag} from "./api.js"
 import { number } from "prop-types";
 const ASSETS = CONST.ASSETS
 
@@ -19,7 +19,7 @@ export const init = (app, setup) => {
   let activeTag;
   let generatorTag;
   let tagOnDeck;
-  
+  let feedBlocks;
  
 
   // Global Variables
@@ -154,6 +154,8 @@ export const init = (app, setup) => {
       tags.splice(i,1)
       app.stage.removeChild(this)
     }
+
+    feedBlocks.flash(n,this.fraction.denominator,numberline.whole,2000)
   }
 
   function newTagOnDeck(){
@@ -263,6 +265,14 @@ export const init = (app, setup) => {
     numberline.addChild(numberline.pin)
     background.zIndex = -1
     numberline.zIndex = 1
+
+    feedBlocks = new FeedBlocks(app,numberline._width)
+    app.stage.addChild(feedBlocks)
+    feedBlocks.x = numberline.x 
+    feedBlocks.y = numberline.y - feedBlocks.height
+    feedBlocks.hide()
+    console.log("numberline wh9ole",numberline.whole)
+    //feedBlocks.flash(4,3,numberline.whole,4000)
 
   }
   
