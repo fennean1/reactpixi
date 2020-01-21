@@ -120,6 +120,7 @@ export const init = (app, setup) => {
 
   function tagPointerDown(){
     activeTag = this
+    this.zIndex = 2
   }
 
   function tagPointerUp(){
@@ -133,17 +134,26 @@ export const init = (app, setup) => {
     this.fraction.N.alpha = 1
     this.fraction.D.alpha = 1
     let n = Math.round((this.x+this.width/2 - numberline.x) / dx)
+    if (n == this.fraction.denominator){
+      this.zIndex = 0
+    } else {
+      this.zIndex = 2
+      app.stage.addChild(this)
+    }
     this.fraction.draw(n,this.fraction.denominator,DX*2/3)
     let _x = dx*n
     this.x = numberline.x + _x - this.width/2
     this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y,hidden)
+    console.log("numberline z",numberline.zIndex)
+    console.log("whisker z",this.zIndex)
+  
+    //app.stage.addChild(numberline)
 
     if (floatX < numberline.x){
       let i = tags.indexOf(this)
       tags.splice(i,1)
       app.stage.removeChild(this)
     }
-
   }
 
   function newTagOnDeck(){
@@ -169,6 +179,7 @@ export const init = (app, setup) => {
     // Background
     background = new makeBackground()
 
+    app.stage.sortableChildren = true
 
     hideBtn = new PIXI.Sprite.from(ASSETS.HIDE)
     hideBtn.width = 70
@@ -250,6 +261,8 @@ export const init = (app, setup) => {
     */
 
     numberline.addChild(numberline.pin)
+    background.zIndex = -1
+    numberline.zIndex = 1
 
   }
   

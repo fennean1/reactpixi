@@ -88,7 +88,8 @@ export default function LessonPanel(props) {
     if (type == SCREEN_TYPES.FULL_PROMPT){
       if (data.SCREEN_TYPE == SCREEN_TYPES.PANORAMIC){
         promptWidthPercentage = 1
-        TweenLite.to(panel,0,{y: 0})
+        console.log("panel y", window.innerHeight/2 - window.innerWidth*-0.27/2)
+        TweenLite.to(panel,0,{y: window.innerHeight/2 - window.innerWidth*.27/2-50})
       } else {
         promptHeightPercentage = 0.93
         TweenLite.to(panel,0,{x: window.innerWidth/2 - window.innerHeight/2})
@@ -97,6 +98,12 @@ export default function LessonPanel(props) {
       promptHeightPercentage = layoutProps.promptHeightPercentage
       promptWidthPercentage = layoutProps.promptWidthPercentage
       TweenLite.to(panel,0,{x: 0})
+      if (data.SCREEN_TYPE == SCREEN_TYPES.PANORAMIC){
+        TweenLite.to(panel,0,{y: 0})
+      } else {
+        TweenLite.to(panel,0,{y: 0})
+      }
+
     }
   
 

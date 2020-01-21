@@ -73,6 +73,12 @@ export class FractionTag extends PIXI.Container{
     this.fraction = new Fraction(num,den,width)
     this.fraction.includeTag()
     this.whisker = new PIXI.Graphics()
+    this.whisker.lineStyle(2,0x000000)
+    this.whisker.lineTo(0,20)
+    this.partitionIndicator = new PIXI.Graphics()
+    this.partitionIndicator.beginFill(0xffffff)
+    this.partitionIndicator.drawCircle(0,0,3)
+    this.addChild(this.partitionIndicator)
     this.addChild(this.whisker)
     this.addChild(this.fraction)
 
@@ -80,6 +86,8 @@ export class FractionTag extends PIXI.Container{
     this.on('pointermove',this.pointerMove)
     this.on('pointerup',this.pointerUp)
     this.on('pointerupoutside',this.pointerUpOutside)
+
+    this.partitionIndicator.x = this.width/2 - 1.5
 
   }
 
@@ -94,18 +102,22 @@ export class FractionTag extends PIXI.Container{
   }
 
   whiskerTo(length,numberlineY,hide){
-    this.whisker.clear()
+    this.partitionIndicator.x = this.width/2
+    this.addChild(this.partitionIndicator)
+    //this.whisker.clear()
     if (this.y < numberlineY){
-      this.whisker.lineStyle(2,0x000000)
-      this.whisker.lineTo(0,length-this.fraction.height)
+      //this.whisker.lineStyle(2,0x000000)
+      //this.whisker.lineTo(0,length-this.fraction.height)
       this.whisker.x = this.width/2
       this.whisker.y = this.fraction.height
+      this.whisker.height = length - this.fraction.height
+      this.partitionIndicator.y = length 
     } else {
       if (hide) {
         this.fraction.hide("")
       }
-      this.whisker.lineStyle(2,0x000000)
-      this.whisker.lineTo(0,-length)
+      this.partitionIndicator.y = -length 
+      this.whisker.height = -length
       this.whisker.x = this.width/2
       this.whisker.y = 0
     }
@@ -134,7 +146,7 @@ export class FractionTag extends PIXI.Container{
 }
 
 export class Fraction extends PIXI.Container {
-  constructor(n,d,w){
+  constructor(n,d,w,color){
     super()
     this._width = w
     this.numerator = n+""
@@ -151,8 +163,9 @@ export class Fraction extends PIXI.Container {
     this.interactive = true
     this.lockX = false 
     this.lockY = false
+    this.tagColor = color ? color : "0xffffff"
     this.tag = new PIXI.Graphics()
-    this.tag.beginFill(0xffffff)
+    this.tag.beginFill(color)
     this.tag.drawRoundedRect(0,0,w,2*w,1)
 
     if (this.maxDigits == 3){
@@ -298,7 +311,7 @@ export class Fraction extends PIXI.Container {
     this.L.y = this.N.height
 
     this.tag.clear()
-    this.tag.beginFill(0xffffff)
+    this.tag.beginFill(this.tagColor)
     this.tag.drawRoundedRect(0,0,this.width,this.height,4)
 
   }
@@ -714,7 +727,7 @@ export class NumberLine extends PIXI.Container {
     this.decDenominatorBtn.interactive = true
     this.decDenominatorBtn.on('pointerdown',()=>{this.incDenominator(-1)})
 
-    const PIN_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.CLOSED_CIRCLE)
+    const PIN_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.MOVER_DOT)
     this.pin = new Draggable(PIN_TEXTURE)
     this.pin.lockY = true
     this.pin.anchor.set(0.5,0.5)
@@ -758,11 +771,10 @@ export class NumberLine extends PIXI.Container {
      this.line.lineTo(this._width,0)
      this.addChild(this.line)
 
-     for (let i = 0;i<100;i++){
+     for (let i = 0;i<20;i++){
          let _x = i > this.max ? this.line.width : this.dx*i 
          let newTick = new PIXI.Graphics()
          newTick.lineStyle(this.lineThickness,0x000000)
-
   
          newTick.x = _x
          newTick.y = -this.minorTickHeight/2

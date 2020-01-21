@@ -34,6 +34,7 @@ import closed_circle from "../assets/ClosedCircle.png"
 import glass_square from "../assets/GlassSquare.png"
 import hide from  "../assets/Hide.png"
 import side_jiji from "../assets/side-jiji.png"
+import mover_dot from "../assets/MoverDot.png"
 
 export const ASSETS = {
     BLUE_GRADIENT: blue_gradient,
@@ -71,7 +72,8 @@ export const ASSETS = {
     SCISSORS: scissors,
     GLASS_SQUARE: glass_square,
     HIDE: hide,    
-    SIDE_JIJI: side_jiji
+    SIDE_JIJI: side_jiji,
+    MOVER_DOT: mover_dot
 }
 
 export const CUISENAIRE_COLORS = {
