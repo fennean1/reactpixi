@@ -122,7 +122,7 @@ export const init = (app, setup) => {
       let n = Math.round((this.x+this.width/2 - numberline.x) / dx)
       this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y)
       this.fraction.N.alpha = 0
-      this.fraction.D.alpha = 0
+      //this.fraction.D.alpha = 0
 
       // FEATURE
       //if (features.blocks){feedBlocks.showTo(n)}
