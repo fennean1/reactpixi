@@ -112,7 +112,13 @@ export const init = (app, setup) => {
 
   function tagPointerMove(){
     if (this.touching){
-      let dx = numberline.whole/this.fraction.denominator
+      let denominator
+      if (features.open){
+        denominator = this.fraction.denominator
+      } else {
+        denominator = currentDenominator
+      }
+      let dx = numberline.whole/denominator
       let n = Math.round((this.x+this.width/2 - numberline.x) / dx)
       this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y)
       this.fraction.N.alpha = 0
@@ -124,35 +130,55 @@ export const init = (app, setup) => {
   }
 
   function tagPointerDown(){
+    let denominator
+    if (features.open){
+      denominator = this.fraction.denominator
+    } else {
+      denominator = currentDenominator
+    }
     activeTag = this
     this.zIndex = 2
-    let dx = numberline.whole/this.fraction.denominator
+    let dx = numberline.whole/denominator
     let n = Math.round((this.x+this.width/2 - numberline.x) / dx)
     // FEATURE
     if (features.blocks){
-      feedBlocks.resize(numberline.whole,this.fraction.denominator)
+      feedBlocks.resize(numberline.whole,denominator)
       feedBlocks.showTo(n)
     }
   }
 
   function tagPointerUp(){
+    let denominator
+    if (features.open){
+      denominator = this.fraction.denominator
+    } else {
+      denominator = currentDenominator
+    }
+
     if (this.onDeck == true){
       newTagOnDeck()
       this.onDeck = false
       tags.push(this)
     }
     let floatX = this.x
-    let dx = numberline.whole/this.fraction.denominator
+    let dx = numberline.whole/denominator
     this.fraction.N.alpha = 1
     this.fraction.D.alpha = 1
     let n = Math.round((this.x+this.width/2 - numberline.x) / dx)
+
+    if (!features.open){
+      this.fraction.draw(n,currentDenominator,DX*2/3)
+    } else {
+      this.fraction.draw(n,this.fraction.denominator,DX*2/3)
+    }
+
     if (n == this.fraction.denominator){
       this.zIndex = 0
     } else {
       this.zIndex = 2
       app.stage.addChild(this)
     }
-    this.fraction.draw(n,this.fraction.denominator,DX*2/3)
+
     let _x = dx*n
     this.x = numberline.x + _x - this.width/2
     this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y,hidden)
