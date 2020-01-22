@@ -125,7 +125,7 @@ export const init = (app, setup) => {
       this.fraction.D.alpha = 0
 
       // FEATURE
-      if (features.blocks){feedBlocks.showTo(n)}
+      //if (features.blocks){feedBlocks.showTo(n)}
     }
   }
 
@@ -143,7 +143,7 @@ export const init = (app, setup) => {
     // FEATURE
     if (features.blocks){
       feedBlocks.resize(numberline.whole,denominator)
-      feedBlocks.showTo(n)
+      feedBlocks.hide()
     }
   }
 
@@ -185,11 +185,12 @@ export const init = (app, setup) => {
   
     //app.stage.addChild(numberline)
 
-    if (floatX < numberline.x){
+    if (floatX < numberline.x-dx/4){
       let i = tags.indexOf(this)
       tags.splice(i,1)
       app.stage.removeChild(this)
     }
+    feedBlocks.showTo(n)
   }
 
   function newTagOnDeck(){
