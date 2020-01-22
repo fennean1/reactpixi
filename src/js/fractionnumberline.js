@@ -112,15 +112,27 @@ export const init = (app, setup) => {
 
   function tagPointerMove(){
     if (this.touching){
+      let dx = numberline.whole/this.fraction.denominator
+      let n = Math.round((this.x+this.width/2 - numberline.x) / dx)
       this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y)
       this.fraction.N.alpha = 0
       this.fraction.D.alpha = 0
+
+      // FEATURE
+      if (features.blocks){feedBlocks.showTo(n)}
     }
   }
 
   function tagPointerDown(){
     activeTag = this
     this.zIndex = 2
+    let dx = numberline.whole/this.fraction.denominator
+    let n = Math.round((this.x+this.width/2 - numberline.x) / dx)
+    // FEATURE
+    if (features.blocks){
+      feedBlocks.resize(numberline.whole,this.fraction.denominator)
+      feedBlocks.showTo(n)
+    }
   }
 
   function tagPointerUp(){
@@ -144,8 +156,6 @@ export const init = (app, setup) => {
     let _x = dx*n
     this.x = numberline.x + _x - this.width/2
     this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y,hidden)
-    console.log("numberline z",numberline.zIndex)
-    console.log("whisker z",this.zIndex)
   
     //app.stage.addChild(numberline)
 
@@ -154,12 +164,16 @@ export const init = (app, setup) => {
       tags.splice(i,1)
       app.stage.removeChild(this)
     }
-
-    feedBlocks.flash(n,this.fraction.denominator,numberline.whole,2000)
   }
 
   function newTagOnDeck(){
     tagOnDeck = new FractionTag(0,numberline.denominator,DX)
+    // FEATURE
+    if (features.open){
+      tagOnDeck.setTip(true)
+    } else {
+      tagOnDeck.setTip(false)
+    }
     tagOnDeck.fraction.draw(0,currentDenominator,DX*2/3)
     tagOnDeck.x = numberline.x -  tagOnDeck.width/2
     tagOnDeck.y = numberline.y - 3*numberline._height
@@ -216,6 +230,7 @@ export const init = (app, setup) => {
         let _x = t.fraction.numerator/t.fraction.denominator*numberline.whole
         t.x = numberline.x + _x - t.width/2
         t.whiskerTo(Math.abs(t.y-numberline.y),numberline.y)
+        feedBlocks.resize(numberline.whole)
       }
     }
     numberline.onIncrement = ()=>{

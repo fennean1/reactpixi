@@ -12,6 +12,7 @@ export class FeedBlocks extends PIXI.Container {
     this.width = width
     this.height = width/30
     this.app = app
+    this.denominator = 1
     this.feedBlockTimeline = new TimelineLite({paused: true})
     this.init()
   }
@@ -28,12 +29,38 @@ export class FeedBlocks extends PIXI.Container {
       //newFeedBlockSprite.alpha = 0
       this.addChild(newFeedBlockSprite)
       this.blocks.push(newFeedBlockSprite)
+      newFeedBlock.destroy(true)
     }
+  }
+
+  showTo(n){
+    this.blocks.forEach((b,i)=>{
+      if (i<n){
+        b.alpha = 1
+      } else {
+        b.alpha = 0
+      }
+    })
+  }
+
+  resize(whole,den) {
+    let _width
+    if (den){
+      _width = whole/den
+      this.denominator = den
+    } else {
+      _width = whole/this.denominator
+    }
+    this.blocks.forEach((b,i)=>{
+      b.width = _width
+      b.x = i*_width
+    })
   }
 
   flash(num,den,whole,duration){ 
     this.hide()
     let width = whole/den
+    this.denominator = den
     for (let i = 0;i<num;i++){
       let block = this.blocks[i]
       block.width = width 
@@ -111,6 +138,7 @@ export class FractionTag extends PIXI.Container{
     super()
     this.dragged = false
     this.touching = false
+    this.tipped = true
     this.interactive = true
     this.lockX = false 
     this.lockY = false
@@ -134,6 +162,14 @@ export class FractionTag extends PIXI.Container{
     this.partitionIndicator.x = this.width/2 - 1.5
 
   }
+  setTip(tip){
+    if (tip){
+      this.partitionIndicator.alpha = 1
+    } else {
+      this.partitionIndicator.alpha = 0
+    }
+    this.tipped = tip
+  }
 
   pointerDown(event){
     console.log("pointerdown")
@@ -147,11 +183,9 @@ export class FractionTag extends PIXI.Container{
 
   whiskerTo(length,numberlineY,hide){
     this.partitionIndicator.x = this.width/2
-    this.addChild(this.partitionIndicator)
-    //this.whisker.clear()
+
+    // FEATURE
     if (this.y < numberlineY){
-      //this.whisker.lineStyle(2,0x000000)
-      //this.whisker.lineTo(0,length-this.fraction.height)
       this.whisker.x = this.width/2
       this.whisker.y = this.fraction.height
       this.whisker.height = length - this.fraction.height
