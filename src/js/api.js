@@ -865,6 +865,7 @@ export class NumberLine extends PIXI.Container {
 
          let newLabel = new Fraction(i,this.denominator,this.dx/2)
          newLabel.makeWhole = true
+         newLabel.interactive = false
 
          this.labels.push(newLabel)
          newLabel.x = _x - newLabel.width/2

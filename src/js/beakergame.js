@@ -134,6 +134,8 @@ let walkWayRef = []
 let multipleChoices = []
 let submittedAnswer = []
 let submittedMCAnswer = []
+let platformGraphic = new PIXI.Graphics()
+let platformGraphicRight = new PIXI.Graphics()
 
 
 // Initializations
@@ -343,7 +345,8 @@ function animateJiji() {
       }, 500, createjs.Ease.getPowInOut(4)).call(() => {
         if (problemIndex == problemSet.length - 1 && CHECK_ANSWER()) {
           dropDiscussionModal("All Done!", () => {
-            window.history.back()
+            problemIndex = -1
+            reset()
           })
         }
       })
@@ -364,7 +367,6 @@ function animateJiji() {
 
 
 function createPlatformLeft() {
-  let platformGraphic = new PIXI.Graphics()
   platformGraphic.lineStyle(5, CONST.COLORS.DARK_GRAY)
   platformGraphic.moveTo(0, SUBMITTED_ANS_Y())
   platformGraphic.lineTo(BRIDGE_START_CORDS()[0], SUBMITTED_ANS_Y())
@@ -377,20 +379,19 @@ function createPlatformLeft() {
 }
 
 function createPlatformRight() {
-  let platformGraphic = new PIXI.Graphics()
-  platformGraphic.lineStyle(5, CONST.COLORS.DARK_GRAY)
+  platformGraphicRight.lineStyle(5, CONST.COLORS.DARK_GRAY)
   let y;
   if (MULTICHOICE && CHECK_ANSWER()) {
     y = SUBMITTED_ANS_Y()
   } else {
     y = correct_ans_y()
   }
-  platformGraphic.moveTo(BRIDGE_END_CORDS()[0], y)
-  platformGraphic.lineTo(WINDOW_WIDTH, y)
-  platformGraphic.alpha = 0
-  app.stage.addChild(platformGraphic)
-  walkWayRef.push(platformGraphic)
-  createjs.Tween.get(platformGraphic).to({
+  platformGraphicRight.moveTo(BRIDGE_END_CORDS()[0], y)
+  platformGraphicRight.lineTo(WINDOW_WIDTH, y)
+  platformGraphicRight.alpha = 0
+  app.stage.addChild(platformGraphicRight)
+  walkWayRef.push(platformGraphicRight)
+  createjs.Tween.get(platformGraphicRight).to({
     alpha: 1
   }, 1000, createjs.Ease.getPowInOut(4))
 }
@@ -586,6 +587,12 @@ function createPartitionBlock(h, w) {
   return blockGraphic
 }
 
+function createPartitionBlockArray(){
+  for (let i = 0;i<12;i++){
+
+  }
+}
+
 function animateAnswer(num, den, numCords, denCords) {
   let dy = (CONTAINER_WIDTH) / den
   for (let i = 0; i < num; i++) {
@@ -658,12 +665,34 @@ function reset() {
   frameFricks.forEach(f => {
     app.stage.removeChild(f)
   })
+
+  setTimeout(()=>{
+    feedBlocks.forEach(b=>{
+      b.destroy(true)
+    })
+    frameFricks.forEach(f=>{
+      f.destroy(true)
+    })
+    frameBlocks.forEach(b=>{
+      b.destroy(true)
+    })
+    feedFricks.forEach(f=>{
+      f.destroy(true)
+    })
+  },100)
+
+
+
+
+
   feedBlocks = []
   feedFricks = []
   frameBlocks = []
   frameFricks = []
   letters.forEach(l => app.stage.removeChild(l))
   letters = []
+  platformGraphic.clear()
+  platformGraphicRight.clear()
 
   if (!MULTICHOICE) {
 
@@ -748,7 +777,6 @@ function prepareForToleranceFeedback() {
 
 }
 
-
 function animateFeedBlocks(blocks, fricks) {
   fricks.forEach(f => {
     app.stage.addChild(f)
@@ -765,7 +793,6 @@ function animateFeedBlocks(blocks, fricks) {
     prepareForToleranceFeedback()
   }, 1000)
 }
-
 
 function createJijiAsset() {
   let blockSprite = new PIXI.Sprite.from(CONST.ASSETS.SIDE_JIJI)
