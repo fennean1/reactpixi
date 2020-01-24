@@ -55,7 +55,7 @@ export const ACTIVITY = {
     TITLE : "Open Number Lines",
     SCREEN_TYPE: SCREEN_TYPES.PANORAMIC,
     ICON: ICON,
-    TIME: 30,
+    TIME: 45,
     PAGES: 11,
     TOOL: "/fractionnumberline",
     SCRIPT: "FRACTION_NUMBER_LINE",

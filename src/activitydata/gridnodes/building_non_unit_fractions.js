@@ -76,7 +76,7 @@ export const ACTIVITY = {
     TITLE : "Building Fractions",
     SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
     ICON: ICON,
-    TIME: 30,
+    TIME: 45,
     PAGES: 14,
     TOOL: "/gridnodes2x2",
     SCRIPT: "NODES_GRID",

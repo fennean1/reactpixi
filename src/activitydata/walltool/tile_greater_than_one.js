@@ -75,7 +75,7 @@ export const ACTIVITY = {
     TITLE : "Tile Greater Than One",
     SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
     ICON: ICON,
-    TIME: 30,
+    TIME: 45,
     PAGES: 14,
     TOOL: "/walltool",
     SCRIPT: "WALL_TOOL",

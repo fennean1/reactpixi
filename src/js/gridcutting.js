@@ -33,6 +33,8 @@ export const init = (app, setup) => {
   let I = Math.floor(WINDOW_WIDTH/DX)
   let SQUARE = [[0,0],[0,SQUARE_DIM],[SQUARE_DIM,SQUARE_DIM],[SQUARE_DIM,0]]
   console.log("WINDOW",WINDOW_WIDTH,WINDOW_HEIGHT)
+  let AREA_OF_POLYGONS = null
+  let FIRST_LOAD = true
 
 
 
@@ -140,7 +142,18 @@ export const init = (app, setup) => {
 
     let newPolygons = splitMultiplePolygons(linePoints,rawCopyOfPolygons)
 
-    if (newPolygons.length != polygonObjects.length) {
+
+    const reducer = (a,c) => a + polygonArea(c)
+    let area = newPolygons.reduce(reducer,0)
+    let validCut = true
+    if (AREA_OF_POLYGONS != null){
+      /// Valid if new area is within 5%
+      validCut = Math.abs(AREA_OF_POLYGONS-area) < AREA_OF_POLYGONS*0.05
+    } else {
+      AREA_OF_POLYGONS = area
+    }
+
+    if (newPolygons.length != polygonObjects.length && validCut) {
         polygonObjects.forEach(pObj=>{
           pObj.destroy(true)
           app.stage.removeChild(pObj)
@@ -156,8 +169,8 @@ export const init = (app, setup) => {
           pObj.on('pointerdown',polyPointerDown)
           pObj.on('pointermove',polyPointerMove)
         })
-      setTimeout(()=>{cutting = false},1000)
-   }
+   } 
+   setTimeout(()=>{cutting = false},500)
   }
 
   function redrawPolys(oldFrame,newFrame){
@@ -249,6 +262,7 @@ export const init = (app, setup) => {
   // Called on resize
   let timeout;
   function resize(newFrame){
+    console.log("resize called")
     clearTimeout(timeout)
     timeout = setTimeout(()=>{
       updateLayoutParams(newFrame)
@@ -315,11 +329,13 @@ export const init = (app, setup) => {
   }
 
   function polyPointerUp(){
+    
     if (!cutting){
       fadeAnimation.restart()
       snap(this)
       placeButtons()
     }
+    Nodes.forEach((n)=>{app.stage.addChild(n)})
   }
 
 
@@ -330,6 +346,21 @@ export const init = (app, setup) => {
       scissorBtn.alpha = 1
       app.stage.addChild(scissorBtn)
     }
+  }
+
+  function resetBtnAction(){
+    updateLayoutParams()
+    SQUARE = [[0,0],[0,SQUARE_DIM],[SQUARE_DIM,SQUARE_DIM],[SQUARE_DIM,0]]
+
+    initialPolygon = new DraggablePoly(SQUARE,app)
+    polygonObjects.push(initialPolygon)
+    console.log("I",I)
+    console.log("J",J)
+    let _x = DX*Math.round(I/2)
+    let _y = DY*Math.round(J/2)
+    app.stage.addChild(initialPolygon)
+    TweenLite.to(initialPolygon,0.5,{x:_x,y:_y})
+    
   }
 
   // Loading Script
@@ -440,17 +471,15 @@ export const init = (app, setup) => {
     }
     fadeAnimation.to([rotateLeftBtn,flipVerticalBtn],1,{alpha: 0,onComplete: onComplete},"+=2")
 
-    setTimeout(()=>{ 
       updateLayoutParams()
       SQUARE = [[0,0],[0,SQUARE_DIM],[SQUARE_DIM,SQUARE_DIM],[SQUARE_DIM,0]]
       initialPolygon = new DraggablePoly(SQUARE,app)
-      initialPolygon.x = DX*Math.round(I/2) 
-      initialPolygon.y = DY*Math.round(J/2)
-      polygonObjects.push(initialPolygon)
+      initialPolygon.x = 0
+      initialPolygon.y = 0
       initialPolygon.on('pointerup',polyPointerUp)
       initialPolygon.on('pointerdown',polyPointerDown)
       initialPolygon.on('pointermove',polyPointerMove)
-      app.stage.addChild(initialPolygon)},3000)
+      setTimeout(()=>{resetBtnAction()},3000)
   }
 
   // Call load script

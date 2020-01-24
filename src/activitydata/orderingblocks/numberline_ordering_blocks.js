@@ -29,7 +29,7 @@ export const ACTIVITY = {
     TITLE : "Pizza Sharing",
     SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
     ICON: null,
-    TIME: 30,
+    TIME: 50,
     PAGES: 14,
     TOOL: "/cuttinggridsnap4x4",
     SCRIPT: "CUTTING_GRID",

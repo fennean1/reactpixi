@@ -46,7 +46,7 @@ export const ACTIVITY = {
     TITLE : "Tile Less Than One",
     SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
     ICON: ICON,
-    TIME: 30,
+    TIME: 45,
     PAGES: 14,
     TOOL: "/cuttinggridsnap4x4",
     SCRIPT: "WALL_TOOL",

@@ -102,7 +102,7 @@ export const ACTIVITY = {
     TITLE : "Equal Shares",
     SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
     ICON: ICON,
-    TIME: 30,
+    TIME: 45,
     PAGES: 14,
     TOOL: "/gridcuttingsnap4x4",
     SCRIPT: "CUTTING_GRID",

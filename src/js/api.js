@@ -647,9 +647,11 @@ export function getIntersectionPoints(lineEndPoints,polyPoints){
       let intersectionPoint = linesIntersect(l,line)
       intersectionPoints.push(intersectionPoint)
   })
-  console.log("intersectinglines count",intersectionPoints)
+
   let filtered = intersectionPoints.filter(e=> e != false)
+  console.log("intersecting points",filtered.length)
   let deduped = removeDuplicatePoints(filtered,5)
+  console.log("deduped count",deduped.length)
   
   return deduped
 }

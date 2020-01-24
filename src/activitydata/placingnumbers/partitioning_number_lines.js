@@ -81,7 +81,7 @@ export const ACTIVITY = {
     TITLE : "Partitioning Number Lines",
     SCREEN_TYPE: SCREEN_TYPES.PANORAMIC,
     ICON: ICON,
-    TIME: 30,
+    TIME: 45,
     PAGES: 4,
     TOOL: "/placingnumbers",
     SCRIPT: "PLACING_NUMBERS",

@@ -71,7 +71,7 @@ export const ACTIVITY = {
     TITLE : "Beaker Estimation",
     SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
     ICON: ICON,
-    TIME: 30,
+    TIME: 45,
     PAGES: 4,
     TOOL: "/placingnumbers",
     SCRIPT: "BEAKER_ESTIMATION",
