@@ -1383,16 +1383,267 @@ const PARTITIONING_SIXTHS_WITH_PIN = {
   noFeedBlockLabel: true,
 }
 
+
+// Building Number Lines 
+
+const BUILDING_HALVES = {
+  prompt: "Use the measuring tools to place and label the tick-marks with the given fractions.",
+  blocks: [HALF_BLOCK, THIRD_BLOCK, FOURTH_BLOCK],
+  indexOfMarkedBlock: null,
+  pinKeys: [0, 0, 0],
+  presetPinKeys: [0, 0, 0],
+  pinWidget: false,
+  partitionsPerWhole: 2,
+  max: 2,
+  min: 0,
+  ticksEvery: null,
+  tolerance: 0.15,
+  partitionsPerLine: 2,
+  presetLabels: [
+    [0, 1]
+  ],
+  labels: [
+    [1, 1],
+    [1,2]
+  ],
+  unique: false,
+  endPins: true,
+  dontScorePins: true,
+  discussionQuestion: true,
+}
+
+const BUILDING_FOURTHS = {
+  prompt: "Use the measuring tools to place and label the tick-marks with the given fractions.",
+  blocks: [HALF_BLOCK, THIRD_BLOCK, FOURTH_BLOCK],
+  indexOfMarkedBlock: null,
+  pinKeys: [0, 0, 0, 0, 0],
+  presetPinKeys: [0, 0, 0, 0, 0],
+  pinWidget: false,
+  partitionsPerWhole: 4,
+  max: 2,
+  min: 0,
+  ticksEvery: null,
+  tolerance: 0.15,
+  partitionsPerLine: 4,
+  presetLabels: [
+    [0, 1]
+  ],
+  labels: [
+    [1, 1],
+    [2,4],
+    [3,4],
+    [1,4]
+  ],
+  unique: false,
+  endPins: true,
+  dontScorePins: true,
+  discussionQuestion: true,
+}
+
+const BUILDING_THIRDS = {
+  prompt: "Use the measuring tools to place and label the tick-marks with the given fractions.",
+  blocks: [HALF_BLOCK, THIRD_BLOCK, FOURTH_BLOCK],
+  indexOfMarkedBlock: null,
+  pinKeys: [0, 0, 0,0],
+  presetPinKeys: [0, 0, 0,0],
+  pinWidget: false,
+  partitionsPerWhole: 3,
+  max: 2,
+  min: 0,
+  ticksEvery: null,
+  tolerance: 0.15,
+  partitionsPerLine: 3,
+  presetLabels: [
+    [0, 1]
+  ],
+  labels: [
+    [1, 1],
+    [1,3],
+    [2,3] 
+   ],
+  unique: false,
+  endPins: true,
+  dontScorePins: true,
+  discussionQuestion: true,
+}
+
+
+const BUILDING_SIXTHS = {
+  prompt: "Use the measuring tools to place and label the tick-marks with the given fractions.",
+  blocks: [HALF_BLOCK, THIRD_BLOCK, FOURTH_BLOCK],
+  indexOfMarkedBlock: null,
+  pinKeys: [0, 0, 0,0,0,0,0],
+  presetPinKeys: [0, 0, 0,0,0,0],
+  pinWidget: false,
+  partitionsPerWhole: 6,
+  max: 2,
+  min: 0,
+  ticksEvery: null,
+  tolerance: 0.15,
+  partitionsPerLine: 6,
+  presetLabels: [
+    [0, 1]
+  ],
+  labels: [
+    [1, 1],
+    [2,6],
+    [1, 6],
+    [5,6],
+    [4, 6],
+  ],
+  unique: false,
+  endPins: true,
+  dontScorePins: true,
+  discussionQuestion: true,
+}
+
+// Over One
+
+
+const BUILDING_HALVES_OVER_ONE = {
+  prompt: "Use the measuring tools to place and label the tick-marks with the given fractions.",
+  blocks: [FOURTH_BLOCK, SIXTH_BLOCK, EIGHTH_BLOCK],
+  indexOfMarkedBlock: null,
+  pinKeys: [0, 0, 0,0,0],
+  presetPinKeys: [0,0,0, 0, 0],
+  pinWidget: false,
+  partitionsPerWhole: 2,
+  max: 2,
+  min: 0,
+  ticksEvery: null,
+  tolerance: 0.15,
+  partitionsPerLine: 4,
+  presetLabels: [
+    [0, 1]
+  ],
+  labels: [
+    [1, 1],
+    [2,1],
+    [1, 2],
+    [3,2]
+  ],
+  unique: false,
+  endPins: true,
+  dontScorePins: true,
+  discussionQuestion: true,
+}
+
+const BUILDING_FOURTHS_OVER_ONE = {
+  prompt: "Use the measuring tools to place and label the tick-marks with the given fractions.",
+  blocks: [HALF_BLOCK, THIRD_BLOCK, FOURTH_BLOCK],
+  indexOfMarkedBlock: null,
+  pinKeys: [0, 0, 0, 0, 0,0,0,0,0],
+  presetPinKeys: [0, 0, 0, 0, 0,0,0,0,0],
+  pinWidget: false,
+  partitionsPerWhole: 4,
+  max: 3,
+  min: 0,
+  ticksEvery: null,
+  tolerance: 0.15,
+  partitionsPerLine: 8,
+  presetLabels: [
+    [0, 1]
+  ],
+  labels: [
+    [1, 1],
+    [2,1],
+    [3,4],
+    [2,4],
+    [1, 4],
+    [5,4],
+    [7,4],
+    [6,4]
+  ],
+  unique: false,
+  endPins: true,
+  dontScorePins: true,
+  discussionQuestion: true,
+}
+
+const BUILDING_THIRDS_OVER_ONE = {
+  prompt: "Use the measuring tools to place and label the tick-marks with the given fractions.",
+  blocks: [FOURTH_BLOCK, SIXTH_BLOCK, EIGHTH_BLOCK],
+  indexOfMarkedBlock: null,
+  pinKeys: [0, 0, 0,0,0,0,0],
+  presetPinKeys: [0, 0, 0,0,0,0,0],
+  pinWidget: false,
+  partitionsPerWhole: 3,
+  max: 2,
+  min: 0,
+  ticksEvery: null,
+  tolerance: 0.15,
+  partitionsPerLine: 6,
+  presetLabels: [
+    [0, 1]
+  ],
+  labels: [
+    [1, 1],
+    [1,3],
+    [2,1] ,
+    [2, 3],
+    [5,3],
+    [4,3] 
+   ],
+  unique: false,
+  endPins: true,
+  dontScorePins: true,
+  discussionQuestion: true,
+}
+
+
+const BUILDING_SIXTHS_OVER_ONE = {
+  prompt: "Use the measuring tools to place and label the tick-marks with the given fractions.",
+  blocks: [FOURTH_BLOCK, SIXTH_BLOCK, EIGHTH_BLOCK],
+  indexOfMarkedBlock: null,
+  pinKeys: [0, 0, 0,0,0,0,0,0,0,0],
+  presetPinKeys: [0, 0, 0,0,0,0,0,0,0,0],
+  pinWidget: false,
+  partitionsPerWhole: 6,
+  max: 9/6,
+  min: 0,
+  ticksEvery: null,
+  tolerance: 0.15,
+  partitionsPerLine: 9,
+  presetLabels: [
+    [0, 1]
+  ],
+  labels: [
+    [1, 1],
+    [2,6],
+    [1, 6],
+    [5,6],
+    [4, 6],
+    [9,6],
+    [7, 6],
+  ],
+  unique: false,
+  endPins: true,
+  dontScorePins: true,
+  discussionQuestion: true,
+}
+
+// Partitioning Activities
 const PARTITIONING_ACTIVITY_ONE = [PARTITIONING_HALVES, PARTITIONING_THIRDS, PARTITIONING_FOURTHS, PARTITIONING_SIXTHS,PARTITIONING_FOURTHS_WITH_PIN,PARTITIONING_SIXTHS_WITH_PIN]
 const PARTITIONING_ACTIVITY_ONE_TEACHER = [PARTITIONING_FOURTHS]
 const PARTITIONING_ACTIVITY_TWO = [PLACING_HALVES,PLACING_FOURTHS,PLACING_THIRDS,PLACING_SIXTHS]
 const PARTITIONING_ACTIVITY_TWO_TEACHER = [PLACING_SIXTHS]
+
+// Building Activities
+const BUILDING_ACTIVITY_ONE = [BUILDING_HALVES,BUILDING_FOURTHS,BUILDING_THIRDS,BUILDING_SIXTHS]
+const BUILDING_ACTIVITY_ONE_TEACHER = [BUILDING_FOURTHS]
+const BUILDING_ACTIVITY_TWO = [BUILDING_HALVES_OVER_ONE,BUILDING_FOURTHS_OVER_ONE,BUILDING_THIRDS_OVER_ONE,BUILDING_SIXTHS_OVER_ONE]
+const BUILDING_ACTIVITY_TWO_TEACHER = [BUILDING_THIRDS_OVER_ONE]
+
+// Test Sequences
 const TEST = [PARTITIONING_SIXTHS_WITH_PIN,PARTITIONING_FOURTHS_WITH_PIN]
-const DEMO = [PARTITIONING_FOURTHS,PLACING_FOURTHS,PARTITIONING_SIXTHS_WITH_PIN]
+
 
 export const NUMBERLINE_ACTIVITIES = {
-  'DEMO': DEMO,
   'TEST': TEST,
+  'BUILDING_ACTIVITY_ONE': BUILDING_ACTIVITY_ONE,
+  'BUILDING_ACTIVITY_ONE_TEACHER': BUILDING_ACTIVITY_ONE_TEACHER,
+  'BUILDING_ACTIVITY_TWO': BUILDING_ACTIVITY_TWO,
+  'BUILDING_ACTIVITY_TWO_TEACHER': BUILDING_ACTIVITY_TWO_TEACHER,
   'PARTITIONING_ACTIVITY_ONE': PARTITIONING_ACTIVITY_ONE,
   'PARTITIONING_ACTIVITY_TWO': PARTITIONING_ACTIVITY_TWO,
   'PARTITIONING_ACTIVITY_ONE_TEACHER': PARTITIONING_ACTIVITY_ONE_TEACHER,

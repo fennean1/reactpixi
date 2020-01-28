@@ -59,6 +59,7 @@ export default function ActivityCard(props) {
   const id = open ? "simple-popover" : undefined;
   const activitypath = '/activities/' + props.data.ID
   const studentpath = '/landing/' + props.data.ID
+  const teacherpath = '/landing/' + props.data.ID
   const printouts = (props.data.ORGANIZER && <Button className = "white"> 
   <a target="_blank" className = "black-text" href = {`${props.data.ORGANIZER}`}> 
       Printouts

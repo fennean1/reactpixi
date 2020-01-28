@@ -7,7 +7,7 @@ import * as TileLessThanOne from './walltool/tile_less_than_one.js'
 import * as PartitioningNumberLines from './placingnumbers/partitioning_number_lines.js'
 import * as BuildingNonUnitFractions from './gridnodes/building_non_unit_fractions.js'
 import * as BeakerEstimation from './beaker/beaker_estimation.js'
-
+import * as BuildingNumberLines from './placingnumbers/building_number_lines.js'
 
 export const ACTIVITIES = {
     hundred_grid_building_numbers: BuildingNumbersActivity.ACTIVITY,
@@ -18,5 +18,6 @@ export const ACTIVITIES = {
     tile_less_than_one: TileLessThanOne.ACTIVITY,
     partitioning_number_lines: PartitioningNumberLines.ACTIVITY,
     building_non_unit_fractions: BuildingNonUnitFractions.ACTIVITY,
-    beaker_estimation: BeakerEstimation.ACTIVITY
+    beaker_estimation: BeakerEstimation.ACTIVITY,
+    building_number_lines: BuildingNumberLines.ACTIVITY
 }

@@ -50,10 +50,8 @@ export default function LessonPanel(props) {
   const initialScreenState = SCREEN_STATES.FULL_PROMPT
   const [panelNumber, setPanel] = React.useState(1)
   const [promptOnly,setPromptState] = React.useState(false)
-  const [curtainWidth,setCurtainWidth] = React.useState(window.innerHeight*0.9)
   let panel;
   let arena;
-  let curtain;
   let wholeArea;
   const [tipsOpen, setTipsOpen] = React.useState(false)
   const [showPrompt, setShowPrompt] = React.useState(false)
@@ -65,6 +63,8 @@ export default function LessonPanel(props) {
   const [key, switchKey] = React.useState(1)
   const [flexDirect, setFlexDirect] = React.useState(initialScreenState.direction)
   const [dummy,setDummy] = React.useState(false)
+
+
   function printList(items) {
     if (items) { return items.map((q, i) => { return <p key={i}>{q}<br /><br /></p> }) }
   }
@@ -88,8 +88,8 @@ export default function LessonPanel(props) {
     if (type == SCREEN_TYPES.FULL_PROMPT){
       if (data.SCREEN_TYPE == SCREEN_TYPES.PANORAMIC){
         promptWidthPercentage = 1
-        console.log("panel y", window.innerHeight/2 - window.innerWidth*-0.27/2)
-        TweenLite.to(panel,0,{y: window.innerHeight/2 - window.innerWidth*.27/2-50})
+        //TweenLite.to(panel,0,{y: window.innerHeight/2 - window.innerWidth*0.27/2-50})
+        TweenLite.to(panel,0,{y: 0})
       } else {
         promptHeightPercentage = 0.93
         TweenLite.to(panel,0,{x: window.innerWidth/2 - window.innerHeight/2})

@@ -86,5 +86,6 @@ export const ACTIVITY = {
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/BeakerEstimation.pdf",
+    ORGANIZER: "/pdfs/BeakerEstimationOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Game',link: '/estimation-game-one'}]
   }

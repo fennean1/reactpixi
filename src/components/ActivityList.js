@@ -39,6 +39,9 @@ class ActivityList extends Component {
           < div className="col s6">
           <ActivityCard data={ACTIVITIES.beaker_estimation} />
           </div>
+          < div className="col s6">
+          <ActivityCard data={ACTIVITIES.building_number_lines} />
+          </div>
         </div>
       </div>
     );

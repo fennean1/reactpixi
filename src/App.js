@@ -34,6 +34,7 @@ import SignIn from "./components/SignIn"
 import Test from "./components/ResizeTest"
 import testCSS from "./components/testCSS"
 import StudentLandingPage from "./components/StudentLandingPage"
+import TeacherLandingPage from "./components/TeacherLandingPage"
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { Document, Page,pdfjs } from 'react-pdf';
@@ -100,7 +101,8 @@ const Main = () => (
     <Route exact path="/testCSS" component={testCSS} />
     <Route exact path="/manipulatives" component={ManipulativeCarousel} />
     <Route exact path="/studentlandingpage" component={StudentLandingPage} />
-    <Route path="/teacherdashboard" component={TeacherDashboard} />
+    <Route exact path="/teacherlandingpage" component={TeacherLandingPage} />
+    <Route path="/studentdashboard" component={StudentDashboard} />
     <Route exact path="/resizetest" component={Test} />
   </div>
 );
