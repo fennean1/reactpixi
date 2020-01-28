@@ -8,6 +8,7 @@ import { Switch, Route, Link } from "react-router-dom";
 import FaceIcon from "@material-ui/icons/Face";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Chip from "@material-ui/core/Chip";
 import GroupIcon from "@material-ui/icons/Group";
 import ForumIcon from "@material-ui/icons/Forum";
 import Tabs from "@material-ui/core/Tabs";
@@ -44,13 +45,17 @@ class TeacherActivityLandingPage extends Component {
       <div className="row">
         <div className ="section no-pad-bot" id="index-banner">
                 <div className ="container">
-          <h1 className ="header center orange-text">Title</h1>
-                </div>
+                 <h1 className ="header center orange-text">Title</h1>
+          </div>
         </div>
         <br />  
         <br />
+        <div style = {{display: 'flex',flexDirection: 'row'}}>
+        <Chip  size = "large" label="1 - 3"  />    
+        <h3>Balls</h3>
+        </div>
         <div className="center">
-        <Button style ={{margin: 5}} variant="outlined" color="primary">
+        <Button style ={{margin: 5}} variant="outlined" >
             Start
           </Button>
         </div>

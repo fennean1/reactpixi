@@ -1,6 +1,6 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/PartitioningIcon.png'
+import ICON from '../../assets/BuildingNumberLinesIcon.png'
 
 
 const sequence = 
@@ -8,7 +8,7 @@ const sequence =
       slideNumber: 1,
       screenType: SCREEN_TYPES.FULL_PROMPT,
       tips: ["Follow the prompt."],
-      puzzle: "BUILDING_ACTIVITY_TWO"
+      puzzle: "BUILDING_ACTIVITY_ONE"
     },
     {
       slideNumber: 2,
@@ -67,6 +67,14 @@ const sequence =
     },
     {
       slideNumber: 8,
+      tips: ["What do you notice about these two number lines? Compare/Contrast",
+        "Why do you think this number line shows fourths but not the other?",
+        "Both number lines are divided into 4 distances, why aren’t they both fourths?"],
+      screenType: SCREEN_TYPES.FULL_PROMPT,
+      puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
+    },
+    {
+      slideNumber: 9,
       tips: ["What do you notice about these two number lines? Compare/Contrast",
         "Why do you think this number line shows fourths but not the other?",
         "Both number lines are divided into 4 distances, why aren’t they both fourths?"],
