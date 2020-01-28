@@ -1388,7 +1388,7 @@ const PARTITIONING_SIXTHS_WITH_PIN = {
 
 const BUILDING_HALVES = {
   prompt: "Use the measuring tools to place and label the tick-marks with the given fractions.",
-  blocks: [HALF_BLOCK, THIRD_BLOCK, FOURTH_BLOCK],
+  blocks: [HALF_BLOCK, FOURTH_BLOCK],
   indexOfMarkedBlock: null,
   pinKeys: [0, 0, 0],
   presetPinKeys: [0, 0, 0],
@@ -1414,7 +1414,7 @@ const BUILDING_HALVES = {
 
 const BUILDING_FOURTHS = {
   prompt: "Use the measuring tools to place and label the tick-marks with the given fractions.",
-  blocks: [HALF_BLOCK, THIRD_BLOCK, FOURTH_BLOCK],
+  blocks: [HALF_BLOCK, FOURTH_BLOCK],
   indexOfMarkedBlock: null,
   pinKeys: [0, 0, 0, 0, 0],
   presetPinKeys: [0, 0, 0, 0, 0],
@@ -1442,7 +1442,7 @@ const BUILDING_FOURTHS = {
 
 const BUILDING_THIRDS = {
   prompt: "Use the measuring tools to place and label the tick-marks with the given fractions.",
-  blocks: [HALF_BLOCK, THIRD_BLOCK, FOURTH_BLOCK],
+  blocks: [HALF_BLOCK, FOURTH_BLOCK],
   indexOfMarkedBlock: null,
   pinKeys: [0, 0, 0,0],
   presetPinKeys: [0, 0, 0,0],
@@ -1470,7 +1470,7 @@ const BUILDING_THIRDS = {
 
 const BUILDING_SIXTHS = {
   prompt: "Use the measuring tools to place and label the tick-marks with the given fractions.",
-  blocks: [HALF_BLOCK, THIRD_BLOCK, FOURTH_BLOCK],
+  blocks: [HALF_BLOCK, FOURTH_BLOCK],
   indexOfMarkedBlock: null,
   pinKeys: [0, 0, 0,0,0,0,0],
   presetPinKeys: [0, 0, 0,0,0,0],
@@ -1502,7 +1502,7 @@ const BUILDING_SIXTHS = {
 
 const BUILDING_HALVES_OVER_ONE = {
   prompt: "Use the measuring tools to place and label the tick-marks with the given fractions.",
-  blocks: [FOURTH_BLOCK, SIXTH_BLOCK, EIGHTH_BLOCK],
+  blocks: [FOURTH_BLOCK, EIGHTH_BLOCK],
   indexOfMarkedBlock: null,
   pinKeys: [0, 0, 0,0,0],
   presetPinKeys: [0,0,0, 0, 0],
@@ -1530,7 +1530,7 @@ const BUILDING_HALVES_OVER_ONE = {
 
 const BUILDING_FOURTHS_OVER_ONE = {
   prompt: "Use the measuring tools to place and label the tick-marks with the given fractions.",
-  blocks: [HALF_BLOCK, THIRD_BLOCK, FOURTH_BLOCK],
+  blocks: [FOURTH_BLOCK, EIGHTH_BLOCK],
   indexOfMarkedBlock: null,
   pinKeys: [0, 0, 0, 0, 0,0,0,0,0],
   presetPinKeys: [0, 0, 0, 0, 0,0,0,0,0],
@@ -1562,7 +1562,7 @@ const BUILDING_FOURTHS_OVER_ONE = {
 
 const BUILDING_THIRDS_OVER_ONE = {
   prompt: "Use the measuring tools to place and label the tick-marks with the given fractions.",
-  blocks: [FOURTH_BLOCK, SIXTH_BLOCK, EIGHTH_BLOCK],
+  blocks: [FOURTH_BLOCK, EIGHTH_BLOCK],
   indexOfMarkedBlock: null,
   pinKeys: [0, 0, 0,0,0,0,0],
   presetPinKeys: [0, 0, 0,0,0,0,0],
@@ -1593,7 +1593,7 @@ const BUILDING_THIRDS_OVER_ONE = {
 
 const BUILDING_SIXTHS_OVER_ONE = {
   prompt: "Use the measuring tools to place and label the tick-marks with the given fractions.",
-  blocks: [FOURTH_BLOCK, SIXTH_BLOCK, EIGHTH_BLOCK],
+  blocks: [FOURTH_BLOCK, EIGHTH_BLOCK],
   indexOfMarkedBlock: null,
   pinKeys: [0, 0, 0,0,0,0,0,0,0,0],
   presetPinKeys: [0, 0, 0,0,0,0,0,0,0,0],

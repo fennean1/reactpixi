@@ -918,7 +918,7 @@ function createBlockWidget(blocks, wholeWidth) {
     block.beginFill(CONST.COLORS.BLUE);
     block.drawRoundedRect(
       dim,
-      topMargin + (i * NUMBER_LINE_Y) / 8,
+      topMargin + (i * NUMBER_LINE_Y) / 6,
       (wholeWidth / blocks[i].den) * blocks[i].num,
       dim / 4,
       5

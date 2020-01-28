@@ -63,7 +63,7 @@ const sequence =
         "Work together to make any corrections needed."
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      puzzle: "PARTITIONING_ACTIVITY_TWO_TEACHER"
+      puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
       slideNumber: 8,
@@ -71,7 +71,7 @@ const sequence =
         "Why do you think this number line shows fourths but not the other?",
         "Both number lines are divided into 4 distances, why aren’t they both fourths?"],
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      puzzle: "PARTITIONING_ACTIVITY_TWO_TEACHER"
+      puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
 ]
 
