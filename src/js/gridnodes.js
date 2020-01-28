@@ -27,6 +27,11 @@ export const init = (app, setup) => {
   let SQUARE_DIM = ARENA_HEIGHT*0.6
   let SQUARE_AREA = SQUARE_DIM*SQUARE_DIM
   let BTN_DIM = SQUARE_DIM/6
+  let DX = 10
+  let DY = 10
+
+    
+  let features;
 
   let stencil;
   let Nodes = []
@@ -42,6 +47,8 @@ export const init = (app, setup) => {
   let flipHorizontalBtn;
   let resetBtn;
   let square;
+  let square2;
+
 
   let fadeAnimation = new TimelineLite({paused: true})
  
@@ -50,6 +57,12 @@ export const init = (app, setup) => {
   square.drawRoundedRect(0,0,SQUARE_DIM,SQUARE_DIM,1)
   square.x = WINDOW_WIDTH/2 - SQUARE_DIM/2
   square.y = WINDOW_HEIGHT/2 - SQUARE_DIM/2
+
+  square2 = new PIXI.Graphics()
+  square2.lineStyle(3,0xffffff)
+  square2.drawRoundedRect(0,0,SQUARE_DIM,SQUARE_DIM,1)
+  square2.x = WINDOW_WIDTH/2 - SQUARE_DIM/2
+  square2.y = WINDOW_HEIGHT/2 - SQUARE_DIM/2
 
 
   function makeBackground(){
@@ -337,20 +350,26 @@ export const init = (app, setup) => {
 
 
   function set(a,b){
-    let dx = SQUARE_DIM/(a-1)
-    let dy = SQUARE_DIM/(b-1)
+    DY = SQUARE_DIM/(b-1)
+    DX = DY
+    let offset = features.double ? DX*(a-1)/4 : 0
     let dim = SQUARE_DIM/15
     for (let i=0;i<a;i++){
       for (let j=0;j<b;j++){
         let n = new Node()
         Nodes.push(n)
-        n.x = WINDOW_WIDTH/2 - SQUARE_DIM/2 + i*dx 
-        n.y = WINDOW_HEIGHT/2 - SQUARE_DIM/2+j*dy
-        n.w = dx/10
+        n.x = WINDOW_WIDTH/2 - SQUARE_DIM/2 + i*DX - offset
+        n.y = WINDOW_HEIGHT/2 - SQUARE_DIM/2 + j*DY
+        n.w = DX/10
         n.height = dim
         n.width = dim
         app.stage.addChild(n)
       }
+    }
+
+    if (features.double){
+      square.x = square.x - offset
+      square2.x = square.x + b*DX
     }
   }
 
@@ -443,8 +462,6 @@ export const init = (app, setup) => {
     }
   }
 
-
-
   function decimalToFrac(dec){
     for (let i=1;i<100;i++){
       for (let j=0;j<=i;j++){
@@ -517,7 +534,6 @@ export const init = (app, setup) => {
   // Loading Script
   function load(){
     app.loaded = true
-    let features = {}
     if (setup.props.features){
       features = setup.props.features
     }
@@ -628,6 +644,10 @@ export const init = (app, setup) => {
     //fadeAnimation.play()
 
     app.stage.addChild(square)
+
+    if (features.double){
+      app.stage.addChild(square2)
+    }
 
   }
 
