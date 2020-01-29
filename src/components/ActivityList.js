@@ -29,7 +29,7 @@ class ActivityList extends Component {
         </div>
         <div className="row">
         < div className="col s6">
-        <ActivityCard data={ACTIVITIES.partitioning_number_lines} />
+        <ActivityCard data={ACTIVITIES.tile_less_than_one} />
           </div>
           < div className="col s6">
           <ActivityCard data={ACTIVITIES.tile_greater_than_one} />
@@ -37,10 +37,39 @@ class ActivityList extends Component {
         </div>
         <div className="row">
           < div className="col s6">
-          <ActivityCard data={ACTIVITIES.beaker_estimation} />
+          <ActivityCard data={ACTIVITIES.partitioning_number_lines} />
           </div>
           < div className="col s6">
           <ActivityCard data={ACTIVITIES.building_number_lines} />
+          </div>
+        </div>
+        <div className="row">
+          < div className="col s6">
+          <ActivityCard data={ACTIVITIES.placing_fractions} />
+          </div>
+          < div className="col s6">
+          <ActivityCard data={ACTIVITIES.number_line_equivalence} />
+          </div>
+        </div>
+        <div className="row">
+          < div className="col s6">
+          <ActivityCard data={ACTIVITIES.bar_equivalence} />
+          </div>
+          < div className="col s6">
+          <ActivityCard data={ACTIVITIES.equivalent_area} />
+          </div>
+        </div>
+        <div className="row">
+          < div className="col s6">
+          <ActivityCard data={ACTIVITIES.ordering_fractions} />
+          </div>
+          < div className="col s6">
+          <ActivityCard data={ACTIVITIES.comparing_fractions} />
+          </div>
+        </div>
+        <div className="row">
+          < div className="col s6">
+          <ActivityCard data={ACTIVITIES.beaker_estimation} />
           </div>
         </div>
       </div>

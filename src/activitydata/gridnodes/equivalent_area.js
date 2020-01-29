@@ -1,6 +1,6 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/BuildingIcon.png'
+import ICON from '../../assets/DefaultIcon.png'
 
 const sequence = 
     [{
@@ -33,7 +33,7 @@ const sequence =
       tips: ["How do you know if the shape you made is ¼ of the large square?",
       "What other shapes represent a fourth ¼ of the large square?",
       "Record the different ways you used fourths to cover the square. See example."],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 6,
@@ -46,14 +46,14 @@ const sequence =
       tips: ["What unit fraction will we need to build 3 fourths?",
       "Describe your strategy making ¾.",
       "Is there another way to build ¾ ? Explain."],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+      screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 8,
       tips: ["What unit fraction will we need to build 3 fourths?",
       "Describe your strategy making ¾.",
       "Is there another way to build ¾ ? Explain."],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 9,
@@ -72,15 +72,15 @@ const sequence =
 ]
 
 export const ACTIVITY = {
-    ID: "building_non_unit_fractions",
-    TITLE : "Building Fractions",
+    ID: "equivalent_area",
+    TITLE : "Equivalent Area",
     SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
     ICON: ICON,
     TIME: 45,
     PAGES: 14,
     TOOL: "/gridnodes2x2",
     SCRIPT: "NODES_GRID",
-    FEATURES: {x: 3,y: 3},
+    FEATURES: {x: 10,y: 5,double: true},
     MENU: ['Link One',"Link Two"],
     SEQUENCE: sequence,
     DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",

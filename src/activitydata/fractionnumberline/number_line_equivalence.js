@@ -1,6 +1,6 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/BuildingNumberLinesIcon.png'
+import ICON from '../../assets/DefaultIcon.png'
 
 
 const sequence = 
@@ -26,7 +26,7 @@ const sequence =
         "How far are the second/third pins?",
         "What unit fraction is the number line divided into? How do you know?",
         ],
-      screenType: SCREEN_TYPES.PANORAMIC,
+        screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
@@ -35,7 +35,7 @@ const sequence =
         "Check with your partner, does their work match this example?",
         "Work together to make any corrections needed."
         ],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+        screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
@@ -44,7 +44,7 @@ const sequence =
         "Why should these fractions be spaced equally between 0 and 1?",
         "What is the distance from 2/n to 3/n?"
         ],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+        screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_TWO"
     },
     {
@@ -53,7 +53,7 @@ const sequence =
         "How far is the ⅚  from zero? Prove it.",
         "What is the distance between each point on the number line?"
         ],
-      screenType: SCREEN_TYPES.PANORAMIC,
+        screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
@@ -62,7 +62,7 @@ const sequence =
         "Check with your partner, does their work match this example?",
         "Work together to make any corrections needed."
         ],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+        screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
@@ -70,7 +70,7 @@ const sequence =
       tips: ["What do you notice about these two number lines? Compare/Contrast",
         "Why do you think this number line shows fourths but not the other?",
         "Both number lines are divided into 4 distances, why aren’t they both fourths?"],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+        screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
@@ -78,22 +78,30 @@ const sequence =
       tips: ["What do you notice about these two number lines? Compare/Contrast",
         "Why do you think this number line shows fourths but not the other?",
         "Both number lines are divided into 4 distances, why aren’t they both fourths?"],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+      screenType: SCREEN_TYPES.PANORAMIC,
+      puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
+    },
+    {
+      slideNumber: 10,
+      tips: ["What do you notice about these two number lines? Compare/Contrast",
+        "Why do you think this number line shows fourths but not the other?",
+        "Both number lines are divided into 4 distances, why aren’t they both fourths?"],
+        screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
 ]
 
 
 export const ACTIVITY = {
-    ID: "building_number_lines",
-    TITLE : "Building Number Lines",
+    ID: "number_line_equivalence",
+    TITLE : "Number Line Equivalence",
     SCREEN_TYPE: SCREEN_TYPES.PANORAMIC,
     ICON: ICON,
     TIME: 45,
     PAGES: 4,
     TOOL: "/placingnumbers",
-    SCRIPT: "PLACING_NUMBERS",
-    FEATURES: {x: 5,y: 5},
+    SCRIPT: "FRACTION_NUMBER_LINE",
+    FEATURES: {blocks: true,open: true},
     MENU: ['Link One',"Link Two"],
     SEQUENCE: sequence,
     DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
@@ -105,63 +113,5 @@ export const ACTIVITY = {
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/slides/BuildingNumberLines.pdf",
     ORGANIZER: null,
-    STUDENT_LINKS: [{title: 'Game One',link: '/numberline-partitioning-game-one'},{title: 'Game Two',link: '/numberline-partitioning-game-two'}]
+    STUDENT_LINKS: [{title: 'Tool',link: '/fractionnumberlineopenblocks'}]
   }
-
-
-  /*
-
-[
-        ["Follow the prompt."],
-        [
-        "Tool",
-        "What you can do with this tool?",
-        "How much of the ‘whole’ square is left after all your cuts?",
-        "What part of the ‘whole’ square is this piece…?",
-        "How can this tool help us learn about fractions?",
-        ],
-        ["Follow the prompt"],
-        [
-          "Use the cutting tool to show JiJi how to cut the pizza for two friends",
-          "How do you know the pieces are fair shares?",
-          "How many different ways can you find to make 2 equal shares?"
-        ],
-        [
-          "How do you know these pieces are fair shares?",
-          "What do we call these equal shares?",
-          "Record the different ways we cut the pizza into halves on your paper."
-        ],
-        ["tipOne","tipTwo"],
-        [
-          "Use the cutting tool to show JiJi how to cut the pizza for 4 friends.",
-          "How do you know the pieces are fair shares?",
-          "How many different ways can you find to make 4 equal shares?"],
-        [
-          "How do you know these pieces are fair shares?",
-          "What do we call these equal shares? (fourths)",
-          "Record the different ways we cut the pizza into fourths on your paper."
-        ],
-        ["Follow Prompt"],
-        ["Use the cutting tool to show JiJi how to cut the pizza for 8 friends.",
-        "How do you know the pieces are fair shares?",
-        "How many different ways can you find to make 8 equal shares?",
-        ],
-        [
-          "How do you know these pieces are fair shares?",
-          "What do we call these equal shares? (eighths)",
-          "Record the different ways we cut the pizza into eighths on your paper."],
-        ["Follow the prompt"],
-        [
-          "What patterns do you see?",
-          "What happens to the size of each piece with more cuts?",
-          "Record the unit fractions in order from least to greatest.",
-          "If 8 > 2, why is 1/8 < 1/2?"
-        ],
-        [
-          "Are these fourths? Why or why not?",
-          "Use your cutting tool to figure out how much of the whole each piece represents.",
-          "Record your solution on your paper."
-        ],
-    ],
-
-  */

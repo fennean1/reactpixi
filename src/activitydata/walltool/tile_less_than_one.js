@@ -1,6 +1,6 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/PizzaIcon.png'
+import ICON from '../../assets/DefaultIcon.png'
 
 
 const sequence = 
@@ -60,7 +60,7 @@ export const ACTIVITY = {
     STANDARD_DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
-    PDF: "/pdfs/TileLessThanOne.pdf"
+    PDF: "/pdfs/slides/TileLessThanOne.pdf"
   }
 
 

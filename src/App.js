@@ -14,6 +14,7 @@ import * as OrderingToolScript from "./js/orderingtool.js";
 import * as SharingToolScript from "./js/sharingtool.js";
 import * as NumberStripsScript from "./js/numberlinestrips.js";
 import * as CuisenaireToolScript from "./js/cuisenairetool.js";
+import * as FractionBarToolScript from "./js/fractionbar.js";
 import * as FractionStacksScript from "./js/fractionstacks.js";
 import * as CalculatorScript from "./js/calculator.js";
 import * as OldFractionWallScript from "./js/oldfractionwall.js";
@@ -38,6 +39,7 @@ import TeacherLandingPage from "./components/TeacherLandingPage"
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { Document, Page,pdfjs } from 'react-pdf';
+import { Fraction } from './js/api';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 Pixi.settings.RESOLUTION = 3
@@ -66,6 +68,7 @@ const Main = () => (
     <Route exact path="/hundredslock" component={() => <Arena app = {app} features = {{'lock': true}} fullscreen = {true}  script = {HundredsArrayScript.init}/>} />
     <Route exact path="/hundredsregroup" component={() => <Arena app = {app} features = {{'lock': true,'regroup': true}} fullscreen = {true}  script = {HundredsArrayScript.init}/>} />
     <Route exact path="/fractionwall" component={() => <Arena app = {app} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
+    <Route exact path="/fractionbars" component={() => <Arena app = {app} fullscreen = {true}  script = {FractionBarToolScript.init}/>} />
     <Route exact path="/fractionwallodd" component={() => <Arena app = {app} features = {{'values': [1,3,5,7,9,11]}} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
     <Route exact path="/fractionwalladjustable" component={() => <Arena app = {app} features = {{'values': [1,2,3,4,5,6,7,8,9,10,11,12],'adjustable': true}} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
     <Route exact path="/fractionwalleven" component={() => <Arena app = {app} features = {{'values': [2,4,6,8,10,12]}} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />

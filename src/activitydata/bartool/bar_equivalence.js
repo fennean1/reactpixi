@@ -1,6 +1,6 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/PartitioningIcon.png'
+import ICON from '../../assets/DefaultIcon.png'
 
 
 const sequence = 
@@ -8,7 +8,7 @@ const sequence =
       slideNumber: 1,
       screenType: SCREEN_TYPES.FULL_PROMPT,
       tips: ["Follow the prompt."],
-      puzzle: "PARTITIONING_ACTIVITY_ONE"
+      puzzle: "BUILDING_ACTIVITY_ONE"
     },
     {
       slideNumber: 2,
@@ -17,7 +17,7 @@ const sequence =
         "What strategies have you tried?" 
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      puzzle: "PARTITIONING_ACTIVITY_ONE"
+      puzzle: "BUILDING_ACTIVITY_ONE"
     },
     {
       slideNumber: 3,
@@ -26,8 +26,8 @@ const sequence =
         "How far are the second/third pins?",
         "What unit fraction is the number line divided into? How do you know?",
         ],
-      screenType: SCREEN_TYPES.PANORAMIC,
-      puzzle: "PARTITIONING_ACTIVITY_ONE_TEACHER"
+        screenType: SCREEN_TYPES.FULL_PROMPT,
+      puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
       slideNumber: 4,
@@ -35,8 +35,8 @@ const sequence =
         "Check with your partner, does their work match this example?",
         "Work together to make any corrections needed."
         ],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
-      puzzle: "PARTITIONING_ACTIVITY_ONE_TEACHER"
+        screenType: SCREEN_TYPES.PORTRAIT,
+      puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
       slideNumber: 5,
@@ -45,7 +45,7 @@ const sequence =
         "What is the distance from 2/n to 3/n?"
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      puzzle: "PARTITIONING_ACTIVITY_TWO"
+      puzzle: "BUILDING_ACTIVITY_TWO"
     },
     {
       slideNumber: 6,
@@ -53,8 +53,8 @@ const sequence =
         "How far is the ⅚  from zero? Prove it.",
         "What is the distance between each point on the number line?"
         ],
-      screenType: SCREEN_TYPES.PANORAMIC,
-      puzzle: "PARTITIONING_ACTIVITY_TWO_TEACHER"
+        screenType: SCREEN_TYPES.FULL_PROMPT,
+      puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
       slideNumber: 7,
@@ -62,8 +62,8 @@ const sequence =
         "Check with your partner, does their work match this example?",
         "Work together to make any corrections needed."
         ],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
-      puzzle: "PARTITIONING_ACTIVITY_TWO_TEACHER"
+        screenType: SCREEN_TYPES.PORTRAIT,
+      puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
       slideNumber: 8,
@@ -71,20 +71,20 @@ const sequence =
         "Why do you think this number line shows fourths but not the other?",
         "Both number lines are divided into 4 distances, why aren’t they both fourths?"],
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      puzzle: "PARTITIONING_ACTIVITY_TWO_TEACHER"
+      puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
 ]
 
 
 export const ACTIVITY = {
-    ID: "partitioning_number_lines",
-    TITLE : "Partitioning Number Lines",
-    SCREEN_TYPE: SCREEN_TYPES.PANORAMIC,
+    ID: "bar_equivalence",
+    TITLE : "Bar Model Equivalence",
+    SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
     ICON: ICON,
     TIME: 45,
     PAGES: 4,
     TOOL: "/placingnumbers",
-    SCRIPT: "PLACING_NUMBERS",
+    SCRIPT: "FRACTION_BARS",
     FEATURES: {x: 5,y: 5},
     MENU: ['Link One',"Link Two"],
     SEQUENCE: sequence,
@@ -95,9 +95,9 @@ export const ACTIVITY = {
     STANDARD_DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
-    PDF: "/pdfs/slides/PartitioningNumberLines.pdf",
+    PDF: "/pdfs/slides/BarEquivalence.pdf",
     ORGANIZER: null,
-    STUDENT_LINKS: [{title: 'Game One',link: '/numberline-partitioning-game-one'},{title: 'Game Two',link: '/numberline-partitioning-game-two'}]
+    STUDENT_LINKS: [{title: 'Tool',link: '/fractionbars'}]
   }
 
 
