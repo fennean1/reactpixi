@@ -1,6 +1,6 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/TilingOverOneIcon.png'
+import ICON from '../../assets/TilingLessThanOneIcon.png'
 
 
 

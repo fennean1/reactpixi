@@ -1,6 +1,6 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/DefaultIcon.png'
+import ICON from '../../assets/PlacingFractionsIcon.png'
 
 
 const sequence = 
@@ -100,8 +100,8 @@ export const ACTIVITY = {
     TIME: 45,
     PAGES: 4,
     TOOL: "/placingnumbers",
-    SCRIPT: "PLACING_NUMBERS",
-    FEATURES: {x: 5,y: 5},
+    SCRIPT: "FRACTION_NUMBER_LINE",
+    FEATURES: {blocks: true,open: true},
     MENU: ['Link One',"Link Two"],
     SEQUENCE: sequence,
     DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
