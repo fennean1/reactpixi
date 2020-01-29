@@ -1,6 +1,6 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/BuildingNumberLinesIcon.png'
+import ICON from '../../assets/DefaultIcon.png'
 
 
 const sequence = 
@@ -93,8 +93,8 @@ const sequence =
 
 
 export const ACTIVITY = {
-    ID: "building_number_lines",
-    TITLE : "Building Number Lines",
+    ID: "placing_fractions",
+    TITLE : "Placing Fractions on a Number Line",
     SCREEN_TYPE: SCREEN_TYPES.PANORAMIC,
     ICON: ICON,
     TIME: 45,
@@ -111,7 +111,7 @@ export const ACTIVITY = {
     STANDARD_DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
-    PDF: "/pdfs/slides/BuildingNumberLines.pdf",
-    ORGANIZER: null,
+    PDF: "/pdfs/slides/PlacingFractions.pdf",
+    ORGANIZER: "pdfs/organizers/PlacingFractionsOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: '/fractionnumberlineopenblocks'}]
   }

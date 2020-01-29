@@ -96,7 +96,7 @@ export const ACTIVITY = {
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/slides/BarEquivalence.pdf",
-    ORGANIZER: null,
+    ORGANIZER: "pdfs/organizers/BarEquivalenceOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: '/fractionbars'}]
   }
 

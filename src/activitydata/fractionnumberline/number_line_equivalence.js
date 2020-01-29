@@ -112,6 +112,6 @@ export const ACTIVITY = {
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/slides/BuildingNumberLines.pdf",
-    ORGANIZER: null,
+    ORGANIZER: "pdfs/organizers/NumberLineEquivalenceOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: '/fractionnumberlineopenblocks'}]
   }
