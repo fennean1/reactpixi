@@ -105,7 +105,7 @@ export const ACTIVITY = {
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/slides/BuildingNumberLines.pdf",
     ORGANIZER: null,
-    STUDENT_LINKS: [{title: 'Game One',link: '/numberline-partitioning-game-one'},{title: 'Game Two',link: '/numberline-partitioning-game-two'}]
+    STUDENT_LINKS: [{title: 'Game One',link: '/numberline-building-game-one'},{title: 'Game Two',link: '/numberline-building-game-two'}]
   }
 
 

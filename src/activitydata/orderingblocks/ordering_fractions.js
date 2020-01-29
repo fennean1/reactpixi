@@ -89,7 +89,7 @@ export const ACTIVITY = {
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/slides/OrderingFractions.pdf",
     ORGANIZER: null,
-    STUDENT_LINKS: [{title: 'Game One',link: '/numberline-partitioning-game-one'},{title: 'Game Two',link: '/numberline-partitioning-game-two'}]
+    STUDENT_LINKS: [{title: 'Tool',link: '/orderingblocksx4'}]
   }
 
 

@@ -32,8 +32,9 @@ const BLOCK_HEIGHT = dim/4
 
 // Problem que setup
 let PROBLEM_QUE;
-/// FIX THIS
-const ACTIVITY_ID = setup.props.currentPanel ? setup.props.currentPanel.puzzle : 'BUILDING_ACTIVITY_ONE'
+const LINKED_ACTIVITY = setup.props.activity ? setup.props.activity : false
+const DYNAMIC_ACTIVITY = setup.props.currentPanel ? setup.props.currentPanel.puzzle : 'DEFAULT'
+const ACTIVITY_ID = LINKED_ACTIVITY ? LINKED_ACTIVITY : DYNAMIC_ACTIVITY
 console.log("Activity ID",ACTIVITY_ID)
 PROBLEM_QUE = PROBLEMS.NUMBERLINE_ACTIVITIES[ACTIVITY_ID];
 let numberOfProblems = PROBLEM_QUE.length;
