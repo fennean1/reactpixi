@@ -12,57 +12,57 @@ const sequence =
     },
     {
       slideNumber: 2,
-      tips: ["Can there be more than 1 solution? Explain.",
-            "Which shapes did you try? Explain."
+      tips: ["Predict which shapes might work and which might not.",
+        "Use a different shape for each whole square.",
+        "How many fourths will you need to fill in one whole?",
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 3,
-      tips: ["Can there be more than 1 solution? Explain.",
-        "Which shapes did you use? Let’s try it!",
-        "What is the value of each shape?", 
-        "How much of the squares is covered?"
+      tips: ["How did you fill the square with fourths? Explain.",
+        "Are there other shapes that are one-fourth of the large square? Explain",
+        "Record your work on your paper. Name the unit fraction modeled. See example.",
         ],
       screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 4,
-      tips: ["Record the solution on your paper",
-        "Check with your partner, does their work match this example?",
-        "Work together to make any corrections needed."        
+      tips: ["Compare your paper with your partner.",
+        "Does the work match this example?",
+        "Work together to make any corrections needed.",
        ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 5,
-      tips: ["Which piece(s) do you think will work?",
-        "How many fourths cover 1 whole square?",
-        "How many more fourths would you need to cover both (2-whole) squares?"        
+      tips: ["How many thirds (eighths) will you need to fill the whole square?",
+          "Which unit fraction covers more of the square,  a third or an eighth? Explain.",
+          "Is there more than one solution to this problem? Explain.",
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 6,
-      tips: ["Which piece(s) do you think will work?",
-        "How many thirds cover 1 whole square?",
-        "How many more thirds would you need to cover both (2-whole) squares?"
-        ],
+      tips: ["Which shapes are ‘thirds’, ‘eighths’ of the whole square? Explain.",
+      "Which unit fraction covers more of the square,  a third or an eighth? Explain.",
+      "If 8 is greater than 3, why is ⅛ less than ⅓?",
+      "Record your work on your paper. Name the unit fraction modeled.",
+      ],
       screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 7,
-      tips: ["Record the solution on your paper.",
-        "Check with your partner, does their work match this example?",        
-        "Work together to make any corrections needed."
+      tips: ["Compare your paper with your partner.",
+      "Does the work match this example?",
+      "Work together to make any corrections needed."
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 8,
       tips: ["Use your tool to solve the problem.",
-        "There may not be a ‘correct’ answer, but what are some reasonable estimates.",
-        "What is an unreasonable estimate?"
+      "5 shapes cover the whole square. Does that mean the pieces are fifths? Explain."
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },

@@ -11,58 +11,53 @@ const sequence =
     },
     {
       slideNumber: 2,
-      tips: ["How are you figuring out where to put the pins?",
-        "Can you use ½ to help you place the other pins?",
-        "What strategies have you tried?" 
+      tips: ["What strategy did you use to order these fractions?",
+        "Who used a different strategy?"
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 3,
-      tips: ["Compare guess/check strategy with repeated halving.",
-        "How far is the first pin from zero? ¼ of the whole (0 to 1)",
-        "How far are the second/third pins?",
-        "What unit fraction is the number line divided into? How do you know?",
-        ],
+      tips: ["Monitor students as they work.",
+      "What do you notice when you use this tool?",
+      "What patterns do you see with this tool that help order these fractions?",
+      ],
         screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 4,
-      tips: ["Record the solution on your paper",
-        "Check with your partner, does their work match this example?",
-        "Work together to make any corrections needed."
+      tips: ["What do you notice when you use this tool?",
+        "What patterns do you see with this tool that help order these fractions?",        
         ],
       screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 5,
-      tips: ["How are you figuring out where to put these fractions?",
-        "Why should these fractions be spaced equally between 0 and 1?",
-        "What is the distance from 2/n to 3/n?"
+      tips: ["Monitor students as they work.",
+        "What strategy are you using to draw the fractions on the rectangles?",
+        "What do you notice that can help order the fractions from least to greatest?"
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 6,
-      tips: ["Compare guess/check strategy with finding ½ (3/6) then placing remaining fractions on NL.",
-        "How far is the ⅚  from zero? Prove it.",
-        "What is the distance between each point on the number line?"
+      tips: ["Monitor students as they work.",
+        "What do you notice when you use this tool?",
+        "What patterns do you see with this tool that help order these fractions?"
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 7,
-      tips: ["Record the solution on your paper",
-        "Check with your partner, does their work match this example?",
-        "Work together to make any corrections needed."
+      tips: ["What do you notice when you use this tool to order these fractions?",
+      "What patterns do you see with this tool that help order these fractions?"
         ],
       screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 8,
-      tips: ["What do you notice about these two number lines? Compare/Contrast",
-        "Why do you think this number line shows fourths but not the other?",
-        "Both number lines are divided into 4 distances, why aren’t they both fourths?"],
+      tips: ["Is there a mistake in this sentence? Explain.",
+      "Can you find more than one mistake?"],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
 ]

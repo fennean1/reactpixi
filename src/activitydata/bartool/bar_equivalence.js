@@ -12,64 +12,65 @@ const sequence =
     },
     {
       slideNumber: 2,
-      tips: ["How are you figuring out where to put the pins?",
-        "Can you use ½ to help you place the other pins?",
-        "What strategies have you tried?" 
+      tips: ["Monitor students as they work.",
+      "How can the tool help you find equivalent fractions?",   
+      "What patterns do you notice?" 
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_ONE"
     },
     {
       slideNumber: 3,
-      tips: ["Compare guess/check strategy with repeated halving.",
-        "How far is the first pin from zero? ¼ of the whole (0 to 1)",
-        "How far are the second/third pins?",
-        "What unit fraction is the number line divided into? How do you know?",
+      tips: ["Compare your paper with your partner.",
+      "Does the work match this example?",
+      "Work together to make any corrections needed."
         ],
         screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
       slideNumber: 4,
-      tips: ["Record the solution on your paper",
-        "Check with your partner, does their work match this example?",
-        "Work together to make any corrections needed."
+      tips: ["What is the largest unit fraction that can be used to equal ½?",
+      "What other equivalent fractions can we model with this tool?",     
+     "What patterns do you notice?",      
+      "Can we organize the bar models to help find a pattern?"
         ],
         screenType: SCREEN_TYPES.PORTRAIT,
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
       slideNumber: 5,
-      tips: ["How are you figuring out where to put these fractions?",
-        "Why should these fractions be spaced equally between 0 and 1?",
-        "What is the distance from 2/n to 3/n?"
+      tips: ["Compare your paper with your partner.",
+      "Does the work match these examples?",     
+      "What other equivalent fraction pairs did you find?",   
+      "Work together to make any corrections needed."
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO"
     },
     {
       slideNumber: 6,
-      tips: ["Compare guess/check strategy with finding ½ (3/6) then placing remaining fractions on NL.",
-        "How far is the ⅚  from zero? Prove it.",
-        "What is the distance between each point on the number line?"
+      tips: ["Monitor students as they work on their organizer"
         ],
         screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
       slideNumber: 7,
-      tips: ["Record the solution on your paper",
-        "Check with your partner, does their work match this example?",
-        "Work together to make any corrections needed."
+      tips: ["Which fraction did you find had the most equivalent fractions?",
+      "What strategies did you use to find equivalent fraction bars?",
+      "Can we organize the bar models to help find a pattern?"
         ],
         screenType: SCREEN_TYPES.PORTRAIT,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
       slideNumber: 8,
-      tips: ["What do you notice about these two number lines? Compare/Contrast",
-        "Why do you think this number line shows fourths but not the other?",
-        "Both number lines are divided into 4 distances, why aren’t they both fourths?"],
+      tips: ["Can we use the thirds, fifths, sevenths...bars to model one-half ½?",
+      "Why or why not?",
+      "Could we use twentieths 1/20 or hundredths 1/100 to model ½?",
+      "Why or why not?",
+    ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },

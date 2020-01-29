@@ -10,8 +10,10 @@ const sequence =
     },
     {
       slideNumber: 2,
-      tips: ["Monitor students as they work.",
-      "Share out discoveries as students make them"],
+      tips: ["Predict if the triangles cover the same area as the rectangle. Explain.",
+      "How can the tool help you prove if the two shapes are equivalent, cover the same area?",      
+      "What unit fraction does each of the red shapes represent?"
+    ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {

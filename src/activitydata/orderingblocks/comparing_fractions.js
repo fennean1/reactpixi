@@ -11,58 +11,52 @@ const sequence =
     },
     {
       slideNumber: 2,
-      tips: ["How are you figuring out where to put the pins?",
-        "Can you use ½ to help you place the other pins?",
-        "What strategies have you tried?" 
+      tips: ["Students share out for each pair, explaining their thinking.",
+      "Who has a different response? How did you think about this comparison?"
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 3,
-      tips: ["Compare guess/check strategy with repeated halving.",
-        "How far is the first pin from zero? ¼ of the whole (0 to 1)",
-        "How far are the second/third pins?",
-        "What unit fraction is the number line divided into? How do you know?",
+      tips: ["What surprised you after using this tool?",
+        "What did the tool help you see that was hard without a visual model?",
+        "What strategies do you think will work for comparing fractions if you don’t have this tool?"
         ],
       screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 4,
-      tips: ["Record the solution on your paper",
-        "Check with your partner, does their work match this example?",
-        "Work together to make any corrections needed."
+      tips: ["Monitor students as they work with a partner but without using the tool.",
+      "Ask students to explain their thinking to each other."
         ],
         screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 5,
-      tips: ["How are you figuring out where to put these fractions?",
-        "Why should these fractions be spaced equally between 0 and 1?",
-        "What is the distance from 2/n to 3/n?"
+      tips: ["Monitor students as they work with a partner using the tool this time.",
+      "Ask students to explain to each other how the tool helps them compare fractions.",      
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 6,
-      tips: ["Compare guess/check strategy with finding ½ (3/6) then placing remaining fractions on NL.",
-        "How far is the ⅚  from zero? Prove it.",
-        "What is the distance between each point on the number line?"
+      tips: ["What symbols solves this sentence?",
+      "What strategy did you use?",
+      "Would that strategy work if these fractions were sixths? Explain."
         ],
-        screenType: SCREEN_TYPES.FULL_PROMPT,
+        screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 7,
-      tips: ["Record the solution on your paper",
-        "Check with your partner, does their work match this example?",
-        "Work together to make any corrections needed."
+      tips: ["What symbols solves this sentence?",
+       "What strategy did you use?",
+       "Would that strategy work if these fractions were ⅚ and 5/3? Explain.",
         ],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+      screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 8,
-      tips: ["What do you notice about these two number lines? Compare/Contrast",
-        "Why do you think this number line shows fourths but not the other?",
-        "Both number lines are divided into 4 distances, why aren’t they both fourths?"],
+      tips: ["What strategy did you use?"],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
 ]
