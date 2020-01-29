@@ -12,80 +12,73 @@ const sequence =
     },
     {
       slideNumber: 2,
-      tips: ["How are you figuring out where to put the pins?",
-        "Can you use ½ to help you place the other pins?",
-        "What strategies have you tried?" 
+      tips: ["Did students notice that the fraction is hidden when it drags?",
+      "Did they notice that the “1” was draggable?",
+      "Did they notice that you can only show one set of blocks at a time?"
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_ONE"
     },
     {
       slideNumber: 3,
-      tips: ["Compare guess/check strategy with repeated halving.",
-        "How far is the first pin from zero? ¼ of the whole (0 to 1)",
-        "How far are the second/third pins?",
-        "What unit fraction is the number line divided into? How do you know?",
+      tips: ["Share out answers.",
+      "What do you think the distance between A and 1 is?",
         ],
         screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
       slideNumber: 4,
-      tips: ["Record the solution on your paper",
-        "Check with your partner, does their work match this example?",
-        "Work together to make any corrections needed."
+      tips: ["How do the ticks on the number line help you?",
+      "How far is A from zero?",
+      "How far is it from one?",
         ],
         screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
       slideNumber: 5,
-      tips: ["How are you figuring out where to put these fractions?",
-        "Why should these fractions be spaced equally between 0 and 1?",
-        "What is the distance from 2/n to 3/n?"
+      tips: ["This is a preparation for the next sketching activity."
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO"
     },
     {
       slideNumber: 6,
-      tips: ["Compare guess/check strategy with finding ½ (3/6) then placing remaining fractions on NL.",
-        "How far is the ⅚  from zero? Prove it.",
-        "What is the distance between each point on the number line?"
-        ],
+      tips: ["Students may use the tool to help them."],
         screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
       slideNumber: 7,
-      tips: ["Record the solution on your paper",
-        "Check with your partner, does their work match this example?",
-        "Work together to make any corrections needed."
+      tips: ["What are the units shown?",
+      "What comes after five thirds?",
+      "What comes after two thirds?"
         ],
         screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
       slideNumber: 8,
-      tips: ["What do you notice about these two number lines? Compare/Contrast",
-        "Why do you think this number line shows fourths but not the other?",
-        "Both number lines are divided into 4 distances, why aren’t they both fourths?"],
+      tips: ["Students should use their organizer instead of the tool.",
+      "What’s the distance from B to 1?",      
+      "What’s the distance from 0 to A?",
+      ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
       slideNumber: 9,
-      tips: ["What do you notice about these two number lines? Compare/Contrast",
-        "Why do you think this number line shows fourths but not the other?",
-        "Both number lines are divided into 4 distances, why aren’t they both fourths?"],
+      tips: ["Construct the diagram shown.",
+      "Take suggestions from the class and use to tool to show if they're reasonable or not."],
       screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
       slideNumber: 10,
-      tips: ["What do you notice about these two number lines? Compare/Contrast",
-        "Why do you think this number line shows fourths but not the other?",
-        "Both number lines are divided into 4 distances, why aren’t they both fourths?"],
+      tips: ["Have students discuss for one minute",
+      "Then share out.",
+      "Model with tool to confirm."],
       screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },

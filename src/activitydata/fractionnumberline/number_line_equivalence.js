@@ -8,86 +8,74 @@ const sequence =
       slideNumber: 1,
       screenType: SCREEN_TYPES.FULL_PROMPT,
       tips: ["Follow the prompt."],
-      puzzle: "BUILDING_ACTIVITY_ONE"
     },
     {
       slideNumber: 2,
-      tips: ["How are you figuring out where to put the pins?",
-        "Can you use ½ to help you place the other pins?",
-        "What strategies have you tried?" 
+      tips: ["Did students notice that the fraction is hidden when it drags?",
+            "Did they notice that the “1” was draggable?"       
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      puzzle: "BUILDING_ACTIVITY_ONE"
     },
     {
       slideNumber: 3,
-      tips: ["Compare guess/check strategy with repeated halving.",
-        "How far is the first pin from zero? ¼ of the whole (0 to 1)",
-        "How far are the second/third pins?",
-        "What unit fraction is the number line divided into? How do you know?",
+      tips: ["What does it mean when two fractions are in the same location?",
         ],
         screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
       slideNumber: 4,
-      tips: ["Record the solution on your paper",
-        "Check with your partner, does their work match this example?",
-        "Work together to make any corrections needed."
+      tips: ["Remind students that all the fractions are different."
         ],
         screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
       slideNumber: 5,
-      tips: ["How are you figuring out where to put these fractions?",
-        "Why should these fractions be spaced equally between 0 and 1?",
-        "What is the distance from 2/n to 3/n?"
+      tips: ["What type of fractions will show at the top of the number line?",
+      "What about the bottom?",
+      "Which fractions are equal? How do you know?"
         ],
         screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_TWO"
     },
     {
       slideNumber: 6,
-      tips: ["Compare guess/check strategy with finding ½ (3/6) then placing remaining fractions on NL.",
-        "How far is the ⅚  from zero? Prove it.",
-        "What is the distance between each point on the number line?"
+      tips: ["What equivalent fractions do you see?",
+            "What patterns do you notice?"
         ],
         screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
       slideNumber: 7,
-      tips: ["Record the solution on your paper",
-        "Check with your partner, does their work match this example?",
-        "Work together to make any corrections needed."
+      tips: ["Do they share any equal fractions?",
+            "What’s the pattern?"
         ],
         screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
       slideNumber: 8,
-      tips: ["What do you notice about these two number lines? Compare/Contrast",
-        "Why do you think this number line shows fourths but not the other?",
-        "Both number lines are divided into 4 distances, why aren’t they both fourths?"],
+      tips: ["How many did you find?",
+            "What do the pairs have in common?"],
         screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
       slideNumber: 9,
-      tips: ["What do you notice about these two number lines? Compare/Contrast",
-        "Why do you think this number line shows fourths but not the other?",
-        "Both number lines are divided into 4 distances, why aren’t they both fourths?"],
+      tips: ["What new fractions did you find?",
+      "What denominators did you use?",
+      "How did you chose them?",
+      "What denominators didn’t work?"],
       screenType: SCREEN_TYPES.PANORAMIC,
-      puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
       slideNumber: 10,
-      tips: ["What do you notice about these two number lines? Compare/Contrast",
-        "Why do you think this number line shows fourths but not the other?",
-        "Both number lines are divided into 4 distances, why aren’t they both fourths?"],
+      tips: ["Discuss relationships between denominators and numerators.",
+        "Demo the answer."
+      ],
         screenType: SCREEN_TYPES.PANORAMIC,
-      puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
 ]
 
