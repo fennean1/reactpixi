@@ -162,7 +162,17 @@ export class FractionTag extends PIXI.Container{
     this.partitionIndicator.x = this.width/2 - 1.5
 
   }
+
+  redraw(width,height){
+    this.partitionIndicator.clear()
+    this.partitionIndicator.beginFill(0x000000)
+    this.partitionIndicator.drawRoundedRect(0,0,width/10,height,0)
+  }
+
+
+
   setTip(tip){
+    
     if (tip){
       this.partitionIndicator.alpha = 1
     } else {

@@ -242,7 +242,7 @@ export const init = (app, setup) => {
 
 
     // Number Line
-    numberline = new NumberLine(LINE_WIDTH,WINDOW_HEIGHT/20,3,2)
+    numberline = new NumberLine(LINE_WIDTH,LINE_WIDTH/20,3,2)
     numberline.hideFractions = true
     numberline.init()
     if (features.open){
