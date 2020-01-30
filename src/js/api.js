@@ -950,12 +950,12 @@ export class NumberLine extends PIXI.Container {
     this.incDenominatorBtn.width = this._height
     this.incDenominatorBtn.height = this._height
     this.incDenominatorBtn.x = -0.05*this._width
-    this.incDenominatorBtn.y = -3*this._height
+    this.incDenominatorBtn.y = -this._height
 
     this.decDenominatorBtn.width = this._height
     this.decDenominatorBtn.height = this._height
     this.decDenominatorBtn.x = -0.05*this._width
-    this.decDenominatorBtn.y = -2*this._height
+    this.decDenominatorBtn.y = 0
   }
 
   set(whole){
