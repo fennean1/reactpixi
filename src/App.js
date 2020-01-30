@@ -108,7 +108,7 @@ const Main = () => (
     <Route exact path="/testCSS" component={testCSS} />
     <Route exact path="/manipulatives" component={ManipulativeCarousel} />
     <Route exact path="/studentlandingpage" component={StudentLandingPage} />
-    <Route exact path="/teacherlandingpage" component={TeacherLandingPage} />
+    <Route exact path="/overview/:activity" component={TeacherLandingPage} />
     <Route path="/studentdashboard" component={StudentDashboard} />
     <Route exact path="/resizetest" component={Test} />
   </div>

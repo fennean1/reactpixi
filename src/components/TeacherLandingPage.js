@@ -8,6 +8,7 @@ import { Switch, Route, Link } from "react-router-dom";
 import FaceIcon from "@material-ui/icons/Face";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
 import Chip from "@material-ui/core/Chip";
 import GroupIcon from "@material-ui/icons/Group";
 import ForumIcon from "@material-ui/icons/Forum";
@@ -34,32 +35,33 @@ class TeacherActivityLandingPage extends Component {
   }
 
   render() {
-      const list = [0,1,2,3,4].map((l,i)=>{
-          return (<Link key = {i} to = {l.link}>
-            <Button style ={{margin: 5}} variant="outlined" color="primary">
-            {l.title}
-            </Button>
-        </Link>)
+
+      const center = {display: "block",margin: "auto"}
+
+      const overview = this.data.OVERVIEW.map((item,k)=>{
+      return (<div><div style = {{justifyContent: "space-between",display: "flex",flexDirection: "row"}}><h5>{item.anchor}</h5><h5>{item.slides[0] + " - " + item.slides[1]}</h5></div><Divider />
+      {item.description.map(b=><li style = {{listStyleType: "square",marginLeft: "5%",marginTop: "1%"}}>{b}</li>)}
+      </div>)
       })
+      const objectives = this.data.OBJECTIVES.map((obj,k)=><blockquote>{obj}</blockquote>)
     return (
-      <div className="row">
+      <div style = {{flexDirection: "column",display: "flex"}}>
+        <div className = "container">
         <div className ="section no-pad-bot" id="index-banner">
                 <div className ="container">
-                 <h1 className ="header center orange-text">Title</h1>
+          <h1 className ="header center orange-text">{this.data.TITLE}</h1>
           </div>
+            <p className = "flow-text dark-grey-text" style = {{margin: 5}}>
+              This is a descritpion of the activity that coul be very very very long;This is a descritpion of the activity that coul be very very very long;
+            </p>
+        <Button style = {center} variant = "outlined">Start Lesson</Button>
+        <h4 style = {center} >Objectives</h4>
+        {objectives}
         </div>
-        <br />  
-        <br />
-        <div style = {{display: 'flex',flexDirection: 'row'}}>
-        <Chip  size = "large" label="1 - 3"  />    
-        <h3>Balls</h3>
-        </div>
-        <div className="center">
-        <Button style ={{margin: 5}} variant="outlined" >
-            Start
-          </Button>
+          {overview}
         </div>
       </div>
+
     );
   }
 }

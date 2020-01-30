@@ -24,7 +24,7 @@ export const init = (app, setup) => {
   let LANDSCAPE = H_W_RATIO < 3/4
   let ARENA_WIDTH = LANDSCAPE ? 4/3*setup.height : setup.width
   let ARENA_HEIGHT = LANDSCAPE ? setup.height : 3/4*setup.width
-  let SQUARE_DIM = ARENA_HEIGHT*0.6
+  let SQUARE_DIM = LANDSCAPE ? ARENA_HEIGHT*0.6 : ARENA_WIDTH*0.35
   let SQUARE_AREA = SQUARE_DIM*SQUARE_DIM
   let BTN_DIM = SQUARE_DIM/6
   let DX = 10

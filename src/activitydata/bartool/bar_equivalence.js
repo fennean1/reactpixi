@@ -1,6 +1,6 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/DefaultIcon.png'
+import ICON from '../../assets/BarEquivalenceIcon.png'
 
 
 const sequence = 

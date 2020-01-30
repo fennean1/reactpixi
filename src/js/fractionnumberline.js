@@ -202,8 +202,8 @@ export const init = (app, setup) => {
       tagOnDeck.setTip(false)
     }
     tagOnDeck.fraction.draw(0,currentDenominator,DX*2/3)
-    tagOnDeck.x = numberline.x -  tagOnDeck.width/2
-    tagOnDeck.y = numberline.y - 3*numberline._height
+    tagOnDeck.x = generatorTag.x
+    tagOnDeck.y = generatorTag.y
     tagOnDeck.on('pointermove',tagPointerMove)
     tagOnDeck.on('pointerdown',tagPointerDown)
     tagOnDeck.on('pointerup',tagPointerUp)
@@ -228,7 +228,7 @@ export const init = (app, setup) => {
     hideBtn.width = 70
     hideBtn.height = 50
     hideBtn.interactive = true
-    app.stage.addChild(hideBtn)
+    //app.stage.addChild(hideBtn)
     hideBtn.on('pointerdown',()=>{
       for (let t of tags){
         if (hidden){
@@ -275,7 +275,7 @@ export const init = (app, setup) => {
     generatorTag.interactive = false
     generatorTag.fraction.draw(0,currentDenominator,DX*2/3)
     generatorTag.x = numberline.x -  generatorTag.width/2
-    generatorTag.y = numberline.y - 3*numberline._height
+    generatorTag.y = numberline.y - 4*numberline._height
     generatorTag.whiskerTo(Math.abs(generatorTag.y-numberline.y),numberline.y,hidden)
     generatorTag.hasTag = true
     app.stage.addChild(generatorTag)

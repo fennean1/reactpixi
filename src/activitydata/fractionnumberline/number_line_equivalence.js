@@ -1,6 +1,6 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/DefaultIcon.png'
+import ICON from '../../assets/NumberLineEquivalenceIcon.png'
 
 
 const sequence = 
@@ -101,5 +101,8 @@ export const ACTIVITY = {
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/slides/NumberLineEquivalence.pdf",
     ORGANIZER: "pdfs/organizers/NumberLineEquivalenceOrganizer.pdf",
-    STUDENT_LINKS: [{title: 'Tool',link: '/fractionnumberlineopenblocks'}]
+    STUDENT_LINKS: [{title: 'Tool',link: '/fractionnumberlineopenblocks'}],
+    OBJECTIVES: ["students can do this","students can also do this"],
+    OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','bullet two','bullet one','bullet two']},
+    {anchor: "Discuss",slides: [5,6],description: [['bullet one','bullet two'],['bullet one','bullet two']]}]
   }
