@@ -57,9 +57,8 @@ export default function ActivityCard(props) {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-  const activitypath = '/activities/' + props.data.ID
+  const teacherpath = '/overview/' + props.data.ID
   const studentpath = '/landing/' + props.data.ID
-  const teacherpath = '/landing/' + props.data.ID
   const printouts = (props.data.ORGANIZER && <Button className = "white"> 
   <a target="_blank" className = "black-text" href = {`${props.data.ORGANIZER}`}> 
       Printouts
@@ -75,7 +74,8 @@ export default function ActivityCard(props) {
       <span className="card-title activator grey-text text-darken-4">{props.data.TITLE}</span>
       <p>{props.data.TIME+ " Minutes"}</p>
     </div>
-    <div className="card-action"><Link  to={{pathname: `${activitypath}`, state: {data: props.data}}}>
+    <div className="card-action">
+      <Link  to={{pathname: `${teacherpath}`, state: {data: props.data}}}>
       <Button color = "primary" variant = "outlined" >Teacher</Button></Link>
       <Link to={{pathname: `${studentpath}`, state: {data: props.data}}}>
       <Button color = "primary" variant = "outlined" >Student</Button>

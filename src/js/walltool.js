@@ -299,6 +299,10 @@ export const init = (app, setup) => {
     round(whole2,d12)
     app.stage.addChild(whole2)
 
+    if (features.double){
+      
+    }
+
 
     rotateLeftBtn = new PIXI.Sprite.from(ASSETS.ROTATE_LEFT)
     rotateLeftBtn.width = BTN_DIM/2

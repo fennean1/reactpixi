@@ -78,7 +78,6 @@ export const ACTIVITY = {
     FEATURES: {x: 5,y: 5},
     MENU: ['Link One',"Link Two"],
     SEQUENCE: sequence,
-    DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
     LONG_DESCRIPTION: "Here is a very long description of what is happeneing in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think?",
     INSTRUCTIONS: 'Students should...',
     STANDARD_ID: "3.NF.A.3.A",
@@ -87,5 +86,9 @@ export const ACTIVITY = {
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/slides/BeakerEstimation.pdf",
     ORGANIZER: "/pdfs/organizers/BeakerEstimationOrganizer.pdf",
-    STUDENT_LINKS: [{title: 'Game',link: '/estimation-game-one'}]
+    STUDENT_LINKS: [{title: 'Game',link: '/estimation-game-one'}],
+    DESCRIPTION: "Description goes here.",
+    OBJECTIVES: ["students can do this","students can also do this"],
+    OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
+    {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }

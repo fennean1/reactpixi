@@ -37,19 +37,23 @@ class LessonPage extends Component {
             <Paper elevation = {2} style = {{flex: 1,margin: "1%",flexDirection: "row",display:"flex",justifyContent: "space-between"}}>
               <p style = {{marginLeft: 10}}className = "flow-text">Concepts</p>
               <Link style = {{display: "flex",margin: "1%",flexDirection: "row"}} to={{pathname: "/conceptlessons"}}>   
-                <Button variant = "outlined" style = {{margin: 3}}>Go</Button>
+                <Button variant = "outlined" style = {{margin: 3}}>Word Problems</Button>
+                <Button variant = "outlined" style = {{margin: 3}}>Activities</Button>
                 </Link>
+                
             </Paper>
             <Paper elevation = {2} style = {{flex: 1,margin: "1%",flexDirection: "row",display:"flex",justifyContent: "space-between"}}>
               <p style = {{marginLeft: 10}}className = "flow-text">Number Lines</p>
               <Link style = {{display: "flex",margin: "1%",flexDirection: "row"}} to={{pathname: "/numberlinelessons"}}>   
-                <Button variant = "outlined" style = {{margin: 3}}>Go</Button>
+              <Button variant = "outlined" style = {{margin: 3}}>Word Problems</Button>
+                <Button variant = "outlined" style = {{margin: 3}}>Activities</Button>
                 </Link>
             </Paper>
             <Paper elevation = {2} style = {{flex: 1,margin: "1%",flexDirection: "row",display:"flex",justifyContent: "space-between"}}>
               <p style = {{marginLeft: 10}}className = "flow-text">Ordering and Equivalence</p>  
               <Link style = {{display: "flex",margin: "1%",flexDirection: "row"}} to={{pathname: "/equivalencelessons"}}>   
-                <Button variant = "outlined" style = {{margin: 3}}>Go</Button>
+              <Button variant = "outlined" style = {{margin: 3}}>Word Problems</Button>
+                <Button variant = "outlined" style = {{margin: 3}}>Activities</Button>
                 </Link>
             </Paper>
         </div>

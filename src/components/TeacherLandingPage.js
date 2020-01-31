@@ -43,6 +43,8 @@ class TeacherActivityLandingPage extends Component {
 
       const description = {margin: "3%"}
 
+      const teacherpath = "/activities/" +this.data.ID 
+
       const overview = this.data.OVERVIEW.map((item,k)=>{
       return (<div><div style = {{justifyContent: "space-between",display: "flex",flexDirection: "row"}}><h5>{item.anchor}</h5><h5>{item.slides[0] + " - " + item.slides[1]}</h5></div><Divider />
       {item.description.map(b=><div style = {{display: "flex",flexDirection: "row"}}><Box style = {{marginLeft: "3%"}} fontSize={20}>&#8226;{" "+b}</Box></div>)}
@@ -56,14 +58,14 @@ class TeacherActivityLandingPage extends Component {
                 <div className ="container">
           <h1 className ="header center orange-text">{this.data.TITLE}</h1>
           </div>
-          <Button style = {center} variant = "outlined">Start Lesson</Button>
+          <Link to={{pathname: `${teacherpath}`}}> <Button style = {center} variant = "outlined">Start Lesson</Button></Link>
           <p className = "flow-text dark-grey-text" style = {description}>
-               Students use a virtual manipulative to place fractions on a number line. They’ll make predictions and test hypothesis about where fractions are placed and why. Students will also record their thinking in a graphic organizer and use it to reflect on patterns in the data. The activity will conclude with a short knowledge check to summarize the learning outcomes.
+              {this.data.DESCRIPTION}
             </p>
           <div style = {{flexDirection: "row",display: "flex"}}>
           <div style = {{flex: 1}}>
           <div>
-          <h4  >Objectives</h4>
+          <h4>Objectives</h4>
           {objectives}
           </div>
           </div>
