@@ -103,6 +103,6 @@ export const ACTIVITY = {
     ORGANIZER: "pdfs/organizers/NumberLineEquivalenceOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: '/fractionnumberlineopenblocks'}],
     OBJECTIVES: ["students can do this","students can also do this"],
-    OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','bullet two','bullet one','bullet two']},
-    {anchor: "Discuss",slides: [5,6],description: [['bullet one','bullet two'],['bullet one','bullet two']]}]
+    OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
+    {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }

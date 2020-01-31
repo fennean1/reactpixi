@@ -106,5 +106,10 @@ export const ACTIVITY = {
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/slides/PlacingFractions.pdf",
     ORGANIZER: "pdfs/organizers/PlacingFractionsOrganizer.pdf",
-    STUDENT_LINKS: [{title: 'Tool',link: '/fractionnumberlineopenblocks'}]
+    STUDENT_LINKS: [{title: 'Tool',link: '/fractionnumberlineopenblocks'}],
+    OBJECTIVES: ["Place a given fraction on a number line with matching ticks.",
+    "Interpret how the location of the number 1 affects the location of a given fraction.",
+    "Given a point on a ticked number line, state the value of the fraction corresponding to that point in terms of the ticks provided."],
+    OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
+    {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }

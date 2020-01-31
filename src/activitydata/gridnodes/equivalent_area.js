@@ -95,6 +95,6 @@ export const ACTIVITY = {
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/slides/EquivalentArea.pdf",
     ORGANIZER: "/pdfs/organizers/EquivalentAreaOrganizer.pdf",
-    STUDENT_LINKS: [{title: 'Tool',link: '/gridnodes2x2'}]
+    STUDENT_LINKS: [{title: 'Tool',link: '/gridnodes4x4double'}]
   }
 
