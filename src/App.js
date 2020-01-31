@@ -36,10 +36,15 @@ import Test from "./components/ResizeTest"
 import testCSS from "./components/testCSS"
 import StudentLandingPage from "./components/StudentLandingPage"
 import TeacherLandingPage from "./components/TeacherLandingPage"
+import LessonPage from "./components/LessonPage"
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { Document, Page,pdfjs } from 'react-pdf';
 import { Fraction } from './js/api';
+import EquivalenceList from './components/EquivalenceList';
+import ConceptsList from './components/ConceptsList';
+import NumberLineList from './components/NumberLineList';
+import LandingPage from './components/LandingPage'
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 Pixi.settings.RESOLUTION = 3
@@ -107,10 +112,15 @@ const Main = () => (
     <Route exact path="/login" component={SignIn} />
     <Route exact path="/testCSS" component={testCSS} />
     <Route exact path="/manipulatives" component={ManipulativeCarousel} />
+    <Route exact path="/lessons/:lesson" component={LessonPage} />
     <Route exact path="/studentlandingpage" component={StudentLandingPage} />
     <Route exact path="/overview/:activity" component={TeacherLandingPage} />
     <Route path="/studentdashboard" component={StudentDashboard} />
     <Route exact path="/resizetest" component={Test} />
+    <Route exact path="/equivalencelessons" component={EquivalenceList} />
+    <Route exact path="/conceptlessons" component={ConceptsList} />
+    <Route exact path="/numberlinelessons" component={NumberLineList} />
+    <Route exact path="/landingpage" component={LandingPage} />
   </div>
 );
 
