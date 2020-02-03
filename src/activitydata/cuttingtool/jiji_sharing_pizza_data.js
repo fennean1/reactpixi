@@ -118,8 +118,8 @@ export const ACTIVITY = {
     PDF: "/pdfs/slides/JijiSharingPizza.pdf",
     ORGANIZER: "/pdfs/organizers/JijiSharingPizzaOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: '/gridcuttingsnap4x4'}],
-    DESCRIPTION: "Description goes here.",
-    OBJECTIVES: ["students can do this","students can also do this"],
+    DESCRIPTION: "Students cut a square (pizza) into 2, 4, and 8 equal shares using an interactive, digital tool. Classroom discussion focuses on  different ways to cut the square into equal shares and naming the unit fraction represented by each part of the whole. Students draw, label, and discuss how squares can be cut into halves, fourths and eighths in ways that create different shapes.",
+    OBJECTIVES: ["Create and record equal shares","Name and label unit fractions.","Describe that the more pieces a whole is cut into, the smaller the unit fraction (e.g., eighths are smaller than halves)"],
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }

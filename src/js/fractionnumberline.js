@@ -202,7 +202,7 @@ export const init = (app, setup) => {
       tagOnDeck.setTip(false)
     }
     tagOnDeck.fraction.draw(0,currentDenominator,DX*2/3)
-    tagOnDeck.x = generatorTag.x
+    tagOnDeck.x = numberline.x - tagOnDeck.width/2
     tagOnDeck.y = generatorTag.y
     tagOnDeck.on('pointermove',tagPointerMove)
     tagOnDeck.on('pointerdown',tagPointerDown)

@@ -13,12 +13,10 @@ class Arena extends Component {
   }
 
   componentWillUnmount(){
-    console.log("component umounting")
     // Static this.props.apps are not dismantlced upon unmounting.
     this.props.app.active = false
     // If the this.props.app is static, don't deconstruct.
     if (this.props.app.static == false){
-      console.log("ACTUALLY DESTROYING")
       // Remove assigned this.props.app items.
       this.props.app.resizable = false
       this.props.app.active = false
@@ -26,15 +24,15 @@ class Arena extends Component {
       let children = this.props.app.stage.children
       for (var i = children.length - 1; i >= 0; i--) {	this.props.app.stage.removeChild(children[i]);};
       for (var i = children.length - 1; i >= 0; i--) {	children[i].destroy(true);};
+      Object.keys(Pixi.utils.TextureCache).forEach(function(texture) {  Pixi.utils.TextureCache[texture].destroy(true);})
     } 
-  
-    console.log('texturecache length',Object.keys(Pixi.utils.TextureCache).length)
-    Object.keys(Pixi.utils.TextureCache).forEach(function(texture) {  Pixi.utils.TextureCache[texture].destroy(true);});
+    console.log('textuecache',Object.keys(Pixi.utils.TextureCache).length)
   }
 
   // Resizes the view it it's mounted and resizable. (Old versions don't always have a resize function)
   resize(){
     // Active means the this.props.app is mounted and currently being use (Not in the background)
+    console.log("this.props.app.active",this.props.app.active)
     if (this.props.app.active){
       // Does this have a resize option?
       if (this.props.app.resizable){

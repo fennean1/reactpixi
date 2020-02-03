@@ -24,7 +24,7 @@ import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, Timeline
 Pixi.settings.RESOLUTION = 3
 var app1 = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
 var app2 = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
-app1.static = true 
+app1.static = true
 app2.static = true
 app1.loaded = false
 app2.loaded = false

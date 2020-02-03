@@ -234,7 +234,9 @@ export default function LessonPanel(props) {
     </div>
     <div style={{display: 'flex', width: '100%' }} >
       <div style={{ flex: 1, margin: 3 }}>
-        <a onClick={() => toggleFullscreen()} className="btn orange left"><i className="material-icons">view_quilt</i></a>
+        <Link target="_blank" to = {{pathname: "/studentdashboard"}}>
+        <a  className="btn orange left"><i className="material-icons">build</i></a>
+        </Link>
       </div>
       <div style={{ flex: 1, float: 'right' }}>
         <a onClick={() => setTipsOpen(true)} className="btn orange right"><i className="material-icons">forum</i></a>

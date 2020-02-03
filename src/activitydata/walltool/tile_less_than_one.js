@@ -13,56 +13,72 @@ const sequence =
     {
       slideNumber: 2,
       tips: ["Predict which shapes might work and which might not.",
-        "Use a different shape for each whole square.",
-        "How many fourths will you need to fill in one whole?",
+        "How can you figure out the fraction of the square this shape represents?",
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 3,
-      tips: ["How did you fill the square with fourths? Explain.",
-        "Are there other shapes that are one-fourth of the large square? Explain",
-        "Record your work on your paper. Name the unit fraction modeled. See example.",
+      tips: ["Record solutions on the board or chart paper for students to see.",
+      "What shapes were harder to use? Why?",
+      "How did you find the fraction of the whole each shape represents?"      
         ],
       screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 4,
       tips: ["Compare your paper with your partner.",
-        "Does the work match this example?",
-        "Work together to make any corrections needed.",
+      "Does the work match this example?",
+      "Work together to make any corrections needed."
        ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 5,
-      tips: ["How many thirds (eighths) will you need to fill the whole square?",
-          "Which unit fraction covers more of the square,  a third or an eighth? Explain.",
-          "Is there more than one solution to this problem? Explain.",
-        ],
+      tips: ["Compare your paper with your partner.",
+      "Does the work match this example?",
+      "Work together to make any corrections needed."
+       ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 6,
-      tips: ["Which shapes are ‘thirds’, ‘eighths’ of the whole square? Explain.",
-      "Which unit fraction covers more of the square,  a third or an eighth? Explain.",
-      "If 8 is greater than 3, why is ⅛ less than ⅓?",
-      "Record your work on your paper. Name the unit fraction modeled.",
+      tips: ["How many thirds (eighths) will you need to fill the whole square?",
+        "Which unit fraction covers more of the square,  a third or an eighth? Explain.",
+        "Is there more than one solution to this problem? Explain.",
       ],
       screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 7,
-      tips: ["Compare your paper with your partner.",
-      "Does the work match this example?",
-      "Work together to make any corrections needed."
+      tips: ["Which shapes did you try? Why those shapes?",
+      "Which unit fractions will cover 3-fourths of the square? How do you know?",
+      "How much is left empty if ¾ is covered? How do you know?"
+      
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 8,
+      tips: ["Compare your paper with your partner.",
+        "Does the work match this example?",
+        "Work together to make any corrections needed.",
+        ],
+      screenType: SCREEN_TYPES.FULL_PROMPT,
+    },
+    {
+      slideNumber: 9,
+      tips: ["Compare your paper with your partner.",
+        "Does the work match this example?",
+        "Work together to make any corrections needed.",
+        ],
+      screenType: SCREEN_TYPES.FULL_PROMPT,
+    },
+    {
+      slideNumber: 10,
       tips: ["Use your tool to solve the problem.",
-      "5 shapes cover the whole square. Does that mean the pieces are fifths? Explain."
+        "How did you solve this problem?",
+        "What is the fraction each small rectangle represents of the whole square?"        
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
@@ -72,7 +88,7 @@ const sequence =
 
 export const ACTIVITY = {
     ID: "tile_less_than_one",
-    TITLE : "Tile Less Than One",
+    TITLE : "Building with Unit Fractions",
     SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
     ICON: ICON,
     TIME: 45,
@@ -90,9 +106,9 @@ export const ACTIVITY = {
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/slides/TileLessThanOne.pdf",
     ORGANIZER: "/pdfs/organizers/TileLessThanOneOrganizer.pdf",
-    STUDENT_LINKS: [{title: 'Tool',link: '/walltool'}],
-    DESCRIPTION: "Description goes here.",
-    OBJECTIVES: ["students can do this","students can also do this"],
+    STUDENT_LINKS: [{title: 'Tool',link: '/walltoolsingle'}],
+    DESCRIPTION: "Students fill in a square area (1 whole) using shapes that represent unit fractions (⅓, ¼, ⅙,and ⅛) of the square. By making copies and covering the whole square with a given shape, students identify the unit fraction represented by the given shape. Students use unit fractions (fourths) to represent ¾ in more than one way. Challenge students to represent ¾ using more than one shape (i.e. using equivalent pieces).",
+    OBJECTIVES: ["Identify unit fractions using part to whole reasoning","Compose fractions using unit fractions (e.g. ¾ = ¼+¼+¼)"],
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }

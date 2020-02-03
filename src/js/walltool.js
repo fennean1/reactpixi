@@ -299,10 +299,10 @@ export const init = (app, setup) => {
     round(whole2,d12)
     app.stage.addChild(whole2)
 
-    if (features.double){
-      
+    if (features.single){
+      app.stage.removeChild(whole2)
+      whole1.x = WINDOW_WIDTH/2 - SQUARE_DIM/2
     }
-
 
     rotateLeftBtn = new PIXI.Sprite.from(ASSETS.ROTATE_LEFT)
     rotateLeftBtn.width = BTN_DIM/2
@@ -351,7 +351,6 @@ export const init = (app, setup) => {
       polygons = []
       activePolygon = null 
     })
-
 
     trashBtn = new PIXI.Sprite.from(ASSETS.TRASH)
     trashBtn.width = BTN_DIM*0.8

@@ -37,6 +37,7 @@ import testCSS from "./components/testCSS"
 import StudentLandingPage from "./components/StudentLandingPage"
 import TeacherLandingPage from "./components/TeacherLandingPage"
 import LessonPage from "./components/LessonPage"
+import WordProblemPortal from "./components/WordProblemPortal"
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { Document, Page,pdfjs } from 'react-pdf';
@@ -103,7 +104,8 @@ const Main = () => (
     <Route exact path="/gridcuttingsnap" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {GridCuttingScript.init}/>} />
     <Route exact path="/placingnumbers" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {PlacingNumbersScript.init}/>} />
     <Route exact path="/estimation-game-one" component={() => <Arena app = {app} activity = {"ACTIVITY_ONE"} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {BeakerGameScript.init}/>} />
-    <Route exact path="/walltool" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {WallToolScript.init}/>} />
+    <Route exact path="/walltooldouble" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {WallToolScript.init}/>} />
+    <Route exact path="/walltoolsingle" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true,single: true}} script = {WallToolScript.init}/>} />
     <Route exact path="/gridcuttingsnap4x4" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 5,y: 5,descriptor: false,snapping: true}} script = {GridCuttingScript.init}/>} />
     <Route exact path="/numberline-partitioning-game-one" component={() => <Arena activity = {"PARTITIONING_ACTIVITY_ONE"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
     <Route exact path="/numberline-partitioning-game-two" component={() => <Arena activity = {"PARTITIONING_ACTIVITY_TWO"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
@@ -119,7 +121,7 @@ const Main = () => (
     <Route exact path="/resizetest" component={Test} />
     <Route exact path="/equivalencelessons" component={EquivalenceList} />
     <Route exact path="/conceptlessons" component={ConceptsList} />
-    <Route exact path="/numberlinelessons" component={NumberLineList} />
+    <Route exact path="/wordproblems/:activity" component={WordProblemPortal} />
     <Route exact path="/landingpage" component={LandingPage} />
   </div>
 );

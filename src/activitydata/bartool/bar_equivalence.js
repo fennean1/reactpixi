@@ -89,7 +89,7 @@ export const ACTIVITY = {
     FEATURES: {x: 5,y: 5},
     MENU: ['Link One',"Link Two"],
     SEQUENCE: sequence,
-    LONG_DESCRIPTION: "Here is a very long description of what is happeneing in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think?",
+    LONG_DESCRIPTION: "Here is a very long description of what is happening in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think?",
     INSTRUCTIONS: 'Students should...',
     STANDARD_ID: "3.NF.A.3.A",
     STANDARD_DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",

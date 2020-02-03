@@ -38,7 +38,8 @@ const sequence =
       slideNumber: 5,
       tips: ["Which piece(s) do you think will work?",
         "How many fourths cover 1 whole square?",
-        "How many more fourths would you need to cover both (2-whole) squares?"        
+        "How many more fourths would you need to cover both (2-whole) squares?",
+        "Record your work on your paper."        
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
@@ -60,6 +61,14 @@ const sequence =
     },
     {
       slideNumber: 8,
+      tips: ["Record the solution on your paper.",
+        "Check with your partner, does their work match this example?",        
+        "Work together to make any corrections needed."
+        ],
+      screenType: SCREEN_TYPES.FULL_PROMPT,
+    },
+    {
+      slideNumber: 9,
       tips: ["Use your tool to solve the problem.",
         "There may not be a ‘correct’ answer, but what are some reasonable estimates.",
         "What is an unreasonable estimate?"
@@ -72,12 +81,12 @@ const sequence =
 
 export const ACTIVITY = {
     ID: "tile_greater_than_one",
-    TITLE : "Tile Greater Than One",
+    TITLE : "Fractions Greater Than One",
     SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
     ICON: ICON,
     TIME: 45,
     PAGES: 14,
-    TOOL: "/walltool",
+    TOOL: "/walltooldouble",
     SCRIPT: "WALL_TOOL",
     FEATURES: {x: 5,y: 5},
     MENU: ['Link One',"Link Two"],
@@ -90,9 +99,9 @@ export const ACTIVITY = {
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/slides/TileGreaterThanOne.pdf",
     ORGANIZER: "/pdfs/organizers/TileGreaterThanOneOrganizer.pdf",
-    STUDENT_LINKS: [{title: 'Tool',link: '/walltool'}],
-    DESCRIPTION: "Description goes here.",
-    OBJECTIVES: ["students can do this","students can also do this"],
+    STUDENT_LINKS: [{title: 'Tool',link: '/walltooldouble'}],
+    DESCRIPTION: "Students use unit fractions (⅓, ¼, ⅙,and ⅛) to represent and name fractions greater than 1. They continue to develop understanding that different shapes can represent the same unit fraction and expand their concept of fractions by naming fractions greater than 1 whole. ",
+    OBJECTIVES: ["Model and name fractions greater than 1.","Compose fractions using unit fractions (e.g. 7/4 = ¼+¼+¼+¼+¼+¼+¼)."],
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }

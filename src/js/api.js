@@ -149,7 +149,7 @@ export class FractionTag extends PIXI.Container{
     this.whisker.lineTo(0,20)
     this.partitionIndicator = new PIXI.Graphics()
     this.partitionIndicator.beginFill(0x000000)
-    this.partitionIndicator.drawRoundedRect(0,0,width/10,width,0)
+    this.partitionIndicator.drawRoundedRect(0,0,width/15,width/2,0)
     this.addChild(this.partitionIndicator)
     this.addChild(this.whisker)
     this.addChild(this.fraction)
@@ -827,8 +827,12 @@ export class NumberLine extends PIXI.Container {
     this.pin.height = this._height
     this.pin.on('pointermove',()=>{
       if (this.pin.touching){
-        this.set(this.pin.x)
         this.onPinDrag()
+        if (this.pin.x > 0){
+          this.set(this.pin.x)
+        } else {
+          this.pin.x = 0
+        }
       }
     })
     this.pin.on('pointerup',()=>{
