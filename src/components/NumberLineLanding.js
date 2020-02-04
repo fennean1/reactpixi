@@ -40,9 +40,9 @@ class LessonPage extends Component {
               <p style = {{marginLeft: 10}}className = "flow-text">Activities</p>
               </Paper>
               </Link>
-              <Link style = {{flex: 1,margin: "1%",flexDirection: "row"}} to={{pathname: "/numberlinewordproblems"}}>   
+              <Link style = {{flex: 1,margin: "1%",flexDirection: "row"}} >   
               <Paper elevation = {2} style = {{flex: 1,flexDirection: "row",display:"flex",justifyContent: "center"}}>
-              <p style = {{marginLeft: 10}}className = "flow-text">Word Problems</p>
+              <p style = {{marginLeft: 10}}className = "flow-text grey-text">Word Problems</p>
               </Paper>
               </Link>
         </div>

@@ -13,8 +13,7 @@ import * as PlacingFractions from './fractionnumberline/placing_fractions.js'
 import * as EquivalentArea from './gridnodes/equivalent_area.js'
 import * as OrderingFractions from './orderingblocks/ordering_fractions.js'
 import * as ComparingFractions from './orderingblocks/comparing_fractions.js'
-
-
+import * as PizzaCrust from "./WordProblems/pizza_crust.js"
 
 export const ACTIVITIES = {
     jiji_sharing_pizza: JijiSharingPizzaActivity.ACTIVITY,
@@ -30,4 +29,5 @@ export const ACTIVITIES = {
     equivalent_area: EquivalentArea.ACTIVITY,
     ordering_fractions: OrderingFractions.ACTIVITY,
     comparing_fractions: ComparingFractions.ACTIVITY,
+    pizza_crust: PizzaCrust.ACTIVITY
 }

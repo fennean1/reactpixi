@@ -44,6 +44,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { Document, Page,pdfjs } from 'react-pdf';
 import EquivalenceList from './components/EquivalenceActvitities';
 import ConceptsLanding from './components/ConceptsLanding';
+import ConceptsWordProblems from './components/ConceptsWordProblems';
 import NumberLineLanding from './components/NumberLineLanding';
 import EquivalenceLanding from './components/EquivalenceLanding';
 import ConceptsList from './components/ConceptsActivities';
@@ -127,7 +128,8 @@ const Main = () => (
     <Route exact path="/studentdashboard" component={StudentDashboard} />
     <Route exact path="/resizetest" component={Test} />
     <Route exact path="/equivalencelessons" component={EquivalenceList} />
-    <Route exact path="/conceptlessons" component={ConceptsList} />
+    <Route exact path="/conceptslessons" component={ConceptsList} />
+    <Route exact path="/conceptswordproblems" component={ConceptsWordProblems} />
     <Route exact path="/numberlinelessons" component={NumberLineList} />
     <Route exact path="/wordproblems/:activity" component={WordProblemPortal} />
     <Route exact path="/landingpage" component={LandingPage} />
@@ -139,7 +141,7 @@ const Main = () => (
 function App() {
   return (
       <MuiThemeProvider theme = {theme}>
-          <BrowserRouter className = "container">
+          <BrowserRouter onUpdate={() => window.scrollTo(0, 0)}  className = "container">
            <Main/>
           </BrowserRouter>
        </MuiThemeProvider>

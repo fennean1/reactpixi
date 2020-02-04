@@ -14,10 +14,8 @@ SCRIPTS = {
 }
 */
 
-const fuck = SCRIPTS["CUTTING_GRID"]
-
 export const DUAL_SCRIPTS = {
-    cutting_and_grid: [{
+    cuttinggrid_5x5_and_gridnodes_5x5_desc: [{
         script: SCRIPTS['CUTTING_GRID'],
         features: {
             x: 5,
@@ -28,6 +26,7 @@ export const DUAL_SCRIPTS = {
         features: {
             x: 5,
             y: 5,
+            descriptor: true
     }}],
     something_and_else: [{
         script: SCRIPTS['CUTTING_GRID'],

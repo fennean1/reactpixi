@@ -35,14 +35,14 @@ export default class ConceptsLanding extends Component {
              <h1 className ="header center">Concepts</h1>
           </div>
         <div className = "container" style = {{display: 'flex',flexDirection: 'row'}}>
-              <Link style = {{flex: 1,margin: "1%",flexDirection: "row"}} to={{pathname: "/conceptlessons"}}>   
+              <Link style = {{flex: 1,margin: "1%",flexDirection: "row"}} to={{pathname: "/conceptslessons"}}>   
               <Paper elevation = {2} style = {{flex: 1,flexDirection: "row",display:"flex",justifyContent: "center"}}>
               <p style = {{marginLeft: 10}}className = "flow-text">Activities</p>
               </Paper>
               </Link>
-              <Link style = {{flex: 1,margin: "1%",flexDirection: "row"}} to={{pathname: "/conceptlessons"}}>   
+              <Link style = {{flex: 1,margin: "1%",flexDirection: "row"}} to={{pathname: "/conceptswordproblems"}}>   
               <Paper elevation = {2} style = {{flex: 1,flexDirection: "row",display:"flex",justifyContent: "center"}}>
-              <p style = {{marginLeft: 10}}className = "flow-text">Word Problems</p>
+              <p style = {{marginLeft: 10}}className = "flow-text grey-text">Word Problems</p>
               </Paper>
               </Link>
         </div>

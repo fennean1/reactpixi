@@ -51,9 +51,9 @@ class LessonPage extends Component {
               </Paper>
             </Link>
             <div className = "container" style = {{display: 'flex',flexDirection: 'row'}}>
-              <Link style = {{flex: 1,margin: "1%",flexDirection: "row"}} to={{pathname: "/conceptlessons"}}>   
+              <Link style = {{flex: 1,margin: "1%",flexDirection: "row"}} >   
               <Paper elevation = {2} style = {{flex: 1,flexDirection: "row",display:"flex",justifyContent: "center"}}>
-              <p style = {{marginLeft: 10}}className = "flow-text">Games</p>
+              <p style = {{marginLeft: 10}}className = "flow-text grey-text">Games</p>
               </Paper>
               </Link>
               <Link style = {{flex: 1,margin: "1%",flexDirection: "row"}} to={{pathname: "/manipulatives"}}>   

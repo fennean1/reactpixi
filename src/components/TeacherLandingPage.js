@@ -43,7 +43,8 @@ class TeacherActivityLandingPage extends Component {
 
       const description = {margin: "3%"}
 
-      const teacherpath = "/activities/" +this.data.ID 
+      const teacherpath = this.data.WORD_PROBLEM ? "/wordproblems/"+this.data.ID : "/activities/" +this.data.ID 
+
 
       const overview = this.data.OVERVIEW.map((item,k)=>{
       return (<div><div style = {{justifyContent: "space-between",display: "flex",flexDirection: "row"}}><h5>{item.anchor}</h5><h5>{item.slides[0] + " - " + item.slides[1]}</h5></div><Divider />

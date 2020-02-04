@@ -353,6 +353,9 @@ export const init = (app, setup) => {
     SQUARE = [[0,0],[0,SQUARE_DIM],[SQUARE_DIM,SQUARE_DIM],[SQUARE_DIM,0]]
 
     initialPolygon = new DraggablePoly(SQUARE,app)
+    initialPolygon.on('pointerup',polyPointerUp)
+    initialPolygon.on('pointerdown',polyPointerDown)
+    initialPolygon.on('pointermove',polyPointerMove)
     polygonObjects.push(initialPolygon)
     console.log("I",I)
     console.log("J",J)
@@ -472,13 +475,6 @@ export const init = (app, setup) => {
     fadeAnimation.to([rotateLeftBtn,flipVerticalBtn],1,{alpha: 0,onComplete: onComplete},"+=2")
 
       updateLayoutParams()
-      SQUARE = [[0,0],[0,SQUARE_DIM],[SQUARE_DIM,SQUARE_DIM],[SQUARE_DIM,0]]
-      initialPolygon = new DraggablePoly(SQUARE,app)
-      initialPolygon.x = 0
-      initialPolygon.y = 0
-      initialPolygon.on('pointerup',polyPointerUp)
-      initialPolygon.on('pointerdown',polyPointerDown)
-      initialPolygon.on('pointermove',polyPointerMove)
       resetBtnAction()
   }
 

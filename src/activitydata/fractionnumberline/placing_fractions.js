@@ -106,13 +106,8 @@ export const ACTIVITY = {
     PDF: "/pdfs/slides/PlacingFractions.pdf",
     ORGANIZER: "pdfs/organizers/PlacingFractionsOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: '/fractionnumberlineopenblocks'}],
-    OBJECTIVES: ["Place a given fraction on a number line with matching ticks.",
-    "Interpret how the location of the number 1 affects the location of a given fraction.",
-    "Given a point on a ticked number line, state the value of the fraction corresponding to that point in terms of the ticks provided."],
-    OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
-    {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}],
-    DESCRIPTION: "Description goes here.",
-    OBJECTIVES: ["students can do this","students can also do this"],
+    DESCRIPTION: "Students use a virtual manipulative to place fractions on a number line. They’ll make predictions and test hypothesis about where fractions are placed and why. Students will also record their thinking in a graphic organizer and use it to reflect on patterns in the data. The activity will conclude with a short knowledge check to summarize the learning outcomes.",
+    OBJECTIVES: ["Place a given fraction on a number line with matching ticks.","Interpret how the location of the number 1 affects the location of a given fraction.","Given a point on a ticked number line, state the value of the fraction corresponding to that point in terms of the ticks provided."],
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }

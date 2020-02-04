@@ -7,20 +7,20 @@ const sequence =
     [{
       slideNumber: 1,
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      tips: ["Follow the prompt."],
+      tips: ["How does Tool A help?","How does Tool B help?"],
     },
 ]
 
 
 export const ACTIVITY = {
-    ID: "number_line_equivalence",
-    TITLE : "Number Line Equivalence",
+    ID: "pizza_crust",
+    TITLE : "Pizza Crust",
     SCREEN_TYPE: SCREEN_TYPES.PANORAMIC,
+    WORD_PROBLEM: true,
     ICON: ICON,
     TIME: 45,
     PAGES: 4,
-    TOOL: "/placingnumbers",
-    DUAL_ARENA: ["CUTTING_GRID","NODES_GRID"],
+    TOOL: "/dualarena/cuttinggrid_5x5_and_gridnodes_5x5_desc",
     SCRIPT: "FRACTION_NUMBER_LINE",
     FEATURES: {blocks: true,open: true},
     MENU: ['Link One',"Link Two"],
