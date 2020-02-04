@@ -81,7 +81,7 @@ export const ACTIVITY = {
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/slides/ComparingFractions.pdf",
-    ORGANIZER: null,
+    ORGANIZER: "/pdfs/organizers/ComparingFractionsOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: '/orderingblocksx2'}],
     DESCRIPTION: "Students compare fractions with like denominators or like numerators, then use a visual model to confirm or refute their initial answer. Classroom discussion focuses on strategies for comparing fractions with like numerators or denominators by reasoning about their relative sizes. If both fractions have the same numerator, e.g., ¾ and ⅜, the fraction representing the largest unit (fourths) is greater. If two fractions have the same denominator, e.g. ⅝ and  ⅜, the fraction with the most pieces is larger.",
     OBJECTIVES: ["Apply understanding of unit fractions to compare fractions with like numerators: the fraction with the most number of pieces is greater.",

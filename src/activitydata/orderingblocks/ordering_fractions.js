@@ -82,7 +82,7 @@ export const ACTIVITY = {
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/slides/OrderingFractions.pdf",
-    ORGANIZER: null,
+    ORGANIZER: "/pdfs/organizers/OrderingFractionsOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: '/orderingblocksx4'}],
     DESCRIPTION: "Students compare and order fractions by applying strategies developed in the Comparing Fractions lesson, then use a visual model (ordering tool) to confirm or refute their initial answer. Sets of 5 fractions include fractions with like numerators and fractions near 0 and ½. Students develop a variety of strategies to predict, model and record the correct order of fractions.",
     OBJECTIVES: ["Fractions with like numerators can be compared using their denominators and reasoning about their relative sizes. (¾ > ⅜ because fourths are larger than eighths).",
