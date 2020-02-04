@@ -101,8 +101,8 @@ export const ACTIVITY = {
     PDF: "/pdfs/slides/NumberLineEquivalence.pdf",
     ORGANIZER: "pdfs/organizers/NumberLineEquivalenceOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: '/fractionnumberlineopenblocks'}],
-    OBJECTIVES: ["students can do this","students can also do this"],
-    DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
+    OBJECTIVES: ["Students understand that fractions with equivalent value occupy the same location on the number line when they refer to the same whole.","Students can reason about denominators in terms of whether or not they can produce equivalent fractions. For example, you can make more equivalent fractions with 6ths and 3rds than you can with 3rds and 4ths."],
+    DESCRIPTION: "Students will explore the meaning of number line equivalence beginning with an area model example. They’ll then use a manipulative to create patterns and extend their understanding. Students will use the tool to construct their own written models and compare them in groups. They’ll conclude by continuing to explore the tool to find as many equivalent fractions as possible. ",
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }

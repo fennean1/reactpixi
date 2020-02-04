@@ -87,8 +87,8 @@ export const ACTIVITY = {
     PDF: "/pdfs/slides/BeakerEstimation.pdf",
     ORGANIZER: "/pdfs/organizers/BeakerEstimationOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Game',link: '/estimation-game-one'}],
-    DESCRIPTION: "Students develop fraction number-sense through visual estimation puzzles. They estimate how much to fill a beaker given a fraction prompt. The feedback provides students with a visual proof for the meaning of the given fraction. Students discuss strategies for modelling fractions less than 1.",
-    OBJECTIVES: ["Estimate fractions using area model.","Explain the meaning of the numerator and denominator in modeling fractions."],
+    DESCRIPTION: "Students develop fraction number-sense through visual estimation puzzles. They estimate how much to fill a beaker given a fraction prompt. The feedback provides students with a visual proof for the meaning of the given fraction. Students solve sample problem individually, then compare and discuss their solutions with a partner. Students strategies for modelling fractions are discussed as a whole class by matching fraction notation to specific visual models.",
+    OBJECTIVES: ["Estimate fractions using area model.","Explain the meaning of fraction notation."],
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }

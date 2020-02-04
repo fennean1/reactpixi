@@ -95,8 +95,8 @@ export const ACTIVITY = {
     PDF: "/pdfs/slides/EquivalentArea.pdf",
     ORGANIZER: "/pdfs/organizers/EquivalentAreaOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: '/gridnodes4x4double'}],
-    DESCRIPTION: "Description goes here.",
-    OBJECTIVES: ["students can do this","students can also do this"],
+    DESCRIPTION: "Students build unit fractions on a ‘whole’ square to model and prove equivalence. Students are asked to prove (or disprove) equivalent areas with visual models that look very different before being asked to model equivalent fractions using an area model (a ‘whole’ square.) Students develop visual strategies and language to prove equivalence.",
+    OBJECTIVES: ["Equivalent fractions can be represented by equal areas using different unit fractions.","Model equivalent fractions for ½ and ¼."],
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }

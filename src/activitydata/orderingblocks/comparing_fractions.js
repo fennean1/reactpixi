@@ -83,8 +83,9 @@ export const ACTIVITY = {
     PDF: "/pdfs/slides/ComparingFractions.pdf",
     ORGANIZER: null,
     STUDENT_LINKS: [{title: 'Tool',link: '/orderingblocksx2'}],
-    DESCRIPTION: "Description goes here.",
-    OBJECTIVES: ["students can do this","students can also do this"],
+    DESCRIPTION: "Students compare fractions with like denominators or like numerators, then use a visual model to confirm or refute their initial answer. Classroom discussion focuses on strategies for comparing fractions with like numerators or denominators by reasoning about their relative sizes.",
+    OBJECTIVES: ["Apply understanding of unit fractions to compare fractions with like denominators: the smaller the denominator, the larger the piece.",
+    "Write inequalities to represent fraction comparisons using >, < symbols"],
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }

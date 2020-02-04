@@ -98,8 +98,8 @@ export const ACTIVITY = {
     PDF: "/pdfs/slides/BarEquivalence.pdf",
     ORGANIZER: "pdfs/organizers/BarEquivalenceOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: '/fractionbars'}],
-    DESCRIPTION: "Description goes here.",
-    OBJECTIVES: ["students can do this","students can also do this"],
+    DESCRIPTION: "Students use bar models to model and explain equivalent fractions. They find all equivalent pairs for ½ given a set of virtual fraction bars, then solve other equivalent pairs. Students transfer their work on the virtual fraction bars to a handout by drawing equivalent fractions and writing equations. Students discuss patterns for fractions equivalent to ½ (clue: all have even denominators).",
+    OBJECTIVES: ["Equivalent fractions can be represented by as equal lengths by bars of different lengths.","Model equivalent fractions and write equations representing them."],
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }
