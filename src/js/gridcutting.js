@@ -273,7 +273,7 @@ export const init = (app, setup) => {
       resetNodes()
       redrawPolys(OLD_FRAME,newFrame)
       backGround.draw()
-    },100)
+    },1000)
   }
 
   function updateLayoutParams(newFrame){
@@ -429,11 +429,11 @@ export const init = (app, setup) => {
       console.log("J",J)
       newStartingSquare.x = DX*Math.round(I/2)
       newStartingSquare.y = DY*Math.round(J/2)
-      activePolygon = newStartingSquare
       newStartingSquare.on('pointerup',polyPointerUp)
                        .on('pointerdown',polyPointerDown)
                        .on('pointermove',polyPointerMove)
       app.stage.addChild(newStartingSquare)
+      activePolygon = newStartingSquare
       polygonObjects = [newStartingSquare]
       rotateLeftBtn.alpha = 0
     })
@@ -475,7 +475,8 @@ export const init = (app, setup) => {
     fadeAnimation.to([rotateLeftBtn,flipVerticalBtn],1,{alpha: 0,onComplete: onComplete},"+=2")
 
       updateLayoutParams()
-      resetBtnAction()
+      setTimeout(()=>{resetBtnAction()},1000)
+     //resetBtnAction()
   }
 
   // Call load script
