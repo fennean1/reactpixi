@@ -479,7 +479,7 @@ export const init = (app, setup) => {
       initialPolygon.on('pointerup',polyPointerUp)
       initialPolygon.on('pointerdown',polyPointerDown)
       initialPolygon.on('pointermove',polyPointerMove)
-      setTimeout(()=>{resetBtnAction()},3000)
+      resetBtnAction()
   }
 
   // Call load script

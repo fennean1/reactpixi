@@ -533,6 +533,8 @@ export const init = (app, setup) => {
 
   // Loading Script
   function load(){
+    console.log("loading grid nodes")
+    console.log("features",setup.props.features)
     app.loaded = true
     if (setup.props.features){
       features = setup.props.features

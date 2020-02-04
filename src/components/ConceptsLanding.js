@@ -19,7 +19,7 @@ import Paper from "@material-ui/core/Paper";
 
 //const LESSONS; // Need to import jsons here.
 
-class LessonPage extends Component {
+export default class ConceptsLanding extends Component {
   constructor(props) {
     super(props);
     const {lesson} = props.match.params
@@ -32,42 +32,22 @@ class LessonPage extends Component {
       <div className = "clouds backgroundImage">
       <div style = {{display: 'flex',flexDirection: 'column'}}>
            <div className ="section no-pad-bot" id="index-banner">
-             <h1 className ="header center">Fractions</h1>
+             <h1 className ="header center">Concepts</h1>
           </div>
-        <div className = "container">
-              <Link style = {{display: "flex",margin: "1%",flexDirection: "row"}} to={{pathname: "/concepts"}}>   
-              <Paper elevation = {2} style = {{flex: 1,margin: "1%",flexDirection: "row",display:"flex",justifyContent: "space-between"}}>
-              <p style = {{marginLeft: 10}}className = "flow-text">Concepts</p>
-              </Paper>
-              </Link>
-              <Link style = {{display: "flex",margin: "1%",flexDirection: "row"}} to={{pathname: "/numberlines"}}>   
-                <Paper elevation = {2} style = {{flex: 1,margin: "1%",flexDirection: "row",display:"flex",justifyContent: "space-between"}}>
-                    <p style = {{marginLeft: 10}}className = "flow-text">Number Lines</p>
-                </Paper>
-              </Link>
-              <Link style = {{display: "flex",margin: "1%",flexDirection: "row"}} to={{pathname: "/orderequivalence"}}>   
-              <Paper elevation = {2} style = {{flex: 1,margin: "1%",flexDirection: "row",display:"flex",justifyContent: "space-between"}}>
-              <p style = {{marginLeft: 10}}className = "flow-text">Ordering and Equivalence</p>  
-              </Paper>
-            </Link>
-            <div className = "container" style = {{display: 'flex',flexDirection: 'row'}}>
+        <div className = "container" style = {{display: 'flex',flexDirection: 'row'}}>
               <Link style = {{flex: 1,margin: "1%",flexDirection: "row"}} to={{pathname: "/conceptlessons"}}>   
               <Paper elevation = {2} style = {{flex: 1,flexDirection: "row",display:"flex",justifyContent: "center"}}>
-              <p style = {{marginLeft: 10}}className = "flow-text">Games</p>
+              <p style = {{marginLeft: 10}}className = "flow-text">Activities</p>
               </Paper>
               </Link>
-              <Link style = {{flex: 1,margin: "1%",flexDirection: "row"}} to={{pathname: "/manipulatives"}}>   
+              <Link style = {{flex: 1,margin: "1%",flexDirection: "row"}} to={{pathname: "/conceptlessons"}}>   
               <Paper elevation = {2} style = {{flex: 1,flexDirection: "row",display:"flex",justifyContent: "center"}}>
-              <p style = {{marginLeft: 10}}className = "flow-text">Tools</p>
+              <p style = {{marginLeft: 10}}className = "flow-text">Word Problems</p>
               </Paper>
               </Link>
         </div>
         </div>
-      </div>
-
       </div>
     );
   }
 }
-
-export default LessonPage

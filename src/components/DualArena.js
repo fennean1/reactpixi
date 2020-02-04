@@ -1,25 +1,16 @@
-import React from "react";
+import React,{useEffect} from "react";
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Arena from "./Arena";
-import * as FractionWallScript from "../js/fractionwall.js";
-import * as NumberLineToolScript from "../js/numberlinetool.js";
-import * as GridToolScript from "../js/gridtool.js";
-import * as OrderingToolScript from "../js/orderingtool.js";
-import * as SharingToolScript from "../js/sharingtool.js";
-import * as HundredsArrayScript from "../js/hundredsarray.js";
-import * as NumberStripsScript from "../js/numberlinestrips.js";
-import * as CuisenaireToolScript from "../js/cuisenairetool.js";
-import * as FractionStacksScript from "../js/fractionstacks.js";
-import * as GridCuttingScript from "../js/gridcutting.js";
-import FactorBlocks from "./FactorBlocks";
+import * as SCRIPTS from "../activitydata/scripts.js"
 import * as GridNodeScript from "../js/gridnodes.js";
 import * as CapacityTalkData from "../activitydata/CapacityTalk.json";
 import * as Pixi from "pixi.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
+import { DUAL_SCRIPTS } from "../activitydata/dualarenas.js";
 
 
 Pixi.settings.RESOLUTION = 3
@@ -55,13 +46,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function ManipulativeCarousel(props) {
+export default function DualArena(props) {
 
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const {key} = props.match.params
+  const [arenaA,setArenaA] = React.useState(DUAL_SCRIPTS[key][0])
+  const [arenaB,setArenaB] = React.useState(DUAL_SCRIPTS[key][1])
 
-
+  console.log("arenas",arenaA,arenaB)
 
   function handleChange(event, newValue) {
     setValue(newValue);
@@ -70,6 +64,14 @@ export default function ManipulativeCarousel(props) {
   function handleChangeIndex(index) {
     setValue(index);
   }
+
+  useEffect(()=>{
+    console.log("USE EFFECT")
+    const {key} = props.match.params
+    const arenas = DUAL_SCRIPTS[key]
+    setArenaA(arenas[0])
+    setArenaB(arenas[1])
+  })
 
   return (
     <div>
@@ -81,10 +83,9 @@ export default function ManipulativeCarousel(props) {
         variant = "fullWidth"
         centered
       >
-        <Tab className = "white" label="Tool One" />
-        <Tab className = "white" label="Tool Two" />
+        <Tab className = "white" label="Tool A" />
+        <Tab className = "white" label="Tool B" />
       </Tabs>
-
       <SwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={value}
@@ -96,8 +97,8 @@ export default function ManipulativeCarousel(props) {
               app = {app1}
               setup={false}
               fullscreen={true}
-              features = {{x: 3,y: 3,descriptor: false}}
-              script={GridCuttingScript.init}
+              features = {DUAL_SCRIPTS[key][0].features}
+              script={DUAL_SCRIPTS[key][0].script}
             />
           )}
         </TabContainer>
@@ -107,8 +108,8 @@ export default function ManipulativeCarousel(props) {
              app = {app2}
               setup={false}
               fullscreen={true}
-              features = {{x: 5,y: 5,descriptor: true}}
-              script={GridCuttingScript.init}
+              features = {DUAL_SCRIPTS[key][1].features}
+              script={DUAL_SCRIPTS[key][1].script}
             />
            )}
         </TabContainer>

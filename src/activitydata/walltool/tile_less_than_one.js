@@ -56,7 +56,7 @@ const sequence =
       "How much is left empty if ¾ is covered? How do you know?"
       
         ],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+      screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 8,
@@ -95,7 +95,7 @@ export const ACTIVITY = {
     PAGES: 14,
     TOOL: "/walltool",
     SCRIPT: "WALL_TOOL",
-    FEATURES: {x: 5,y: 5},
+    FEATURES: {x: 5,y: 5,single: true},
     MENU: ['Link One',"Link Two"],
     SEQUENCE: sequence,
     LONG_DESCRIPTION: "Here is a very long description of what is happeneing in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think?",

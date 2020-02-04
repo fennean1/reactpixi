@@ -36,9 +36,11 @@ class Arena extends Component {
     if (this.props.app.active){
       // Does this have a resize option?
       if (this.props.app.resizable){
+        console.log("resizing")
         this.props.app.resize({width: this.gameCanvas.clientWidth,height: this.gameCanvas.clientHeight})
       } else {
         // Unless the this.props.app has an assign resizable function, we just redraw but we reload the script. (This erases everything)
+        console.log("redrawing")
         this.redraw()
       }
    }
@@ -63,9 +65,9 @@ class Arena extends Component {
 
   
   shouldComponentUpdate(nextProps,nextState){
-    console.log("should componente update called")
+
+      // To stop component from trying to re-render when only the panel number changes or the shelf opens.
     if (this.props.panelNumber != nextProps.panelNumber){
-      console.log("componenet should not")
       return false
     } else if (this.props.tipsOpen != nextProps.tipsOpen) {
       return false
@@ -78,10 +80,9 @@ class Arena extends Component {
   componentDidMount() {
 
       window.onresize = () => {
-        console.log("ON RESIZE IS BEING CALLLLLLLLLLL  EED")
         this.resize()
       }
-
+      
       this.props.app.active = true
       this.props.app.renderer.backgroundColor = 0xffffff;
       this.props.app.renderer.resolution = 3
@@ -102,7 +103,7 @@ class Arena extends Component {
         this.props.app.loaded = true
         this.props.script(this.props.app, setup);
       } else {
-        if (this.props.app.resizable == true){
+        if (this.props.app.resizable == true && this.props.app.static == false){
           this.redraw()
         }
       }
@@ -110,8 +111,6 @@ class Arena extends Component {
   }
 
   render() { 
-
-    console.log("re rendering!!!")
 
     let styleType = this.props.fullscreen ? { height: "100vh",marginTop: 0 } : {height: this.props.screenstate.height,width: this.props.screenstate.width};
     

@@ -16,6 +16,17 @@ blockquote{
   border-left: 5px solid #636363; /* Just change the color value and that's it*/
 }
 
+.clouds {
+  background: url('./assets/blue-gradient.png') no-repeat;
+  height: 100vh;
+}
+
+.backgroundImage {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

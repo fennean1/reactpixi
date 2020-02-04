@@ -21,7 +21,7 @@ class ActivityList extends Component {
         </div>
         <div className="row">
         < div className="col s6">
-        <ActivityCard data={ACTIVITIES.building_non_unit_fractions} />
+           <ActivityCard data={ACTIVITIES.beaker_estimation} />
           </div>
           <div className="col s6">
           <ActivityCard data={ACTIVITIES.jiji_sharing_pizza} />
@@ -65,11 +65,6 @@ class ActivityList extends Component {
           </div>
           < div className="col s6">
           <ActivityCard data={ACTIVITIES.comparing_fractions} />
-          </div>
-        </div>
-        <div className="row">
-          < div className="col s6">
-          <ActivityCard data={ACTIVITIES.beaker_estimation} />
           </div>
         </div>
       </div>

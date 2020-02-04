@@ -88,17 +88,17 @@ class FractionList extends Component {
   }
   render() {
     return (
-      <div >
-          <TextField
+      <div className = "container">
+        <div style = {{display: "block",marginTop: "10%"}}> 
+          <input
             margin="normal"
-            variant = 'outlined'
-            className = "blue-outline"
             fullWidth
             label="Type a Number"
             name="Factor"
             onChange = {this.handleChange.bind(this)}
             defaultValue =  "24"
           />
+          </div>
         <div className="scroller">
              {(this.state.whole <= 250) && this.renderRows(this.state.whole)}
              {(this.state.whole > 250) && <p> Too Big!</p>}

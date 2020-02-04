@@ -28,6 +28,7 @@ import * as FractionNumberLineScript from "./js/fractionnumberline.js";
 import * as PlacingNumbersScript from "./js/placingnumbers.js";
 import * as BeakerGameScript from "./js/beakergame.js";
 import ActivityList from './components/ActivityList'
+import FactorBlocks from './components/FactorBlocks'
 import ManipulativeCarousel from "./components/ManipulativeCarousel"
 import StudentDashboard from "./components/StudentDashboard"
 import TeacherDashboard from "./components/TeacherDashboard"
@@ -41,11 +42,14 @@ import WordProblemPortal from "./components/WordProblemPortal"
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { Document, Page,pdfjs } from 'react-pdf';
-import { Fraction } from './js/api';
-import EquivalenceList from './components/EquivalenceList';
-import ConceptsList from './components/ConceptsList';
-import NumberLineList from './components/NumberLineList';
+import EquivalenceList from './components/EquivalenceActvitities';
+import ConceptsLanding from './components/ConceptsLanding';
+import NumberLineLanding from './components/NumberLineLanding';
+import EquivalenceLanding from './components/EquivalenceLanding';
+import ConceptsList from './components/ConceptsActivities';
+import NumberLineList from './components/NumberLineActivities';
 import LandingPage from './components/LandingPage'
+import DualArena from './components/DualArena';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 Pixi.settings.RESOLUTION = 3
@@ -64,8 +68,6 @@ const theme = createMuiTheme({
     }
   },
 )
-
-
 
 const Main = () => (
   <div>
@@ -113,14 +115,20 @@ const Main = () => (
     <Route exact path="/numberline-building-game-two" component={() => <Arena activity = {"BUILDING_ACTIVITY_TWO"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
     <Route exact path="/login" component={SignIn} />
     <Route exact path="/testCSS" component={testCSS} />
+    <Route exact path="/factorblocks" component={FactorBlocks} />
+    <Route exact path="/concepts" component={ConceptsLanding} />
+    <Route exact path="/numberlines" component={NumberLineLanding} />
+    <Route exact path="/orderequivalence" component={EquivalenceLanding} />
     <Route exact path="/manipulatives" component={ManipulativeCarousel} />
     <Route exact path="/lessons/:lesson" component={LessonPage} />
     <Route exact path="/studentlandingpage" component={StudentLandingPage} />
     <Route exact path="/overview/:activity" component={TeacherLandingPage} />
-    <Route path="/studentdashboard" component={StudentDashboard} />
+    <Route exact path="/dualarena/:key" component={DualArena} />
+    <Route exact path="/studentdashboard" component={StudentDashboard} />
     <Route exact path="/resizetest" component={Test} />
     <Route exact path="/equivalencelessons" component={EquivalenceList} />
     <Route exact path="/conceptlessons" component={ConceptsList} />
+    <Route exact path="/numberlinelessons" component={NumberLineList} />
     <Route exact path="/wordproblems/:activity" component={WordProblemPortal} />
     <Route exact path="/landingpage" component={LandingPage} />
   </div>
