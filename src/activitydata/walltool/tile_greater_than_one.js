@@ -100,7 +100,7 @@ export const ACTIVITY = {
     PDF: "/pdfs/slides/TileGreaterThanOne.pdf",
     ORGANIZER: "/pdfs/organizers/TileGreaterThanOneOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: '/walltooldouble'}],
-    DESCRIPTION: "Students use unit fractions (⅓, ¼, ⅙,and ⅛) to represent and name fractions greater than 1. They continue to develop understanding that different shapes can represent the same unit fraction and expand their concept of fractions by naming fractions greater than 1 whole. ",
+    DESCRIPTION: "Students select shapes representing unit fractions (⅓, ¼, ⅙,and ⅛) to model and name fractions greater than 1. They continue to develop understanding that different shapes can represent the same unit fraction and expand their concept of fractions by naming fractions greater than 1 whole, e.g., 7/4.",
     OBJECTIVES: ["Model and name fractions greater than 1.","Compose fractions using unit fractions (e.g. 7/4 = ¼+¼+¼+¼+¼+¼+¼)."],
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]

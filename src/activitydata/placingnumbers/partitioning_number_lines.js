@@ -97,8 +97,8 @@ export const ACTIVITY = {
     PDF: "/pdfs/slides/PartitioningNumberLines.pdf",
     ORGANIZER: null,
     STUDENT_LINKS: [{title: 'Game One',link: '/numberline-partitioning-game-one'},{title: 'Game Two',link: '/numberline-partitioning-game-two'}],
-    DESCRIPTION: "Students practice partitioning number lines into equal distances, then apply concepts to estimating and plotting fractions. Students plot fractions less than 1 before extending strategies for fractions greater than 1.",
-    OBJECTIVES: ["students can do this","students can also do this"],
+    DESCRIPTION: "Students practice partitioning number lines into equal distances, then apply concepts to estimating and plotting fractions. Students plot fractions less than 1 before extending strategies for fractions greater than 1. ",
+    OBJECTIVES: ["Plot fractions on a number line from 0 to 2.","Develop strategies for plotting halves, thirds, fourths, sixths and eighths."],
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }

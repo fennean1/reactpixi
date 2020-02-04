@@ -84,8 +84,8 @@ export const ACTIVITY = {
     PDF: "/pdfs/slides/OrderingFractions.pdf",
     ORGANIZER: null,
     STUDENT_LINKS: [{title: 'Tool',link: '/orderingblocksx4'}],
-    DESCRIPTION: "Students compare and order fractions by applying strategies developed in the comparing lesson, then use a visual model to confirm or refute their initial answer. Sets of 5 fractions include fractions with like numerators and fractions near 0 and ½. Students develop a variety of strategies to predict, model and record the correct order of fractions.",
-    OBJECTIVES: ["Fractions with like numerators can be compared using their denominators and reasoning about their relative sizes.",
+    DESCRIPTION: "Students compare and order fractions by applying strategies developed in the Comparing Fractions lesson, then use a visual model (ordering tool) to confirm or refute their initial answer. Sets of 5 fractions include fractions with like numerators and fractions near 0 and ½. Students develop a variety of strategies to predict, model and record the correct order of fractions.",
+    OBJECTIVES: ["Fractions with like numerators can be compared using their denominators and reasoning about their relative sizes. (¾ > ⅜ because fourths are larger than eighths).",
     "½ can be used as a benchmark for comparing fractions: ⅜ < 4/6 because ⅜ is ⅛ less than a half and 4/6 is ⅙ more than a half."],
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]

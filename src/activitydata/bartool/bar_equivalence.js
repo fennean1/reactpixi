@@ -98,8 +98,8 @@ export const ACTIVITY = {
     PDF: "/pdfs/slides/BarEquivalence.pdf",
     ORGANIZER: "pdfs/organizers/BarEquivalenceOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: '/fractionbars'}],
-    DESCRIPTION: "Students use bar models to model and explain equivalent fractions. They find all equivalent pairs for ½ given a set of virtual fraction bars, then solve other equivalent pairs. Students transfer their work on the virtual fraction bars to a handout by drawing equivalent fractions and writing equations. Students discuss patterns for fractions equivalent to ½ (clue: all have even denominators).",
-    OBJECTIVES: ["Equivalent fractions can be represented by as equal lengths by bars of different lengths.","Model equivalent fractions and write equations representing them."],
+    DESCRIPTION: "Students cut a square (pizza) into 2, 4, and 8 equal shares using an interactive, digital tool. Classroom discussion focuses on  different ways to cut the square into equal shares and naming the unit fraction represented by each part of the whole. Students draw, label, and discuss how squares can be cut into halves, fourths and eighths in ways that create different shapes.",
+    OBJECTIVES: ["Create and record equal shares","Name and label unit fractions","Describe that the more pieces a whole is cut into, the smaller the unit fraction (e.g., eighths are smaller than halves)"],
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }

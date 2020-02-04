@@ -107,8 +107,8 @@ export const ACTIVITY = {
     PDF: "/pdfs/slides/TileLessThanOne.pdf",
     ORGANIZER: "/pdfs/organizers/TileLessThanOneOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: '/walltoolsingle'}],
-    DESCRIPTION: "Students fill in a square area (1 whole) using shapes that represent unit fractions (⅓, ¼, ⅙,and ⅛) of the square. By making copies and covering the whole square with a given shape, students identify the unit fraction represented by the given shape. Students use unit fractions (fourths) to represent ¾ in more than one way. Challenge students to represent ¾ using more than one shape (i.e. using equivalent pieces).",
-    OBJECTIVES: ["Identify unit fractions using part to whole reasoning","Compose fractions using unit fractions (e.g. ¾ = ¼+¼+¼)"],
+    DESCRIPTION: "Students fill in a square area (1 whole) using shapes that represent unit fractions (⅓, ¼, ⅙,and ⅛) of the square. By making copies and covering the whole square with a given shape, students name the unit fraction represented by the given shape. Students use unit fractions (fourths) to represent ¾ in more than one way. Challenge students to represent ¾ using more than one shape (i.e. using equivalent pieces).",
+    OBJECTIVES: ["Name unit fractions using part to whole reasoning","Compose fractions using unit fractions (e.g. ¾ = ¼+¼+¼)"],
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }

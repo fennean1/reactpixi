@@ -83,9 +83,10 @@ export const ACTIVITY = {
     PDF: "/pdfs/slides/ComparingFractions.pdf",
     ORGANIZER: null,
     STUDENT_LINKS: [{title: 'Tool',link: '/orderingblocksx2'}],
-    DESCRIPTION: "Students compare fractions with like denominators or like numerators, then use a visual model to confirm or refute their initial answer. Classroom discussion focuses on strategies for comparing fractions with like numerators or denominators by reasoning about their relative sizes.",
-    OBJECTIVES: ["Apply understanding of unit fractions to compare fractions with like denominators: the smaller the denominator, the larger the piece.",
-    "Write inequalities to represent fraction comparisons using >, < symbols"],
+    DESCRIPTION: "Students compare fractions with like denominators or like numerators, then use a visual model to confirm or refute their initial answer. Classroom discussion focuses on strategies for comparing fractions with like numerators or denominators by reasoning about their relative sizes. If both fractions have the same numerator, e.g., ¾ and ⅜, the fraction representing the largest unit (fourths) is greater. If two fractions have the same denominator, e.g. ⅝ and  ⅜, the fraction with the most pieces is larger.",
+    OBJECTIVES: ["Apply understanding of unit fractions to compare fractions with like numerators: the fraction with the most number of pieces is greater.",
+    "Apply understanding of unit fractions to compare fractions with like denominators: the fraction with the largest size pieces is greater.",
+    "Write inequalities to represent fraction comparisons using >, < symbols."],
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }

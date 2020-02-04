@@ -108,7 +108,7 @@ export const ACTIVITY = {
     PDF: "/pdfs/slides/BuildingNumberLines.pdf",
     ORGANIZER: null,
     STUDENT_LINKS: [{title: 'Game One',link: '/numberline-building-game-one'},{title: 'Game Two',link: '/numberline-building-game-two'}],
-    DESCRIPTION: "Students plot fractions on open number lines: number lines with only zero and no units marked. Bar models provide students a way to accurately measure unit fractions to build number lines for the fractions given in the puzzles. Number lines students build may have different scales depending on which bar model they used. Class discussion focuses on identifying a unit length and how that affects where other numbers go on the number line. ",
+    DESCRIPTION: "Students plot fractions on open number lines: number lines with only zero and no other units marked. Bar models provide students a way to accurately measure unit fractions to build number lines for the fractions given in the puzzles. Number lines students build may have different scales (distance between each unit) depending on which bar model students use. Class discussion focuses on identifying a unit length and making copies of that unit (iterating) to place the other numbers on the number line. ",
     OBJECTIVES: ["Build number lines using unit fractions.","Compare differences among number lines with different unit fraction lengths."],
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]

@@ -45,6 +45,7 @@ import { Document, Page,pdfjs } from 'react-pdf';
 import EquivalenceList from './components/EquivalenceActvitities';
 import ConceptsLanding from './components/ConceptsLanding';
 import ConceptsWordProblems from './components/ConceptsWordProblems';
+import ConceptsCarousel from './components/ConceptsCarousel';
 import NumberLineLanding from './components/NumberLineLanding';
 import EquivalenceLanding from './components/EquivalenceLanding';
 import ConceptsList from './components/ConceptsActivities';
@@ -117,7 +118,7 @@ const Main = () => (
     <Route exact path="/login" component={SignIn} />
     <Route exact path="/testCSS" component={testCSS} />
     <Route exact path="/factorblocks" component={FactorBlocks} />
-    <Route exact path="/concepts" component={ConceptsLanding} />
+    <Route exact path="/concepts" component={ConceptsCarousel} />
     <Route exact path="/numberlines" component={NumberLineLanding} />
     <Route exact path="/orderequivalence" component={EquivalenceLanding} />
     <Route exact path="/manipulatives" component={ManipulativeCarousel} />
