@@ -1,6 +1,6 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/NumberLineEquivalenceIcon.png'
+import ICON from '../../assets/CrustProblemIcon.png'
 
 
 const sequence = 
@@ -20,7 +20,7 @@ export const ACTIVITY = {
     ICON: ICON,
     TIME: 45,
     PAGES: 4,
-    TOOL: "/dualarena/cuttinggrid_5x5_and_gridnodes_5x5_desc",
+    TOOL: "/gridcutting",
     SCRIPT: "FRACTION_NUMBER_LINE",
     FEATURES: {blocks: true,open: true},
     MENU: ['Link One',"Link Two"],
@@ -32,8 +32,7 @@ export const ACTIVITY = {
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/wordproblems/PizzaCrust.pdf",
-    ORGANIZER: "pdfs/organizers/NumberLineEquivalenceOrganizer.pdf",
-    STUDENT_LINKS: [{title: 'Tool',link: '/cutting_and_grid'}],
+    STUDENT_LINKS: [{title: 'Tool',link: '/gridcutting'}],
     OBJECTIVES: ["students can do this","students can also do this"],
     DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
