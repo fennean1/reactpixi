@@ -87,7 +87,7 @@ const sequence =
 
 export const ACTIVITY = {
     ID: "placing_fractions",
-    TITLE : "Placing Fractions on a Number Line",
+    TITLE : "Plot and Label Fractions",
     SCREEN_TYPE: SCREEN_TYPES.PANORAMIC,
     ICON: ICON,
     TIME: 45,

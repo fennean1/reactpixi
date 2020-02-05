@@ -81,7 +81,7 @@ const sequence =
 
 export const ACTIVITY = {
     ID: "tile_greater_than_one",
-    TITLE : "Fractions Greater Than One",
+    TITLE : "Building Fractions Greater Than 1",
     SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
     ICON: ICON,
     TIME: 45,

@@ -79,7 +79,7 @@ const sequence =
 
 export const ACTIVITY = {
     ID: "bar_equivalence",
-    TITLE : "Bar Model Equivalence",
+    TITLE : "Equivalent Fractions with Bar Model",
     SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
     ICON: ICON,
     TIME: 45,

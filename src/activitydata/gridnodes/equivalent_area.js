@@ -76,7 +76,7 @@ const sequence =
 
 export const ACTIVITY = {
     ID: "equivalent_area",
-    TITLE : "Equivalent Area",
+    TITLE : "Equivalent Fractions with Area Model",
     SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
     ICON: ICON,
     TIME: 45,
