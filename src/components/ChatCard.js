@@ -58,7 +58,7 @@ const objectives = props.data.OBJECTIVES.map((obj,k)=><blockquote key = {k} styl
       <img className="activator" src={props.data.ICON}/>
     </div>
     <div className="card-content">
-      <span className="card-title activator grey-text text-darken-4">{props.data.TITLE}</span>
+      <span className="card-title activator grey-text text-darken-4">{props.data.TITLE}<i className="material-icons right">more_vert</i></span>
       <p>{props.data.TIME + " Minutes"}</p>
     </div>
     <div className="card-action">

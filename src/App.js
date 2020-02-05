@@ -117,8 +117,6 @@ const Main = () => (
     <Route exact path="/activities/:activity" component={Panels}/>
     <Route exact path="/" component={ActivityList} />
     <Route exact path="/landing/:activity" component={StudentLandingPage}/>
-    <Route exact path="/login" component={SignIn} />
-    <Route exact path="/testCSS" component={testCSS} />
     <Route exact path="/factorblocks" component={FactorBlocks} />
     <Route exact path="/concepts" component={ConceptsCarousel} />
     <Route exact path="/numberlines" component={NumberLineCarousel} />

@@ -76,7 +76,7 @@ const sequence =
         "Label your eighths with the fraction ⅛.",
         "What is another way to cut the pizza into eighths?"
         ],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 11,

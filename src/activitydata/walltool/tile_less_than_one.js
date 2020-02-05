@@ -47,7 +47,7 @@ const sequence =
         "Which unit fraction covers more of the square,  a third or an eighth? Explain.",
         "Is there more than one solution to this problem? Explain.",
       ],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 7,
