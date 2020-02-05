@@ -11,12 +11,7 @@ class EquivalenceList extends Component {
   render() {
   
     return (
-      <div className = "container">
-        <div className ="section no-pad-bot" id="index-banner">
-          <div className ="container">
-            <h1 className ="header center orange-text">Ordering and Equivalence</h1>
-          </div>
-        </div>
+      <div>
         <div className="row">
           < div className="col s6">
           <ActivityCard data={ACTIVITIES.bar_equivalence} />

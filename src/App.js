@@ -40,17 +40,20 @@ import LessonPage from "./components/LessonPage"
 import WordProblemPortal from "./components/WordProblemPortal"
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-import EquivalenceList from './components/EquivalenceActvitities';
-import ConceptsLanding from './components/ConceptsLanding';
+import EquivalenceList from './components/EquivalenceActivities'
+
+// Concepts
 import ConceptsWordProblems from './components/ConceptsWordProblems';
-import ConceptsCarousel from './components/ConceptsCarousel';
-import NumberLineLanding from './components/NumberLineLanding';
-import EquivalenceLanding from './components/EquivalenceLanding';
 import ConceptsList from './components/ConceptsActivities';
+import ConceptsCarousel from './components/ConceptsCarousel';
+import NumberLineCarousel from './components/NumberLineCarousel';
+import EquivalenceCarousel from './components/EquivalenceCarousel';
 import NumberLineList from './components/NumberLineActivities';
 import LandingPage from './components/LandingPage'
 import DualArena from './components/DualArena';
 import Overview from './components/Overview';
+
+
 
 Pixi.settings.RESOLUTION = 3
 let app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
@@ -71,54 +74,55 @@ const theme = createMuiTheme({
 
 const Main = () => (
   <div>
-    <Route exact path="/calculator" component={() => <Arena app = {app} features = {{'lock': false}} fullscreen = {true}  script = {CalculatorScript.init}/>} />
-    <Route exact path="/hundreds" component={() => <Arena app = {app} features = {{'lock': false}} fullscreen = {true}  script = {HundredsArrayScript.init}/>} />
-    <Route exact path="/hundredslock" component={() => <Arena app = {app} features = {{'lock': true}} fullscreen = {true}  script = {HundredsArrayScript.init}/>} />
-    <Route exact path="/hundredsregroup" component={() => <Arena app = {app} features = {{'lock': true,'regroup': true}} fullscreen = {true}  script = {HundredsArrayScript.init}/>} />
-    <Route exact path="/fractionwall" component={() => <Arena app = {app} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
-    <Route exact path="/fractionbars" component={() => <Arena app = {app} fullscreen = {true}  script = {FractionBarToolScript.init}/>} />
-    <Route exact path="/fractionwallodd" component={() => <Arena app = {app} features = {{'values': [1,3,5,7,9,11]}} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
-    <Route exact path="/fractionwalladjustable" component={() => <Arena app = {app} features = {{'values': [1,2,3,4,5,6,7,8,9,10,11,12],'adjustable': true}} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
-    <Route exact path="/fractionwalleven" component={() => <Arena app = {app} features = {{'values': [2,4,6,8,10,12]}} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
-    <Route exact path="/oldfractionwall" component={() => <Arena app = {app} features = {{'lock': true,'regroup': true}} fullscreen = {true}  script = {OldFractionWallScript.init}/>} />
+    <Route exact path="/calculator" render={() => <Arena app = {app} features = {{'lock': false}} fullscreen = {true}  script = {CalculatorScript.init}/>} />
+    <Route exact path="/hundreds" render={() => <Arena app = {app} features = {{'lock': false}} fullscreen = {true}  script = {HundredsArrayScript.init}/>} />
+    <Route exact path="/hundredslock" render={() => <Arena app = {app} features = {{'lock': true}} fullscreen = {true}  script = {HundredsArrayScript.init}/>} />
+    <Route exact path="/hundredsregroup" render={() => <Arena app = {app} features = {{'lock': true,'regroup': true}} fullscreen = {true}  script = {HundredsArrayScript.init}/>} />
+    <Route exact path="/fractionwall" render={() => <Arena app = {app} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
+    <Route exact path="/fractionbars" render={() => <Arena app = {app} fullscreen = {true}  script = {FractionBarToolScript.init}/>} />
+    <Route exact path="/fractionwallodd" render={() => <Arena app = {app} features = {{'values': [1,3,5,7,9,11]}} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
+    <Route exact path="/fractionwalladjustable" render={() => <Arena app = {app} features = {{'values': [1,2,3,4,5,6,7,8,9,10,11,12],'adjustable': true}} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
+    <Route exact path="/fractionwalleven" render={() => <Arena app = {app} features = {{'values': [2,4,6,8,10,12]}} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
+    <Route exact path="/oldfractionwall" render={() => <Arena app = {app} features = {{'lock': true,'regroup': true}} fullscreen = {true}  script = {OldFractionWallScript.init}/>} />
+    <Route exact path="/fractionline" render={() => <Arena app = {app} fullscreen = {true}  script = {FractionLineScript.init}/>} />
+    <Route exact path="/apitest" render={() => <Arena app = {app} fullscreen = {true}  script = {ApiTestScript.init}/>} />
+    <Route exact path="/fractionnumberlineopen" render={() => <Arena app = {app} fullscreen = {true} features = {{open: true}} script = {FractionNumberLineScript.init}/>} />
+    <Route exact path="/fractionnumberlineopenblocks" render={() => <Arena app = {app} fullscreen = {true} features = {{open: true,blocks: true}} script = {FractionNumberLineScript.init}/>} />
+    <Route exact path="/fractionnumberline" render={() => <Arena app = {app} fullscreen = {true} features = {{open: false}}  script = {FractionNumberLineScript.init}/>} />
+    <Route exact path="/fractionnumberlineblocks" render={() => <Arena app = {app} fullscreen = {true} features = {{open: false,blocks: true}} script = {FractionNumberLineScript.init}/>} />
+    <Route exact path="/fractionstacks" render={() => <Arena app = {app} fullscreen = {true}  script = {FractionStacksScript.init}/>} />
+    <Route exact path="/orderingblocksx2" render={() => <Arena app = {app} features = {{numberOfBlocks: 2}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
+    <Route exact path="/orderingblocksx4" render={() => <Arena app = {app} features = {{numberOfBlocks: 4}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
+    <Route exact path="/orderingblocksx5" render={(props) => <Arena app = {app} features = {{numberOfBlocks: 5}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
+    <Route exact path="/strips" render={() => <Arena app = {app} fullscreen = {true}  script = {NumberLineStripsScript.init}/>} />
+    <Route exact path="/gridnodes" render={() => <Arena app = {app} features = {{x: 3,y: 3}} fullscreen = {true}  script = {GridNodeScript.init}/>} />
+    <Route exact path="/stripsopen" render={() => <Arena app = {app} fullscreen = {true} features  = {{'open': true}}  script = {NumberLineStripsScript.init}/>} />
+    <Route exact path="/gridnodes4x4" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 5,y: 5,descriptor: true}} script = {GridNodeScript.init}/>} />
+    <Route exact path="/gridnodes4x4double" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 10,y: 5,double: true,descriptor: false}} script = {GridNodeScript.init}/>} />
+    <Route exact path="/gridnodes2x2" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 3,y: 3,descriptor: false}} script = {GridNodeScript.init}/>} />
+    <Route exact path="/gridnodes3x3" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false}} script = {GridNodeScript.init}/>} />
+    <Route exact path="/gridnodes12x12" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 13,y: 13,descriptor: true}} script = {GridNodeScript.init}/>} />
+    <Route exact path="/cutter" render={() => <Arena app = {app} fullscreen = {true}  script = {CutterTestScript.init}/>} />
+    <Route exact path="/gridcutting" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 5,y: 5,descriptor: false}} script = {GridCuttingScript.init}/>} />
+    <Route exact path="/gridcuttingsnap" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {GridCuttingScript.init}/>} />
+    <Route exact path="/placingnumbers" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {PlacingNumbersScript.init}/>} />
+    <Route exact path="/estimation-game-one" render={() => <Arena app = {app} activity = {"ACTIVITY_ONE"} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {BeakerGameScript.init}/>} />
+    <Route exact path="/walltooldouble" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {WallToolScript.init}/>} />
+    <Route exact path="/walltoolsingle" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true,single: true}} script = {WallToolScript.init}/>} />
+    <Route exact path="/gridcuttingsnap4x4" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 5,y: 5,descriptor: false,snapping: true}} script = {GridCuttingScript.init}/>} />
+    <Route exact path="/numberline-partitioning-game-one" render={() => <Arena activity = {"PARTITIONING_ACTIVITY_ONE"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
+    <Route exact path="/numberline-partitioning-game-two" render={() => <Arena activity = {"PARTITIONING_ACTIVITY_TWO"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
+    <Route exact path="/numberline-building-game-one" render={() => <Arena activity = {"BUILDING_ACTIVITY_ONE"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
+    <Route exact path="/numberline-building-game-two" render={() => <Arena activity = {"BUILDING_ACTIVITY_TWO"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
     <Route exact path="/activities/:activity" component={Panels}/>
-    <Route exact path="/landing/:activity" component={StudentLandingPage}/>
-    <Route exact path="/fractionline" component={() => <Arena app = {app} fullscreen = {true}  script = {FractionLineScript.init}/>} />
-    <Route exact path="/apitest" component={() => <Arena app = {app} fullscreen = {true}  script = {ApiTestScript.init}/>} />
-    <Route exact path="/fractionnumberlineopen" component={() => <Arena app = {app} fullscreen = {true} features = {{open: true}} script = {FractionNumberLineScript.init}/>} />
-    <Route exact path="/fractionnumberlineopenblocks" component={() => <Arena app = {app} fullscreen = {true} features = {{open: true,blocks: true}} script = {FractionNumberLineScript.init}/>} />
-    <Route exact path="/fractionnumberline" component={() => <Arena app = {app} fullscreen = {true} features = {{open: false}}  script = {FractionNumberLineScript.init}/>} />
-    <Route exact path="/fractionnumberlineblocks" component={() => <Arena app = {app} fullscreen = {true} features = {{open: false,blocks: true}} script = {FractionNumberLineScript.init}/>} />
-    <Route exact path="/fractionstacks" component={() => <Arena app = {app} fullscreen = {true}  script = {FractionStacksScript.init}/>} />
-    <Route exact path="/orderingblocksx2" component={() => <Arena app = {app} features = {{numberOfBlocks: 2}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
-    <Route exact path="/orderingblocksx4" component={() => <Arena app = {app} features = {{numberOfBlocks: 4}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
-    <Route exact path="/strips" component={() => <Arena app = {app} fullscreen = {true}  script = {NumberLineStripsScript.init}/>} />
-    <Route exact path="/gridnodes" component={() => <Arena app = {app} features = {{x: 3,y: 3}} fullscreen = {true}  script = {GridNodeScript.init}/>} />
-    <Route exact path="/stripsopen" component={() => <Arena app = {app} fullscreen = {true} features  = {{'open': true}}  script = {NumberLineStripsScript.init}/>} />
     <Route exact path="/" component={ActivityList} />
-    <Route exact path="/gridnodes4x4" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 5,y: 5,descriptor: true}} script = {GridNodeScript.init}/>} />
-    <Route exact path="/gridnodes4x4double" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 10,y: 5,double: true,descriptor: false}} script = {GridNodeScript.init}/>} />
-    <Route exact path="/gridnodes2x2" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 3,y: 3,descriptor: false}} script = {GridNodeScript.init}/>} />
-    <Route exact path="/gridnodes3x3" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false}} script = {GridNodeScript.init}/>} />
-    <Route exact path="/gridnodes12x12" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 13,y: 13,descriptor: true}} script = {GridNodeScript.init}/>} />
-    <Route exact path="/cutter" component={() => <Arena app = {app} fullscreen = {true}  script = {CutterTestScript.init}/>} />
-    <Route exact path="/gridcutting" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 5,y: 5,descriptor: false}} script = {GridCuttingScript.init}/>} />
-    <Route exact path="/gridcuttingsnap" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {GridCuttingScript.init}/>} />
-    <Route exact path="/placingnumbers" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {PlacingNumbersScript.init}/>} />
-    <Route exact path="/estimation-game-one" component={() => <Arena app = {app} activity = {"ACTIVITY_ONE"} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {BeakerGameScript.init}/>} />
-    <Route exact path="/walltooldouble" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {WallToolScript.init}/>} />
-    <Route exact path="/walltoolsingle" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true,single: true}} script = {WallToolScript.init}/>} />
-    <Route exact path="/gridcuttingsnap4x4" component={() => <Arena app = {app} fullscreen = {true} features = {{x: 5,y: 5,descriptor: false,snapping: true}} script = {GridCuttingScript.init}/>} />
-    <Route exact path="/numberline-partitioning-game-one" component={() => <Arena activity = {"PARTITIONING_ACTIVITY_ONE"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
-    <Route exact path="/numberline-partitioning-game-two" component={() => <Arena activity = {"PARTITIONING_ACTIVITY_TWO"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
-    <Route exact path="/numberline-building-game-one" component={() => <Arena activity = {"BUILDING_ACTIVITY_ONE"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
-    <Route exact path="/numberline-building-game-two" component={() => <Arena activity = {"BUILDING_ACTIVITY_TWO"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
+    <Route exact path="/landing/:activity" component={StudentLandingPage}/>
     <Route exact path="/login" component={SignIn} />
     <Route exact path="/testCSS" component={testCSS} />
     <Route exact path="/factorblocks" component={FactorBlocks} />
     <Route exact path="/concepts" component={ConceptsCarousel} />
-    <Route exact path="/numberlines" component={NumberLineLanding} />
-    <Route exact path="/orderequivalence" component={EquivalenceLanding} />
+    <Route exact path="/numberlines" component={NumberLineCarousel} />
+    <Route exact path="/orderequivalence" component={EquivalenceCarousel} />
     <Route exact path="/manipulatives" component={ManipulativeCarousel} />
     <Route exact path="/lessons/:lesson" component={LessonPage} />
     <Route exact path="/studentlandingpage" component={StudentLandingPage} />

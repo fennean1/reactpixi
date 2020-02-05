@@ -16,6 +16,7 @@ import * as ComparingFractions from './orderingblocks/comparing_fractions.js'
 
 // Word Problems
 import * as PizzaCrust from "./WordProblems/pizza_crust.js"
+import * as JijiIgloos from "./WordProblems/jiji_igloos.js"
 
 // Games
 import * as BalloonJiji from "./Games/balloon_jiji.js"
@@ -41,4 +42,5 @@ export const ACTIVITIES = {
     pizza_crust: PizzaCrust.ACTIVITY,
     balloon_jiji: BalloonJiji.ACTIVITY,
     build_unit_fractions: BuildUnitFractions.ACTIVITY,
+    jiji_igloos: JijiIgloos.ACTIVITY
 }

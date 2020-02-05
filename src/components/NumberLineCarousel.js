@@ -4,7 +4,7 @@ import SwipeableViews from "react-swipeable-views";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import ConceptsList from './ConceptsActivities';
+import NumberLineList from './NumberLineActivities';
 import ConceptsWordProblems from "./ConceptsWordProblems";
 import ConceptsChats from "./ConceptsChats"
 import ConceptsGames from "./ConceptsGames"
@@ -49,7 +49,7 @@ export default function ConceptsCarousel(props) {
     <div className="container">
         <div className="section no-pad-bot" id="index-banner">
         <div className="container">
-          <h1 className="header center grey-text">Concepts</h1>
+          <h1 className="header center grey-text">Number Lines</h1>
         </div>
       </div>
       <Tabs
@@ -74,7 +74,7 @@ export default function ConceptsCarousel(props) {
       >
         <TabContainer dir={theme.direction}>
           {value == 0 && (
-            <ConceptsList/>
+            <NumberLineList/>
           )}
         </TabContainer>
         <TabContainer dir={theme.direction}>
