@@ -43,7 +43,7 @@ class TeacherActivityLandingPage extends Component {
 
       const description = {margin: "3%"}
 
-      const teacherpath = this.data.WORD_PROBLEM ? "/wordproblems/"+this.data.ID : "/activities/" +this.data.ID 
+      const teacherpath = this.data.WORD_PROBLEM ? "/wordproblems/" + this.data.ID : "/activities/" +this.data.ID 
 
 
       const overview = this.data.OVERVIEW.map((item,k)=>{

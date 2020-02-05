@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Card from "@material-ui/core/Card";
+import Box from "@material-ui/core/Box";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
@@ -65,13 +66,15 @@ export default function ActivityCard(props) {
   </a>
   </Button>)
 
+const objectives = props.data.OBJECTIVES.map((obj,k)=><blockquote style = {{marginLeft: "5%"}}><Box fontSize={20}>{obj}</Box></blockquote>)
+
   return (
     <div className="card sticky-action">
     <div className="card-image waves-effect waves-block waves-light">
       <img className="activator" src={props.data.ICON}/>
     </div>
     <div className="card-content">
-      <span className="card-title activator grey-text text-darken-4">{props.data.TITLE}</span>
+      <span className="card-title activator grey-text text-darken-4">{props.data.TITLE}<i class="material-icons right">more_vert</i></span>
       <p>{props.data.TIME + " Minutes"}</p>
     </div>
     <div className="card-action">
@@ -83,8 +86,10 @@ export default function ActivityCard(props) {
       {printouts}
       </div>
     <div className="card-reveal">
-      <span className="card-title grey-text text-darken-4">{props.data.STANDARD_ID}<i className="material-icons right">close</i></span>
+      <span className="card-title grey-text text-darken-4">Overview<i className="material-icons right">close</i></span>
       <p>{props.data.DESCRIPTION}</p>
+      <p>Objectives</p>
+      <p>{objectives}</p>
     </div>
   </div>
   );
