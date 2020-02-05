@@ -4,20 +4,10 @@ import SwipeableViews from "react-swipeable-views";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Arena from "./Arena";
-import * as FractionWallScript from "../js/newfractionwall.js";
-import * as NumberLineToolScript from "../js/numberlinetool.js";
-import * as OrderingToolScript from "../js/orderingtool.js";
-import * as FractionBarScript from "../js/fractionbar.js";
-import * as GridNodeScript from "../js/gridnodes.js";
-import * as GridCuttingScript from "../js/gridcutting.js";
-import * as FractionStacksScript from "../js/fractionstacks.js";
 import ConceptsList from './ConceptsActivities';
 import ConceptsWordProblems from "./ConceptsWordProblems";
 import ConceptsChats from "./ConceptsChats"
-import FactorBlocks from "./FactorBlocks";
-import * as Pixi from "pixi.js";
-import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
+import ConceptsGames from "./ConceptsGames"
 
 
 
@@ -41,18 +31,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-Pixi.settings.RESOLUTION = 3
-var globalApp = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
-globalApp.static = false
-globalApp.loaded = false
-
-var arenaOne
-
 export default function ConceptsCarousel(props) {
 
-  const classes = useStyles();
   const theme = useTheme();
-  const app = globalApp
   const [value, setValue] = React.useState(0);
 
 
@@ -83,6 +64,7 @@ export default function ConceptsCarousel(props) {
         <Tab className = "white" label= "Activities" />
         <Tab className = "white" label= "Word Problems" />
         <Tab className = "white" label= "Chats" />
+        <Tab className = "white" label= "Games" />
       </Tabs>
 
       <SwipeableViews
@@ -103,6 +85,11 @@ export default function ConceptsCarousel(props) {
         <TabContainer dir={theme.direction}>
           {value == 2 && (
                <ConceptsChats/>
+           )}
+        </TabContainer>
+        <TabContainer dir={theme.direction}>
+          {value == 3 && (
+               <ConceptsGames/>
            )}
         </TabContainer>
       </SwipeableViews>

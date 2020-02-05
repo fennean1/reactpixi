@@ -1,20 +1,15 @@
 import React, { Component, Text, useEffect } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Arena from "./Arena";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
-
 import * as Pixi from "pixi.js";
 import Drawer from "@material-ui/core/Drawer";
-import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
-import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
+import { TweenLite, TimelineMax } from "gsap/TweenMax";
 import { ACTIVITIES } from "../activitydata/activities.js"
 import { SCRIPTS } from "../activitydata/scripts.js"
 import {SCREEN_STATES, SCREEN_TYPES} from '../js/states.js'
 
 
 import { Document, Page, pdfjs } from 'react-pdf';
-import { init } from "../js/gridcutting";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 

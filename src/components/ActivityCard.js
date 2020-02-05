@@ -1,28 +1,10 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
-import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
-import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import AlarmIcon from "@material-ui/icons/Alarm";
-import FaceIcon from "@material-ui/icons/Face";
-import InfoIcon from "@material-ui/icons/Info";
 import Button from "@material-ui/core/Button";
-import Chip from "@material-ui/core/Chip";
-import Popover from "@material-ui/core/Popover";
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -66,7 +48,7 @@ export default function ActivityCard(props) {
   </a>
   </Button>)
 
-const objectives = props.data.OBJECTIVES.map((obj,k)=><blockquote style = {{marginLeft: "5%"}}><Box fontSize={20}>{obj}</Box></blockquote>)
+const objectives = props.data.OBJECTIVES.map((obj,k)=><blockquote key = {k} style = {{marginLeft: "5%"}}><Box fontSize={20}>{obj}</Box></blockquote>)
 
   return (
     <div className="card sticky-action">
@@ -74,7 +56,7 @@ const objectives = props.data.OBJECTIVES.map((obj,k)=><blockquote style = {{marg
       <img className="activator" src={props.data.ICON}/>
     </div>
     <div className="card-content">
-      <span className="card-title activator grey-text text-darken-4">{props.data.TITLE}<i class="material-icons right">more_vert</i></span>
+      <span className="card-title activator grey-text text-darken-4">{props.data.TITLE}<i className="material-icons right">more_vert</i></span>
       <p>{props.data.TIME + " Minutes"}</p>
     </div>
     <div className="card-action">
@@ -89,7 +71,7 @@ const objectives = props.data.OBJECTIVES.map((obj,k)=><blockquote style = {{marg
       <span className="card-title grey-text text-darken-4">Overview<i className="material-icons right">close</i></span>
       <p>{props.data.DESCRIPTION}</p>
       <p>Objectives</p>
-      <p>{objectives}</p>
+        {objectives}
     </div>
   </div>
   );

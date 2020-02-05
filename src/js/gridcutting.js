@@ -273,7 +273,7 @@ export const init = (app, setup) => {
       resetNodes()
       redrawPolys(OLD_FRAME,newFrame)
       backGround.draw()
-    },1000)
+    },0)
   }
 
   function updateLayoutParams(newFrame){
@@ -357,12 +357,10 @@ export const init = (app, setup) => {
     initialPolygon.on('pointerdown',polyPointerDown)
     initialPolygon.on('pointermove',polyPointerMove)
     polygonObjects.push(initialPolygon)
-    console.log("I",I)
-    console.log("J",J)
     let _x = DX*Math.round(I/2)
     let _y = DY*Math.round(J/2)
     app.stage.addChild(initialPolygon)
-    TweenLite.to(initialPolygon,0.5,{x:_x,y:_y})
+    TweenLite.to(initialPolygon,0,{x:_x,y:_y})
     
   }
 
@@ -475,8 +473,8 @@ export const init = (app, setup) => {
     fadeAnimation.to([rotateLeftBtn,flipVerticalBtn],1,{alpha: 0,onComplete: onComplete},"+=2")
 
       updateLayoutParams()
-      setTimeout(()=>{resetBtnAction()},1000)
-     //resetBtnAction()
+     // setTimeout(()=>{resetBtnAction()},1000)
+     resetBtnAction()
   }
 
   // Call load script

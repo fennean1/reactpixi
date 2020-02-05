@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 import Arena from "./components/Arena"
 import Panels from "./components/Panels"
@@ -7,13 +6,13 @@ import * as Pixi from "pixi.js";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import * as HundredsArrayScript from "./js/hundredsarray.js"
 import * as NumberLineStripsScript from "./js/numberlinestrips.js"
-import * as FractionWallScript from "./js/fractionwall.js";
+//import * as FractionWallScript from "./js/fractionwall.js";
 import * as FractionLineScript from "./js/numberlinetool.js";
-import * as GridToolScript from "./js/gridtool.js";
+//import * as GridToolScript from "./js/gridtool.js";
 import * as OrderingToolScript from "./js/orderingtool.js";
-import * as SharingToolScript from "./js/sharingtool.js";
-import * as NumberStripsScript from "./js/numberlinestrips.js";
-import * as CuisenaireToolScript from "./js/cuisenairetool.js";
+//import * as SharingToolScript from "./js/sharingtool.js";
+//import * as NumberStripsScript from "./js/numberlinestrips.js";
+//import * as CuisenaireToolScript from "./js/cuisenairetool.js";
 import * as FractionBarToolScript from "./js/fractionbar.js";
 import * as FractionStacksScript from "./js/fractionstacks.js";
 import * as CalculatorScript from "./js/calculator.js";
@@ -31,7 +30,7 @@ import ActivityList from './components/ActivityList'
 import FactorBlocks from './components/FactorBlocks'
 import ManipulativeCarousel from "./components/ManipulativeCarousel"
 import StudentDashboard from "./components/StudentDashboard"
-import TeacherDashboard from "./components/TeacherDashboard"
+//import TeacherDashboard from "./components/TeacherDashboard"
 import SignIn from "./components/SignIn"
 import Test from "./components/ResizeTest"
 import testCSS from "./components/testCSS"
@@ -41,7 +40,6 @@ import LessonPage from "./components/LessonPage"
 import WordProblemPortal from "./components/WordProblemPortal"
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-import { Document, Page,pdfjs } from 'react-pdf';
 import EquivalenceList from './components/EquivalenceActvitities';
 import ConceptsLanding from './components/ConceptsLanding';
 import ConceptsWordProblems from './components/ConceptsWordProblems';
@@ -52,7 +50,7 @@ import ConceptsList from './components/ConceptsActivities';
 import NumberLineList from './components/NumberLineActivities';
 import LandingPage from './components/LandingPage'
 import DualArena from './components/DualArena';
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+import Overview from './components/Overview';
 
 Pixi.settings.RESOLUTION = 3
 let app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
@@ -134,6 +132,7 @@ const Main = () => (
     <Route exact path="/numberlinelessons" component={NumberLineList} />
     <Route exact path="/wordproblems/:activity" component={WordProblemPortal} />
     <Route exact path="/landingpage" component={LandingPage} />
+    <Route exact path="/overview" component={Overview} />
   </div>
 );
 

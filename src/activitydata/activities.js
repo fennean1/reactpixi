@@ -13,7 +13,16 @@ import * as PlacingFractions from './fractionnumberline/placing_fractions.js'
 import * as EquivalentArea from './gridnodes/equivalent_area.js'
 import * as OrderingFractions from './orderingblocks/ordering_fractions.js'
 import * as ComparingFractions from './orderingblocks/comparing_fractions.js'
+
+// Word Problems
 import * as PizzaCrust from "./WordProblems/pizza_crust.js"
+
+// Games
+import * as BalloonJiji from "./Games/balloon_jiji.js"
+
+// Chats
+import * as BuildUnitFractions from "./Chats/build_unit_fractions.js"
+
 
 export const ACTIVITIES = {
     jiji_sharing_pizza: JijiSharingPizzaActivity.ACTIVITY,
@@ -29,5 +38,7 @@ export const ACTIVITIES = {
     equivalent_area: EquivalentArea.ACTIVITY,
     ordering_fractions: OrderingFractions.ACTIVITY,
     comparing_fractions: ComparingFractions.ACTIVITY,
-    pizza_crust: PizzaCrust.ACTIVITY
+    pizza_crust: PizzaCrust.ACTIVITY,
+    balloon_jiji: BalloonJiji.ACTIVITY,
+    build_unit_fractions: BuildUnitFractions.ACTIVITY,
 }

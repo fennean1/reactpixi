@@ -1,27 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
-import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 import { red } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import AlarmIcon from "@material-ui/icons/Alarm";
-import FaceIcon from "@material-ui/icons/Face";
-import InfoIcon from "@material-ui/icons/Info";
+
 import Button from "@material-ui/core/Button";
-import Chip from "@material-ui/core/Chip";
-import Popover from "@material-ui/core/Popover";
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -65,6 +49,9 @@ export default function ActivityCard(props) {
   </a>
   </Button>)
 
+const objectives = props.data.OBJECTIVES.map((obj,k)=><blockquote key = {k} style = {{marginLeft: "5%"}}><Box fontSize={20}>{obj}</Box></blockquote>)
+
+
   return (
     <div className="card sticky-action">
     <div className="card-image waves-effect waves-block waves-light">
@@ -75,16 +62,14 @@ export default function ActivityCard(props) {
       <p>{props.data.TIME + " Minutes"}</p>
     </div>
     <div className="card-action">
-      <Link  to={{pathname: `${teacherpath}`, state: {data: props.data}}}>
-      <Button color = "primary" variant = "outlined" >Teacher</Button></Link>
-      <Link to={{pathname: `${studentpath}`, state: {data: props.data}}}>
-      <Button color = "primary" variant = "outlined" >Student</Button>
-      </Link>
-      {printouts}
+      <a target = "_blank" href  = {props.data.LINK}>
+      <Button color = "primary" variant = "outlined" >Play</Button>
+      </a>
       </div>
     <div className="card-reveal">
       <span className="card-title grey-text text-darken-4">{props.data.STANDARD_ID}<i className="material-icons right">close</i></span>
       <p>{props.data.DESCRIPTION}</p>
+      {objectives}
     </div>
   </div>
   );

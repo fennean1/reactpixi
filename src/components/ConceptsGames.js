@@ -16,7 +16,7 @@ class ConceptsWordProblems extends Component {
       <div>
         <div className="row">
         < div className="col s6">
-            <ChatCard data={ACTIVITIES.build_unit_fractions} />
+            <ChatCard data={ACTIVITIES.balloon_jiji} />
           </div>
         </div>
       </div>
