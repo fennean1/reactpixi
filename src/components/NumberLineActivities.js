@@ -26,9 +26,6 @@ class NumberLineList extends Component {
           < div className="col s6">
           <ActivityCard data={ACTIVITIES.placing_fractions} />
           </div>
-          < div className="col s6">
-          <ActivityCard data={ACTIVITIES.number_line_equivalence} />
-          </div>
         </div>
       </div>
     );
