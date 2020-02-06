@@ -18,7 +18,7 @@ export const ACTIVITY = {
     SCREEN_TYPE: SCREEN_TYPES.PANORAMIC,
     WORD_PROBLEM: true,
     ICON: ICON,
-    TIME: 45,
+    TIME: 15,
     PAGES: 4,
     TOOL: "/gridnodes4x4",
     SCRIPT: "FRACTION_NUMBER_LINE",

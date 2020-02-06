@@ -14,7 +14,6 @@ import {SCREEN_STATES, SCREEN_TYPES} from '../js/states.js'
 
 
 import { Document, Page, pdfjs } from 'react-pdf';
-import { init } from "../js/gridcutting";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 

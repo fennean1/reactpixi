@@ -17,7 +17,7 @@ export const ACTIVITY = {
     TITLE : "Jiji's Igloos",
     WORD_PROBLEM: true,
     ICON: ICON,
-    TIME: 45,
+    TIME: 15,
     PAGES: 4,
     TOOL: "/orderingblocksx5",
     SCRIPT: "FRACTION_NUMBER_LINE",

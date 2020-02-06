@@ -8,7 +8,6 @@ import * as GridToolScript from "../js/gridtool.js";
 import * as OrderingToolScript from "../js/orderingtool.js";
 import * as SharingToolScript from "../js/sharingtool.js";
 import * as CuisenaireToolScript from "../js/cuisenairetool.js";
-import * as CapacityTalkData from "../activitydata/CapacityTalk.json";
 import * as HundredsGridScript from '../js/hundredsarray.js'
 import * as FractionNumberLineScript from "../js/fractionnumberline.js";
 

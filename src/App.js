@@ -29,11 +29,7 @@ import * as BeakerGameScript from "./js/beakergame.js";
 import ActivityList from './components/ActivityList'
 import FactorBlocks from './components/FactorBlocks'
 import ManipulativeCarousel from "./components/ManipulativeCarousel"
-import StudentDashboard from "./components/StudentDashboard"
-//import TeacherDashboard from "./components/TeacherDashboard"
-import SignIn from "./components/SignIn"
 import Test from "./components/ResizeTest"
-import testCSS from "./components/testCSS"
 import StudentLandingPage from "./components/StudentLandingPage"
 import TeacherLandingPage from "./components/TeacherLandingPage"
 import LessonPage from "./components/LessonPage"
@@ -129,7 +125,6 @@ const Main = () => (
     <Route exact path="/studentlandingpage" component={StudentLandingPage} />
     <Route exact path="/overview/:activity" component={TeacherLandingPage} />
     <Route exact path="/dualarena/:key" component={DualArena} />
-    <Route exact path="/studentdashboard" component={StudentDashboard} />
     <Route exact path="/resizetest" component={Test} />
     <Route exact path="/equivalencelessons" component={EquivalenceList} />
     <Route exact path="/conceptslessons" component={ConceptsList} />

@@ -7,7 +7,6 @@ import Tab from "@material-ui/core/Tab";
 import Arena from "./Arena";
 import * as SCRIPTS from "../activitydata/scripts.js"
 import * as GridNodeScript from "../js/gridnodes.js";
-import * as CapacityTalkData from "../activitydata/CapacityTalk.json";
 import * as Pixi from "pixi.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
 import { DUAL_SCRIPTS } from "../activitydata/dualarenas.js";

@@ -3,7 +3,6 @@ import Arena from "./Arena"
 import * as Pixi from "pixi.js";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import * as HundredsArrayScript from "../js/hundredsarray.js"
-import * as CapacityTalkData from "../activitydata/CapacityTalk.json";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
 
 

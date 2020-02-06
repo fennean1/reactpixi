@@ -17,7 +17,7 @@ export const ACTIVITY = {
     TITLE : "Friend Sharing",
     WORD_PROBLEM: true,
     ICON: ICON,
-    TIME: 45,
+    TIME: 15,
     PAGES: 4,
     TOOL: "/sharingtool",
     SCRIPT: "FRACTION_NUMBER_LINE",

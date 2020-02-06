@@ -18,6 +18,9 @@ class ConceptsWordProblems extends Component {
         < div className="col s6">
             <ChatCard data={ACTIVITIES.build_unit_fractions} />
           </div>
+          < div className="col s6">
+            <ChatCard data={ACTIVITIES.build_fractions_greater_than_one} />
+          </div>
         </div>
       </div>
     );

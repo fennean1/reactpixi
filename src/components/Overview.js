@@ -16,8 +16,6 @@ export default class Overview extends Component {
         </div>
         <Document file="/pdfs/overview.pdf">
            <Page  width={window.innerWidth*0.7} pageNumber={1} />
-           <Page  width={window.innerWidth*0.7} pageNumber={2} />
-           <Page  width={window.innerWidth*0.7} pageNumber={3} />
         </Document>
       </div>
     );

@@ -17,7 +17,7 @@ export const ACTIVITY = {
     TITLE : "Sea Water",
     WORD_PROBLEM: true,
     ICON: ICON,
-    TIME: 45,
+    TIME: 15,
     PAGES: 4,
     TOOL: "/orderingblocksx4",
     SCRIPT: "FRACTION_NUMBER_LINE",
