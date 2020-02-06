@@ -118,7 +118,7 @@ const Main = () => (
     <Route exact path="/numberline-building-game-two" render={() => <Arena activity = {"BUILDING_ACTIVITY_TWO"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />\
     <Route exact path="/sharingtool" render={() => <Arena a app = {app} fullscreen = {true} script = {SharingToolScript.init}/>} />
     <Route exact path="/activities/:activity" component={Panels}/>
-    <Route exact path="/" component={ActivityList} />
+    <Route exact path="/allactivities" component={ActivityList} />
     <Route exact path="/landing/:activity" component={StudentLandingPage}/>
     <Route exact path="/factorblocks" component={FactorBlocks} />
     <Route exact path="/concepts" component={ConceptsCarousel} />
@@ -136,7 +136,7 @@ const Main = () => (
     <Route exact path="/conceptswordproblems" component={ConceptsWordProblems} />
     <Route exact path="/numberlinelessons" component={NumberLineList} />
     <Route exact path="/wordproblems/:activity" component={WordProblemPortal} />
-    <Route exact path="/landingpage" component={LandingPage} />
+    <Route exact path="/" component={LandingPage} />
     <Route exact path="/wordproblemslist" component={WordProblems} />
     <Route exact path="/overview" component={Overview} />
   </div>
