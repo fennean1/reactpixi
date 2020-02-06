@@ -12,7 +12,7 @@ import * as FractionBarScript from "../js/fractionbar.js";
 import * as GridNodeScript from "../js/gridnodes.js";
 import * as GridCuttingScript from "../js/gridcutting.js";
 import * as FractionStacksScript from "../js/fractionstacks.js";
-import FactorBlocks from "./FactorBlocks";
+import * as FractionNumberLineScript from "../js/fractionnumberline.js"
 import * as Pixi from "pixi.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
 
@@ -89,7 +89,7 @@ export default function ManipulativeCarousel(props) {
         <Tab className = "white" label="Ordering" />
         <Tab className = "white" label="Builder Grid" />
         <Tab className = "white" label="Cutting Grid" />
-        <Tab className = "white" label="Fraction Stacks" />
+        <Tab className = "white" label="Fraction Bars" />
       </Tabs>
 
       <SwipeableViews
@@ -112,7 +112,8 @@ export default function ManipulativeCarousel(props) {
             <Arena
               app = {app}
               fullscreen={true}
-              script={NumberLineToolScript.init}
+              features = {{open: true,blocks: true}}
+              script={FractionNumberLineScript.init}
             />
           )}
         </TabContainer>
@@ -154,7 +155,7 @@ export default function ManipulativeCarousel(props) {
                 app = {app}
                 setup={false}
                 fullscreen={true}
-                script={FractionStacksScript.init}
+                script={FractionBarScript.init}
               />
            )}
         </TabContainer>

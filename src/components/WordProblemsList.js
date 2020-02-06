@@ -19,10 +19,23 @@ class ActivityList extends Component {
         </div>
         <div className="row">
         < div className="col s6">
-           <ActivityCard data={ACTIVITIES.beaker_estimation} />
+           <ActivityCard data={ACTIVITIES.jiji_igloos} />
           </div>
           <div className="col s6">
-          <ActivityCard data={ACTIVITIES.jiji_sharing_pizza} />
+          <ActivityCard data={ACTIVITIES.pizza_crust} />
+          </div>
+        </div>
+        <div className="row">
+        < div className="col s6">
+           <ActivityCard data={ACTIVITIES.wallpaper} />
+          </div>
+          <div className="col s6">
+          <ActivityCard data={ACTIVITIES.jiji_pond} />
+          </div>
+        </div>
+        <div className="row">
+        < div className="col s6">
+           <ActivityCard data={ACTIVITIES.friend_sharing} />
           </div>
         </div>
       </div>

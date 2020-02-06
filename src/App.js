@@ -10,7 +10,7 @@ import * as NumberLineStripsScript from "./js/numberlinestrips.js"
 import * as FractionLineScript from "./js/numberlinetool.js";
 //import * as GridToolScript from "./js/gridtool.js";
 import * as OrderingToolScript from "./js/orderingtool.js";
-//import * as SharingToolScript from "./js/sharingtool.js";
+import * as SharingToolScript from "./js/sharingtool.js";
 //import * as NumberStripsScript from "./js/numberlinestrips.js";
 //import * as CuisenaireToolScript from "./js/cuisenairetool.js";
 import * as FractionBarToolScript from "./js/fractionbar.js";
@@ -52,6 +52,8 @@ import NumberLineList from './components/NumberLineActivities';
 import LandingPage from './components/LandingPage'
 import DualArena from './components/DualArena';
 import Overview from './components/Overview';
+
+import WordProblems from './components/WordProblemsList';
 
 
 
@@ -113,7 +115,8 @@ const Main = () => (
     <Route exact path="/numberline-partitioning-game-one" render={() => <Arena activity = {"PARTITIONING_ACTIVITY_ONE"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
     <Route exact path="/numberline-partitioning-game-two" render={() => <Arena activity = {"PARTITIONING_ACTIVITY_TWO"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
     <Route exact path="/numberline-building-game-one" render={() => <Arena activity = {"BUILDING_ACTIVITY_ONE"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
-    <Route exact path="/numberline-building-game-two" render={() => <Arena activity = {"BUILDING_ACTIVITY_TWO"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
+    <Route exact path="/numberline-building-game-two" render={() => <Arena activity = {"BUILDING_ACTIVITY_TWO"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />\
+    <Route exact path="/sharingtool" render={() => <Arena a app = {app} fullscreen = {true} script = {SharingToolScript.init}/>} />
     <Route exact path="/activities/:activity" component={Panels}/>
     <Route exact path="/" component={ActivityList} />
     <Route exact path="/landing/:activity" component={StudentLandingPage}/>
@@ -134,6 +137,7 @@ const Main = () => (
     <Route exact path="/numberlinelessons" component={NumberLineList} />
     <Route exact path="/wordproblems/:activity" component={WordProblemPortal} />
     <Route exact path="/landingpage" component={LandingPage} />
+    <Route exact path="/wordproblemslist" component={WordProblems} />
     <Route exact path="/overview" component={Overview} />
   </div>
 );

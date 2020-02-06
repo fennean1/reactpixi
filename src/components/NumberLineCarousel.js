@@ -5,9 +5,9 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import NumberLineList from './NumberLineActivities';
-import ConceptsWordProblems from "./ConceptsWordProblems";
-import ConceptsChats from "./ConceptsChats"
-import ConceptsGames from "./ConceptsGames"
+import NumberLineWordProblems from "./NumberLineWordProblems";
+import NumberLineChats from "./NumberLineChats"
+import NumberLineGames from "./NumberLineGames"
 
 
 
@@ -79,17 +79,17 @@ export default function ConceptsCarousel(props) {
         </TabContainer>
         <TabContainer dir={theme.direction}>
           {value == 1 && (
-            <ConceptsWordProblems/>
+            <NumberLineWordProblems/>
           )}
         </TabContainer>
         <TabContainer dir={theme.direction}>
           {value == 2 && (
-               <ConceptsChats/>
+               <NumberLineChats/>
            )}
         </TabContainer>
         <TabContainer dir={theme.direction}>
           {value == 3 && (
-               <ConceptsGames/>
+               <NumberLineGames/>
            )}
         </TabContainer>
       </SwipeableViews>

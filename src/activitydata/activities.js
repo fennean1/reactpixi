@@ -17,13 +17,15 @@ import * as ComparingFractions from './orderingblocks/comparing_fractions.js'
 // Word Problems
 import * as PizzaCrust from "./WordProblems/pizza_crust.js"
 import * as JijiIgloos from "./WordProblems/jiji_igloos.js"
+import * as Wallpaper from "./WordProblems/wallpaper.js"
+import * as FriendSharing from "./WordProblems/friend_sharing.js"
+import * as JijiPond from "./WordProblems/jiji_pond.js"
 
 // Games
 import * as BalloonJiji from "./Games/balloon_jiji.js"
 
 // Chats
 import * as BuildUnitFractions from "./Chats/build_unit_fractions.js"
-
 
 export const ACTIVITIES = {
     jiji_sharing_pizza: JijiSharingPizzaActivity.ACTIVITY,
@@ -42,5 +44,8 @@ export const ACTIVITIES = {
     pizza_crust: PizzaCrust.ACTIVITY,
     balloon_jiji: BalloonJiji.ACTIVITY,
     build_unit_fractions: BuildUnitFractions.ACTIVITY,
-    jiji_igloos: JijiIgloos.ACTIVITY
+    jiji_igloos: JijiIgloos.ACTIVITY,
+    jiji_pond: JijiPond.ACTIVITY,
+    wallpaper: Wallpaper.ACTIVITY,
+    friend_sharing: FriendSharing.ACTIVITY
 }

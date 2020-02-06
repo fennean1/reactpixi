@@ -63,7 +63,7 @@ const objectives = props.data.OBJECTIVES.map((obj,k)=><blockquote key = {k} styl
     </div>
     <div className="card-action">
       <a target = "_blank" href  = {props.data.LINK}>
-      <Button color = "primary" variant = "outlined" >Play</Button>
+      <Button color = "primary" variant = "outlined" >Launch</Button>
       </a>
       </div>
     <div className="card-reveal">

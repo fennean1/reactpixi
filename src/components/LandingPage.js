@@ -17,12 +17,11 @@ class LessonPage extends Component {
   render() {
     
     return (
-      <div className = "clouds backgroundImage">
-      <div style = {{display: 'flex',flexDirection: 'column'}}>
+      <div style = {{display: 'flex',flexDirection: 'column'}} className = "clouds backgroundImage">
            <div className ="section no-pad-bot" id="index-banner">
              <h1 className ="header center">Fractions</h1>
            </div>
-        <div className = "container">
+        <div style = {{flex: 2}} className = "container">
               <Link style = {{display: "flex",margin: "1%",flexDirection: "row"}} to={{pathname: "/concepts"}}>   
               <Paper elevation = {2} style = {{flex: 1,margin: "1%",flexDirection: "row",display:"flex",justifyContent: "space-between"}}>
               <p style = {{marginLeft: 10}}className = "flow-text">Concepts</p>
@@ -39,20 +38,18 @@ class LessonPage extends Component {
               </Paper>
             </Link>
             <div className = "container" style = {{display: 'flex',flexDirection: 'row'}}>
-              <Link to = {{pathname: "/overview"}}style = {{flex: 1,margin: "1%",flexDirection: "row"}} >   
-              <Paper elevation = {2} style = {{flex: 1,flexDirection: "row",display:"flex",justifyContent: "center"}}>
-              <p style = {{marginLeft: 10}}className = "flow-text">Overview</p>
-              </Paper>
-              </Link>
-              <Link style = {{flex: 1,margin: "1%",flexDirection: "row"}} to={{pathname: "/manipulatives"}}>   
-              <Paper elevation = {2} style = {{flex: 1,flexDirection: "row",display:"flex",justifyContent: "center"}}>
-              <p style = {{marginLeft: 10}}className = "flow-text">Tools</p>
-              </Paper>
-              </Link>
+
          </div>
         </div>
-       </div>
-      </div>
+       <footer style = {{flex: 0.10}} className="page-footer grey">
+          <div className="container">
+            <div className="row" style = {{display: "flex",flexDirection: "row"}}>
+                  <Link style = {{marginRight: "5%"}} to = {{pathname: "/manipulatives"}}><p className = "white-text">Tools</p></Link>
+                  <Link to = {{pathname: "/overview"}}><p className = "white-text">Overview</p></Link>
+              </div>
+            </div>
+        </footer>
+        </div>
     );
   }
 }
