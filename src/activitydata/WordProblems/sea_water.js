@@ -30,7 +30,7 @@ export const ACTIVITY = {
     STANDARD_DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
-    PDF: "/pdfs/wordproblems/JijiIgloos.pdf",
+    PDF: "/pdfs/wordproblems/SeaWater.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: "/orderingblocksx4"}],
     OBJECTIVES: ["students can do this","students can also do this"],
     DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",

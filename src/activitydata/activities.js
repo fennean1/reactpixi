@@ -20,6 +20,9 @@ import * as JijiIgloos from "./WordProblems/jiji_igloos.js"
 import * as Wallpaper from "./WordProblems/wallpaper.js"
 import * as FriendSharing from "./WordProblems/friend_sharing.js"
 import * as JijiPond from "./WordProblems/jiji_pond.js"
+import * as SeaWater from "./WordProblems/sea_water.js"
+import * as JijiResting from "./WordProblems/jiji_resting.js"
+
 
 // Games
 import * as BalloonJiji from "./Games/balloon_jiji.js"
@@ -47,5 +50,7 @@ export const ACTIVITIES = {
     jiji_igloos: JijiIgloos.ACTIVITY,
     jiji_pond: JijiPond.ACTIVITY,
     wallpaper: Wallpaper.ACTIVITY,
-    friend_sharing: FriendSharing.ACTIVITY
+    friend_sharing: FriendSharing.ACTIVITY,
+    sea_water: SeaWater.ACTIVITY,
+    jiji_resting: JijiResting.ACTIVITY,
 }

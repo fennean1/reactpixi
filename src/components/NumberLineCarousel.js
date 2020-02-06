@@ -64,7 +64,6 @@ export default function ConceptsCarousel(props) {
         <Tab className = "white" label= "Lessons" />
         <Tab className = "white" label= "Word Problems" />
         <Tab className = "white" label= "Chats" />
-        <Tab className = "white" label= "Games" />
       </Tabs>
 
       <SwipeableViews
@@ -85,11 +84,6 @@ export default function ConceptsCarousel(props) {
         <TabContainer dir={theme.direction}>
           {value == 2 && (
                <NumberLineChats/>
-           )}
-        </TabContainer>
-        <TabContainer dir={theme.direction}>
-          {value == 3 && (
-               <NumberLineGames/>
            )}
         </TabContainer>
       </SwipeableViews>
