@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ActivityCard from "./ActivityCard";
+import ChatCard from "./ChatCard";
 
 import  {ACTIVITIES} from "../activitydata/activities.js"
 
@@ -14,18 +14,10 @@ class EquivalenceList extends Component {
       <div>
         <div className="row">
           < div className="col s6">
-          <ActivityCard data={ACTIVITIES.bar_equivalence} />
+          <ChatCard data={ACTIVITIES.find_equivalent_fractions} />
           </div>
           < div className="col s6">
-          <ActivityCard data={ACTIVITIES.equivalent_area} />
-          </div>
-        </div>
-        <div className="row">
-          < div className="col s6">
-          <ActivityCard data={ACTIVITIES.ordering_fractions} />
-          </div>
-          < div className="col s6">
-          <ActivityCard data={ACTIVITIES.comparing_fractions} />
+          <ChatCard data={ACTIVITIES.compare_fractions} />
           </div>
         </div>
       </div>

@@ -6,8 +6,8 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import EquivalenceList from './EquivalenceActivities';
 import EquivalenceWordProblems from "./EquivalenceWordProblems";
-import ConceptsChats from "./ConceptsChats"
-import ConceptsGames from "./ConceptsGames"
+import EquivalenceChats from "./EquivalenceChats"
+import EquivalenceGames from "./EquivalenceGames"
 
 
 
@@ -83,7 +83,7 @@ export default function ConceptsCarousel(props) {
         </TabContainer>
         <TabContainer dir={theme.direction}>
           {value == 2 && (
-               <ConceptsChats/>
+               <EquivalenceChats/>
            )}
         </TabContainer>
       </SwipeableViews>

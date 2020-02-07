@@ -30,6 +30,11 @@ import * as BalloonJiji from "./Games/balloon_jiji.js"
 // Chats
 import * as BuildUnitFractions from "./Chats/build_unit_fractions.js"
 import * as BuildFractionsGreaterThanOne from "./Chats/build_fractions_greater_than_one.js"
+import * as UnitFractionsOnANumberLine from "./Chats/unit_fractions_on_a_number_line.js"
+import * as EstimateFractionsOnANumberLine from "./Chats/estimate_fractions_on_a_number_line.js"
+import * as FindEquivalentFractions from "./Chats/find_equivalent_fractions.js"
+import * as CompareFractions from "./Chats/compare_fractions.js"
+
 
 export const ACTIVITIES = {
     jiji_sharing_pizza: JijiSharingPizzaActivity.ACTIVITY,
@@ -54,5 +59,9 @@ export const ACTIVITIES = {
     friend_sharing: FriendSharing.ACTIVITY,
     sea_water: SeaWater.ACTIVITY,
     jiji_resting: JijiResting.ACTIVITY,
-    build_fractions_greater_than_one: BuildFractionsGreaterThanOne.ACTIVITY
+    build_fractions_greater_than_one: BuildFractionsGreaterThanOne.ACTIVITY,
+    unit_fractions_on_a_number_line: UnitFractionsOnANumberLine.ACTIVITY,
+    estimate_fractions_on_a_number_line: EstimateFractionsOnANumberLine.ACTIVITY,
+    find_equivalent_fractions: FindEquivalentFractions.ACTIVITY,
+    compare_fractions: CompareFractions.ACTIVITY
 }
