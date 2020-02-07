@@ -48,8 +48,12 @@ import NumberLineList from './components/NumberLineActivities';
 import LandingPage from './components/LandingPage'
 import DualArena from './components/DualArena';
 import Overview from './components/Overview';
-
 import WordProblems from './components/WordProblemsList';
+
+
+import PortraitPortal from './components/PortraitPortal';
+import NewPanels from './components/NewPanels';
+//import PanoramicPortal from './components/PanoramicPortal';
 
 
 
@@ -111,7 +115,7 @@ const Main = () => (
     <Route exact path="/numberline-partitioning-game-one" render={() => <Arena activity = {"PARTITIONING_ACTIVITY_ONE"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
     <Route exact path="/numberline-partitioning-game-two" render={() => <Arena activity = {"PARTITIONING_ACTIVITY_TWO"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
     <Route exact path="/numberline-building-game-one" render={() => <Arena activity = {"BUILDING_ACTIVITY_ONE"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
-    <Route exact path="/numberline-building-game-two" render={() => <Arena activity = {"BUILDING_ACTIVITY_TWO"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />\
+    <Route exact path="/numberline-building-game-two" render={() => <Arena activity = {"BUILDING_ACTIVITY_TWO"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
     <Route exact path="/sharingtool" render={() => <Arena a app = {app} fullscreen = {true} script = {SharingToolScript.init}/>} />
     <Route exact path="/activities/:activity" component={Panels}/>
     <Route exact path="/allactivities" component={ActivityList} />
@@ -132,6 +136,10 @@ const Main = () => (
     <Route exact path="/numberlinelessons" component={NumberLineList} />
     <Route exact path="/wordproblems/:activity" component={WordProblemPortal} />
     <Route exact path="/" component={LandingPage} />
+    <Route exact path="/portrait" component={PortraitPortal} />
+    <Route exact path="/fullprompt" component={LandingPage} />
+    <Route exact path="/newpanel/:activity" component={NewPanels} />
+    <Route exact path="/fulltool" component={LandingPage} />
     <Route exact path="/wordproblemslist" component={WordProblems} />
     <Route exact path="/overview" component={Overview} />
   </div>

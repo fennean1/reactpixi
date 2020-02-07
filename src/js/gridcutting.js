@@ -114,6 +114,7 @@ export const init = (app, setup) => {
 
 
     pointerDown(){
+      console.log("this.x,this.y",this.x,this.y)
       rotateLeftBtn.alpha = 0
       rotateLeftBtn.interactive = false
       Nodes.forEach((n)=>{app.stage.addChild(n)})
@@ -135,13 +136,13 @@ export const init = (app, setup) => {
   }
 
   function cut(){
+    console.log("polygon objectssssssssssssssss",polygonObjects)
     cutting = true
     let rawCopyOfPolygons = polygonObjects.map(pObj=>{
       return pObj.getPolyPoints()})
     // Destroy old ones.
 
     let newPolygons = splitMultiplePolygons(linePoints,rawCopyOfPolygons)
-
 
     const reducer = (a,c) => a + polygonArea(c)
     let area = newPolygons.reduce(reducer,0)
@@ -193,14 +194,15 @@ export const init = (app, setup) => {
     })
 
 
-    scaledPolygons.forEach(p=>{
+    let newPolygons = scaledPolygons.map(p=>{
       let pObj = new DraggablePoly(p,app)
       app.stage.addChild(pObj)
-      polygonObjects.push(pObj)
       pObj.on('pointerup',polyPointerUp)
       pObj.on('pointerdown',polyPointerDown)
       pObj.on('pointermove',polyPointerMove)
+      return pObj
     })
+    polygonObjects = newPolygons
   }
 
 
@@ -269,11 +271,10 @@ export const init = (app, setup) => {
       resetBtn.y = BTN_DIM/1.5
       resetBtn.x = WINDOW_WIDTH - BTN_DIM/1.5
       app.renderer.resize(WINDOW_WIDTH,WINDOW_HEIGHT)
-      
       resetNodes()
       redrawPolys(OLD_FRAME,newFrame)
       backGround.draw()
-    },0)
+    },1000)
   }
 
   function updateLayoutParams(newFrame){
@@ -481,5 +482,5 @@ export const init = (app, setup) => {
   load()
   // Not sure where else to put this.
   app.resize = (frame) => resize(frame)
-  app.resizable = true
+  app.resizable = false
 };

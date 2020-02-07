@@ -11,8 +11,8 @@ import Paper from "@material-ui/core/Paper";
 import { ACTIVITIES } from "../activitydata/activities.js"
 import { SCRIPTS } from "../activitydata/scripts.js"
 import * as OrderingBlocksScript from "../js/orderingtool.js"
-import {SCREEN_STATES, SCREEN_TYPES} from '../js/states.js'
 import * as CuttingToolScript from "../js/gridcutting.js"
+import {SCREEN_STATES, SCREEN_TYPES} from '../js/states.js'
 
 
 import { Document, Page, pdfjs } from 'react-pdf';
@@ -36,18 +36,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function PortraitPortal(props) {
+
+export default function LandscapePortal(props) {
 
 
   return (
-    <div style={{ display: "flex", flexDirection: "row"}} >
+    <div style={{ display: "flex", flexDirection: "column"}} >
      <div style={{ display: "flex", justifyContent: 'center', flex: 1 }}>
-        <Document file= {props.pdf} onLoadSuccess = {props.onLoadSuccess}>
-         <Page loading = {<div style = {{height: window.innerHeight*0.3,width: 300}}/>} width = {window.innerWidth*0.3} pageNumber = {props.panelNumber} />
+        <Document loading = {<div style = {{height: window.innerHeight*0.3,width: 300}}/>} file= {props.pdf} onLoadSuccess = {props.onLoadSuccess}>
+         <Page loading = {<div style = {{height: window.innerHeight*0.3,width: 300}}/>} width = {window.innerHeight*0.3} pageNumber = {props.panelNumber} />
         </Document>
       </div>
       <div style={{ flex: 1 }}>
-        <NewArena features = {{x: 5,y: 5}} fullscreen={false} screenstate = {{ width: "60vw", height: "93vh" }} app={props.app} script={CuttingToolScript.init} />
+        <NewArena features = {{x: 5,y: 5}} fullscreen={false} screenstate = {{ width: "100vw", height: "60vh" }} app={props.app} script={CuttingToolScript.init} />
       </div>
     </div>
   );

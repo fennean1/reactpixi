@@ -7,7 +7,8 @@ import { TweenLite, TimelineMax } from "gsap/TweenMax";
 import { ACTIVITIES } from "../activitydata/activities.js"
 import { SCRIPTS } from "../activitydata/scripts.js"
 import {SCREEN_STATES, SCREEN_TYPES} from '../js/states.js'
-
+import PortraitPortal from "./PortraitPortal"
+import LandscapePortal from "./LandscapePortal"
 
 import { Document, Page, pdfjs } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -32,7 +33,7 @@ const useStyles = makeStyles(theme => ({
 
 Pixi.settings.RESOLUTION = 3
 var App = new Pixi.Application(0, 0, { backgroundColor: 0xffffff, antialias: true });
-App.static = false
+App.static = true
 App.loaded = false
 App.multilayoutenabled = true
 
@@ -55,7 +56,7 @@ export default function LessonPanel(props) {
   const [promptHeight, setPromptHeight] = React.useState(initialScreenState.promptHeightPercentage*window.innerHeight)
   const [promptWidth, setPromptWidth] = React.useState(initialScreenState.promptWidthPercentage*window.innerWidth)
   const [numPanels,setNumPanels] = React.useState(1)
-  const [key, switchKey] = React.useState(1)
+  const [key, switchKey] = React.useState(0)
   const [flexDirect, setFlexDirect] = React.useState(initialScreenState.direction)
   const [dummy,setDummy] = React.useState(false)
 
@@ -68,143 +69,29 @@ export default function LessonPanel(props) {
     setNumPanels(numPages)
   }
 
-  function setLayout(type){
-
-    let layoutProps = SCREEN_STATES[type]
-
-    if (type == SCREEN_TYPES.FULL_PROMPT){
-      TweenLite.to(arena,0,{x: -window.innerWidth,y: -2*window.innerWidth})
-    } else {
-      TweenLite.to(arena,0,{x: 0,y: 0})
-    }
-    let promptWidthPercentage = null 
-    let promptHeightPercentage = null
-  
-    if (type == SCREEN_TYPES.FULL_PROMPT){
-      if (data.SCREEN_TYPE == SCREEN_TYPES.PANORAMIC){
-        promptWidthPercentage = 1
-        //TweenLite.to(panel,0,{y: window.innerHeight/2 - window.innerWidth*0.27/2-50})
-        TweenLite.to(panel,0,{y: 0})
-      } else {
-        promptHeightPercentage = 0.93
-        TweenLite.to(panel,0,{x: window.innerWidth/2 - window.innerHeight/2})
-      }
-    } else {
-      promptHeightPercentage = layoutProps.promptHeightPercentage
-      promptWidthPercentage = layoutProps.promptWidthPercentage
-      TweenLite.to(panel,0,{x: 0})
-      if (data.SCREEN_TYPE == SCREEN_TYPES.PANORAMIC){
-        TweenLite.to(panel,0,{y: 0})
-      } else {
-        TweenLite.to(panel,0,{y: 0})
-      }
-
-    }
-  
-
-    setArenaWidth(layoutProps.arenaWidth)
-    setArenaHeight(layoutProps.arenaHeight)
-    setPromptHeight(promptHeightPercentage*window.innerHeight)
-    setPromptWidth(promptWidthPercentage*window.innerWidth)
-    setFlexDirect(layoutProps.direction)
-
-    setTimeout(()=>{setDummy(!dummy)},50)
+  function setLayout(k){
+    switchKey(k)
   }
 
   useEffect(()=>{
-    setLayout(SCREEN_TYPES.FULL_PROMPT)
+    //setLayout(SCREEN_TYPES.FULL_PROMPT)
   },[])
 
   function toggleFullscreen(){
-    var tl = new TimelineMax()
-    tl.to(wholeArea,0,{alpha: 0})
-      .to(wholeArea,0.3,{alpha: 0})
-      .to(wholeArea,0.3,{alpha: 1})
       
-    if (showPrompt){
-      const TYPE = data.SEQUENCE[(panelNumber-1)%numPanels].screenType
-      setLayout(TYPE)
-    } else {
-      setLayout(SCREEN_TYPES.FULL_TOOL)
-    }
-    setTimeout(()=>{setShowPrompt(!showPrompt)},50)
+    setLayout((key+1)%2)
   }
   
 
 
   function animate(k) {
-
-    let backwardPortrait = new TimelineMax({paused: true})   
-    backwardPortrait.to(panel, 0.5, { alpha: 0, y: window.innerHeight / 3 })
-                   .to(panel, 0, { y: -window.innerHeight / 3 })
-                   .to(panel, 1, { alpha: 1, y: 0 })
-    
-    let forwardPortrait  = new TimelineMax({paused: true})
-    forwardPortrait .to(panel, 0.5, { alpha: 0, y: -window.innerHeight / 3 })
-                    .to(panel, 0, { y: window.innerHeight / 3 })
-                    .to(panel, 1, { alpha: 1, y: 0 })
-
-    let forwardPanoramic = new TimelineMax({paused: true})   
-    forwardPanoramic.to(panel, 0.5, { alpha: 0, x: window.innerWidth/3 })
-                   .to(panel, 0, { x: -window.innerWidth / 3 })
-                   .to(panel, 1, { alpha: 1, x: 0 })
-    
-    let backwardPanoramic = new TimelineMax({paused: true})
-    backwardPanoramic.to(panel, 0.5, { alpha: 0, x: -window.innerHeight / 3 })
-                    .to(panel, 0, { x: window.innerWidth / 3 })
-                    .to(panel, 1, { alpha: 1,x: 0 })
-
-    let flash = new TimelineMax({paused: true})
-               flash.to(panel, 0, { alpha: 0 })
-                    .to(panel, 0.5, { alpha: 1})
-
-
-
-
-      let currentPanel;
-      let previousPanel;
-      if (k == -1){
-        currentPanel =  panelNumber > 1 ? panelNumber + k : numPanels
-      } else {
-        currentPanel = panelNumber % numPanels+1
-      }
-
-
-      const OLD_TYPE = data.SEQUENCE[(panelNumber-1)%numPanels].screenType
-      const NEW_TYPE = data.SEQUENCE[(currentPanel-1)%numPanels].screenType
-
-      if (OLD_TYPE != NEW_TYPE){
-        var tl = new TimelineMax()
-        tl.to(wholeArea,0,{alpha: 0})
-          .to(wholeArea,0.3,{alpha: 0})
-          .to(wholeArea,0.3,{alpha: 1})
-        setLayout(NEW_TYPE)
-      }
-
     if (k == -1) {
-      if (NEW_TYPE == SCREEN_TYPES.PANORAMIC){
-        //backwardPanoramic.play()
-        flash.play()
-      } else {
-        //backwardPortrait.play()
-        flash.play()
-      }
       setTimeout(() =>{
         setPanel((panelNumber > 1 ? panelNumber + k : numPanels))
-        setShowPrompt(false)
       }, 0)
     } else if (k == 1) {
-         
-      if (NEW_TYPE == SCREEN_TYPES.PANORAMIC){
-        //forwardPanoramic.play()
-        flash.play()
-      } else {
-        //forwardPortrait.play()
-        flash.play()
-      }
       setTimeout(() => {
         setPanel(panelNumber % numPanels+1)
-        setShowPrompt(false)
       }, 0)
     }
   }
@@ -217,16 +104,8 @@ export default function LessonPanel(props) {
         {printList(data.SEQUENCE[panelNumber-1].tips)}
       </div>
     </Drawer>
-    <div style={{ display: "flex", flexDirection: flexDirect}} ref={me => wholeArea = me}>
-     <div style={{ display: "flex", justifyContent: 'center', flex: 1 }} ref={me => panel = me}>
-        <Document file={data.PDF} onLoadSuccess = {onLoadSuccess}>
-         <Page loading = {<div style = {{height: window.innerHeight*0.3,width: 300}}/>}  height={promptHeight} width={promptWidth} pageNumber={panelNumber} />
-        </Document>
-      </div>
-      <div ref = {me=>{arena = me}} style={{ flex: 1 }}>
-        <Arena key={key} tipsOpen = {tipsOpen} currentPanel = {data.SEQUENCE[(panelNumber-1)%numPanels]} panelNumber = {panelNumber} features={data.FEATURES} fullscreen={false} screenstate={{ width: arenaWidth, height: arenaHeight }} app={App} script={SCRIPTS[data.SCRIPT]} />
-      </div>
-    </div>
+    {(key == 0 && (<PortraitPortal app = {App} onLoadSuccess = {onLoadSuccess} panelNumber = {panelNumber} pdf = {data.PDF} />))}
+    {(key == 1 && (<LandscapePortal  app = {App} onLoadSuccess = {onLoadSuccess} panelNumber = {panelNumber} pdf = {data.PDF} />))}
     <div style={{display: 'flex', width: '100%' }} >
       <div style={{ flex: 1, margin: 3 }}>
         <a onClick={() => toggleFullscreen()} className="btn orange left"><i className="material-icons">view_quilt</i></a>
