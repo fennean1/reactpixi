@@ -104,7 +104,6 @@ const Main = () => (
     <Route exact path="/gridnodes2x2" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 3,y: 3,descriptor: false}} script = {GridNodeScript.init}/>} />
     <Route exact path="/gridnodes3x3" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false}} script = {GridNodeScript.init}/>} />
     <Route exact path="/gridnodes12x12" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 13,y: 13,descriptor: true}} script = {GridNodeScript.init}/>} />
-    <Route exact path="/cutter" render={() => <Arena app = {app} fullscreen = {true}  script = {CutterTestScript.init}/>} />
     <Route exact path="/gridcutting" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 5,y: 5,descriptor: false}} script = {GridCuttingScript.init}/>} />
     <Route exact path="/gridcuttingsnap" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {GridCuttingScript.init}/>} />
     <Route exact path="/placingnumbers" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false,snapping: true}} script = {PlacingNumbersScript.init}/>} />

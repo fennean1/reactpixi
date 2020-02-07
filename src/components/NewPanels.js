@@ -45,20 +45,9 @@ export default function LessonPanel(props) {
   const data = ACTIVITIES[activity]
   const initialScreenState = SCREEN_STATES.FULL_PROMPT
   const [panelNumber, setPanel] = React.useState(1)
-  const [promptOnly,setPromptState] = React.useState(false)
-  let panel;
-  let arena;
-  let wholeArea;
   const [tipsOpen, setTipsOpen] = React.useState(false)
-  const [showPrompt, setShowPrompt] = React.useState(false)
-  const [arenaWidth, setArenaWidth] = React.useState(initialScreenState.arenaWidth)
-  const [arenaHeight, setArenaHeight] = React.useState(initialScreenState.arenaHeight)
-  const [promptHeight, setPromptHeight] = React.useState(initialScreenState.promptHeightPercentage*window.innerHeight)
-  const [promptWidth, setPromptWidth] = React.useState(initialScreenState.promptWidthPercentage*window.innerWidth)
   const [numPanels,setNumPanels] = React.useState(1)
   const [key, switchKey] = React.useState(0)
-  const [flexDirect, setFlexDirect] = React.useState(initialScreenState.direction)
-  const [dummy,setDummy] = React.useState(false)
 
 
   function printList(items) {
