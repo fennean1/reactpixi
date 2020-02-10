@@ -50,8 +50,7 @@ export default function LessonPanel(props) {
   const [numPanels,setNumPanels] = React.useState(1)
   const [key, switchKey] = React.useState(fullKey)
   const [refresh, setRefresh] = React.useState(false)
-  //const [,setCurrentPanelState] = React.useState(fullKey)
-
+  const [newLayout,setNewLayout] = React.useState(true) // Initialization is always a new layout right?
 
   function printList(items) {
     if (items) { return items.map((q, i) => { return <p key={i}>{q}<br /><br /></p> }) }
@@ -63,14 +62,14 @@ export default function LessonPanel(props) {
 
 
   function toggleFullscreen(){
- 
+    setNewLayout(true)
     if (key == 4){
        let k = getKeyFromPanel(panelNumber)
        switchKey(k)
     } else {
        switchKey(4)
     }
-
+    setTimeout(()=>setNewLayout(false),1000)
   }
   
 
@@ -115,11 +114,11 @@ export default function LessonPanel(props) {
         {printList(data.SEQUENCE[panelNumber-1].tips)}
       </div>
     </Drawer>
-    {(key == 0 && (<PortraitPortal key = {refresh} app = {App} onLoadSuccess = {onLoadSuccess} panelNumber = {panelNumber} data = {data} />))}
-    {(key == 1 && (<LandscapePortal key = {refresh} app = {App} onLoadSuccess = {onLoadSuccess} panelNumber = {panelNumber} data = {data}/>))}
+    {(key == 0 && (<PortraitPortal newLayout = {newLayout} key = {refresh} app = {App} onLoadSuccess = {onLoadSuccess} panelNumber = {panelNumber} data = {data} />))}
+    {(key == 1 && (<LandscapePortal newLayout = {newLayout} key = {refresh} app = {App} onLoadSuccess = {onLoadSuccess} panelNumber = {panelNumber} data = {data}/>))}
     {(key == 2 && (<FullPortraitScreen data = {data} onLoadSuccess = {onLoadSuccess}  panelNumber = {panelNumber} />))}
     {(key == 3 && (<FullLandscapeScreen data = {data} onLoadSuccess = {onLoadSuccess}  panelNumber = {panelNumber} />))}
-    {(key == 4 && (<FullToolPortal key = {refresh} app = {App} onLoadSuccess = {onLoadSuccess} panelNumber = {panelNumber} data = {data}/>))}
+    {(key == 4 && (<FullToolPortal newLayout = {newLayout} key = {refresh} app = {App} onLoadSuccess = {onLoadSuccess} panelNumber = {panelNumber} data = {data}/>))}
     <div style={{display: 'flex', width: '100%' }} >
       <div style={{ flex: 1, margin: 3 }}>
         <a onClick={() => toggleFullscreen()} className="btn orange left"><i className="material-icons">view_quilt</i></a>

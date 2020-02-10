@@ -36,7 +36,7 @@ export default function PortraitPortal(props) {
         </Document>
       </div>
       <div style={{ flex: 1 }}>
-        <NewArena features = {{x: 5,y: 5}} fullscreen={false} screenstate = {{ width: "60vw", height: "93vh" }} app={props.app} script={SCRIPTS[props.data.SCRIPT]} />
+        <NewArena newLayout = {props.newLayout} features = {{x: 5,y: 5}} fullscreen={false} screenstate = {{ width: "60vw", height: "93vh" }} app={props.app} script={SCRIPTS[props.data.SCRIPT]} />
       </div>
     </div>
   );

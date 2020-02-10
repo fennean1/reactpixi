@@ -39,7 +39,7 @@ export default function LandscapePortal(props) {
   return (
     <div style={{ display: "flex", flexDirection: "column"}} >
       <div style={{ flex: 1 }}>
-        <NewArena features = {props.data.FEATURES} currentPanel = {props.data.SEQUENCE[props.panelNumber-1]}  fullscreen={false} screenstate = {{ width: "100vw", height: heightString}} app={props.app} script={SCRIPTS[props.data.SCRIPT]} />
+        <NewArena newLayout = {props.newLayout} features = {props.data.FEATURES} currentPanel = {props.data.SEQUENCE[props.panelNumber-1]}  fullscreen={false} screenstate = {{ width: "100vw", height: heightString}} app={props.app} script={SCRIPTS[props.data.SCRIPT]} />
       </div>
     </div>
   );

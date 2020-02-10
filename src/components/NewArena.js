@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import Paper from '@material-ui/core/Paper';
-import Drawer from '@material-ui/core/Drawer';
-import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
 
 import * as Pixi from "pixi.js";
 
@@ -32,7 +29,6 @@ class Arena extends Component {
   // Resizes the view it it's mounted and resizable. (Old versions don't always have a resize function)
   resize(){
     // Active means the this.props.app is mounted and currently being use (Not in the background)
-    console.log("this.props.app.active",this.props.app.active)
     if (this.props.app.active){
       // Does this have a resize option?
       if (this.props.app.resizable){
@@ -106,21 +102,21 @@ class Arena extends Component {
         if (this.props.app.resizable == true && this.props.app.static == false){
             this.redraw()
         } else if (this.props.app.static == true){
-          if (this.props.app.multilayoutenabled == true){
+          if (this.props.app.resizable == true){
             console.log("resize!!!")
             this.resize()
-          } else {
+          } else if (this.props.newLayout == true){
             this.redraw()
           }
         }
       }
+      console.log("PROPSSSS NEW LAYOUT",this.props.newLayout)
   }
 
   render() { 
 
     let styleType = this.props.fullscreen ? { height: "100vh",marginTop: 0 } : {height: this.props.screenstate.height,width: this.props.screenstate.width};
     
-   
     return (
         <div style = {styleType}
           ref={me => this.gameCanvas = me }
