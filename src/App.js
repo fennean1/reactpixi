@@ -116,7 +116,7 @@ const Main = () => (
     <Route exact path="/numberline-building-game-one" render={() => <Arena activity = {"BUILDING_ACTIVITY_ONE"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
     <Route exact path="/numberline-building-game-two" render={() => <Arena activity = {"BUILDING_ACTIVITY_TWO"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
     <Route exact path="/sharingtool" render={() => <Arena a app = {app} fullscreen = {true} script = {SharingToolScript.init}/>} />
-    <Route exact path="/activities/:activity" component={Panels}/>
+    <Route exact path="/activities/:activity" component={NewPanels}/>
     <Route exact path="/allactivities" component={ActivityList} />
     <Route exact path="/landing/:activity" component={StudentLandingPage}/>
     <Route exact path="/factorblocks" component={FactorBlocks} />
