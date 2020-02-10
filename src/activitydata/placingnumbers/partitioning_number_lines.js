@@ -96,7 +96,7 @@ export const ACTIVITY = {
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
     PDF: "/pdfs/slides/PartitioningNumberLines.pdf",
-    ORGANIZER: null,
+    ORGANIZER: "/pdfs/organizers/PartitioningNumberLinesOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Game One',link: '/numberline-partitioning-game-one'},{title: 'Game Two',link: '/numberline-partitioning-game-two'}],
     DESCRIPTION: "Students practice partitioning number lines into equal distances, then apply concepts to estimating and plotting fractions. Students plot fractions less than 1 before extending strategies for fractions greater than 1. ",
     OBJECTIVES: ["Plot fractions on a number line from 0 to 1.","Develop strategies for plotting halves, thirds, fourths, sixths and eighths."],
