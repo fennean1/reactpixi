@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Arena from "./components/Arena"
-import Panels from "./components/Panels"
+//import Panels from "./components/Panels"
 import * as Pixi from "pixi.js";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import * as HundredsArrayScript from "./js/hundredsarray.js"
@@ -19,7 +19,7 @@ import * as CalculatorScript from "./js/calculator.js";
 import * as OldFractionWallScript from "./js/oldfractionwall.js";
 import * as GridNodeScript from "./js/gridnodes.js";
 import * as ApiTestScript from "./js/testapi.js";
-import * as CutterTestScript from "./js/testcutter.js";
+//import * as CutterTestScript from "./js/testcutter.js";
 import * as NewFractionStacksScript from "./js/newfractionwall.js";
 import * as WallToolScript from "./js/walltool.js";
 import * as GridCuttingScript from "./js/gridcutting.js";
@@ -29,7 +29,7 @@ import * as BeakerGameScript from "./js/beakergame.js";
 import ActivityList from './components/ActivityList'
 import FactorBlocks from './components/FactorBlocks'
 import ManipulativeCarousel from "./components/ManipulativeCarousel"
-import Test from "./components/ResizeTest"
+//import Test from "./components/ResizeTest"
 import StudentLandingPage from "./components/StudentLandingPage"
 import TeacherLandingPage from "./components/TeacherLandingPage"
 import LessonPage from "./components/LessonPage"
@@ -61,7 +61,6 @@ Pixi.settings.RESOLUTION = 3
 let app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
 app.static = false
 app.loaded = false
-console.log("texture cache",Object.keys(Pixi.utils.TextureCache).length)
 Object.keys(Pixi.utils.TextureCache).forEach(function(texture) {  Pixi.utils.TextureCache[texture].destroy(true);});
 
 // Or Create your Own theme:
@@ -128,7 +127,6 @@ const Main = () => (
     <Route exact path="/studentlandingpage" component={StudentLandingPage} />
     <Route exact path="/overview/:activity" component={TeacherLandingPage} />
     <Route exact path="/dualarena/:key" component={DualArena} />
-    <Route exact path="/resizetest" component={Test} />
     <Route exact path="/equivalencelessons" component={EquivalenceList} />
     <Route exact path="/conceptslessons" component={ConceptsList} />
     <Route exact path="/conceptswordproblems" component={ConceptsWordProblems} />
