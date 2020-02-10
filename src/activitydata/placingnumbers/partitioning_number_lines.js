@@ -80,6 +80,7 @@ export const ACTIVITY = {
     ID: "partitioning_number_lines",
     TITLE : "Partitioning Number Lines",
     SCREEN_TYPE: SCREEN_TYPES.PANORAMIC,
+    GAME: true,
     ICON: ICON,
     TIME: 45,
     PAGES: 4,

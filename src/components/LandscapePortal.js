@@ -1,19 +1,8 @@
 import React, { Component, Text, useEffect } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import NewArena from "./NewArena";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 
-import * as Pixi from "pixi.js";
-import Drawer from "@material-ui/core/Drawer";
-import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
-import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
-import { ACTIVITIES } from "../activitydata/activities.js"
 import { SCRIPTS } from "../activitydata/scripts.js"
-import * as OrderingBlocksScript from "../js/orderingtool.js"
-import * as CuttingToolScript from "../js/gridcutting.js"
-import {SCREEN_STATES, SCREEN_TYPES} from '../js/states.js'
-
 
 import { Document, Page, pdfjs } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -39,16 +28,23 @@ const useStyles = makeStyles(theme => ({
 
 export default function LandscapePortal(props) {
 
+  let height = Math.round((window.innerHeight - 50)/window.innerHeight*100) - 35
+  console.log(
+    "height?",height)
+  let heightString = height+"vh"
+  console.log(
+    "height string",heightString)
+
 
   return (
     <div style={{ display: "flex", flexDirection: "column"}} >
      <div style={{ display: "flex", justifyContent: 'center', flex: 1 }}>
-        <Document loading = {<div style = {{height: window.innerHeight*0.3,width: 300}}/>} file= {props.pdf} onLoadSuccess = {props.onLoadSuccess}>
-         <Page loading = {<div style = {{height: window.innerHeight*0.3,width: 300}}/>} width = {window.innerHeight*0.3} pageNumber = {props.panelNumber} />
+        <Document loading = {<div style = {{height: window.innerHeight*0.35,width: 300}}/>} file= {props.data.PDF} onLoadSuccess = {props.onLoadSuccess}>
+         <Page loading = {<div style = {{height: window.innerHeight*0.35,width: 300}}/>} height = {window.innerHeight*0.35} pageNumber = {props.panelNumber} />
         </Document>
       </div>
       <div style={{ flex: 1 }}>
-        <NewArena features = {{x: 5,y: 5}} fullscreen={false} screenstate = {{ width: "100vw", height: "60vh" }} app={props.app} script={CuttingToolScript.init} />
+        <NewArena features = {props.data.FEATURES}  currentPanel = {props.data.SEQUENCE[props.panelNumber-1]}  fullscreen={false} screenstate = {{ width: "100vw", height: heightString}} app={props.app} script={SCRIPTS[props.data.SCRIPT]} />
       </div>
     </div>
   );

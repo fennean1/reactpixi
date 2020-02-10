@@ -25,18 +25,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function PortraitPortal(props) {
+
+export default function LandscapePortal(props) {
+
+  let height = Math.round((window.innerHeight - 50)/window.innerHeight*100)
+  console.log(
+    "height?",height)
+  let heightString = height+"vh"
+  console.log(
+    "height string",heightString)
 
 
   return (
-    <div style={{ display: "flex", flexDirection: "row"}} >
-     <div style={{ display: "flex", justifyContent: 'center', flex: 1 }}>
-        <Document file= {props.data.PDF} onLoadSuccess = {props.onLoadSuccess}>
-         <Page loading = {<div style = {{height: window.innerHeight*0.3,width: 300}}/>} width = {window.innerWidth*0.3} pageNumber = {props.panelNumber} />
-        </Document>
-      </div>
+    <div style={{ display: "flex", flexDirection: "column"}} >
       <div style={{ flex: 1 }}>
-        <NewArena features = {{x: 5,y: 5}} fullscreen={false} screenstate = {{ width: "60vw", height: "93vh" }} app={props.app} script={SCRIPTS[props.data.SCRIPT]} />
+        <NewArena features = {props.data.FEATURES} currentPanel = {props.data.SEQUENCE[props.panelNumber-1]}  fullscreen={false} screenstate = {{ width: "100vw", height: heightString}} app={props.app} script={SCRIPTS[props.data.SCRIPT]} />
       </div>
     </div>
   );

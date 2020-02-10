@@ -9,6 +9,9 @@ import { SCRIPTS } from "../activitydata/scripts.js"
 import {SCREEN_STATES, SCREEN_TYPES} from '../js/states.js'
 import PortraitPortal from "./PortraitPortal"
 import LandscapePortal from "./LandscapePortal"
+import FullPortraitScreen from "./FullPortraitScreen"
+import FullLandscapeScreen from "./FullLandscapeScreen"
+import FullToolPortal from "./FullToolPortal"
 
 import { Document, Page, pdfjs } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -39,15 +42,15 @@ App.multilayoutenabled = true
 
 export default function LessonPanel(props) {
 
-
-  const classes = useStyles();
   const { activity } = props.match.params
   const data = ACTIVITIES[activity]
-  const initialScreenState = SCREEN_STATES.FULL_PROMPT
+  const fullKey = data.SCREEN_TYPE == SCREEN_TYPES.PANORAMIC ? 3 : 2
   const [panelNumber, setPanel] = React.useState(1)
   const [tipsOpen, setTipsOpen] = React.useState(false)
   const [numPanels,setNumPanels] = React.useState(1)
-  const [key, switchKey] = React.useState(0)
+  const [key, switchKey] = React.useState(fullKey)
+  const [refresh, setRefresh] = React.useState(false)
+  //const [,setCurrentPanelState] = React.useState(fullKey)
 
 
   function printList(items) {
@@ -58,31 +61,50 @@ export default function LessonPanel(props) {
     setNumPanels(numPages)
   }
 
-  function setLayout(k){
-    switchKey(k)
-  }
-
-  useEffect(()=>{
-    //setLayout(SCREEN_TYPES.FULL_PROMPT)
-  },[])
 
   function toggleFullscreen(){
-      
-    setLayout((key+1)%2)
+ 
+    if (key == 4){
+       let k = getKeyFromPanel(panelNumber)
+       switchKey(k)
+    } else {
+       switchKey(4)
+    }
+
   }
   
 
+  function getKeyFromPanel(num){
+
+    switch (data.SEQUENCE[(num-1)%numPanels].screenType){
+      case SCREEN_TYPES.PORTRAIT:
+        return 0
+      case SCREEN_TYPES.PANORAMIC:
+        return 1
+      case SCREEN_TYPES.FULL_PROMPT:
+        return data.SCREEN_TYPE == SCREEN_TYPES.PANORAMIC ? 3 : 2
+      default:
+        return 0
+    }
+  }
+
 
   function animate(k) {
-    if (k == -1) {
-      setTimeout(() =>{
-        setPanel((panelNumber > 1 ? panelNumber + k : numPanels))
-      }, 0)
-    } else if (k == 1) {
-      setTimeout(() => {
-        setPanel(panelNumber % numPanels+1)
-      }, 0)
+    let newPanelNumber = 0
+    if (data.GAME){
+      setRefresh(!refresh)
     }
+
+    if (k == -1) {
+      newPanelNumber = panelNumber > 1 ? panelNumber + k : numPanels
+      setPanel(newPanelNumber)
+    } else if (k == 1) {
+      newPanelNumber = panelNumber % numPanels+1
+      setPanel(panelNumber % numPanels+1)
+    }
+
+    let newKey = getKeyFromPanel(newPanelNumber)
+    switchKey(newKey)
   }
 
 
@@ -93,8 +115,11 @@ export default function LessonPanel(props) {
         {printList(data.SEQUENCE[panelNumber-1].tips)}
       </div>
     </Drawer>
-    {(key == 0 && (<PortraitPortal app = {App} onLoadSuccess = {onLoadSuccess} panelNumber = {panelNumber} pdf = {data.PDF} />))}
-    {(key == 1 && (<LandscapePortal  app = {App} onLoadSuccess = {onLoadSuccess} panelNumber = {panelNumber} pdf = {data.PDF} />))}
+    {(key == 0 && (<PortraitPortal key = {refresh} app = {App} onLoadSuccess = {onLoadSuccess} panelNumber = {panelNumber} data = {data} />))}
+    {(key == 1 && (<LandscapePortal key = {refresh} app = {App} onLoadSuccess = {onLoadSuccess} panelNumber = {panelNumber} data = {data}/>))}
+    {(key == 2 && (<FullPortraitScreen data = {data} onLoadSuccess = {onLoadSuccess}  panelNumber = {panelNumber} />))}
+    {(key == 3 && (<FullLandscapeScreen data = {data} onLoadSuccess = {onLoadSuccess}  panelNumber = {panelNumber} />))}
+    {(key == 4 && (<FullToolPortal key = {refresh} app = {App} onLoadSuccess = {onLoadSuccess} panelNumber = {panelNumber} data = {data}/>))}
     <div style={{display: 'flex', width: '100%' }} >
       <div style={{ flex: 1, margin: 3 }}>
         <a onClick={() => toggleFullscreen()} className="btn orange left"><i className="material-icons">view_quilt</i></a>

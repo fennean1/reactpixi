@@ -52,7 +52,7 @@ export default function ManipulativeCarousel(props) {
   const theme = useTheme();
   const app = globalApp
   const [value, setValue] = React.useState(0);
-  const toolData = [{name: "Fraction Wall",link: "/fractionwall",tags: ["Comparing","Ordering"]},
+  const toolData = [{name: "Fraction Wall",link: "/fractionwall",tags: ["Comparing","Ordering","Equivalence"]},
   {name: "Fraction Line",link: "/fractionnumberlineopenblocks",tags: ["Labeling","Equivalence","Length Models"]},
   {name: "Ordering",link: "/orderingblocksx5",tags: ["Comparing","Ordering","Building","Concepts"]},
   {name: "Builder Grid",link: "/gridnodes4x4",tags: ["Building","Concepts","Area","Congruence"]},
@@ -86,9 +86,9 @@ export default function ManipulativeCarousel(props) {
           <h3 className="header center grey-text">{"Manipulatives: "+toolData[value].name }</h3>
         </div>
       </div>
-      <div style = {{display: "flex", flexDirection: "row", margin: 5,justifyContent: "space-between"}}>
- <Link to = {{pathname: toolData[value].link}}  style = {{margin: 5}}><Button variant = "outlined">Full Screen</Button>
-              </Link>  <div style = {{display: "flex", flexDirection: "row", margin: 5,justifyContent: "center"}}>{chips} </div></div> 
+      <div style = {{display: "flex", flexDirection: "row", margin: 5,justifyContent: "center"}}>
+ <Link to = {{pathname: toolData[value].link}}  style = {{margin: 5}}><Button variant = "outlined"> {"Open "+ toolData[value].name}</Button>
+              </Link> </div> 
       <Tabs
         value={value}
         onChange={handleChange}

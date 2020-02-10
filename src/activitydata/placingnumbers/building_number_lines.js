@@ -90,6 +90,7 @@ const sequence =
 export const ACTIVITY = {
     ID: "building_number_lines",
     TITLE : "Building Number Lines",
+    GAME: true,
     SCREEN_TYPE: SCREEN_TYPES.PANORAMIC,
     ICON: ICON,
     TIME: 45,

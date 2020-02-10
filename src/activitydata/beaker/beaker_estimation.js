@@ -68,6 +68,7 @@ const sequence =
 
 export const ACTIVITY = {
     ID: "beaker_estimation",
+    GAME: true,
     TITLE : "Modeling Fractions with Estimation",
     SCREEN_TYPE: SCREEN_TYPES.PORTRAIT,
     ICON: ICON,
