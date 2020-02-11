@@ -69,9 +69,8 @@ const objectives = props.data.OBJECTIVES.map((obj,k)=><blockquote key = {k} styl
       </div>
     <div className="card-reveal">
       <span className="card-title grey-text text-darken-4">Overview<i className="material-icons right">close</i></span>
-      <p>{props.data.DESCRIPTION}</p>
       {(!props.data.WORD_PROBLEM && 
-        (<div><p>Objectives</p> {objectives}</div>))}
+        (<div> <p>{props.data.DESCRIPTION}</p><p>Objectives</p> {objectives}</div>))}
     </div>
   </div>
   );

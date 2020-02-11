@@ -1422,5 +1422,6 @@ function dropGameOverModal(action){
 }
 
 app.resizable = false
+app.game = true
 
 }

@@ -7,7 +7,10 @@ const sequence =
     [{
       slideNumber: 1,
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      tips: ["How does Tool A help?","How does Tool B help?"],
+      tips: ["What fraction of the pizza should each JiJi get?",
+        "How do you measure crust?",
+        "Draw a picture of how you would cut the pizza."        
+        ],
     },
 ]
 

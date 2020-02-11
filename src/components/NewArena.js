@@ -37,7 +37,11 @@ class Arena extends Component {
       } else {
         // Unless the this.props.app has an assign resizable function, we just redraw but we reload the script. (This erases everything)
         console.log("redrawing")
-        this.redraw()
+        if (this.props.app.game == true){
+
+        } else {
+          this.redraw()
+        }
       }
    }
   }

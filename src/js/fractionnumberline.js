@@ -8,8 +8,6 @@ const ASSETS = CONST.ASSETS
 
 export const init = (app, setup) => {
  
-  const PIN_TEXTURE = new PIXI.Texture.from(ASSETS.GLASS_CIRCLE)
-
   // UI Elements
   let numberline;
   let background;
@@ -284,25 +282,6 @@ export const init = (app, setup) => {
 
     newTagOnDeck()
 
-    /*
-    let labels = ['?','?','?']
-    for (let i = 0;i<5;i++){
-      let newTag = new FractionTag(0,numberline.denominator,dx)
-      newTag.fraction.draw(0,4,dx*2/3)
-      newTag.x = numberline.x - newTag.width/2
-      newTag.y = numberline.y - 2*newTag.height
-      newTag.on('pointermove',tagPointerMove)
-      newTag.on('pointerdown',tagPointerDown)
-      newTag.on('pointerup',tagPointerUp)
-      newTag.on('pointerupoutside',tagPointerUp)
-      newTag.label = labels[i]
-      newTag.whiskerTo(Math.abs(newTag.y-numberline.y),numberline.y,hidden)
-      app.stage.addChild(newTag)
-      tags.push(newTag)
-    }
-
-    activeTag = tags[0]
-    */
 
     numberline.addChild(numberline.pin)
     background.zIndex = -1
@@ -314,7 +293,6 @@ export const init = (app, setup) => {
     feedBlocks.y = numberline.y - feedBlocks.height
     feedBlocks.hide()
     console.log("numberline wh9ole",numberline.whole)
-    //feedBlocks.flash(4,3,numberline.whole,4000)
 
   }
   

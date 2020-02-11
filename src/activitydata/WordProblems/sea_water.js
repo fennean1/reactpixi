@@ -7,7 +7,10 @@ const sequence =
     [{
       slideNumber: 1,
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      tips: ["How does Tool A help?","How does Tool B help?"],
+      tips: ["What part of each bucket is empty?",
+        "How many thirds is two buckets?",
+        "Do we have more than a whole?",        
+        ],
     },
 ]
 

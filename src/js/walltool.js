@@ -40,8 +40,8 @@ export const init = (app, setup) => {
         this.sprite.height = WINDOW_HEIGHT
     }
   }
-  let backGround = new makeBackground()
 
+  let backGround = new makeBackground()
 
   const whole_square = k => {
     return [[0,0],[k,0],[k,k],[0,k]]
@@ -54,6 +54,10 @@ export const init = (app, setup) => {
   }
   const eighth_rectangle = k => {
     return [[0,0],[k/4,0],[k/4,k/2],[0,k/2]]
+  }
+
+  const ninth_square = k => {
+    return [[0,0],[k/3,0],[k/3,k/3],[0,k/3]]
   }
 
   const fourth_rectangle = k => {

@@ -1048,5 +1048,7 @@ function createNotification(messege){
     createjs.Tween.get(discussionModal).to({x: WINDOW_WIDTH/2,y: WINDOW_HEIGHT/2}, 500, createjs.Ease.getPowInOut(4))
   }
   
+  app.resizable = false
+  app.game = true
 
 }

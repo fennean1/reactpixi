@@ -26,7 +26,7 @@ export class FeedBlocks extends PIXI.Container {
 
       let newTexture = this.app.renderer.generateTexture(newFeedBlock)
       let newFeedBlockSprite = new PIXI.Sprite.from(newTexture)
-      //newFeedBlockSprite.alpha = 0
+      newFeedBlockSprite.alpha = 0
       this.addChild(newFeedBlockSprite)
       this.blocks.push(newFeedBlockSprite)
       newFeedBlock.destroy(true)
@@ -828,21 +828,33 @@ export class NumberLine extends PIXI.Container {
     this.pin.on('pointermove',()=>{
       if (this.pin.touching){
         this.onPinDrag()
-        if (this.pin.x > 0){
+        if (this.pin.x > this._width/12){
           this.set(this.pin.x)
         } else {
-          this.pin.x = 0
+          this.pin.x = this._width/12
         }
       }
     })
     this.pin.on('pointerup',()=>{
       this.incDenominator(0)
+      this.set(this.pin.x)
       this.addChild(this.pin)
     })
     this.pin.on('pointerupoutside',()=>{
       this.incDenominator(0)
+      this.set(this.pin.x)
       this.addChild(this.pin)
     })
+
+    /*
+    this.feedBlocks = new FeedBlocks(app,this._width)
+    this.addChild(feedBlocks)
+    this.feedBlocks.x = this.x 
+    this.feedBlocks.y = this.y - this.feedBlocks.height
+    this.feedBlocks.hide()
+    */
+
+
    this.addChild(this.pin)
    this.init()
   }

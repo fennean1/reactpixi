@@ -7,7 +7,7 @@ const sequence =
     [{
       slideNumber: 1,
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      tips: ["How does Tool A help?","How does Tool B help?"],
+      tips: ["Can everybody get one candy bar? What about two?","What do we do with leftover candy bars?","What can we use to represent a candy bar?"],
     },
 ]
 
