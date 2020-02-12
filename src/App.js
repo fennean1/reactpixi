@@ -91,7 +91,8 @@ const Main = () => (
     <Route exact path="/fractionnumberlineopenblocks" render={() => <Arena app = {app} fullscreen = {true} features = {{open: true,blocks: true}} script = {FractionNumberLineScript.init}/>} />
     <Route exact path="/fractionnumberline" render={() => <Arena app = {app} fullscreen = {true} features = {{open: false}}  script = {FractionNumberLineScript.init}/>} />
     <Route exact path="/fractionnumberlineblocks" render={() => <Arena app = {app} fullscreen = {true} features = {{open: false,blocks: true}} script = {FractionNumberLineScript.init}/>} />
-    <Route exact path="/fractionstacks" render={() => <Arena app = {app} fullscreen = {true}  script = {FractionStacksScript.init}/>} />
+    <Route exact path="/fractionstacks" render={() => <Arena app = {app} fullscreen = {true} features = {{snapping: true,double: true,numberOfBlocks: 4,lineMax: 30}} script = {FractionStacksScript.init}/>} />
+    <Route exact path="/fractionstacksx2" render={() => <Arena app = {app} fullscreen = {true} features = {{double: false,numberOfBlocks: 2,lineMax: 20}} script = {FractionStacksScript.init}/>} />
     <Route exact path="/orderingblocksx2" render={() => <Arena app = {app} features = {{numberOfBlocks: 2}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
     <Route exact path="/orderingblocksx4" render={() => <Arena app = {app} features = {{numberOfBlocks: 4}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
     <Route exact path="/orderingblocksx5" render={(props) => <Arena app = {app} features = {{numberOfBlocks: 5}} fullscreen = {true} script = {OrderingToolScript.init}/>} />

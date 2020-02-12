@@ -17,8 +17,10 @@ export const init = (app, setup) => {
   let state = {
     valA: 16,
     valB: 16,
-    lineMax: 30,
+    lineMax: 30
   }
+
+  let features
 
   console.log("setupwidth",setup.width)
   console.log("windowheight",window.innerHeight)
@@ -38,7 +40,7 @@ export const init = (app, setup) => {
   let DX = LINE_WIDTH/state.lineMax
   let LINE_START = WINDOW_WIDTH/2 - LINE_WIDTH/2
   let STRIP_HEIGHT = LINE_WIDTH/12
-  let TOP_LINE_Y = WINDOW_HEIGHT/4
+  let TOP_LINE_Y = STRIP_HEIGHT
   let BOTTOM_LINE_Y = WINDOW_HEIGHT*3/4
   let BAR_HEIGHT = (BOTTOM_LINE_Y - TOP_LINE_Y)/5
   let BAR_STEP = (BOTTOM_LINE_Y - TOP_LINE_Y)/4
@@ -49,8 +51,7 @@ export const init = (app, setup) => {
   let Y3 = BOTTOM_LINE_Y - 3*BAR_HEIGHT - 2*DY
   let Y4 = TOP_LINE_Y
   let ANCHORS = [Y1,Y2,Y3,Y4]   
-
-
+  let YS = [Y1,Y2,Y3,Y4]
 
 
 
@@ -138,6 +139,8 @@ export const init = (app, setup) => {
  
   // Constructors (should not be called on re-draw)
   function makeNumberLine(flip){
+     this.container = new PIXI.Container()
+     app.stage.addChild(this.container)
      this.tickSpan = 1
      this.labelSpan = 1
      this.max = state.lineMax
@@ -150,7 +153,7 @@ export const init = (app, setup) => {
         this.line.x = LINE_START
         this.line.y = ARENA_HEIGHT/2
         this.line.lineTo(LINE_WIDTH,0)
-        app.stage.addChild(this.line)
+        this.container.addChild(this.line)
 
         for (let i = 0;i<120;i++){
             let newTick = new PIXI.Graphics()
@@ -163,7 +166,7 @@ export const init = (app, setup) => {
               newTick.y = this.line.y - LINE_THICKNESS/2
               newTick.lineTo(0,MINOR_TICK_HEIGHT)
             }
-            app.stage.addChild(newTick)
+            this.container.addChild(newTick)
             this.ticks.push(newTick)
 
             // Setup Labels Here
@@ -182,7 +185,7 @@ export const init = (app, setup) => {
               newLabel.anchor.y = 1
               newLabel.text.anchor.y = 0.5
             }
-            app.stage.addChild(newLabel)
+            this.container.addChild(newLabel)
         }
         this.increment(0)
      }
@@ -615,7 +618,7 @@ function onBDragMove(event) {
       activated = this.id == ActiveIndex
       ActiveIndex = this.id
       ActiveRow = Rows[ActiveIndex]
-      disableAllRowsExceptActive()
+      //disableAllRowsExceptActive()
       drawWhiskers()
       placeButtons()
       pinA.sprite.x = this.width + LINE_START
@@ -711,18 +714,10 @@ function onBDragMove(event) {
       r.container.dragging = false
       r.id = i
       r.container.id = i
-      
       TweenMax.to(r.container, 0.2, {y: ANCHORS[i],onComplete: reEnableAllRows})})
 
-      const onComplete = ()=> {
-        RightWhisker.clear()
-        RightWhisker.lineStyle(LINE_THICKNESS/2,0x000000)
-        RightWhisker.moveTo(pinA.sprite.x,ActiveRow.container.y)
-        RightWhisker.lineTo(pinA.sprite.x,numberLine.line.y)
-      }
       TweenMax.to(PlusButton,0.2,{y: ANCHORS[ActiveIndex]+BAR_HEIGHT/2,alpha: 1,onUpdate: drawWhiskers})
       TweenMax.to(MinusButton,0.2,{y: ANCHORS[ActiveIndex]+1/2*BAR_HEIGHT,alpha: 1})
-      //drawWhiskers()
   }
 
 
@@ -751,10 +746,12 @@ function onBDragMove(event) {
     pinA.sprite.dragging = false
     pinA.sprite.round()
     pinB.sprite.dragging = false
-    ActiveRow.draw(pinA.sprite.x - LINE_START)
     drawWhiskers()
     placeButtons()
-    swapRows()
+    ActiveRow.draw(pinA.sprite.x - LINE_START)
+    if (features.snapping){
+      swapRows()
+    }
   }
   
   // Called on resize
@@ -812,10 +809,12 @@ function onBDragMove(event) {
 
   // Loading Script
   function load(){
-    let features = {'strips': true}
+    features = {'strips': true}
     if (setup.props.features){
       features = setup.props.features
     }
+
+    state.lineMax = features.lineMax
 
     backGround = new makeBackground()
 
@@ -825,6 +824,8 @@ function onBDragMove(event) {
     // True flips the number line.
     topNumberLine = new makeNumberLine(true)
     topNumberLine.draw()
+
+
 
     pinA = new makePin(0)
     pinA.sprite.y = BOTTOM_LINE_Y + 2*MINOR_TICK_HEIGHT
@@ -837,26 +838,50 @@ function onBDragMove(event) {
     decButton = makeArrowButton(-5)
     incButton.draw()
     decButton.draw()
-    FirstRow = new Row(0,5,pinA.sprite.x - LINE_START,0)
-    SecondRow = new Row(0,4,pinA.sprite.x - LINE_START,1)
-    ThirdRow = new Row(0,3,pinA.sprite.x - LINE_START,2)
-    FourthRow = new Row(0,2,pinA.sprite.x - LINE_START,3)
-  
+    FirstRow = new Row(0,2,pinA.sprite.x - LINE_START,0)
+    SecondRow = new Row(0,3,pinA.sprite.x - LINE_START,1)
+    ThirdRow = new Row(0,4,pinA.sprite.x - LINE_START,2)
+    FourthRow = new Row(0,5,pinA.sprite.x - LINE_START,3)
+
+
     FirstRow.container.y = BOTTOM_LINE_Y - BAR_HEIGHT
+    app.stage.removeChild(FirstRow.container)
     SecondRow.container.y = BOTTOM_LINE_Y - 2*BAR_HEIGHT - DY
+    app.stage.removeChild(SecondRow.container)
     ThirdRow.container.y = BOTTOM_LINE_Y - 3*BAR_HEIGHT - 2*DY
+    app.stage.removeChild(ThirdRow.container)
     FourthRow.container.y = TOP_LINE_Y
+    app.stage.removeChild(FourthRow.container)
     Rows = [FirstRow,SecondRow,ThirdRow,FourthRow]
     ActiveRow = Rows[ActiveIndex]
 
+    DY = (BOTTOM_LINE_Y - TOP_LINE_Y - features.numberOfBlocks*BAR_HEIGHT)/3
 
-    app.stage.addChild(LeftWhisker)
+    let Y1 =  BOTTOM_LINE_Y - BAR_HEIGHT
+    let Y2 = BOTTOM_LINE_Y - 2*BAR_HEIGHT - DY
+    let Y3 = BOTTOM_LINE_Y - 3*BAR_HEIGHT - 2*DY
+    let Y4 = TOP_LINE_Y
+
+    for (let i = 0;i<features.numberOfBlocks;i++){
+      app.stage.addChild(Rows[i].container)
+      Rows[i].container.y = BOTTOM_LINE_Y - (i+1)*BAR_HEIGHT - i*DY
+    }
+
+
+
+    app.stage.removeChild(LeftWhisker)
     app.stage.addChild(RightWhisker)
-    app.stage.addChild(MiddleWhisker)
+    app.stage.removeChild(MiddleWhisker)
     app.stage.addChild(PlusButton)
     app.stage.addChild(MinusButton)
     drawWhiskers()
     placeButtons()
+
+        if (!features.double){
+          app.stage.removeChild(topNumberLine.container)
+          app.stage.removeChild(MiddleWhisker)
+          app.stage.removeChild(LeftWhisker)
+        } 
   }
 
   // Call load script
