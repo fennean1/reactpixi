@@ -529,15 +529,15 @@ export const init = (app, setup) => {
     }
 
     function spritePointerUp(event){
-         this.touched = false
          console.log('this.draggeed',this.dragged)
-     if (!this.dragged && ActiveIndex == ID ) {
+     if (!this.dragged && ActiveIndex == ID && this.touched ) {
         this.dragged = false
         this.active = !this.active
         this.alpha = 0.2
         this.texture = this.active ? myB : myA
         TweenLite.to(this,0.4,{alpha: 1})
        }
+       this.touched = false
     }
 
  

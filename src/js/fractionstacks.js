@@ -450,8 +450,10 @@ function onBDragMove(event) {
 
     // Internal Params
     let touching = true   
+    let containerMoving = false
     let activated = true
     this.value = 0
+
     
     // Default values
     this.numerator = num
@@ -597,20 +599,19 @@ function onBDragMove(event) {
     }
 
     function spritePointerUp(event){
-         this.touched = false
-         console.log('this.draggeed',this.dragged)
-     if (!this.dragged && activated) {
+     if (!this.dragged && activated && this.touched) {
         this.dragged = false
         this.active = !this.active
         this.alpha = 0.2
         this.texture = this.active ? myB : myA
-        TweenLite.to(this,0.4,{alpha: 1})
+        TweenLite.to(this,0.1,{alpha: 1})
        }
+       this.touched = false
     }
 
  
    function containerPointerDown(event) {
-     app.stage.addChild(this)
+      app.stage.addChild(this)
       activated = this.id == ActiveIndex
       ActiveIndex = this.id
       ActiveRow = Rows[ActiveIndex]
@@ -639,7 +640,6 @@ function onBDragMove(event) {
     function containerPointerMove(event) {
 
       if (this.touching){
-        const newPosition = this.data.getLocalPosition(this.parent);
         this.y = event.data.global.y + this.deltaTouch.y
       // Keep within number line bounds.
       if (this.y < TOP_LINE_Y){
@@ -726,26 +726,6 @@ function onBDragMove(event) {
   }
 
 
-  class Rowwow extends PIXI.Sprite {
-     constructor(){
-       super()
-       console.log("this",this)
-       let graphics = new PIXI.Graphics()
-       this.addChild(graphics)
-       console.log("Graphbics parent",graphics.parent.balls())
-     }
-
-     balls(input) {
-       console.log("balls called")
-        if (input) {
-          return this.balls(false)
-        }
-     }
-  }
-
-  let ROWWOW = new Rowwow()
-
-
   function drawWhiskers(){
       let WHISKER_THICKNESS = LINE_THICKNESS/2
 
@@ -775,11 +755,6 @@ function onBDragMove(event) {
     drawWhiskers()
     placeButtons()
     swapRows()
-    //pinB.sprite.round()
-    //stripA.draw()
-    //stripB.draw()
-    //stripALabel.draw()
-    //stripBLabel.draw()
   }
   
   // Called on resize
@@ -842,12 +817,12 @@ function onBDragMove(event) {
       features = setup.props.features
     }
 
-
     backGround = new makeBackground()
 
     // Number Lines
     numberLine = new makeNumberLine()
     numberLine.draw()
+    // True flips the number line.
     topNumberLine = new makeNumberLine(true)
     topNumberLine.draw()
 
