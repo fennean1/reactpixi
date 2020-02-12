@@ -22,6 +22,8 @@ import * as FriendSharing from "./WordProblems/friend_sharing.js"
 import * as JijiPond from "./WordProblems/jiji_pond.js"
 import * as SeaWater from "./WordProblems/sea_water.js"
 import * as JijiResting from "./WordProblems/jiji_resting.js"
+import * as MoreFriendSharing from "./WordProblems/more_friend_sharing"
+import * as MoreSeaWater from "./WordProblems/more_sea_water.js"
 
 
 // Games
@@ -63,5 +65,7 @@ export const ACTIVITIES = {
     unit_fractions_on_a_number_line: UnitFractionsOnANumberLine.ACTIVITY,
     estimate_fractions_on_a_number_line: EstimateFractionsOnANumberLine.ACTIVITY,
     find_equivalent_fractions: FindEquivalentFractions.ACTIVITY,
-    compare_fractions: CompareFractions.ACTIVITY
+    compare_fractions: CompareFractions.ACTIVITY,
+    more_sea_water: MoreSeaWater.ACTIVITY,
+    more_friend_sharing: MoreFriendSharing.ACTIVITY
 }

@@ -45,6 +45,14 @@ class ActivityList extends Component {
         < div className="col s6">
            <ActivityCard data={ACTIVITIES.sea_water} />
           </div>
+          < div className="col s6">
+           <ActivityCard data={ACTIVITIES.more_sea_water} />
+          </div>
+        </div>
+        <div className="row">
+        < div className="col s6">
+           <ActivityCard data={ACTIVITIES.more_friend_sharing} />
+          </div>
         </div>
       </div>
     );

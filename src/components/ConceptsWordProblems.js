@@ -19,12 +19,20 @@ class ConceptsWordProblems extends Component {
             <ActivityCard data={ACTIVITIES.friend_sharing} />
           </div>
           < div className="col s6">
-            <ActivityCard data={ACTIVITIES.pizza_crust} />
+            <ActivityCard data={ACTIVITIES.more_friend_sharing} />
           </div>
         </div>
         <div className="row">
         < div className="col s6">
             <ActivityCard data={ACTIVITIES.sea_water} />
+          </div>
+          < div className="col s6">
+            <ActivityCard data={ACTIVITIES.more_sea_water} />
+          </div>
+        </div>
+        <div className="row">
+        < div className="col s6">
+            <ActivityCard data={ACTIVITIES.pizza_crust} />
           </div>
         </div>
       </div>

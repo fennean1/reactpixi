@@ -1,6 +1,6 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/FriendSharingIcon.png'
+import ICON from '../../assets/MoreFriendSharingIcon.png'
 
 
 const sequence = 
@@ -15,8 +15,8 @@ const sequence =
 
 
 export const ACTIVITY = {
-    ID: "friend_sharing",
-    TITLE : "Friend Sharing",
+    ID: "more_friend_sharing",
+    TITLE : "More Friend Sharing",
     WORD_PROBLEM: true,
     ICON: ICON,
     TIME: 15,
@@ -32,7 +32,7 @@ export const ACTIVITY = {
     STANDARD_DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
-    PDF: "/pdfs/wordproblems/FriendSharing.pdf",
+    PDF: "/pdfs/wordproblems/MoreFriendSharing.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: "/sharingtool"}],
     OBJECTIVES: ["students can do this","students can also do this"],
     DESCRIPTION: "Student see the motivation behind decomposing whole numbers in a sharing context.",
