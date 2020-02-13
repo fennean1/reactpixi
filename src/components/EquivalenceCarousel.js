@@ -62,7 +62,7 @@ export default function ConceptsCarousel(props) {
 
       >
         <Tab className = "white" label= "Lessons" />
-        <Tab className = "white" label= "Word Problems" />
+        <Tab className = "white" label= "Problem Solving" />
         <Tab className = "white" label= "Chats" />
         <Tab className = "white" label= "Games" />
       </Tabs>
