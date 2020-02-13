@@ -24,6 +24,10 @@ import * as SeaWater from "./WordProblems/sea_water.js"
 import * as JijiResting from "./WordProblems/jiji_resting.js"
 import * as MoreFriendSharing from "./WordProblems/more_friend_sharing"
 import * as MoreSeaWater from "./WordProblems/more_sea_water.js"
+import * as SandPit from "./WordProblems/sand_pit.js"
+import * as SnowPlow from "./WordProblems/snow_plow.js"
+import * as ComparingWater from "./WordProblems/comparing_water.js"
+
 
 
 // Games
@@ -67,5 +71,8 @@ export const ACTIVITIES = {
     find_equivalent_fractions: FindEquivalentFractions.ACTIVITY,
     compare_fractions: CompareFractions.ACTIVITY,
     more_sea_water: MoreSeaWater.ACTIVITY,
-    more_friend_sharing: MoreFriendSharing.ACTIVITY
+    more_friend_sharing: MoreFriendSharing.ACTIVITY,
+    sand_pit: SandPit.ACTIVITY,
+    snow_plow: SnowPlow.ACTIVITY,
+    comparing_water: ComparingWater.ACTIVITY
 }

@@ -99,7 +99,8 @@ const Main = () => (
     <Route exact path="/strips" render={() => <Arena app = {app} fullscreen = {true}  script = {NumberLineStripsScript.init}/>} />
     <Route exact path="/gridnodes" render={() => <Arena app = {app} features = {{x: 3,y: 3}} fullscreen = {true}  script = {GridNodeScript.init}/>} />
     <Route exact path="/stripsopen" render={() => <Arena app = {app} fullscreen = {true} features  = {{'open': true}}  script = {NumberLineStripsScript.init}/>} />
-    <Route exact path="/gridnodes4x4" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 5,y: 5,descriptor: true}} script = {GridNodeScript.init}/>} />
+    <Route exact path="/gridnodes4x4" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 5,y: 5,descriptor: false}} script = {GridNodeScript.init}/>} />
+    <Route exact path="/gridnodes4x4desc" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 5,y: 5,descriptor: true}} script = {GridNodeScript.init}/>} />
     <Route exact path="/gridnodes4x4double" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 10,y: 5,double: true,descriptor: false}} script = {GridNodeScript.init}/>} />
     <Route exact path="/gridnodes2x2" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 3,y: 3,descriptor: false}} script = {GridNodeScript.init}/>} />
     <Route exact path="/gridnodes3x3" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 4,y: 4,descriptor: false}} script = {GridNodeScript.init}/>} />
@@ -132,7 +133,7 @@ const Main = () => (
     <Route exact path="/conceptslessons" component={ConceptsList} />
     <Route exact path="/conceptswordproblems" component={ConceptsWordProblems} />
     <Route exact path="/numberlinelessons" component={NumberLineList} />
-    <Route path="/wordproblems/:activity" component={WordProblemPortal} />
+    <Route path="/wordproblems/:activity" component={WordProblemPortalImg} />
     <Route exact path="/" component={LandingPage} />
     <Route exact path="/portrait" component={PortraitPortal} />
     <Route exact path="/fullprompt" component={LandingPage} />

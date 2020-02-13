@@ -34,6 +34,17 @@ class ConceptsWordProblems extends Component {
         < div className="col s6">
             <ActivityCard data={ACTIVITIES.pizza_crust} />
           </div>
+          < div className="col s6">
+            <ActivityCard data={ACTIVITIES.sand_pit} />
+          </div>
+        </div>
+        <div className="row">
+        < div className="col s6">
+            <ActivityCard data={ACTIVITIES.snow_plow} />
+          </div>
+          < div className="col s6">
+            <ActivityCard data={ACTIVITIES.comparing_water} />
+          </div>
         </div>
       </div>
     );

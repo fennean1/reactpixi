@@ -1,29 +1,26 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/PizzaCrustIcon.png'
+import ICON from '../../assets/SnowPlowIcon.png'
 
 
 const sequence = 
     [{
       slideNumber: 1,
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      tips: ["What fraction of the pizza should each JiJi get?",
-        "How do you measure crust?",
-        "Draw a picture of how you would cut the pizza."        
+      tips: ["How much snow is still on the driveway?",
         ],
     },
 ]
 
 
 export const ACTIVITY = {
-    ID: "pizza_crust",
-    TITLE : "Pizza Crust",
-    SCREEN_TYPE: SCREEN_TYPES.PANORAMIC,
+    ID: "snow_plow",
+    TITLE : "Snow Plow",
     WORD_PROBLEM: true,
     ICON: ICON,
     TIME: 15,
     PAGES: 4,
-    TOOL: "/gridnodes4x4desc",
+    TOOL: "/gridnodes4x4",
     SCRIPT: "FRACTION_NUMBER_LINE",
     FEATURES: {blocks: true,open: true},
     MENU: ['Link One',"Link Two"],
@@ -34,10 +31,10 @@ export const ACTIVITY = {
     STANDARD_DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
-    PDF: "/pdfs/wordproblems/PizzaCrust.pdf",
-    STUDENT_LINKS: [{title: 'Tool',link: '/gridnodes4x4desc'}],
+    PDF: "/pdfs/wordproblems/FriendSharing.pdf",
+    STUDENT_LINKS: [{title: 'Tool',link: "/gridnodes4x4"}],
     OBJECTIVES: ["students can do this","students can also do this"],
-    DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
+    DESCRIPTION: "Student see the motivation behind decomposing whole numbers in a sharing context.",
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }

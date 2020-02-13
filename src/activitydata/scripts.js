@@ -7,6 +7,7 @@ import * as BeakerEstimationScript from "../js/beakergame.js"
 import * as OrderingBlocksScript from "../js/orderingtool.js"
 import * as FractionBarsScript from "../js/fractionbar.js"
 import * as FractionStacksScript from "../js/fractionstacks.js"
+import * as FractionWallScript from "../js/newfractionwall.js"
 
 export const SCRIPTS = {
     CUTTING_GRID: GridCuttingScript.init,
@@ -17,5 +18,6 @@ export const SCRIPTS = {
     BEAKER_ESTIMATION: BeakerEstimationScript.init,
     ORDERING_BLOCKS: OrderingBlocksScript.init,
     FRACTION_BARS: FractionBarsScript.init,
-    FRACTION_STACKS: FractionStacksScript.init
+    FRACTION_STACKS: FractionStacksScript.init,
+    FRACTION_WALL: FractionWallScript.init
 }

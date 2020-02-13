@@ -50,7 +50,8 @@ export default function LessonPanel(props) {
   }
 
   useEffect(()=>{
-    window.addEventListener('resize',()=>{
+
+    const windowListener = ()=>{
       if (window.innerHeight < 9/16*window.innerWidth){
         console.log("balls")
         setImgStyle({height: "100%",width: "auto",margin: "1%"})
@@ -60,9 +61,10 @@ export default function LessonPanel(props) {
         setImgStyle({height: "auto",width: "100%",margin: "1%"})
         setImgContainerStyle({height: "93%",display: 'flex',flexDirection: "column"})
       }
+    }
+    window.addEventListener('resize',windowListener)
 
-    })
-
+    return ()=>window.removeEventListener('resize',windowListener)
   },[])
 
 
