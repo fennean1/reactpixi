@@ -17,7 +17,7 @@ const sequence =
 
 export const ACTIVITY = {
     ID: "parts_of_parts",
-    TITLE : "Comparing Water",
+    TITLE : "Parts of Parts",
     WORD_PROBLEM: true,
     ICON: ICON,
     TIME: 15,
