@@ -34,6 +34,7 @@ import StudentLandingPage from "./components/StudentLandingPage"
 import TeacherLandingPage from "./components/TeacherLandingPage"
 import LessonPage from "./components/LessonPage"
 import WordProblemPortal from "./components/WordProblemPortal"
+import WordProblemPortalImg from "./components/WordProblemPortalImg"
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import EquivalenceList from './components/EquivalenceActivities'
@@ -53,7 +54,6 @@ import WordProblems from './components/WordProblemsList';
 
 import PortraitPortal from './components/PortraitPortal';
 import NewPanels from './components/NewPanels';
-//import PanoramicPortal from './components/PanoramicPortal';
 
 
 
@@ -132,13 +132,13 @@ const Main = () => (
     <Route exact path="/conceptslessons" component={ConceptsList} />
     <Route exact path="/conceptswordproblems" component={ConceptsWordProblems} />
     <Route exact path="/numberlinelessons" component={NumberLineList} />
-    <Route exact path="/wordproblems/:activity" component={WordProblemPortal} />
+    <Route path="/wordproblems/:activity" component={WordProblemPortal} />
     <Route exact path="/" component={LandingPage} />
     <Route exact path="/portrait" component={PortraitPortal} />
     <Route exact path="/fullprompt" component={LandingPage} />
     <Route exact path="/newpanel/:activity" component={NewPanels} />
     <Route exact path="/fulltool" component={LandingPage} />
-    <Route exact path="/wordproblemslist" component={WordProblems} />
+    <Route exact path="/wordproblems" component={WordProblems} />
     <Route exact path="/overview" component={Overview} />
   </div>
 );

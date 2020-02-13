@@ -549,16 +549,6 @@ function animateHorizontalLines(inc) {
   }
 }
 
-function onFracStart(event) {
-  bringLinesToFront();
-  let touchedAtX = event.data.global.x;
-  let touchedAtY = event.data.global.y;
-  this.deltaTouch = [this.x - touchedAtX, this.y - touchedAtY];
-  app.stage.addChild(this);
-  this.data = event.data;
-  this.dragging = true;
-}
-
 // Pass it the level and it will layout the buttons for that new level.
 function createBlockConstructor() {
   var graphics = new PIXI.Graphics();
@@ -667,15 +657,15 @@ function onPolyMoveEnd() {
         500,
         createjs.Ease.getPowInOut(4)
       );
-      console.log("blocks", blocks);
       let blocksInThis = blocks.filter(e => {
-        console.log("c.center?", e.center);
+
         let p = new PIXI.Point(this.x, this.y);
-        console.log("isitinrect?", pointInRect(p, e));
+
         return pointInRect(p, e);
       });
-      console.log("blocksInthis", blocksInThis);
+
     case OBJ_TYPE.CUT:
+      console.log("blocks",blocks.length)
       let blocksInCutter = blocks.filter(e => {
         console.log("c.center?", e.center);
         let p = new PIXI.Point(
@@ -719,7 +709,10 @@ function onPolyMoveEnd() {
         if (inDelete) {
           console.log("in delete?");
           let i = blocks.indexOf(this);
-          blocks.splice(i, 1);
+          if (i>=0){
+            blocks.splice(i, 1);
+          }
+          console.log("WHATS THE INDEX OF THIS!!!!???",i)
           app.stage.removeChild(this);
         } else {
           let newX = nearestJiji(this.x);

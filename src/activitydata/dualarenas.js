@@ -16,28 +16,28 @@ SCRIPTS = {
 
 export const DUAL_SCRIPTS = {
     cuttinggrid_5x5_and_gridnodes_5x5_desc: [{
-        script: SCRIPTS['CUTTING_GRID'],
+        script: SCRIPTS.CUTTING_GRID,
         features: {
             x: 5,
             y: 5,
     }},
     {
-        script: SCRIPTS['NODES_GRID'],
+        script: SCRIPTS.NODES_GRID,
         features: {
             x: 5,
             y: 5,
             descriptor: true
     }}],
-    something_and_else: [{
-        script: SCRIPTS['CUTTING_GRID'],
+    stacks_x2_and_blocks_x2: [{
+        script: SCRIPTS.FRACTION_STACKS,
         features: {
-            x: 5,
-            y: 5,
+            double: false,
+            numberOfBlocks: 2,
+            lineMax: 12
     }},
     {
-        script: SCRIPTS['CUTTING_GRID'],
+        script: SCRIPTS.ORDERING_BLOCKS,
         features: {
-            x: 5,
-            y: 5,
+            numberOfBlocks: 2,
     }}]
 }

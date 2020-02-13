@@ -1,29 +1,30 @@
 import * as PIXI from "pixi.js";
 import * as CONST from "./const.js";
-import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
-import {Fraction} from "./api.js"
+import { TweenMax, TweenLite } from "gsap/TweenMax";
 const ASSETS = CONST.ASSETS
 
 export const init = (app, setup) => {
 
+
+  // Default / Required features
+  let features = {lineMax: 20}
+  if (setup.props.features){
+    features = setup.props.features
+  }
+
   // Constants
-  const BLUE_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.BLUE_CIRCLE)
   const LINE_PERCENTAGE = 0.8
   const PIN_TEXTURE = new PIXI.Texture.from(ASSETS.SHARP_PIN)
-  const MEASURE_PIN_TEXTURE = new PIXI.Texture.from(ASSETS.MEASURE_PIN)
+ 
+  const START = Math.round(features.lineMax*2/3)
 
 
  // Initial State
   let state = {
-    valA: 16,
-    valB: 16,
-    lineMax: 30
+    valA: START,
+    valB: START,
+    lineMax: features.lineMax
   }
-
-  let features
-
-  console.log("setupwidth",setup.width)
-  console.log("windowheight",window.innerHeight)
 
   // Layout Parameters
   let WINDOW_WIDTH = setup.width
@@ -41,9 +42,9 @@ export const init = (app, setup) => {
   let LINE_START = WINDOW_WIDTH/2 - LINE_WIDTH/2
   let STRIP_HEIGHT = LINE_WIDTH/12
   let TOP_LINE_Y = STRIP_HEIGHT
-  let BOTTOM_LINE_Y = WINDOW_HEIGHT*3/4
+  let BOTTOM_LINE_Y = features.numberOfBlocks == 2 ? WINDOW_HEIGHT*1/2: WINDOW_HEIGHT*3/4
   let BAR_HEIGHT = (BOTTOM_LINE_Y - TOP_LINE_Y)/5
-  let BAR_STEP = (BOTTOM_LINE_Y - TOP_LINE_Y)/4
+  let BAR_STEP = (BOTTOM_LINE_Y - TOP_LINE_Y)/features.numberOfBlocks
   let INC_BUTTONS_HEIGHT = BAR_HEIGHT*0.7
   let DY = (BOTTOM_LINE_Y - TOP_LINE_Y - 4*BAR_HEIGHT)/3
   let Y1 =  BOTTOM_LINE_Y - BAR_HEIGHT
@@ -51,7 +52,39 @@ export const init = (app, setup) => {
   let Y3 = BOTTOM_LINE_Y - 3*BAR_HEIGHT - 2*DY
   let Y4 = TOP_LINE_Y
   let ANCHORS = [Y1,Y2,Y3,Y4]   
-  let YS = [Y1,Y2,Y3,Y4]
+ 
+
+  function updateLayoutParams(newFrame){
+    let frame;
+    if (newFrame){
+      frame = newFrame
+    } else {
+      frame = {width: WINDOW_WIDTH,height: WINDOW_HEIGHT}
+    }
+    WINDOW_WIDTH = frame.width
+    WINDOW_HEIGHT = frame.height
+    H_W_RATIO = frame.height/frame.width
+    LANDSCAPE = H_W_RATIO < 3/4
+    ARENA_WIDTH = LANDSCAPE ? 4/3*frame.height : frame.width
+    ARENA_HEIGHT = LANDSCAPE ? frame.height : 3/4*frame.width
+    LINE_WIDTH = LINE_PERCENTAGE*WINDOW_WIDTH
+    LINE_THICKNESS = LINE_WIDTH/200
+    TICK_THICKNESS = LINE_THICKNESS/2
+    MAJOR_TICK_HEIGHT = LINE_WIDTH/20
+    MINOR_TICK_HEIGHT = MAJOR_TICK_HEIGHT/2
+    DX = LINE_WIDTH/state.lineMax
+    LINE_START = WINDOW_WIDTH/2 - LINE_WIDTH/2
+    STRIP_HEIGHT = LINE_WIDTH/12
+    BAR_HEIGHT = (BOTTOM_LINE_Y - TOP_LINE_Y)/5
+    BAR_STEP = (BOTTOM_LINE_Y - TOP_LINE_Y)/(features.numberOfBlocks-1)
+    DY = (BOTTOM_LINE_Y - TOP_LINE_Y - 4*BAR_HEIGHT)/3
+    Y1 = BOTTOM_LINE_Y - BAR_HEIGHT
+    Y2 = BOTTOM_LINE_Y - 2*BAR_HEIGHT - DY
+    Y3 = BOTTOM_LINE_Y - 3*BAR_HEIGHT - 2*DY
+    Y4 = TOP_LINE_Y
+    ANCHORS = [Y1,Y2,Y3,Y4]   
+    
+  }
 
 
 
@@ -86,8 +119,8 @@ export const init = (app, setup) => {
     incActiveFrac(-1)
     setTimeout(()=>{MinusButton.interactive = true},300)
   })
-  MinusButton.width = BAR_HEIGHT/2.5
-  MinusButton.height = BAR_HEIGHT/2.5
+  MinusButton.width = INC_BUTTONS_HEIGHT
+  MinusButton.height = INC_BUTTONS_HEIGHT
 
 
   function placeButtons(){
@@ -123,10 +156,7 @@ export const init = (app, setup) => {
   let topNumberLine;
   let pinA;
   let pinB;
-  let stripA;
-  let stripB;
-  let stripBLabel;
-  let stripALabel;
+
   let incButton;
   let decButton;
   let activePin;
@@ -298,7 +328,7 @@ export const init = (app, setup) => {
     }
 
     this.sprite.x = WINDOW_WIDTH/2 - LINE_WIDTH/2
-    this.sprite.val = 16
+    this.sprite.val = state.valA
     // Removing pin B for now
     if (id == 0){
       app.stage.addChild(this.sprite)
@@ -564,7 +594,6 @@ function onBDragMove(event) {
     }
 
     for (let i = 0;i<this.denominator;i++) {
-      console.log("balls")
       let s = new PIXI.Sprite.from(myA)
       s.on('pointerdown',spritePointerDown)
       s.on('pointerup',spritePointerUp)
@@ -596,7 +625,6 @@ function onBDragMove(event) {
     function spritePointerMoved(event) {
 
       if (this.touched){
-        console.log("pointermove")
         this.dragged = true
       }
     }
@@ -775,44 +803,10 @@ function onBDragMove(event) {
     placeButtons()
   }
 
-  function updateLayoutParams(newFrame){
-    let frame;
-    if (newFrame){
-      frame = newFrame
-    } else {
-      frame = {width: WINDOW_WIDTH,height: WINDOW_HEIGHT}
-    }
-    WINDOW_WIDTH = frame.width
-    WINDOW_HEIGHT = frame.height
-    H_W_RATIO = frame.height/frame.width
-    LANDSCAPE = H_W_RATIO < 3/4
-    ARENA_WIDTH = LANDSCAPE ? 4/3*frame.height : frame.width
-    ARENA_HEIGHT = LANDSCAPE ? frame.height : 3/4*frame.width
-    LINE_WIDTH = LINE_PERCENTAGE*WINDOW_WIDTH
-    LINE_THICKNESS = LINE_WIDTH/200
-    TICK_THICKNESS = LINE_THICKNESS/2
-    MAJOR_TICK_HEIGHT = LINE_WIDTH/20
-    MINOR_TICK_HEIGHT = MAJOR_TICK_HEIGHT/2
-    DX = LINE_WIDTH/state.lineMax
-    LINE_START = WINDOW_WIDTH/2 - LINE_WIDTH/2
-    STRIP_HEIGHT = LINE_WIDTH/12
-    BAR_HEIGHT = (BOTTOM_LINE_Y - TOP_LINE_Y)/5
-    BAR_STEP = (BOTTOM_LINE_Y - TOP_LINE_Y)/4
-    DY = (BOTTOM_LINE_Y - TOP_LINE_Y - 4*BAR_HEIGHT)/3
-    Y1 = BOTTOM_LINE_Y - BAR_HEIGHT
-    Y2 = BOTTOM_LINE_Y - 2*BAR_HEIGHT - DY
-    Y3 = BOTTOM_LINE_Y - 3*BAR_HEIGHT - 2*DY
-    Y4 = TOP_LINE_Y
-    ANCHORS = [Y1,Y2,Y3,Y4]   
-    
-  }
+
 
   // Loading Script
   function load(){
-    features = {'strips': true}
-    if (setup.props.features){
-      features = setup.props.features
-    }
 
     state.lineMax = features.lineMax
 

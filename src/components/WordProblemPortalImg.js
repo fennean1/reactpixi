@@ -41,36 +41,42 @@ export default function LessonPanel(props) {
 
   const { activity } = props.match.params
   const data = ACTIVITIES[activity]
-  const initialScreenState = SCREEN_STATES.FULL_PROMPT
-  const [panelNumber, setPanel] = React.useState(1)
- 
+  const [imgStyle,setImgStyle] = React.useState({height: "100%",width: "auto",margin: "1%"})
+  const [imgContainerStyle,setImgContainerStyle] = React.useState({height: "93%",display: 'flex',flexDirection: "row",justifyContent: 'center'})
   const [tipsOpen, setTipsOpen] = React.useState(false)
-  const [promptHeight, setPromptHeight] = React.useState(0.90*window.innerHeight)
-  const [promptWidth, setPromptWidth] = React.useState(null)
-  const [flexDirect, setFlexDirect] = React.useState(initialScreenState.direction)
- 
-
 
   function printList(items) {
     if (items) { return items.map((q, i) => { return <p key={i}>{q}<br /><br /></p> }) }
   }
 
+  useEffect(()=>{
+    window.addEventListener('resize',()=>{
+      if (window.innerHeight < 9/16*window.innerWidth){
+        console.log("balls")
+        setImgStyle({height: "100%",width: "auto",margin: "1%"})
+        setImgContainerStyle({height: "93%",display: 'flex',flexDirection: "row",justifyContent: 'center'})
+      } else {
+        console.log("sack")
+        setImgStyle({height: "auto",width: "100%",margin: "1%"})
+        setImgContainerStyle({height: "93%",display: 'flex',flexDirection: "column"})
+      }
+
+    })
+
+  },[])
+
 
   return (
-    <div style={{ height: "100vh", flexDirection: "column", display: "flex" }}>
+    <div style={{ height: "100vh", flexDirection: "column" }}>
     <Drawer anchor="right" open={tipsOpen} onClose={() => setTipsOpen(false)}>
       <div className="flow-text" style={{ margin: 10, width: window.innerWidth / 3 }}>
-        {printList(data.SEQUENCE[panelNumber-1].tips)}
+        {printList(data.SEQUENCE[0].tips)}
       </div>
     </Drawer>
-    <div style={{ display: "flex", flexDirection: flexDirect}} >
-     <div style={{ display: "flex", justifyContent: 'center', flex: 1 }} >
-        <Document file={data.PDF}>
-         <Page loading = {<div style = {{height: window.innerHeight*0.3,width: 300}}/>}  height={promptHeight} width={promptWidth} pageNumber={panelNumber} />
-        </Document>
+     <div style = {imgContainerStyle}>
+      <img  className = "boxShadow" style = {imgStyle} src={data.ICON}/>
       </div>
-    </div>
-    <div style={{display: 'flex', width: '100%' }} >
+      <div style={{display: 'flex', width: '100%' }} >
       <div style={{ flex: 1, margin: 3 }}>
         <Link target="_blank" to = {{pathname: data.TOOL}}>
         <a  className="btn orange left"><i className="material-icons">build</i></a>

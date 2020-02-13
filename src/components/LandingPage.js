@@ -46,7 +46,7 @@ class LessonPage extends Component {
             <div className="row" style = {{display: "flex",flexDirection: "row"}}>
                   <Link style = {{marginRight: "5%"}} to = {{pathname: "/manipulatives"}}><p className = "white-text">Tools</p></Link>
                   <Link style = {{marginRight: "5%"}} to = {{pathname: "/overview"}}><p className = "white-text">Overview</p></Link>
-                  <Link to = {{pathname: "/wordproblemslist"}}><p className = "white-text">Word Problems</p></Link>
+                  <Link to = {{pathname: "/wordproblems"}}><p className = "white-text">Word Problems</p></Link>
               </div>
             </div>
         </footer>
