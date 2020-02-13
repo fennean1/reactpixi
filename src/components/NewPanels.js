@@ -62,14 +62,14 @@ export default function LessonPanel(props) {
 
 
   function toggleFullscreen(){
-    setNewLayout(true)
+    //setNewLayout(true)
     if (key == 4){
        let k = getKeyFromPanel(panelNumber)
        switchKey(k)
     } else {
        switchKey(4)
     }
-    setTimeout(()=>setNewLayout(false),1000)
+    //setTimeout(()=>setNewLayout(false),1000)
   }
   
 

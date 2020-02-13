@@ -27,7 +27,7 @@ import * as MoreSeaWater from "./WordProblems/more_sea_water.js"
 import * as SandPit from "./WordProblems/sand_pit.js"
 import * as SnowPlow from "./WordProblems/snow_plow.js"
 import * as ComparingWater from "./WordProblems/comparing_water.js"
-
+import * as PartsOfParts from "./WordProblems/parts_of_parts.js"
 
 
 // Games
@@ -40,6 +40,7 @@ import * as UnitFractionsOnANumberLine from "./Chats/unit_fractions_on_a_number_
 import * as EstimateFractionsOnANumberLine from "./Chats/estimate_fractions_on_a_number_line.js"
 import * as FindEquivalentFractions from "./Chats/find_equivalent_fractions.js"
 import * as CompareFractions from "./Chats/compare_fractions.js"
+
 
 
 export const ACTIVITIES = {
@@ -74,5 +75,6 @@ export const ACTIVITIES = {
     more_friend_sharing: MoreFriendSharing.ACTIVITY,
     sand_pit: SandPit.ACTIVITY,
     snow_plow: SnowPlow.ACTIVITY,
-    comparing_water: ComparingWater.ACTIVITY
+    comparing_water: ComparingWater.ACTIVITY,
+    parts_of_parts: PartsOfParts.ACTIVITY
 }

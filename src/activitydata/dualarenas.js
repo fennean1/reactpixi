@@ -1,20 +1,6 @@
 
 import {SCRIPTS} from "./scripts.js"
 
-/* For Reference (from scripts.js)
-SCRIPTS = {
-    CUTTING_GRID: GridCuttingScript.init,
-    NODES_GRID: GridNodeScript.init,
-    FRACTION_NUMBER_LINE: FractionNumberLineScript.init,
-    WALL_TOOL: WallToolScript.init,
-    PLACING_NUMBERS: PlacingNumbersScript.init,
-    BEAKER_ESTIMATION: BeakerEstimationScript.init,
-    ORDERING_BLOCKS: OrderingBlocks.init,
-    FRACTION_BARS: FractionBars.init
-}
-*/
-
-
 
 export const DUAL_SCRIPTS = {
     cuttinggrid_5x5_and_gridnodes_5x5_desc: [{
@@ -49,5 +35,15 @@ export const DUAL_SCRIPTS = {
         script: SCRIPTS.ORDERING_BLOCKS,
         features: {
             numberOfBlocks: 2,
+    }}],
+    fractionwall_and_cuttinggrid_4x4: [{
+        script: SCRIPTS.FRACTION_WALL,
+        features: null
+    },
+    {
+        script: SCRIPTS.CUTTING_GRID,
+        features: {
+            x: 5,
+            y: 5,
     }}]
 }
