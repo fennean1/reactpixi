@@ -26,6 +26,9 @@ import * as GridCuttingScript from "./js/gridcutting.js";
 import * as FractionNumberLineScript from "./js/fractionnumberline.js";
 import * as PlacingNumbersScript from "./js/placingnumbers.js";
 import * as BeakerGameScript from "./js/beakergame.js";
+import * as VerticalFractionStacksScript from "./js/verticalfractionstacks.js";
+
+
 import ActivityList from './components/ActivityList'
 import FactorBlocks from './components/FactorBlocks'
 import ManipulativeCarousel from "./components/ManipulativeCarousel"
@@ -92,6 +95,7 @@ const Main = () => (
     <Route exact path="/fractionnumberline" render={() => <Arena app = {app} fullscreen = {true} features = {{open: false}}  script = {FractionNumberLineScript.init}/>} />
     <Route exact path="/fractionnumberlineblocks" render={() => <Arena app = {app} fullscreen = {true} features = {{open: false,blocks: true}} script = {FractionNumberLineScript.init}/>} />
     <Route exact path="/fractionstacks" render={() => <Arena app = {app} fullscreen = {true} features = {{snapping: true,double: true,numberOfBlocks: 4,lineMax: 30}} script = {FractionStacksScript.init}/>} />
+    <Route exact path="/verticalfractionstacks" render={() => <Arena app = {app} fullscreen = {true} features = {{snapping: true,double: true,numberOfBlocks: 4,lineMax: 30}} script = {VerticalFractionStacksScript.init}/>} />
     <Route exact path="/fractionstacksx2" render={() => <Arena app = {app} fullscreen = {true} features = {{double: false,numberOfBlocks: 2,lineMax: 20}} script = {FractionStacksScript.init}/>} />
     <Route exact path="/orderingblocksx2" render={() => <Arena app = {app} features = {{numberOfBlocks: 2}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
     <Route exact path="/orderingblocksx4" render={() => <Arena app = {app} features = {{numberOfBlocks: 4}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
