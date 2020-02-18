@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import * as CONST from "./const.js";
 import { TweenMax, TweenLite } from "gsap/TweenMax";
+import { BottomNavigation } from "@material-ui/core";
 const ASSETS = CONST.ASSETS
 
 export const init = (app, setup) => {
@@ -15,9 +16,7 @@ export const init = (app, setup) => {
   // Constants
   const LINE_PERCENTAGE = 0.8
   const PIN_TEXTURE = new PIXI.Texture.from(ASSETS.SHARP_PIN)
- 
   const START = Math.round(features.lineMax*2/3)
-
 
  // Initial State
   let state = {
@@ -839,8 +838,10 @@ function onBDragMove(event) {
 
 
     FirstRow.container.y = BOTTOM_LINE_Y - BAR_HEIGHT
+    FirstRow.container.rotation = Math.PI/2
     app.stage.removeChild(FirstRow.container)
     SecondRow.container.y = BOTTOM_LINE_Y - 2*BAR_HEIGHT - DY
+    SecondRow.container.rotation = Math.PI/2
     app.stage.removeChild(SecondRow.container)
     ThirdRow.container.y = BOTTOM_LINE_Y - 3*BAR_HEIGHT - 2*DY
     app.stage.removeChild(ThirdRow.container)
@@ -873,8 +874,10 @@ function onBDragMove(event) {
 
         if (!features.double){
           app.stage.removeChild(topNumberLine.container)
+          app.stage.removeChild(numberLine.container)
           app.stage.removeChild(MiddleWhisker)
           app.stage.removeChild(LeftWhisker)
+          app.stage.removeChild(RightWhisker)
         } 
   }
 

@@ -30,6 +30,7 @@ import * as VerticalFractionStacksScript from "./js/verticalfractionstacks.js";
 
 
 import ActivityList from './components/ActivityList'
+import WordProblemCard from './components/WordProblemCard'
 import FactorBlocks from './components/FactorBlocks'
 import ManipulativeCarousel from "./components/ManipulativeCarousel"
 //import Test from "./components/ResizeTest"
@@ -95,8 +96,8 @@ const Main = () => (
     <Route exact path="/fractionnumberline" render={() => <Arena app = {app} fullscreen = {true} features = {{open: false}}  script = {FractionNumberLineScript.init}/>} />
     <Route exact path="/fractionnumberlineblocks" render={() => <Arena app = {app} fullscreen = {true} features = {{open: false,blocks: true}} script = {FractionNumberLineScript.init}/>} />
     <Route exact path="/fractionstacks" render={() => <Arena app = {app} fullscreen = {true} features = {{snapping: true,double: true,numberOfBlocks: 4,lineMax: 30}} script = {FractionStacksScript.init}/>} />
-    <Route exact path="/verticalfractionstacks" render={() => <Arena app = {app} fullscreen = {true} features = {{snapping: true,double: true,numberOfBlocks: 4,lineMax: 30}} script = {VerticalFractionStacksScript.init}/>} />
-    <Route exact path="/fractionstacksx2" render={() => <Arena app = {app} fullscreen = {true} features = {{double: false,numberOfBlocks: 2,lineMax: 20}} script = {FractionStacksScript.init}/>} />
+    <Route exact path="/verticalfractionstacks" render={() => <Arena app = {app} fullscreen = {true} features = {{snapping: false,double: false,numberOfBlocks: 2,lineMax: 30}} script = {VerticalFractionStacksScript.init}/>} />
+    <Route exact path="/fractionstacksx2" render={() => <Arena app = {app} fullscreen = {true} features = {{double: true,numberOfBlocks: 2,lineMax: 20}} script = {FractionStacksScript.init}/>} />
     <Route exact path="/orderingblocksx2" render={() => <Arena app = {app} features = {{numberOfBlocks: 2}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
     <Route exact path="/orderingblocksx4" render={() => <Arena app = {app} features = {{numberOfBlocks: 4}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
     <Route exact path="/orderingblocksx5" render={(props) => <Arena app = {app} features = {{numberOfBlocks: 5}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
@@ -143,6 +144,7 @@ const Main = () => (
     <Route exact path="/fullprompt" component={LandingPage} />
     <Route exact path="/newpanel/:activity" component={NewPanels} />
     <Route exact path="/fulltool" component={LandingPage} />
+    <Route exact path="/wordproblemcard" component={WordProblemCard} />
     <Route exact path="/wordproblems" component={WordProblems} />
     <Route exact path="/overview" component={Overview} />
   </div>

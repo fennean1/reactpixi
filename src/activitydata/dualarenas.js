@@ -19,7 +19,7 @@ export const DUAL_SCRIPTS = {
     stacks_x2_and_blocks_x2: [{
         script: SCRIPTS.FRACTION_STACKS,
         features: {
-            double: false,
+            double: true,
             numberOfBlocks: 2,
             lineMax: 12
     }},
