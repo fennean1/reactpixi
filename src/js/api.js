@@ -782,12 +782,12 @@ export function getIndexOfNearestVertice(vertices,dxy){
 export function getNearestNodeWithDistance(nodes,point){
   let d = 1000000
   let nearestNode = null
-  nodes.forEach((v,i)=>{
-    let x = v.x
-    let y = v.y
+  nodes.forEach((n,i)=>{
+    let x = n.x
+    let y = n.y
     let newDistance = distance([x,y],point)
     if (newDistance <  d){
-      nearestNode = v
+      nearestNode = n
       d = newDistance
       nearestNode.dx = point[0] - x 
       nearestNode.dy = point[1] - y

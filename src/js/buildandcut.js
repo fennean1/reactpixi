@@ -107,15 +107,21 @@ export const init = (app, setup) => {
       })
 
       let min = 10000000
-      let nearestNode = nearestNodes[0]
+      let nearestNode = null
       nearestNodes.forEach(n=>{
+        n.texture = CLOSED_CIRCLE_TEXTURE
+        console.log("distance",n.distance)
         if (n.distance < min){
           nearestNode = n
           min = n.distance
         }
       })
+      console.log("nearest node distance",nearestNode.distance)
       poly.x = poly.x - nearestNode.dx
       poly.y = poly.y - nearestNode.dy
+      nearestNode.distance = null 
+      nearestNode.dx = null 
+      nearestNode.dy = null
     }
   } 
 
@@ -405,7 +411,6 @@ export const init = (app, setup) => {
           app.stage.removeChild(pObj)
         })
         polygons = []
-
       
         newPolygons.forEach(p=>{
           let pObj = new DraggablePoly(p,app)
@@ -416,6 +421,9 @@ export const init = (app, setup) => {
           pObj.on('pointermove',polyPointerMove)
         })
    } 
+
+   Nodes.forEach(n=>n.activated = false)
+
   }
 
 
