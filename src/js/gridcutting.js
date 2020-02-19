@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 import * as CONST from "./const.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
-import {getIndexOfNearestVertice, Line, polygonArea,DraggablePoly,getIntersectionPoints,splitPolygon, splitMultiplePolygons} from "./api.js";
+import {getIndexOfNearestVertice, Line, polygonArea,DraggablePoly, splitMultiplePolygons} from "./api.js";
 const ASSETS = CONST.ASSETS
 
 

@@ -27,6 +27,7 @@ import * as FractionNumberLineScript from "./js/fractionnumberline.js";
 import * as PlacingNumbersScript from "./js/placingnumbers.js";
 import * as BeakerGameScript from "./js/beakergame.js";
 import * as VerticalFractionStacksScript from "./js/verticalfractionstacks.js";
+import * as BuildAndCutScript from "./js/buildandcut.js";
 
 
 import ActivityList from './components/ActivityList'
@@ -147,6 +148,7 @@ const Main = () => (
     <Route exact path="/wordproblemcard" component={WordProblemCard} />
     <Route exact path="/wordproblems" component={WordProblems} />
     <Route exact path="/overview" component={Overview} />
+    <Route exact path="/buildandcut" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 13,y: 13,descriptor: true}} script = {BuildAndCutScript.init}/>} />
   </div>
 );
 

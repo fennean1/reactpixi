@@ -35,6 +35,7 @@ import glass_square from "../assets/GlassSquare.png"
 import hide from  "../assets/Hide.png"
 import side_jiji from "../assets/side-jiji.png"
 import mover_dot from "../assets/MoverDot.png"
+import draw_icon from "../assets/DrawIcon.png"
 
 export const ASSETS = {
     BLUE_GRADIENT: blue_gradient,
@@ -73,7 +74,8 @@ export const ASSETS = {
     GLASS_SQUARE: glass_square,
     HIDE: hide,    
     SIDE_JIJI: side_jiji,
-    MOVER_DOT: mover_dot
+    MOVER_DOT: mover_dot,
+    DRAW: draw_icon,
 }
 
 export const CUISENAIRE_COLORS = {
@@ -99,7 +101,6 @@ export const COLORS = {
     BLUE: 0x216ae0,
     PINK: 0xf721ff,
     GREEN: 0x50af54,
-    ORANGE: 0xffaa49,
     BROWN: 0x82521b,
     GRAY: 0xe6eaf2,
     DARK_GRAY: 0xa4a9b2

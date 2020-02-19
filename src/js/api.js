@@ -779,6 +779,24 @@ export function getIndexOfNearestVertice(vertices,dxy){
   return index
 }
 
+export function getNearestNodeWithDistance(nodes,point){
+  let d = 1000000
+  let nearestNode = null
+  nodes.forEach((v,i)=>{
+    let x = v.x
+    let y = v.y
+    let newDistance = distance([x,y],point)
+    if (newDistance <  d){
+      nearestNode = v
+      d = newDistance
+      nearestNode.dx = point[0] - x 
+      nearestNode.dy = point[1] - y
+      nearestNode.distance = newDistance
+    }
+  })
+  return nearestNode
+}
+
 // Number Line
 
 export class NumberLine extends PIXI.Container {
