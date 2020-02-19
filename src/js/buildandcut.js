@@ -109,19 +109,23 @@ export const init = (app, setup) => {
       let min = 10000000
       let nearestNode = null
       nearestNodes.forEach(n=>{
-        n.texture = CLOSED_CIRCLE_TEXTURE
+       // n.texture = CLOSED_CIRCLE_TEXTURE
         console.log("distance",n.distance)
         if (n.distance < min){
           nearestNode = n
           min = n.distance
         }
       })
-      console.log("nearest node distance",nearestNode.distance)
+      //console.log("nearest node distance",nearestNode.distance)
       poly.x = poly.x - nearestNode.dx
       poly.y = poly.y - nearestNode.dy
-      nearestNode.distance = null 
-      nearestNode.dx = null 
-      nearestNode.dy = null
+
+      // Clear node metadata
+      Nodes.forEach(n=>{
+        n.distance = null 
+        n.dx = null 
+        n.dy = null
+      })
     }
   } 
 
