@@ -829,6 +829,7 @@ export const init = (app, setup) => {
     drawBtn.on('pointerdown',()=>{
       cuttingMode = false
       stencil.clear()
+      CurrentPolygon = []
       wholeOutline.clear()
       polygons.forEach(p=>{
         app.stage.removeChild(p)
