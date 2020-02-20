@@ -53,9 +53,53 @@ export const init = (app, setup) => {
   let resetBtn;
   let scissorBtn;
   let wholeOutline;
+  let barDescriptor
 
   let cuttingLine = [[]]
   
+
+  class BarDescriptor extends PIXI.Container {
+    constructor(width,height){
+      super()
+      this._width = width 
+      this._height = height
+      this.blocks = []
+      this.graphicContext = new PIXI.Graphics()
+    }
+    draw(polygons){
+
+      this.blocks.forEach(b=>{
+        this.removeChild(b)
+        b.destroy(true)
+      })
+
+      let areas = polygons.map(p=>{
+        let points = p.getPolyPoints()
+        let a = polygonArea(points)
+        return a
+      })
+
+      let totalArea = areas.reduce((acc,val)=>acc+val,0)
+      let x = 0
+      this.blocks = areas.map((a,i)=>{
+        let frac = a/totalArea
+        let w = frac*this._width
+        let h = this._height
+        this.graphicContext.clear()
+        this.graphicContext.lineStyle(3,0xffffff)
+        this.graphicContext.beginFill(0xff3b55)
+        this.graphicContext.drawRect(0,0,w,h)
+        let texture = app.renderer.generateTexture(this.graphicContext)
+        let sprite = new PIXI.Sprite()
+        this.addChild(sprite)
+        sprite.texture = texture
+        sprite.x = x 
+        x += w
+        polygons[i].block = sprite
+        return sprite
+      })
+    }
+  }
 
 
   let fadeAnimation = new TimelineLite({paused: true})
@@ -130,6 +174,10 @@ export const init = (app, setup) => {
 
 
   function polyPointerDown(){
+    barDescriptor.blocks.forEach(b=>b.alpha = 0.7)
+    if (this.block){
+      this.block.alpha = 1
+    }
     let points = this.getPolyPoints()
     let area = polygonArea(points)
     let dec = area/WHOLE_AREA
@@ -428,6 +476,7 @@ export const init = (app, setup) => {
 
    Nodes.forEach(n=>n.activated = false)
 
+   barDescriptor.draw(polygons)
   }
 
 
@@ -459,6 +508,7 @@ export const init = (app, setup) => {
           polygons.push(newPoly)
           app.stage.addChild(newPoly)
           cuttingMode = true
+          barDescriptor.draw(polygons)
         }
         // Clear all nodes
         Nodes.forEach(n=>{
@@ -794,6 +844,7 @@ export const init = (app, setup) => {
         n.activated = false
         n.texture = OPEN_CIRCLE_TEXTURE
       })
+      barDescriptor.draw(polygons)
     })
     app.stage.addChild(drawBtn)
 
@@ -812,7 +863,7 @@ export const init = (app, setup) => {
     fractionObj.x = BTN_DIM/4
     fractionObj.y = drawBtn.y + 1.2*BTN_DIM
     if (descriptor){
-      app.stage.addChild(fractionObj)
+      //app.stage.addChild(fractionObj)
     }
 
     stencil = new Stencil()
@@ -827,6 +878,12 @@ export const init = (app, setup) => {
     }
     fadeAnimation.to([rotateLeftBtn,flipVerticalBtn],1,{alpha: 0,onComplete: onComplete},"+=2")
 
+
+    barDescriptor = new BarDescriptor(window.innerWidth/2, 50)
+    barDescriptor.x = window.innerWidth/4
+    barDescriptor.y = 50
+    app.stage.addChild(barDescriptor)
+    barDescriptor.draw(polygons)
 
     //fadeAnimation.play()
 
