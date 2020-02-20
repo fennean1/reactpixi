@@ -47,6 +47,7 @@ export const init = (app, setup) => {
   let fractionObj;
   let trashBtn;
   let drawBtn;
+  let xBtn;
   let rotateLeftBtn;
   let duplicateBtn;
   let flipVerticalBtn;
@@ -711,10 +712,17 @@ export const init = (app, setup) => {
 
   function placeScissors(){
     if (CurrentPolygon.length == 2 && cuttingMode){
+
       scissorBtn.x = this.x
       scissorBtn.y = this.y
       scissorBtn.alpha = 1
+
+      xBtn.x = CurrentPolygon[0][0]
+      xBtn.y = CurrentPolygon[0][1]
+      xBtn.alpha = 1
+
       app.stage.addChild(scissorBtn)
+      app.stage.addChild(xBtn)
     }
   }
 
@@ -734,7 +742,18 @@ export const init = (app, setup) => {
     ARENA_HEIGHT = LANDSCAPE ? frame.height : 3/4*frame.width
   }
 
-  // Loading Script
+  function cancelCut(){
+    Nodes.forEach(n=>{
+      n.activated = false 
+      n.texture = OPEN_CIRCLE_TEXTURE
+    })
+    scissorBtn.alpha = 0 
+    xBtn.alpha = 0
+    stencil.clear()
+    CurrentPolygon = []
+  }
+
+  // Loading Scriptd
   function load(){
     console.log("loading grid nodes")
     console.log("features",setup.props.features)
@@ -804,9 +823,10 @@ export const init = (app, setup) => {
     app.stage.addChild(scissorBtn)
     scissorBtn.on('pointerdown',()=>{
       if (CurrentPolygon.length != 2){
-
+        // Probably don't even need this since the scissors don't appear without.
       } else {
         cut()
+        xBtn.alpha = 0
         app.stage.addChild(scissorBtn)
         TweenLite.to(scissorBtn,0.5,{alpha:0})
         CurrentPolygon = []
@@ -828,6 +848,7 @@ export const init = (app, setup) => {
     drawBtn.interactive = true
     drawBtn.on('pointerdown',()=>{
       cuttingMode = false
+      scissorBtn.alpha = 0
       stencil.clear()
       CurrentPolygon = []
       wholeOutline.clear()
@@ -843,6 +864,7 @@ export const init = (app, setup) => {
       fadeAnimation.stop()
       Nodes.forEach(n=>{
         n.activated = false
+        n.first = false
         n.texture = OPEN_CIRCLE_TEXTURE
       })
       barDescriptor.draw(polygons)
@@ -855,7 +877,19 @@ export const init = (app, setup) => {
     trashBtn.x = WINDOW_WIDTH - trashBtn.width*1.1
     trashBtn.y = trashBtn.width*0.1
     trashBtn.interactive = true
-    app.stage.addChild(trashBtn)
+    //app.stage.addChild(trashBtn)
+
+
+
+    xBtn = new PIXI.Sprite.from(ASSETS.X_BUTTON)
+    xBtn.width = BTN_DIM*0.8
+    xBtn.height = BTN_DIM*0.8
+    xBtn.x = WINDOW_WIDTH - trashBtn.width*1.1
+    xBtn.y = trashBtn.width*0.1
+    xBtn.interactive = true
+    xBtn.alpha = 0
+    xBtn.on('pointerdown',cancelCut)
+    app.stage.addChild(xBtn)
  
     let {x,y,descriptor} = setup.props.features
     initNodes(10,10)
@@ -880,9 +914,9 @@ export const init = (app, setup) => {
     fadeAnimation.to([rotateLeftBtn,flipVerticalBtn],1,{alpha: 0,onComplete: onComplete},"+=2")
 
 
-    barDescriptor = new BarDescriptor(window.innerWidth/2, 50)
+    barDescriptor = new BarDescriptor(window.innerWidth/2, BTN_DIM/2)
     barDescriptor.x = window.innerWidth/4
-    barDescriptor.y = 50
+    barDescriptor.y = BTN_DIM/4
     app.stage.addChild(barDescriptor)
     barDescriptor.draw(polygons)
 

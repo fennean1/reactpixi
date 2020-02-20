@@ -36,6 +36,7 @@ import hide from  "../assets/Hide.png"
 import side_jiji from "../assets/side-jiji.png"
 import mover_dot from "../assets/MoverDot.png"
 import draw_icon from "../assets/DrawIcon.png"
+import x_button from "../assets/XButton.png"
 
 export const ASSETS = {
     BLUE_GRADIENT: blue_gradient,
@@ -76,6 +77,7 @@ export const ASSETS = {
     SIDE_JIJI: side_jiji,
     MOVER_DOT: mover_dot,
     DRAW: draw_icon,
+    X_BUTTON: x_button
 }
 
 export const CUISENAIRE_COLORS = {
