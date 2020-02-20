@@ -3,7 +3,7 @@ import blueGradient from "../assets/blue-gradient.png";
 import * as CONST from "./const.js";
 import QuestionMark from '../assets/QuestionMark.png'
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
-import {Fraction,getNearestNodeWithDistance,getIndexOfNearestVertice, Draggable, distance,splitMultiplePolygons,DraggablePoly} from "./api.js"
+import {Fraction,getIndexOfNearestVertice, Draggable, distance,splitMultiplePolygons,DraggablePoly, getNearestNodeMetadata} from "./api.js"
 
 const ASSETS = CONST.ASSETS
 
@@ -99,33 +99,32 @@ export const init = (app, setup) => {
   wholeOutline = new WholeOutline()
 
   function snap(poly){
-    // Previosly "features.snapping"
+    // Previously "features.snapping"
     if (true){
       let points = poly.getPolyPoints()
-      let nearestNodes = points.map(p=>{
-        return getNearestNodeWithDistance(Nodes,[p[0],p[1]])
+
+     let nearestNodes = points.map(p=>{
+        let node = getNearestNodeMetadata(Nodes,[p[0],p[1]])
+        return node
       })
 
       let min = 10000000
       let nearestNode = null
       nearestNodes.forEach(n=>{
-       // n.texture = CLOSED_CIRCLE_TEXTURE
-        console.log("distance",n.distance)
         if (n.distance < min){
           nearestNode = n
           min = n.distance
         }
       })
-      //console.log("nearest node distance",nearestNode.distance)
-      poly.x = poly.x - nearestNode.dx
-      poly.y = poly.y - nearestNode.dy
-
-      // Clear node metadata
-      Nodes.forEach(n=>{
-        n.distance = null 
-        n.dx = null 
-        n.dy = null
-      })
+        poly.x = poly.x - nearestNode.dx
+        poly.y = poly.y - nearestNode.dy
+  
+        // Clear node metadata
+        Nodes.forEach(n=>{
+          n.distance = 100000
+          n.dx = 0
+          n.dy = 0
+        })
     }
   } 
 
@@ -148,6 +147,7 @@ export const init = (app, setup) => {
       rotateLeftBtn.interactive = false
       flipVerticalBtn.alpha = 0 
       flipVerticalBtn.interactive = false
+      polygons.forEach(p=>app.stage.addChild(p))
     }
   }
 
@@ -163,7 +163,7 @@ export const init = (app, setup) => {
 
   function placeButtons(alpha){
     app.stage.addChild(rotateLeftBtn)
-    app.stage.addChild(flipVerticalBtn)
+    //app.stage.addChild(flipVerticalBtn)
     rotateLeftBtn.alpha = 1
     flipVerticalBtn.alpha = 1
     rotateLeftBtn.interactive = alpha == 0 ? false : true
@@ -173,7 +173,7 @@ export const init = (app, setup) => {
       let width = activePolygon.rotated ? activePolygon.height : activePolygon.width
       let height = activePolygon.rotated ? activePolygon.width : activePolygon.height  
 
-      rotateLeftBtn.x = activePolygon.x - BTN_DIM
+      rotateLeftBtn.x = activePolygon.x - BTN_DIM/2
       rotateLeftBtn.y = activePolygon.y - height/2 - 1.15*BTN_DIM
       flipVerticalBtn.x = activePolygon.x
       flipVerticalBtn.y = activePolygon.y - height/2 - 1.15*BTN_DIM
@@ -478,16 +478,16 @@ export const init = (app, setup) => {
           this.texture = CLOSED_CIRCLE_TEXTURE
           CurrentPolygon.push([this.x,this.y])
         } else if (cuttingMode && CurrentPolygon.length == 2){
+          console.log("resetting nodes")
           Nodes.forEach(n=>{
-            if (n.activated){
               n.texture = OPEN_CIRCLE_TEXTURE
               n.activated = false
               n.first = false
-            }
           })
           this.first = true 
           this.texture = CLOSED_CIRCLE_TEXTURE
           stencil.clear()
+          scissorBtn.alpha = 0
           CurrentPolygon = [[this.x,this.y]]
 
         } else if (!this.activated){
@@ -716,7 +716,7 @@ export const init = (app, setup) => {
     flipVerticalBtn.width = BTN_DIM
     flipVerticalBtn.height = BTN_DIM
     flipVerticalBtn.interactive = true
-    app.stage.addChild(flipVerticalBtn)
+    //app.stage.addChild(flipVerticalBtn)
     flipVerticalBtn.on('pointerdown',()=>{
       if (activePolygon != null){
         if (!activePolygon.rotated){
@@ -757,10 +757,14 @@ export const init = (app, setup) => {
 
       } else {
         cut()
+        app.stage.addChild(scissorBtn)
+        TweenLite.to(scissorBtn,0.5,{alpha:0})
         CurrentPolygon = []
-        Nodes.forEach((n)=>{n.texture = OPEN_CIRCLE_TEXTURE})
+        Nodes.forEach((n)=>{
+          n.texture = OPEN_CIRCLE_TEXTURE
+          n.activated = false
+        })
         stencil.clear()
-        scissorBtn.alpha = 0
       }
     })
 
@@ -783,6 +787,13 @@ export const init = (app, setup) => {
       polygons = []
       activePolygon = null 
       fractionObj.draw(0,1,BTN_DIM)
+      rotateLeftBtn.alpha = 0 
+      flipVerticalBtn.alpha = 0 
+      fadeAnimation.stop()
+      Nodes.forEach(n=>{
+        n.activated = false
+        n.texture = OPEN_CIRCLE_TEXTURE
+      })
     })
     app.stage.addChild(drawBtn)
 

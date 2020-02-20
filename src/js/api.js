@@ -779,22 +779,22 @@ export function getIndexOfNearestVertice(vertices,dxy){
   return index
 }
 
-export function getNearestNodeWithDistance(nodes,point){
+export function getNearestNodeMetadata(nodes,point){
   let d = 1000000
-  let nearestNode = null
+  let nearestMetadata = {}
   nodes.forEach((n,i)=>{
     let x = n.x
     let y = n.y
     let newDistance = distance([x,y],point)
+    //console.log("points",n.x,n.y,point[0],point[1])
     if (newDistance <  d){
-      nearestNode = n
       d = newDistance
-      nearestNode.dx = point[0] - x 
-      nearestNode.dy = point[1] - y
-      nearestNode.distance = newDistance
+      nearestMetadata.dx = point[0] - x 
+      nearestMetadata.dy = point[1] - y
+      nearestMetadata.distance = newDistance
     }
   })
-  return nearestNode
+  return nearestMetadata
 }
 
 // Number Line
