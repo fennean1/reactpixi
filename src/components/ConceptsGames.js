@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ChatCard from "./ChatCard";
 
-import  {ACTIVITIES} from "../activitydata/activities.js"
 
 import ConceptsBar from "../assets/ConceptsBar.png"
 

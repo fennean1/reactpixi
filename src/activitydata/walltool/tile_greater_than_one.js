@@ -11,66 +11,65 @@ const sequence =
     },
     {
       slideNumber: 2,
-      tips: ["Can there be more than 1 solution? Explain.",
-            "Which shapes did you try? Explain."
+      tips: ["What shape should you try first? Why do you think that piece may use the least/most number of pieces?",
+      "What fraction of a whole square does this piece represent?",
+      "How big is the space we need to cover?"
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 3,
-      tips: ["Can there be more than 1 solution? Explain.",
-        "Which shapes did you use? Let’s try it!",
-        "What is the value of each shape?", 
-        "How much of the squares is covered?"
+      tips: ["What shape should you try first? Why do you think that piece may use the least/most number of pieces?",
+      "What fraction of a whole square does this piece represent?",
+      "How big is the space we need to cover?",      
         ],
       screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 4,
-      tips: ["Record the solution on your paper",
-        "Check with your partner, does their work match this example?",
-        "Work together to make any corrections needed."        
+      tips: ["Record the solution on your paper.",
+      "Check with your partner, does their work match this example?",
+      "Work together to make any corrections needed."
        ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 5,
-      tips: ["Which piece(s) do you think will work?",
-        "How many fourths cover 1 whole square?",
-        "How many more fourths would you need to cover both (2-whole) squares?",
-        "Record your work on your paper."        
+      tips: ["Record the solution on your paper",
+      "Check with your partner, does their work match this example?",
+      "Work together to make any corrections needed."
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 6,
-      tips: ["Which piece(s) do you think will work?",
-        "How many thirds cover 1 whole square?",
-        "How many more thirds would you need to cover both (2-whole) squares?"
+      tips: ["What shape should you try first? Why do you think that piece can fill the space in the road?",
+      "How many pieces will you need?", 
+      "How much bigger than 1 block is this shape?",      
         ],
       screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 7,
-      tips: ["Record the solution on your paper.",
-        "Check with your partner, does their work match this example?",        
-        "Work together to make any corrections needed."
+      tips: ["What shape should you try first? Why do you think that piece can fill the space in the road?",
+      "How many pieces will you need?",
+      "How much bigger than 1 block is this shape?"
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 8,
       tips: ["Record the solution on your paper.",
-        "Check with your partner, does their work match this example?",        
-        "Work together to make any corrections needed."
+      "Check with your partner, does their work match this example?",
+      "Work together to make any corrections needed.",
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 9,
-      tips: ["Use your tool to solve the problem.",
-        "There may not be a ‘correct’ answer, but what are some reasonable estimates.",
-        "What is an unreasonable estimate?"
+      tips: ["Record the solution on your paper.",
+      "Check with your partner, does their work match this example?",
+      "Work together to make any corrections needed.",
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },

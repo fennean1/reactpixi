@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ActivityCard from "./ActivityCard";
 
 import  {ACTIVITIES} from "../activitydata/activities.js"

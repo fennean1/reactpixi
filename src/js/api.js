@@ -432,14 +432,23 @@ export class DraggablePoly extends Draggable {
     graphics.drawPolygon(flatPolygon);
     graphics.endFill();
 
+    var graphicsB = new PIXI.Graphics();
+    graphicsB.beginFill(0x1291db);
+    graphicsB._fillStyle.alpha = 0.85
+    graphicsB.lineStyle(2,0xffffff)
+    graphicsB.drawPolygon(flatPolygon);
+    graphicsB.endFill();
+
     let t = app.renderer.generateTexture(graphics)
+    let tb = app.renderer.generateTexture(graphicsB)
  
     // Construct Super
     super(t)
 
     this.hitArea = new PIXI.Polygon(flatPolygon)
     this.points = points
-
+    this.textureA = t
+    this.textureB = tb
     this.rotated = false
     this.pivot.x = this.width/2
     this.pivot.y = this.height/2
@@ -457,7 +466,7 @@ export class DraggablePoly extends Draggable {
 
   
   polyPointerDown(){
-    
+  
   }
 
   polyPointerMove(){

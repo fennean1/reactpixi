@@ -25,7 +25,7 @@ export const init = (app, setup) => {
   let ARENA_HEIGHT = LANDSCAPE ? setup.height : 3/4*setup.width
   let SQUARE_DIM = LANDSCAPE ? ARENA_HEIGHT*0.6 : ARENA_WIDTH*0.35
   let WHOLE_AREA = 1 // Default for divide by one error.
-  let BTN_DIM = SQUARE_DIM/6
+  let BTN_DIM = SQUARE_DIM/8
   let DX = 10
   let DY = 10
   let AREA_OF_POLYGONS = 10
@@ -86,13 +86,25 @@ export const init = (app, setup) => {
         let frac = a/totalArea
         let w = frac*this._width
         let h = this._height
+
+        // Texture A
         this.graphicContext.clear()
         this.graphicContext.lineStyle(3,0xffffff)
         this.graphicContext.beginFill(0xff3b55)
         this.graphicContext.drawRect(0,0,w,h)
         let texture = app.renderer.generateTexture(this.graphicContext)
+
+        // Texture B
+        this.graphicContext.clear()
+        this.graphicContext.lineStyle(3,0xffffff)
+        this.graphicContext.beginFill(0x1291db)
+        this.graphicContext.drawRect(0,0,w,h)
+        let textureB = app.renderer.generateTexture(this.graphicContext)
+
         let sprite = new PIXI.Sprite()
         this.addChild(sprite)
+        sprite.textureA = texture 
+        sprite.textureB = textureB
         sprite.texture = texture
         sprite.x = x 
         x += w
@@ -175,10 +187,14 @@ export const init = (app, setup) => {
 
 
   function polyPointerDown(){
-    barDescriptor.blocks.forEach(b=>b.alpha = 0.7)
+    barDescriptor.blocks.forEach(b=>b.texture = b.textureA)
     if (this.block){
-      this.block.alpha = 1
+      this.block.texture = this.block.textureB
     }
+    polygons.forEach(p=>{
+      p.texture = p.textureA
+    })
+    this.texture = this.textureB
     let points = this.getPolyPoints()
     let area = polygonArea(points)
     let dec = area/WHOLE_AREA
@@ -211,7 +227,7 @@ export const init = (app, setup) => {
   }
 
   function placeButtons(alpha){
-    app.stage.addChild(rotateLeftBtn)
+    //app.stage.addChild(rotateLeftBtn)
     //app.stage.addChild(flipVerticalBtn)
     rotateLeftBtn.alpha = 1
     flipVerticalBtn.alpha = 1
@@ -467,6 +483,7 @@ export const init = (app, setup) => {
       
         newPolygons.forEach(p=>{
           let pObj = new DraggablePoly(p,app)
+          pObj.shifter = true
           app.stage.addChild(pObj)
           polygons.push(pObj)
           pObj.on('pointerup',polyPointerUp)
@@ -503,6 +520,7 @@ export const init = (app, setup) => {
           wholeOutline.draw(CurrentPolygon)
           app.stage.addChild(wholeOutline)
           let newPoly = new DraggablePoly(CurrentPolygon,app)
+          newPoly.shifter = true
           newPoly.on('pointerup',polyPointerUp)
           newPoly.on('pointerdown',polyPointerDown)
           newPoly.on('pointermove',polyPointerMove)
@@ -561,6 +579,7 @@ export const init = (app, setup) => {
     }
   }
 
+  
 
 
   function initNodes(a,b){
@@ -713,11 +732,11 @@ export const init = (app, setup) => {
   function placeScissors(){
     if (CurrentPolygon.length == 2 && cuttingMode){
 
-      scissorBtn.x = this.x
+      scissorBtn.x = this.x + scissorBtn.width
       scissorBtn.y = this.y
       scissorBtn.alpha = 1
 
-      xBtn.x = CurrentPolygon[0][0]
+      xBtn.x = CurrentPolygon[0][0] - scissorBtn.width
       xBtn.y = CurrentPolygon[0][1]
       xBtn.alpha = 1
 
@@ -745,12 +764,38 @@ export const init = (app, setup) => {
   function cancelCut(){
     Nodes.forEach(n=>{
       n.activated = false 
+      n.first = false
       n.texture = OPEN_CIRCLE_TEXTURE
     })
     scissorBtn.alpha = 0 
     xBtn.alpha = 0
     stencil.clear()
     CurrentPolygon = []
+  }
+
+  function reset(){
+    cuttingMode = false
+    scissorBtn.alpha = 0
+    xBtn.alpha = 0
+    stencil.clear()
+    CurrentPolygon = []
+    wholeOutline.clear()
+    polygons.forEach(p=>{
+      app.stage.removeChild(p)
+      p.destroy(true)
+    })
+    polygons = []
+    activePolygon = null 
+    fractionObj.draw(0,1,BTN_DIM)
+    rotateLeftBtn.alpha = 0 
+    flipVerticalBtn.alpha = 0 
+    fadeAnimation.stop()
+    Nodes.forEach(n=>{
+      n.activated = false
+      n.first = false
+      n.texture = OPEN_CIRCLE_TEXTURE
+    })
+    barDescriptor.draw(polygons)
   }
 
   // Loading Scriptd
@@ -770,7 +815,7 @@ export const init = (app, setup) => {
     rotateLeftBtn.x = - BTN_DIM
     rotateLeftBtn.interactive = true
     rotateLeftBtn.alpha = 0
-    app.stage.addChild(rotateLeftBtn)
+    //app.stage.addChild(rotateLeftBtn)
     rotateLeftBtn.on('pointerdown',()=>{
       if (activePolygon != null){
         activePolygon.rotated = !activePolygon.rotated
@@ -816,6 +861,7 @@ export const init = (app, setup) => {
 
 
     scissorBtn = new PIXI.Sprite.from(ASSETS.SCISSORS)
+    scissorBtn.anchor.set(0.5)
     scissorBtn.alpha = 0
     scissorBtn.width = BTN_DIM
     scissorBtn.height = BTN_DIM
@@ -846,29 +892,7 @@ export const init = (app, setup) => {
     drawBtn.x = 1/4*BTN_DIM
     drawBtn.y = 1/4*BTN_DIM
     drawBtn.interactive = true
-    drawBtn.on('pointerdown',()=>{
-      cuttingMode = false
-      scissorBtn.alpha = 0
-      stencil.clear()
-      CurrentPolygon = []
-      wholeOutline.clear()
-      polygons.forEach(p=>{
-        app.stage.removeChild(p)
-        p.destroy(true)
-      })
-      polygons = []
-      activePolygon = null 
-      fractionObj.draw(0,1,BTN_DIM)
-      rotateLeftBtn.alpha = 0 
-      flipVerticalBtn.alpha = 0 
-      fadeAnimation.stop()
-      Nodes.forEach(n=>{
-        n.activated = false
-        n.first = false
-        n.texture = OPEN_CIRCLE_TEXTURE
-      })
-      barDescriptor.draw(polygons)
-    })
+    drawBtn.on('pointerdown',reset)
     app.stage.addChild(drawBtn)
 
     trashBtn = new PIXI.Sprite.from(ASSETS.TRASH)
@@ -884,6 +908,7 @@ export const init = (app, setup) => {
     xBtn = new PIXI.Sprite.from(ASSETS.X_BUTTON)
     xBtn.width = BTN_DIM*0.8
     xBtn.height = BTN_DIM*0.8
+    xBtn.anchor.set(0.5)
     xBtn.x = WINDOW_WIDTH - trashBtn.width*1.1
     xBtn.y = trashBtn.width*0.1
     xBtn.interactive = true

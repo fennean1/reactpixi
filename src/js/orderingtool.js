@@ -1,13 +1,13 @@
 import * as PIXI from "pixi.js";
 import blueGradient from "../assets/blue-gradient.png";
 import * as CONST from "./const.js";
-import QuestionMark from '../assets/QuestionMark.png'
 const createjs = window.createjs
 
 export const init = (app, setup) => {
 
 const WINDOW_WIDTH = setup.width
 const WINDOW_HEIGHT = setup.height
+let features = setup.props.features
 
 let backGround = new PIXI.Sprite.from(blueGradient);
 backGround.width = WINDOW_WIDTH;
@@ -107,7 +107,25 @@ function createGridTool() {
   frac.interactive = true;
   frac.on("pointerdown", () => (grid.validHit = true));
   frac.on("pointerup", () => (grid.validHit = false));
+ 
+
+  let grabber = new PIXI.Sprite.from(CONST.ASSETS.MOVER_DOT)
+  grabber.x = (CONTAINER_RIGHT - CONTAINER_LEFT) / 2;
+  grabber.y = CONTAINER_TOP - DIM / 2;
+  grabber.anchor.set(0.5)
+  grabber.width = frac.width 
+  grabber.height = grabber.width
+  grabber.interactive = true;
+  grabber.on("pointerdown", () => (grid.validHit = true));
+  grabber.on("pointerup", () => (grid.validHit = false));
+
+// FEATURES
+if (true){
+  grid.addChild(grabber);
+} else {
   grid.addChild(frac);
+}
+
 
   let cont = createContainer(CONTAINER_WIDTH, CONTAINER_HEIGHT);
   grid.addChild(cont);

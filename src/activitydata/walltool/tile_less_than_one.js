@@ -12,73 +12,70 @@ const sequence =
     },
     {
       slideNumber: 2,
-      tips: ["Predict which shapes might work and which might not.",
-        "How can you figure out the fraction of the square this shape represents?",
+      tips: ["Predict how much of the whole square each shape covers.",
+      "How can you figure out the fraction of the square this shape represents?",      
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 3,
-      tips: ["Record solutions on the board or chart paper for students to see.",
-      "What shapes were harder to use? Why?",
-      "How did you find the fraction of the whole each shape represents?"      
+      tips: ["How are you figuring out how many of this piece will fill the missing block?",
+        "How can you figure out the fraction of the square this shape represents?",    
         ],
       screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 4,
-      tips: ["Compare your paper with your partner.",
-      "Does the work match this example?",
-      "Work together to make any corrections needed."
-       ],
+      tips: ["How are you figuring out how many of this piece will fill the missing block?",
+        "How can you figure out the fraction of the square this shape represents?",    
+        ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 5,
       tips: ["Compare your paper with your partner.",
-      "Does the work match this example?",
+      "Does the work match this example?",      
       "Work together to make any corrections needed."
        ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 6,
-      tips: ["How many thirds (eighths) will you need to fill the whole square?",
-        "Which unit fraction covers more of the square,  a third or an eighth? Explain.",
-        "Is there more than one solution to this problem? Explain.",
-      ],
+      tips: ["Compare your paper with your partner.",
+      "Does the work match this example?",      
+      "Work together to make any corrections needed."
+       ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 7,
-      tips: ["Which shapes did you try? Why those shapes?",
-      "Which unit fractions will cover 3-fourths of the square? How do you know?",
-      "How much is left empty if ¾ is covered? How do you know?"
-      
+      tips: ["How many thirds (eighths) will you need to fill the whole square?",
+      "Which unit fraction covers more of the square,  a third or an eighth? Explain.",
+      "Is there more than one solution to this problem? Explain."      
         ],
       screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 8,
-      tips: ["Compare your paper with your partner.",
-        "Does the work match this example?",
-        "Work together to make any corrections needed.",
+      tips: ["Which shapes did you try? Why those shapes?",
+      "Which unit fractions will cover 3-fourths of the square? How do you know?",
+      "How much is left empty if ¾ is covered? How do you know?",
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 9,
       tips: ["Compare your paper with your partner.",
-        "Does the work match this example?",
-        "Work together to make any corrections needed.",
+      "Does the work match this example?",
+      "Work together to make any corrections needed.",
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 10,
       tips: ["Use your tool to solve the problem.",
-        "How did you solve this problem?",
-        "What is the fraction each small rectangle represents of the whole square?"        
+            "How did you solve this problem?",
+            "What is the fraction each small rectangle represents of the whole square?"             
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
