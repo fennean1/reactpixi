@@ -47,7 +47,7 @@ const sequence =
       "How many pieces will you need?", 
       "How much bigger than 1 block is this shape?",      
         ],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 7,
@@ -55,7 +55,7 @@ const sequence =
       "How many pieces will you need?",
       "How much bigger than 1 block is this shape?"
         ],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+      screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 8,
@@ -74,8 +74,6 @@ const sequence =
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
 ]
-
-
 
 export const ACTIVITY = {
     ID: "tile_greater_than_one",

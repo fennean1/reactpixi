@@ -22,14 +22,14 @@ const sequence =
       tips: ["How are you figuring out how many of this piece will fill the missing block?",
         "How can you figure out the fraction of the square this shape represents?",    
         ],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT
     },
     {
       slideNumber: 4,
       tips: ["How are you figuring out how many of this piece will fill the missing block?",
         "How can you figure out the fraction of the square this shape represents?",    
         ],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+      screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 5,
@@ -53,7 +53,7 @@ const sequence =
       "Which unit fraction covers more of the square,  a third or an eighth? Explain.",
       "Is there more than one solution to this problem? Explain."      
         ],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 8,
@@ -61,7 +61,7 @@ const sequence =
       "Which unit fractions will cover 3-fourths of the square? How do you know?",
       "How much is left empty if ¾ is covered? How do you know?",
         ],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+      screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 9,
