@@ -99,9 +99,10 @@ const Main = () => (
     <Route exact path="/fractionstacks" render={() => <Arena app = {app} fullscreen = {true} features = {{snapping: true,double: true,numberOfBlocks: 4,lineMax: 30}} script = {FractionStacksScript.init}/>} />
     <Route exact path="/verticalfractionstacks" render={() => <Arena app = {app} fullscreen = {true} features = {{snapping: false,double: false,numberOfBlocks: 2,lineMax: 30}} script = {VerticalFractionStacksScript.init}/>} />
     <Route exact path="/fractionstacksx2" render={() => <Arena app = {app} fullscreen = {true} features = {{double: true,numberOfBlocks: 2,lineMax: 20}} script = {FractionStacksScript.init}/>} />
-    <Route exact path="/orderingblocksx2" render={() => <Arena app = {app} features = {{numberOfBlocks: 2}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
-    <Route exact path="/orderingblocksx4" render={() => <Arena app = {app} features = {{numberOfBlocks: 4}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
-    <Route exact path="/orderingblocksx5" render={(props) => <Arena app = {app} features = {{numberOfBlocks: 5}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
+    <Route exact path="/orderingblocksx2" render={() => <Arena app = {app} features = {{numberOfBlocks: 2,descriptor: true}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
+    <Route exact path="/orderingblocksx3nodesc" render={() => <Arena app = {app} features = {{numberOfBlocks: 3,descriptor: false}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
+    <Route exact path="/orderingblocksx4" render={() => <Arena app = {app} features = {{numberOfBlocks: 4,descriptor: true}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
+    <Route exact path="/orderingblocksx5" render={(props) => <Arena app = {app} features = {{numberOfBlocks: 5,descriptor: true}} fullscreen = {true} script = {OrderingToolScript.init}/>} />
     <Route exact path="/strips" render={() => <Arena app = {app} fullscreen = {true}  script = {NumberLineStripsScript.init}/>} />
     <Route exact path="/gridnodes" render={() => <Arena app = {app} features = {{x: 3,y: 3}} fullscreen = {true}  script = {GridNodeScript.init}/>} />
     <Route exact path="/stripsopen" render={() => <Arena app = {app} fullscreen = {true} features  = {{'open': true}}  script = {NumberLineStripsScript.init}/>} />

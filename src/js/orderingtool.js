@@ -120,10 +120,10 @@ function createGridTool() {
   grabber.on("pointerup", () => (grid.validHit = false));
 
 // FEATURES
-if (true){
-  grid.addChild(grabber);
-} else {
+if (features.descriptor){
   grid.addChild(frac);
+} else {
+  grid.addChild(grabber);
 }
 
 
