@@ -306,6 +306,7 @@ export const init = (app, setup) => {
     if (features.single){
       app.stage.removeChild(whole2)
       whole1.x = WINDOW_WIDTH/2 - SQUARE_DIM/2
+      round(whole1,d12)
     }
 
     rotateLeftBtn = new PIXI.Sprite.from(ASSETS.ROTATE_LEFT)
