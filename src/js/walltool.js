@@ -317,10 +317,11 @@ export const init = (app, setup) => {
     rotateLeftBtn.alpha = 0
     app.stage.addChild(rotateLeftBtn)
     rotateLeftBtn.on('pointerdown',()=>{
+      const onComplete = ()=>{rotateLeftBtn.interactive = true}
       if (activePolygon != null){
         activePolygon.rotated = !activePolygon.rotated
         placeButtons(1)
-        TweenLite.to(activePolygon,0.2,{rotation: activePolygon.rotation - Math.PI/2})
+        TweenLite.to(activePolygon,0.2,{rotation: activePolygon.rotation - Math.PI/2,onComplete: onComplete})
       }
     })
 
@@ -332,13 +333,14 @@ export const init = (app, setup) => {
     flipVerticalBtn.interactive = true
     app.stage.addChild(flipVerticalBtn)
     flipVerticalBtn.on('pointerdown',()=>{
+      flipVerticalBtn.interactive = false
+      const onComplete = ()=>{flipVerticalBtn.interactive = true}
       if (activePolygon != null){
         if (!activePolygon.rotated){
-          TweenLite.to(activePolygon.scale,0.2,{y: activePolygon.scale.y*(-1)})
+          TweenLite.to(activePolygon.scale,0.2,{y: activePolygon.scale.y*(-1),onComplete: onComplete})
         } else {
-          TweenLite.to(activePolygon.scale,0.2,{x: activePolygon.scale.x*(-1)})
+          TweenLite.to(activePolygon.scale,0.2,{x: activePolygon.scale.x*(-1),onComplete: onComplete})
         }
-
       }
     })
 

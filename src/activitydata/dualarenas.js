@@ -27,6 +27,7 @@ export const DUAL_SCRIPTS = {
         script: SCRIPTS.ORDERING_BLOCKS,
         features: {
             numberOfBlocks: 2,
+            descriptor: true
     }}],
     fractionwall_and_orderingblocks_x2: [{
         script: SCRIPTS.FRACTION_WALL,

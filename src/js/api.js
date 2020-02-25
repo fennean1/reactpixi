@@ -12,8 +12,9 @@ export class Row extends PIXI.Container{
 }
 
 
-export class VerticalRowClass extends PIXI.Container {
+export class FractionFrame extends PIXI.Container {
   constructor(width,height,den,app,vertical){
+
    super()
      // State
      this.value = 0
@@ -32,7 +33,7 @@ export class VerticalRowClass extends PIXI.Container {
      this.sprites = []
      this.vertical = vertical
      this.blockDim = this.vertical ?  height / this.denominator :  width / this.denominator
- 
+     this.activated = false
 
      this.interactive = true
    
@@ -111,9 +112,7 @@ export class VerticalRowClass extends PIXI.Container {
         this._width = width
       }
       this.blockDim =  this.vertical ?  this._height / this.denominator :  this._width / this.denominator
-      console.log(
-        "blocskdim",this.blockDim
-      )
+
       let w = this.vertical ? this._width : this.blockDim
       let h = this.vertical ? this.blockDim : this._height
 
@@ -164,7 +163,8 @@ export class VerticalRowClass extends PIXI.Container {
   
     spritePointerUp(event){
       // previously "activated"
-     if (!this.dragged && this.touched) {
+      console.log("even.parent",this.parent.activated)
+     if (!this.dragged && this.touched && this.parent.activated) {
         this.dragged = false
         this.active = !this.active
         this.alpha = 0.2
@@ -188,6 +188,7 @@ export class VerticalRowClass extends PIXI.Container {
   
     containerPointerUp(event) {
       this.touching = false
+      this.activated = true
     }
   
     containerPointerMove(event) {
