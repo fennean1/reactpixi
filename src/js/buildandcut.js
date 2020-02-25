@@ -227,7 +227,7 @@ export const init = (app, setup) => {
   }
 
   function placeButtons(alpha){
-    //app.stage.addChild(rotateLeftBtn)
+    app.stage.addChild(rotateLeftBtn)
     //app.stage.addChild(flipVerticalBtn)
     rotateLeftBtn.alpha = 1
     flipVerticalBtn.alpha = 1
@@ -817,7 +817,7 @@ export const init = (app, setup) => {
     rotateLeftBtn.x = - BTN_DIM
     rotateLeftBtn.interactive = true
     rotateLeftBtn.alpha = 0
-    //app.stage.addChild(rotateLeftBtn)
+    app.stage.addChild(rotateLeftBtn)
     rotateLeftBtn.on('pointerdown',()=>{
       if (activePolygon != null){
         activePolygon.rotated = !activePolygon.rotated

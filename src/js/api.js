@@ -13,7 +13,7 @@ export class Row extends PIXI.Container{
 
 
 export class VerticalRowClass extends PIXI.Container {
-  constructor(num,den,width,app,vertical){
+  constructor(width,height,den,app,vertical){
    super()
      // State
      this.value = 0
@@ -24,22 +24,21 @@ export class VerticalRowClass extends PIXI.Container {
      let LINE_START = 0
    
      // Default values
-     this.numerator = num
+     this.numerator = 1
      this.denominator = den
      this._width = width
-     this.blockWidth = width/den
+     this._height = height
      this.app = app
      this.sprites = []
      this.vertical = vertical
-   
+     this.blockDim = this.vertical ?  height / this.denominator :  width / this.denominator
+ 
 
      this.interactive = true
    
-     this.blockWidth = width / this.denominator
- 
-     let w = this.vertical ? this.BAR_HEIGHT : this.blockWidth
-     let h = this.vertical ? this.blockWidth : this.BAR_HEIGHT
- 
+     let w = this.vertical ? this._width : this.blockDim
+     let h = this.vertical ? this.blockDim : this._height
+
      this.blockA = new PIXI.Graphics()
      this.blockA.lineStyle(3,0x000000) 
      this.blockA.drawRoundedRect(0,0,w,h,1)
@@ -73,11 +72,11 @@ export class VerticalRowClass extends PIXI.Container {
       this.draw()
   } 
   
-    incDenonimator = (inc) => {
+    incDenominator = (inc) => {
     if (this.denominator + inc >= 1) {
       this.g.clear()
       this.g.lineStyle(3,0x000000) 
-      this.g.drawRoundedRect(0,0,this.width,this.BAR_HEIGHT,1)
+      this.g.drawRoundedRect(0,0,this._width,this._height,1)
       let R = this.app.renderer.generateTexture(this.g)
       let s = new PIXI.Sprite()
       this.addChild(s)
@@ -111,11 +110,13 @@ export class VerticalRowClass extends PIXI.Container {
       if (width) {
         this._width = width
       }
-      this.blockWidth = this._width/this.denominator
+      this.blockDim =  this.vertical ?  this._height / this.denominator :  this._width / this.denominator
+      console.log(
+        "blocskdim",this.blockDim
+      )
+      let w = this.vertical ? this._width : this.blockDim
+      let h = this.vertical ? this.blockDim : this._height
 
-      let w = this.vertical ? this.BAR_HEIGHT : this.blockWidth
-      let h = this.vertical ? this.blockWidth : this.BAR_HEIGHT
-  
       this.blockA.clear()
       this.blockA.lineStyle(3,0x000000) 
       this.blockA.drawRoundedRect(0,0,w,h,1)
@@ -139,9 +140,9 @@ export class VerticalRowClass extends PIXI.Container {
   
         if (this.vertical){
           this.sprites[i].x = 0
-          this.sprites[i].y = this.blockWidth*i
+          this.sprites[i].y = this.blockDim*i
         } else {
-          this.sprites[i].x = this.blockWidth*i
+          this.sprites[i].x = this.blockDim*i
           this.sprites[i].y = 0
         }
 

@@ -27,11 +27,15 @@ export const init = (app, setup) => {
   let features; // Need default features for every tool.
   let cuttingMode = false
   let activelyCutting = false
-
+  let activeFrame; 
+  let frames = []
 
   // State Objects
   let verticalRow;
   let backGround;
+  let plusButton;
+  let minusButton;
+
 
 
   function updateLayoutParams(newFrame){
@@ -47,6 +51,10 @@ export const init = (app, setup) => {
     LANDSCAPE = H_W_RATIO < 3/4
     ARENA_WIDTH = LANDSCAPE ? 4/3*frame.height : frame.width
     ARENA_HEIGHT = LANDSCAPE ? frame.height : 3/4*frame.width
+  }
+
+  function placeButtons(){
+
   }
 
   function makeBackground(){
@@ -74,17 +82,41 @@ export const init = (app, setup) => {
       features = setup.props.features
     }
 
+    /// FIRST 
     let initialFrame = {width: setup.width,height: setup.height}
     updateLayoutParams(initialFrame)
-
     backGround = new makeBackground()
     backGround.draw()
+   
+   
+    // SETUP
 
-    verticalRow  = new VerticalRowClass(2,3,200,app,true)
+    plusButton = new PIXI.Sprite.from(ASSETS.PLUS_SQUARE)
+  
+    plusButton.interactive = true
+    plusButton.anchor.set(0.5)
+    plusButton.on('pointerdown',()=>{
+      plusButton.interactive = false
+      verticalRow.incDenominator(1)
+      setTimeout(()=>{plusButton.interactive = true},300)
+    })
+    plusButton.width = 50
+    plusButton.height = 50
+    plusButton.x = 100 
+    plusButton.y = 100
+    app.stage.addChild(plusButton)
+  
+
+    verticalRow  =  new VerticalRowClass(300,400,5,app,false)
     app.stage.addChild(verticalRow)
 
-    let nverticalRow  = new VerticalRowClass(2,3,200,app,true)
+    let nverticalRow  = new VerticalRowClass(300,400,5,app,false)
     app.stage.addChild(nverticalRow)
+
+    activeFrame = verticalRow
+
+    frames.push(verticalRow)
+    frames.push(nverticalRow)
 
 
   }
