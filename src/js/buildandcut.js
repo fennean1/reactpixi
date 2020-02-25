@@ -586,11 +586,13 @@ export const init = (app, setup) => {
     DX = WINDOW_WIDTH/12
     DY = Math.cos(Math.PI/6)*DX
     let nudge = 0
+    let t = features.isometric ? DX/2 : 0
     let dim = SQUARE_DIM/15
+
     for (let i=0;i<12;i++){
       
       for (let j=0;j<12;j++){
-        nudge = j%2 == 0 ? DX/2 : 0
+        nudge = j%2 == 0 ? t : 0
         let n = new Node()
         Nodes.push(n)
         n.x = (i+1)*DX + nudge

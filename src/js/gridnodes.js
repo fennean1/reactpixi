@@ -350,12 +350,18 @@ export const init = (app, setup) => {
 
 
   function set(a,b){
+    let overflowX = 0
+    let overflowY = 0
+    if (features.overflow){
+      overflowX = features.overflow.x 
+      overflowY = features.overflow.y
+    }
     DY = SQUARE_DIM/(b-1)
     DX = DY
     let offset = features.double ? DX*(a-1)/4 : 0
     let dim = SQUARE_DIM/15
-    for (let i=0;i<a;i++){
-      for (let j=0;j<b;j++){
+    for (let i=-overflowX;i<a+overflowX;i++){
+      for (let j=-overflowY;j<b+overflowY;j++){
         let n = new Node()
         Nodes.push(n)
         n.x = WINDOW_WIDTH/2 - SQUARE_DIM/2 + i*DX - offset
@@ -464,7 +470,7 @@ export const init = (app, setup) => {
 
   function decimalToFrac(dec){
     for (let i=1;i<100;i++){
-      for (let j=0;j<=i;j++){
+      for (let j=0;j<=2*i;j++){
         if (Math.abs(j/i - dec) < 0.001) {
           return [j,i]
         }

@@ -5,6 +5,393 @@ import { thisExpression } from "@babel/types";
 
 
 
+export class Row extends PIXI.Container{
+  constructor(){
+    super()
+  }
+}
+
+
+export class VerticalRowClass extends PIXI.Container {
+  constructor(num,den,width,app,vertical){
+   super()
+     // State
+     this.value = 0
+     // Placeholders
+     this.BAR_HEIGHT = 200
+     this.LINE_WIDTH = 4
+     let LINE_MAX = 20
+     let LINE_START = 0
+   
+     // Default values
+     this.numerator = num
+     this.denominator = den
+     this._width = width
+     this.blockWidth = width/den
+     this.app = app
+     this.sprites = []
+     this.vertical = vertical
+   
+
+     this.interactive = true
+   
+     this.blockWidth = width / this.denominator
+ 
+     let w = this.vertical ? this.BAR_HEIGHT : this.blockWidth
+     let h = this.vertical ? this.blockWidth : this.BAR_HEIGHT
+ 
+     this.blockA = new PIXI.Graphics()
+     this.blockA.lineStyle(3,0x000000) 
+     this.blockA.drawRoundedRect(0,0,w,h,1)
+     this.myA = this.app.renderer.generateTexture(this.blockA)
+   
+     this.blockB = new PIXI.Graphics()
+     this.blockB.beginFill(0xff4772)
+     this.blockB.lineStyle(3,0x000000) 
+     this.blockB.drawRoundedRect(0,0,w,h,1)
+     this.myB = this.app.renderer.generateTexture(this.blockB)
+   
+     this.g = new PIXI.Graphics()
+     
+       //  Attached methods
+    this.on('pointerdown',this.containerPointerDown)
+    this.on('pointerup',this.containerPointerUp)
+    this.on('pointermove',this.containerPointerMove)
+  
+    for (let i = 0;i<this.denominator;i++) {
+      let s = new PIXI.Sprite.from(this.myA)
+      s.on('pointerdown',this.spritePointerDown)
+      s.on('pointerup',this.spritePointerUp)
+      s.on('pointermove',this.spritePointerMoved)
+      s.interactive = true
+      s.active = false
+      s.x = i*this.LINE_WIDTH/this.denominator
+      this.sprites.push(s)
+      this.addChild(s)
+    }
+      
+      this.draw()
+  } 
+  
+    incDenonimator = (inc) => {
+    if (this.denominator + inc >= 1) {
+      this.g.clear()
+      this.g.lineStyle(3,0x000000) 
+      this.g.drawRoundedRect(0,0,this.width,this.BAR_HEIGHT,1)
+      let R = this.app.renderer.generateTexture(this.g)
+      let s = new PIXI.Sprite()
+      this.addChild(s)
+      s.texture = R
+      s.x  = 0
+  
+      if (inc > 0){
+        const onComplete = ()=>{
+          s.on('pointerdown',this.spritePointerDown)
+          s.on('pointerup',this.spritePointerUp)
+          s.on('pointermove',this.spritePointerMoved)
+          s.interactive = true
+          s.active = false
+          this.sprites.push(s)
+          this.draw()
+        }
+        TweenMax.to(this, 0.25, {denominator: this.denominator+1,onUpdate: this.draw,onComplete: onComplete})
+      } else if (inc < 0) {
+        let removeme  = this.sprites.pop()
+        this.removeChild(removeme)
+        const onComplete = ()=>{
+          this.draw()
+          this.removeChild(s)
+        }
+        TweenMax.to(this, 0.25, {denominator: this.denominator-1,onUpdate: this.draw,onComplete: onComplete})
+      }
+     }
+    }
+  
+    draw = (width) => {
+      if (width) {
+        this._width = width
+      }
+      this.blockWidth = this._width/this.denominator
+
+      let w = this.vertical ? this.BAR_HEIGHT : this.blockWidth
+      let h = this.vertical ? this.blockWidth : this.BAR_HEIGHT
+  
+      this.blockA.clear()
+      this.blockA.lineStyle(3,0x000000) 
+      this.blockA.drawRoundedRect(0,0,w,h,1)
+      this.myA = this.app.renderer.generateTexture(this.blockA)
+    
+      this.blockB.clear()
+      this.blockB.beginFill(0xff4772)
+      this.blockB.lineStyle(3,0x000000) 
+      this.blockB.drawRoundedRect(0,0,w,h,1)
+      this.myB = this.app.renderer.generateTexture(this.blockB)
+
+  
+      for (let i = 0;i<this.sprites.length;i++){
+        this.sprites[i].myA = this.myA
+        this.sprites[i].myB = this.myB
+        if (this.sprites[i].active){
+          this.sprites[i].texture = this.myB
+        } else {
+          this.sprites[i].texture = this.myA
+        }
+  
+        if (this.vertical){
+          this.sprites[i].x = 0
+          this.sprites[i].y = this.blockWidth*i
+        } else {
+          this.sprites[i].x = this.blockWidth*i
+          this.sprites[i].y = 0
+        }
+
+      }
+    }
+  
+  
+    spritePointerDown(event){
+      this.touched = true
+      this.dragged = false
+    }
+  
+    spritePointerMoved(event) {
+  
+      if (this.touched){
+        this.dragged = true
+      }
+    }
+  
+    spritePointerUp(event){
+      // previously "activated"
+     if (!this.dragged && this.touched) {
+        this.dragged = false
+        this.active = !this.active
+        this.alpha = 0.2
+        this.texture = this.active ? this.myB : this.myA
+        TweenLite.to(this,0.1,{alpha: 1})
+       }
+       this.touched = false
+    }
+  
+  
+    containerPointerDown(event) {
+      this.data = event.data
+      this.startWidth = this.width
+      this.dragStartY = event.data.global.y
+      this.touching = true
+      this.deltaTouch = {
+        x: this.x - event.data.global.x,
+        y: this.y - event.data.global.y
+      }
+    }
+  
+    containerPointerUp(event) {
+      this.touching = false
+    }
+  
+    containerPointerMove(event) {
+  
+      if (this.touching){
+        this.y = event.data.global.y + this.deltaTouch.y
+        this.x = event.data.global.x + this.deltaTouch.x
+        this.dragged = true
+      }
+    }
+  }
+  
+  
+  
+ 
+export function VerticalRow(num,den,width,app){
+
+  // Internal Params
+  let touching = true   
+  let containerMoving = false
+  let activated = true
+  this.value = 0
+
+  // Placeholders
+  let BAR_HEIGHT = 50
+  let LINE_WIDTH = 4
+  let LINE_MAX = 20
+  let LINE_START = 0
+
+  // Default values
+  this.numerator = num
+  this.denominator = den
+  this.width = width
+
+  this.container = new PIXI.Container()
+  this.container.width = width
+  this.container.interactive = true
+  this.container.y = 0
+  this.container.x = 0
+  this.sprites = []
+
+
+  this.blockWidth = width / this.denominator
+
+  this.blockA = new PIXI.Graphics()
+  this.blockA.lineStyle(3,0x000000) 
+  this.blockA.drawRoundedRect(0,0,this.blockWidth,BAR_HEIGHT,1)
+  let myA = app.renderer.generateTexture(this.blockA)
+
+  this.blockB = new PIXI.Graphics()
+  this.blockB.beginFill(0xff4772)
+  this.blockB.lineStyle(3,0x000000) 
+  this.blockB.drawRoundedRect(0,0,this.blockWidth,BAR_HEIGHT,1)
+  let myB = app.renderer.generateTexture(this.blockB)
+
+  let g = new PIXI.Graphics()    
+
+  this.incDenonimator = (inc) => {
+    console.log("this denomonicator - inc",this.denominator-inc)
+  if (this.denominator + inc >= 1) {
+    console.log("shouldn't exectuve if this.denominator is equal to 1",this.denominator)
+    g.clear()
+    g.lineStyle(3,0x000000) 
+    g.drawRoundedRect(0,0,this.width,BAR_HEIGHT,1)
+    let R = app.renderer.generateTexture(g)
+    let s = new PIXI.Sprite()
+    this.container.addChild(s)
+    s.texture = R
+    s.x  = 0
+
+    if (inc > 0){
+      const onComplete = ()=>{
+        s.on('pointerdown',spritePointerDown)
+        s.on('pointerup',spritePointerUp)
+        s.on('pointermove',spritePointerMoved)
+        s.interactive = true
+        s.active = false
+        this.sprites.push(s)
+        this.draw()
+      }
+      TweenMax.to(this, 0.25, {denominator: this.denominator+1,onUpdate: this.draw,onComplete: onComplete})
+    } else if (inc < 0) {
+      let removeme  = this.sprites.pop()
+      this.container.removeChild(removeme)
+      const onComplete = ()=>{
+        this.draw()
+        this.container.removeChild(s)
+      }
+      TweenMax.to(this, 0.25, {denominator: this.denominator-1,onUpdate: this.draw,onComplete: onComplete})
+    }
+   }
+  }
+
+  this.setValue = ()=> {
+    //this.value = Math.round(this.width/LINE_WIDTH*state.lineMax)
+    console.log("this.value",this.value)
+  }
+
+  this.draw = (width) => {
+
+    if (width) {
+      this.width = width
+    }
+    this.blockWidth = this.width/this.denominator
+
+    this.blockA.clear()
+    this.blockA.lineStyle(3,0x000000) 
+    this.blockA.drawRoundedRect(0,0,this.blockWidth,BAR_HEIGHT,1)
+    myA = app.renderer.generateTexture(this.blockA)
+
+    this.blockB.clear()
+    this.blockB.beginFill(0xff4772)
+    this.blockB.lineStyle(3,0x000000) 
+    this.blockB.drawRoundedRect(0,0,this.blockWidth,BAR_HEIGHT,1)
+    myB = app.renderer.generateTexture(this.blockB)
+
+    for (let i = 0;i<this.sprites.length;i++){
+      if (this.sprites[i].active){
+        this.sprites[i].texture = myB
+      } else {
+        this.sprites[i].texture = myA
+      }
+
+      this.sprites[i].x = this.blockWidth*i
+      this.sprites[i].y = 0
+    }
+  }
+
+  for (let i = 0;i<this.denominator;i++) {
+    let s = new PIXI.Sprite.from(myA)
+    s.on('pointerdown',spritePointerDown)
+    s.on('pointerup',spritePointerUp)
+    s.on('pointermove',spritePointerMoved)
+    s.interactive = true
+    s.active = false
+    s.x = i*LINE_WIDTH/this.denominator
+    this.sprites.push(s)
+    this.container.addChild(s)
+  }
+    
+
+  //  Attached methods
+  this.container.on('pointerdown',containerPointerDown)
+  this.container.on('pointerup',containerPointerUp)
+  this.container.on('pointermove',containerPointerMove)
+
+  // Add children
+  app.stage.addChild(this.container)
+  this.width = this.container.width
+
+
+  function spritePointerDown(event){
+    this.touched = true
+    this.dragged = false
+  }
+
+  function spritePointerMoved(event) {
+
+    if (this.touched){
+      this.dragged = true
+    }
+  }
+
+  function spritePointerUp(event){
+   if (!this.dragged && activated && this.touched) {
+      this.dragged = false
+      this.active = !this.active
+      this.alpha = 0.2
+      this.texture = this.active ? myB : myA
+      TweenLite.to(this,0.1,{alpha: 1})
+     }
+     this.touched = false
+  }
+
+
+ function containerPointerDown(event) {
+    app.stage.addChild(this)
+    this.data = event.data
+    this.startWidth = this.width
+    this.dragStartY = event.data.global.y
+    this.touching = true
+    touching = true
+    this.deltaTouch = {
+      x: this.x - event.data.global.x,
+      y: this.y - event.data.global.y
+    }
+  }
+
+ function containerPointerUp(event) {
+    this.touching = false
+    touching = false
+  }
+
+  function containerPointerMove(event) {
+
+    if (this.touching){
+      this.y = event.data.global.y + this.deltaTouch.y
+      this.x = event.data.global.x + this.deltaTouch.y
+      this.dragged = true
+    }
+  }
+  this.draw(width)
+}
+
+
 export class FeedBlocks extends PIXI.Container {
   constructor(app,width){
     super()
