@@ -584,7 +584,7 @@ export const init = (app, setup) => {
 
   function initNodes(a,b){
     DX = WINDOW_WIDTH/12
-    DY = Math.cos(Math.PI/6)*DX
+    DY = features.isometric ? Math.cos(Math.PI/6)*DX : DX
     let nudge = 0
     let t = features.isometric ? DX/2 : 0
     let dim = SQUARE_DIM/15
