@@ -28,7 +28,7 @@ import * as PlacingNumbersScript from "./js/placingnumbers.js";
 import * as BeakerGameScript from "./js/beakergame.js";
 import * as VerticalFractionStacksScript from "./js/verticalfractionstacks.js";
 import * as BuildAndCutScript from "./js/buildandcut.js";
-import * as NewToolScript from "./js/newtool.js";
+import * as NewToolScript from "./js/buildingblocks.js";
 
 
 import ActivityList from './components/ActivityList'
@@ -125,6 +125,7 @@ const Main = () => (
     <Route exact path="/numberline-building-game-one" render={() => <Arena activity = {"BUILDING_ACTIVITY_ONE"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
     <Route exact path="/numberline-building-game-two" render={() => <Arena activity = {"BUILDING_ACTIVITY_TWO"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
     <Route exact path="/newtool" render={() => <Arena app = {app} fullscreen = {true} script = {NewToolScript.init}/>} />
+    <Route exact path="/buildingblocks" render={() => <Arena app = {app} fullscreen = {true} script = {NewToolScript.init}/>} />
     <Route exact path="/sharingtool" render={() => <Arena a app = {app} fullscreen = {true} script = {SharingToolScript.init}/>} />
     <Route exact path="/activities/:activity" component={NewPanels}/>
     <Route exact path="/allactivities" component={ActivityList} />

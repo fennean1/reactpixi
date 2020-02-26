@@ -37,6 +37,10 @@ import side_jiji from "../assets/side-jiji.png"
 import mover_dot from "../assets/MoverDot.png"
 import draw_icon from "../assets/DrawIcon.png"
 import x_button from "../assets/XButton.png"
+import new_square from "../assets/NewSquare.png"
+import pink_ring from "../assets/PinkRingIcon.png"
+import blue_ring from "../assets/BlueRingIcon.png"
+
 
 export const ASSETS = {
     BLUE_GRADIENT: blue_gradient,
@@ -77,7 +81,10 @@ export const ASSETS = {
     SIDE_JIJI: side_jiji,
     MOVER_DOT: mover_dot,
     DRAW: draw_icon,
-    X_BUTTON: x_button
+    X_BUTTON: x_button,
+    NEW_SQUARE: new_square,
+    PINK_RING: pink_ring,
+    BLUE_RING: blue_ring,
 }
 
 export const CUISENAIRE_COLORS = {

@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 import * as CONST from "./const.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
-import {FractionFrame} from "./api.js"
+import {FractionFrame,distance} from "./api.js"
 
 const ASSETS = CONST.ASSETS
 
@@ -68,15 +68,24 @@ export const init = (app, setup) => {
   }
 
   function blockPointerUp(){
-    frames.forEach(f=>f.activated = false)
-    activeFrame = this
-    this.activated = true
-    plusButton.alpha = 1
-    minusButton.alpha = 1
-    plusButton.x = this.x + this.width + this.width/8
-    plusButton.y = this.y + this.height/2
-    minusButton.x = this.x - this.width/8
-    minusButton.y = this.y + this.height/2
+    console.log("distance",distance([this.x+this.width/2,this.y+this.y/2],[trashBtn.x,trashBtn.y]))
+    if (distance([this.x,this.y],[trashBtn.x,trashBtn.y])<100){
+      app.stage.removeChild(this)
+      let i = frames.indexOf(this)
+      frames.splice(i,1)
+      this.destroy(true)
+      activeFrame = null
+    } else {
+      frames.forEach(f=>f.activated = false)
+      activeFrame = this
+      this.activated = true
+      plusButton.alpha = 1
+      minusButton.alpha = 1
+      plusButton.x = this.x + this.width + this.width/8
+      plusButton.y = this.y + this.height/2
+      minusButton.x = this.x - this.width/8
+      minusButton.y = this.y + this.height/2
+    }
   }
 
   function makeBackground(){
@@ -98,12 +107,14 @@ export const init = (app, setup) => {
 
   function newFrame(){
     let denominator = activeFrame ? activeFrame.denominator : 2
-    let _newFrame = new FractionFrame(BLOCK_DIM,BLOCK_DIM,denominator,app,true)
+    let _newFrame = new FractionFrame(BLOCK_DIM,1.5*BLOCK_DIM,denominator,app,true)
     _newFrame.on('pointermove',blockPointerMove)
     _newFrame.on('pointerup',blockPointerUp)
+    _newFrame.interactive = false
     frames.push(_newFrame)
     app.stage.addChild(_newFrame)
-    TweenLite.to(_newFrame,1,{x: WINDOW_WIDTH/2,y: WINDOW_HEIGHT/2})
+    const onComplete = ()=>{_newFrame.interactive = true}
+    TweenLite.to(_newFrame,1,{x: WINDOW_WIDTH/2,y: WINDOW_HEIGHT/2,onComplete: onComplete})
     return _newFrame
   }
 
@@ -166,9 +177,9 @@ export const init = (app, setup) => {
     trashBtn.interactive = true
     app.stage.addChild(trashBtn)
 
-    generatorBtn = new PIXI.Sprite.from(ASSETS.PLUS)
-    generatorBtn.width = BLOCK_DIM/5
-    generatorBtn.height = BLOCK_DIM/5
+    generatorBtn = new PIXI.Sprite.from(ASSETS.NEW_SQUARE)
+    generatorBtn.width = BLOCK_DIM/3
+    generatorBtn.height = BLOCK_DIM/3
     generatorBtn.x = BLOCK_DIM/10
     generatorBtn.y = BLOCK_DIM/10
     generatorBtn.interactive = true

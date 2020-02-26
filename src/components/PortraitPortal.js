@@ -32,7 +32,7 @@ export default function PortraitPortal(props) {
     <div style={{ display: "flex", flexDirection: "row"}} >
      <div style={{ display: "flex", justifyContent: 'center', flex: 1 }}>
         <Document file= {props.data.PDF} onLoadSuccess = {props.onLoadSuccess}>
-         <Page loading = {<div style = {{height: window.innerHeight*0.3,width: 300}}/>} width = {window.innerWidth*0.3} pageNumber = {props.panelNumber} />
+         <Page loading = {<div style = {{height: window.innerHeight*0.3,width: 300}}/>} width = {window.innerWidth*0.4} pageNumber = {props.panelNumber} />
         </Document>
       </div>
       <div style={{ flex: 1 }}>

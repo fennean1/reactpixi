@@ -3,6 +3,7 @@
 import * as JijiSharingPizzaActivity from './cuttingtool/jiji_sharing_pizza_data.js'
 import * as TileGreaterThanOne from './walltool/tile_greater_than_one.js'
 import * as TileLessThanOne from './walltool/tile_less_than_one.js'
+import * as BuildGreaterThanOne from './walltool/build_greater_than_one'
 import * as PartitioningNumberLines from './placingnumbers/partitioning_number_lines.js'
 import * as BuildingNonUnitFractions from './gridnodes/building_non_unit_fractions.js'
 import * as BeakerEstimation from './beaker/beaker_estimation.js'
@@ -76,5 +77,6 @@ export const ACTIVITIES = {
     sand_pit: SandPit.ACTIVITY,
     snow_plow: SnowPlow.ACTIVITY,
     comparing_water: ComparingWater.ACTIVITY,
-    parts_of_parts: PartsOfParts.ACTIVITY
+    parts_of_parts: PartsOfParts.ACTIVITY,
+    build_greater_than_one: BuildGreaterThanOne.ACTIVITY
 }
