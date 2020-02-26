@@ -159,7 +159,6 @@ export class FractionFrame extends PIXI.Container {
     spritePointerDown(event){
       this.touched = true
       this.dragged = false
-      this.myColor = this.parent.color
     }
   
     spritePointerMoved(event) {
@@ -177,6 +176,7 @@ export class FractionFrame extends PIXI.Container {
         this.active = !this.active
         this.alpha = 0.2
         this.texture = this.active ? this.myB : this.myA
+        this.myColor = this.parent.color
         TweenLite.to(this,0.1,{alpha: 1})
        }
        this.touched = false

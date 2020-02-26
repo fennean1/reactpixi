@@ -67,6 +67,11 @@ export const init = (app, setup) => {
 
   }
 
+  function blockPointerDown(){
+    app.stage.addChild(this)
+  }
+
+
   function blockPointerMove(){
     if (this.touching){
       plusButton.alpha = 0
