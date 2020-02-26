@@ -9,8 +9,13 @@ export const init = (app, setup) => {
 
   // Constanct 
 
-  const GLASS_CIRCLE_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.GLASS_CIRCLE)
-    
+  const BLUE_RING_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.BLUE_RING)
+  const PINK_RING_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.PINK_RING)
+  const BLUE_CIRCLE_TEXTURE= new PIXI.Texture.from(CONST.ASSETS.BLUE_CIRCLE)
+  const PINK_CIRCLE_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.RED_CIRCLE)
+  const PINK_COLOR = 0xff4772
+  const BLUE_COLOR = 0x579aff
+
 
   // Layout Paramters
   let WINDOW_WIDTH;
@@ -28,6 +33,7 @@ export const init = (app, setup) => {
   let features; // Need default features for every tool.
   let cuttingMode = false
   let activelyCutting = false
+  let currentColor = BLUE_COLOR
 
 
   // State Objects
@@ -39,7 +45,8 @@ export const init = (app, setup) => {
   let trashBtn; 
   let generatorBtn;
   let frames = []
-
+  let blueBtn;
+  let pinkBtn;
 
 
   function updateLayoutParams(newFrame){
@@ -68,7 +75,6 @@ export const init = (app, setup) => {
   }
 
   function blockPointerUp(){
-    console.log("distance",distance([this.x+this.width/2,this.y+this.y/2],[trashBtn.x,trashBtn.y]))
     if (distance([this.x,this.y],[trashBtn.x,trashBtn.y])<100){
       app.stage.removeChild(this)
       let i = frames.indexOf(this)
@@ -77,6 +83,8 @@ export const init = (app, setup) => {
       activeFrame = null
     } else {
       frames.forEach(f=>f.activated = false)
+      app.stage.addChild(plusButton)
+      app.stage.addChild(minusButton)
       activeFrame = this
       this.activated = true
       plusButton.alpha = 1
@@ -106,8 +114,10 @@ export const init = (app, setup) => {
   }
 
   function newFrame(){
+    // #579aff
+    //0xff4772
     let denominator = activeFrame ? activeFrame.denominator : 2
-    let _newFrame = new FractionFrame(BLOCK_DIM,1.5*BLOCK_DIM,denominator,app,true)
+    let _newFrame = new FractionFrame(BLOCK_DIM,1.5*BLOCK_DIM,denominator,app,true,currentColor)
     _newFrame.on('pointermove',blockPointerMove)
     _newFrame.on('pointerup',blockPointerUp)
     _newFrame.interactive = false
@@ -116,6 +126,14 @@ export const init = (app, setup) => {
     const onComplete = ()=>{_newFrame.interactive = true}
     TweenLite.to(_newFrame,1,{x: WINDOW_WIDTH/2,y: WINDOW_HEIGHT/2,onComplete: onComplete})
     return _newFrame
+  }
+
+  function switchColors(newColor){
+    currentColor = newColor
+    frames.forEach(f=>{
+      f.color = newColor
+      f.draw()
+    })
   }
 
   // Loading Scriptd
@@ -186,6 +204,34 @@ export const init = (app, setup) => {
     generatorBtn.on('pointerdown',newFrame)
     app.stage.addChild(generatorBtn)
 
+
+
+    blueBtn = new PIXI.Sprite.from(ASSETS.BLUE_CIRCLE)
+    blueBtn.width = BLOCK_DIM/3
+    blueBtn.height = BLOCK_DIM/3
+    blueBtn.x = BLOCK_DIM/10
+    blueBtn.y = 1.5*blueBtn.height
+    blueBtn.interactive = true
+    blueBtn.on('pointerdown',()=>{
+      switchColors(BLUE_COLOR)
+      blueBtn.texture = BLUE_CIRCLE_TEXTURE
+      pinkBtn.texture = PINK_RING_TEXTURE
+    })
+    app.stage.addChild(blueBtn)
+
+
+    pinkBtn = new PIXI.Sprite.from(ASSETS.PINK_RING)
+    pinkBtn.width = BLOCK_DIM/3
+    pinkBtn.height = BLOCK_DIM/3
+    pinkBtn.y = blueBtn.y + 1.1*pinkBtn.height
+    pinkBtn.x = BLOCK_DIM/10
+    pinkBtn.on('pointerdown',()=>{
+      switchColors(PINK_COLOR)
+      blueBtn.texture = BLUE_RING_TEXTURE
+      pinkBtn.texture = PINK_CIRCLE_TEXTURE
+    })
+    pinkBtn.interactive = true
+    app.stage.addChild(pinkBtn)
 
   }
 

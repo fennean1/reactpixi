@@ -13,7 +13,7 @@ export class Row extends PIXI.Container{
 
 
 export class FractionFrame extends PIXI.Container {
-  constructor(width,height,den,app,vertical){
+  constructor(width,height,den,app,vertical,color){
 
    super()
      // State
@@ -23,6 +23,7 @@ export class FractionFrame extends PIXI.Container {
      this.LINE_WIDTH = 4
      let LINE_MAX = 20
      let LINE_START = 0
+     this.color = color 
    
      // Default values
      this.numerator = 1
@@ -46,7 +47,7 @@ export class FractionFrame extends PIXI.Container {
      this.myA = this.app.renderer.generateTexture(this.blockA)
    
      this.blockB = new PIXI.Graphics()
-     this.blockB.beginFill(0xff4772)
+     this.blockB.beginFill(this.color)
      this.blockB.lineStyle(3,0x000000) 
      this.blockB.drawRoundedRect(0,0,w,h,1)
      this.myB = this.app.renderer.generateTexture(this.blockB)
@@ -122,7 +123,7 @@ export class FractionFrame extends PIXI.Container {
       this.myA = this.app.renderer.generateTexture(this.blockA)
     
       this.blockB.clear()
-      this.blockB.beginFill(0xff4772)
+      this.blockB.beginFill(this.color)
       this.blockB.lineStyle(3,0x000000) 
       this.blockB.drawRoundedRect(0,0,w,h,1)
       this.myB = this.app.renderer.generateTexture(this.blockB)
@@ -132,8 +133,14 @@ export class FractionFrame extends PIXI.Container {
         this.sprites[i].myA = this.myA
         this.sprites[i].myB = this.myB
         if (this.sprites[i].active){
-          this.sprites[i].texture = this.myB
+          this.blockB.clear()
+          this.blockB.beginFill(this.sprites[i].myColor)
+          this.blockB.lineStyle(3,0x000000) 
+          this.blockB.drawRoundedRect(0,0,w,h,1)
+          let thisB = this.app.renderer.generateTexture(this.blockB)
+          this.sprites[i].texture = thisB
         } else {
+          this.sprites[i].myColor = this.color
           this.sprites[i].texture = this.myA
         }
   
@@ -152,6 +159,7 @@ export class FractionFrame extends PIXI.Container {
     spritePointerDown(event){
       this.touched = true
       this.dragged = false
+      this.myColor = this.parent.color
     }
   
     spritePointerMoved(event) {
