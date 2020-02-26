@@ -27,7 +27,7 @@ class ConceptsList extends Component {
             <ActivityCard data={ACTIVITIES.beaker_estimation} />
           </div>
           <div className="col s6">
-            <ActivityCard data={ACTIVITIES.build_greater_than_one} />
+            <ActivityCard data={ACTIVITIES.tile_greater_than_one} />
           </div>
         </div>
       </div>
