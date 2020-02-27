@@ -17,8 +17,11 @@ class TeacherActivityLandingPage extends Component {
     };
   }
 
+  componentDidMount(){
+    window.scrollTo(0, 0)
+  }
+
   changeTab(event, newValue) {
-    console.log("this is what's passed", newValue);
     this.setState({ tabIndex: newValue });
   }
 

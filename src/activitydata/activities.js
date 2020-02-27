@@ -30,7 +30,12 @@ import * as SnowPlow from "./WordProblems/snow_plow.js"
 import * as ComparingWater from "./WordProblems/comparing_water.js"
 import * as PartsOfParts from "./WordProblems/parts_of_parts.js"
 import * as HelicopterGasTank from "./WordProblems/helicopter_gas_tank.js"
-
+import * as CarBatteries from "./WordProblems/car_batteries.js"
+import * as IceBlocks from "./WordProblems/ice_blocks.js"
+import * as JijiStairs from "./WordProblems/jiji_stairs.js"
+import * as SnowmenLine from "./WordProblems/snowmen_line.js"
+import * as MeasuringCups from "./WordProblems/measuring_cups.js"
+import * as JijiCookie from "./WordProblems/jiji_cookie.js"
 
 
 // Games
@@ -81,5 +86,11 @@ export const ACTIVITIES = {
     parts_of_parts: PartsOfParts.ACTIVITY,
     build_greater_than_one: BuildGreaterThanOne.ACTIVITY,
     car_gas_tank: CarGasTank.ACTIVITY,
-    helicopter_gas_tank: HelicopterGasTank.ACTIVITY
+    helicopter_gas_tank: HelicopterGasTank.ACTIVITY,
+    car_batteries: CarBatteries.ACTIVITY,
+    ice_blocks: IceBlocks.ACTIVITY,
+    jiji_stairs: JijiStairs.ACTIVITY,
+    snowmen_line: SnowmenLine.ACTIVITY,
+    measuring_cups: MeasuringCups.ACTIVITY,
+    jiji_cookie: JijiCookie.ACTIVITY
 }

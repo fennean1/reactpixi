@@ -1,22 +1,25 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/JijiPondIcon.png'
+import ICON from '../../assets/MeasuringCupsIcon.png'
+
 
 const sequence = 
     [{
       slideNumber: 1,
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      tips: ["What do the waves represent?","How many hours would be halfway?"
-      ],
+      tips: ["Can you put fourths and eighths on the same number line?",
+        "How else can we model fourths and eighths?",
+        "How do we know when JiJi was in the same spot?",
+        ],
     },
 ]
 
+
 export const ACTIVITY = {
-    ID: "jiji_pond",
-    TITLE : "JiJi's Pond",
+    ID: "measuring_cups",
+    TITLE : "Measuring Cups",
     WORD_PROBLEM: true,
     ICON: ICON,
-    NO_TOOL: false,
     TIME: 15,
     PAGES: 4,
     TOOL: "/fractionwall",
@@ -30,7 +33,7 @@ export const ACTIVITY = {
     STANDARD_DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
     TAGS: ["Place Value","Addition","First Grade"],
     LEARNING_GOAL: "goal for learning",
-    PDF: "/pdfs/wordproblems/JijiPond.pdf",
+    PDF: "/pdfs/wordproblems/JijiResting.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: "/fractionwall"}],
     OBJECTIVES: ["students can do this","students can also do this"],
     DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",

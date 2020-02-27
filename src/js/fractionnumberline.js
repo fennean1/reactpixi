@@ -35,6 +35,7 @@ export const init = (app, setup) => {
   let ARENA_WIDTH = LANDSCAPE ? 4/3*setup.height : setup.width
   let ARENA_HEIGHT = LANDSCAPE ? setup.height : 3/4*setup.width
   let DX = LINE_WIDTH/15
+  let NUMBERLINE_START_X = WINDOW_WIDTH/2 - LINE_WIDTH/2
 
 
   // Updates the layout parameters used to position elements.
@@ -53,6 +54,7 @@ export const init = (app, setup) => {
     ARENA_WIDTH = LANDSCAPE ? 4/3*frame.height : frame.width
     ARENA_HEIGHT = LANDSCAPE ? frame.height : 3/4*frame.width
     DX = LINE_WIDTH/15
+    NUMBERLINE_START_X = WINDOW_WIDTH/2 - LINE_WIDTH/2
   }
 
   // Called on resize
@@ -116,16 +118,19 @@ export const init = (app, setup) => {
       } else {
         denominator = currentDenominator
       }
-      let dx = numberline.whole/denominator
-      let n = Math.round((this.x+this.width/2 - numberline.x) / dx)
-      this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y)
-      this.fraction.N.alpha = 0
-      //this.fraction.D.alpha = 0
 
-      // FEATURE
-      //if (features.blocks){feedBlocks.showTo(n)}
-    }
+      let dx = numberline.whole/denominator
+      this.fraction.N.alpha = 0
+      
+      if (this.y <=  0){
+        this.y = 0
+      } else if (this.x <= NUMBERLINE_START_X ) {
+        this.x = NUMBERLINE_START_X - this.width/2
+      } 
+
+      this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y)
   }
+}
 
   function tagPointerDown(){
     let denominator
@@ -182,12 +187,22 @@ export const init = (app, setup) => {
     this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y,hidden)
   
     //app.stage.addChild(numberline)
-
-    if (floatX < numberline.x-dx/4){
+    console.log("n,numberline.y,this.y",n,numberline.y,this.y)
+    if (floatX > numberline.x + LINE_WIDTH){
       let i = tags.indexOf(this)
       tags.splice(i,1)
       app.stage.removeChild(this)
+      n = 0
+    } else if (n == 0 && this.y < numberline.y) {
+      this.y = numberline.y + 4*this.width
+      this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y,hidden)
     }
+
+    if (this.y+this.height > app.stage.height){
+      this.y = numberline.x + 10*this.width
+      this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y,hidden)
+    }
+
     feedBlocks.showTo(n)
   }
 
@@ -292,8 +307,6 @@ export const init = (app, setup) => {
     feedBlocks.x = numberline.x 
     feedBlocks.y = numberline.y - feedBlocks.height
     feedBlocks.hide()
-    console.log("numberline wh9ole",numberline.whole)
-
   }
   
   // Call load script

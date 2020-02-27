@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{createBrowserHistory} from 'react';
 import './App.css';
 import Arena from "./components/Arena"
 //import Panels from "./components/Panels"
@@ -162,7 +162,7 @@ const Main = () => (
 function App() {
   return (
       <MuiThemeProvider theme = {theme}>
-          <BrowserRouter onUpdate={() => window.scrollTo(0, 0)}  className = "container">
+          <BrowserRouter className = "container">
            <Main/>
           </BrowserRouter>
        </MuiThemeProvider>
