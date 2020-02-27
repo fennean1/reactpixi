@@ -49,6 +49,9 @@ export default function ActivityCard(props) {
   </Button>)
 
 const objectives = props.data.OBJECTIVES.map((obj,k)=><blockquote key = {k} style = {{marginLeft: "5%"}}><Box fontSize={20}>{obj}</Box></blockquote>)
+const studentButton = (!props.data.NO_TOOL &&  <Link to={{pathname: `${studentpath}`, state: {data: props.data}}}>
+<Button color = "primary" variant = "outlined" >Student</Button>
+</Link>)
 
   return (
     <div className="card sticky-action">
@@ -62,9 +65,7 @@ const objectives = props.data.OBJECTIVES.map((obj,k)=><blockquote key = {k} styl
     <div className="card-action">
       <Link  to={{pathname: `${teacherpath}`, state: {data: props.data}}}>
       <Button color = "primary" variant = "outlined" >Teacher</Button></Link>
-      <Link to={{pathname: `${studentpath}`, state: {data: props.data}}}>
-      <Button color = "primary" variant = "outlined" >Student</Button>
-      </Link>
+      {studentButton}
       {printouts}
       </div>
     <div className="card-reveal">

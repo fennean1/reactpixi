@@ -19,7 +19,7 @@ class NumberLineWordProblems extends Component {
             <ActivityCard data={ACTIVITIES.jiji_pond} />
           </div>
           < div className="col s6">
-            <ActivityCard data={ACTIVITIES.jiji_resting} />
+            <ActivityCard data={ACTIVITIES.car_gas_tank} />
           </div>
         </div>
       </div>

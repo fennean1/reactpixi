@@ -80,7 +80,7 @@ export const init = (app, setup) => {
   }
 
   function blockPointerUp(){
-    if (distance([this.x,this.y],[trashBtn.x,trashBtn.y])<100){
+    if (distance([this.x,this.y],[trashBtn.x,trashBtn.y])<Math.min(this.width,this.height)){
       app.stage.removeChild(this)
       let i = frames.indexOf(this)
       frames.splice(i,1)

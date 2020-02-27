@@ -67,6 +67,9 @@ export default function LessonPanel(props) {
     return ()=>window.removeEventListener('resize',windowListener)
   },[])
 
+  const toolLink  = (!data.NO_TOOL && <Link target="_blank" to = {{pathname: data.TOOL}}>
+  <a  className="btn orange left"><i className="material-icons">build</i></a>
+  </Link>)
 
   return (
     <div style={{ height: "100vh", flexDirection: "column" }}>
@@ -80,9 +83,7 @@ export default function LessonPanel(props) {
       </div>
       <div style={{display: 'flex', width: '100%' }} >
       <div style={{ flex: 1, margin: 3 }}>
-        <Link target="_blank" to = {{pathname: data.TOOL}}>
-        <a  className="btn orange left"><i className="material-icons">build</i></a>
-        </Link>
+        {toolLink}
       </div>
       <div style={{ flex: 1, float: 'right' }}>
         <a onClick={() => setTipsOpen(true)} className="btn orange right"><i className="material-icons">forum</i></a>

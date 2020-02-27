@@ -22,7 +22,7 @@ import * as Wallpaper from "./WordProblems/wallpaper.js"
 import * as FriendSharing from "./WordProblems/friend_sharing.js"
 import * as JijiPond from "./WordProblems/jiji_pond.js"
 import * as SeaWater from "./WordProblems/sea_water.js"
-import * as JijiResting from "./WordProblems/jiji_resting.js"
+import * as CarGasTank from "./WordProblems/car_gas_tank.js"
 import * as MoreFriendSharing from "./WordProblems/more_friend_sharing"
 import * as MoreSeaWater from "./WordProblems/more_sea_water.js"
 import * as SandPit from "./WordProblems/sand_pit.js"
@@ -66,7 +66,6 @@ export const ACTIVITIES = {
     wallpaper: Wallpaper.ACTIVITY,
     friend_sharing: FriendSharing.ACTIVITY,
     sea_water: SeaWater.ACTIVITY,
-    jiji_resting: JijiResting.ACTIVITY,
     build_fractions_greater_than_one: BuildFractionsGreaterThanOne.ACTIVITY,
     unit_fractions_on_a_number_line: UnitFractionsOnANumberLine.ACTIVITY,
     estimate_fractions_on_a_number_line: EstimateFractionsOnANumberLine.ACTIVITY,
@@ -78,5 +77,6 @@ export const ACTIVITIES = {
     snow_plow: SnowPlow.ACTIVITY,
     comparing_water: ComparingWater.ACTIVITY,
     parts_of_parts: PartsOfParts.ACTIVITY,
-    build_greater_than_one: BuildGreaterThanOne.ACTIVITY
+    build_greater_than_one: BuildGreaterThanOne.ACTIVITY,
+    car_gas_tank: CarGasTank.ACTIVITY
 }

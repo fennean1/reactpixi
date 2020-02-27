@@ -1,6 +1,6 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/JijiRestingIcon.png'
+import ICON from '../../assets/CarGasTankIcon.png'
 
 
 const sequence = 
@@ -16,8 +16,9 @@ const sequence =
 
 
 export const ACTIVITY = {
-    ID: "jiji_resting",
-    TITLE : "JiJi Resting",
+    ID: "car_gas_tank",
+    TITLE : "Gas Gauge",
+    NO_TOOL: true,
     WORD_PROBLEM: true,
     ICON: ICON,
     TIME: 15,
