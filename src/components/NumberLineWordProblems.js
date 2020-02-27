@@ -22,6 +22,11 @@ class NumberLineWordProblems extends Component {
             <ActivityCard data={ACTIVITIES.car_gas_tank} />
           </div>
         </div>
+        <div className="row">
+        < div className="col s6">
+            <ActivityCard data={ACTIVITIES.helicopter_gas_tank} />
+          </div>
+        </div>
       </div>
     );
   }

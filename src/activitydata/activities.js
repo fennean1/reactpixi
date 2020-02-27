@@ -29,6 +29,8 @@ import * as SandPit from "./WordProblems/sand_pit.js"
 import * as SnowPlow from "./WordProblems/snow_plow.js"
 import * as ComparingWater from "./WordProblems/comparing_water.js"
 import * as PartsOfParts from "./WordProblems/parts_of_parts.js"
+import * as HelicopterGasTank from "./WordProblems/helicopter_gas_tank.js"
+
 
 
 // Games
@@ -78,5 +80,6 @@ export const ACTIVITIES = {
     comparing_water: ComparingWater.ACTIVITY,
     parts_of_parts: PartsOfParts.ACTIVITY,
     build_greater_than_one: BuildGreaterThanOne.ACTIVITY,
-    car_gas_tank: CarGasTank.ACTIVITY
+    car_gas_tank: CarGasTank.ACTIVITY,
+    helicopter_gas_tank: HelicopterGasTank.ACTIVITY
 }

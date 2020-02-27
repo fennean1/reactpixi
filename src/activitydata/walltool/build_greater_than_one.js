@@ -11,66 +11,61 @@ const sequence =
     },
     {
       slideNumber: 2,
-      tips: ["What shape should you try first? Why do you think that piece may use the least/most number of pieces?",
-      "What fraction of a whole square does this piece represent?",
-      "How big is the space we need to cover?"
+      tips: ["Is there anything leftover after you make the wholes?",
+        "Can you use wholes and parts to name the fraction?"
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 3,
-      tips: ["What shape should you try first? Why do you think that piece may use the least/most number of pieces?",
-      "What fraction of a whole square does this piece represent?",
-      "How big is the space we need to cover?",      
+      tips: ["Is there anything leftover after you make the wholes?",
+        "Can you use wholes and parts to name the fraction?"
         ],
       screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 4,
-      tips: ["Record the solution on your paper.",
-      "Check with your partner, does their work match this example?",
-      "Work together to make any corrections needed."
+      tips: ["Extension: How many whole’s would be in five halves?"
        ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 5,
-      tips: ["Record the solution on your paper",
-      "Check with your partner, does their work match this example?",
-      "Work together to make any corrections needed."
+      tips: ["How many buckets make one fourth?",
+      "How many fourths are needed to fill one pit?",
+      "How many buckets are needed to fill one pit?",      
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 6,
-      tips: ["What shape should you try first? Why do you think that piece can fill the space in the road?",
-      "How many pieces will you need?", 
-      "How much bigger than 1 block is this shape?",      
+      tips: ["How many buckets make one fourth?",
+      "How many fourths are needed to fill one pit?",
+      "How many buckets are needed to fill one pit?",      
         ],
       screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 7,
-      tips: ["What shape should you try first? Why do you think that piece can fill the space in the road?",
-      "How many pieces will you need?",
-      "How much bigger than 1 block is this shape?"
+      tips: ["How do we name 11 fourths using wholes and parts?"
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 8,
-      tips: ["Record the solution on your paper.",
-      "Check with your partner, does their work match this example?",
-      "Work together to make any corrections needed.",
+      tips: ["What do you notice about the pits in JiJi’s path?",
+      "How much is filled in each pit?",
+      "How much more sand do you need for each pit?",
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 9,
-      tips: ["Record the solution on your paper.",
-      "Check with your partner, does their work match this example?",
-      "Work together to make any corrections needed.",
-        ],
+      tips: ["What do you notice about the pits in JiJi’s path?",
+      "How much is filled in each pit?",
+      "How much more sand do you need for each pit?",
+      "Bonus Question: “How many piles of sand has JiJi already used?",
+      ],
       screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
@@ -83,25 +78,21 @@ const sequence =
     },
     {
       slideNumber: 11,
-      tips: ["Record the solution on your paper.",
-      "Check with your partner, does their work match this example?",
-      "Work together to make any corrections needed.",
+      tips: ["How do you know which fractions are less than 1?",
+      "How do you know when a fraction is greater than 1?",
+      "How much more than 1 is 7/3 (or 8/6)?",
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 12,
-      tips: ["Record the solution on your paper.",
-      "Check with your partner, does their work match this example?",
-      "Work together to make any corrections needed.",
+      tips: ["The bonus question is optional.",
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 13,
-      tips: ["Record the solution on your paper.",
-      "Check with your partner, does their work match this example?",
-      "Work together to make any corrections needed.",
+      tips: ["What part of the whole is each brick?",
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
     },
@@ -128,8 +119,8 @@ export const ACTIVITY = {
     PDF: "/pdfs/slides/BuildingFractionsGreaterThanOne.pdf",
     ORGANIZER: "/pdfs/organizers/BuildingGreaterThanOneOrganizer.pdf",
     STUDENT_LINKS: [{title: 'Tool',link: '/newtool'}],
-    DESCRIPTION: ".",
-    OBJECTIVES: ["Model and name fractions greater than 1.","Compose fractions using unit fractions (e.g. 7/4 = ¼+¼+¼+¼+¼+¼+¼)."],
+    DESCRIPTION: "Students use an area model to answer the question ‘How many wholes can you make with 5 fourths and how many whole...with 3 halves?’. The discussion introduces students to the idea of fractions greater than one: 3 halves is 1 whole and ½ of another . They apply this model to fill holes in JiJi’s path using buckets and then piles of sand. This situation gives a context for describing fractions greater than 1. The conclusion question asks students to identify and discuss fractions greater than one. Students generalize about why a fraction with a numerator greater than the denominator is always greater than 1 whole.",
+    OBJECTIVES: ["Model and name fractions greater than 1.","Compose and decompose whole numbers into fractions."],
     OVERVIEW: [{anchor: "Play",slides: [1,4], description: ['Bullet One','Bullet Two','Bullet Three']},
     {anchor: "Discuss",slides: [5,6],description: ['Bullet One','Bullet Two','Bullet Three']}]
   }
