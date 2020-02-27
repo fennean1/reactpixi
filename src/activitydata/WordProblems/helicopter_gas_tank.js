@@ -19,6 +19,7 @@ export const ACTIVITY = {
     ID: "helicopter_gas_tank",
     TITLE : "Helicopter Gas",
     WORD_PROBLEM: true,
+    NO_TOOL: true,
     ICON: ICON,
     TIME: 15,
     PAGES: 4,
