@@ -13,7 +13,7 @@ export class Row extends PIXI.Container{
 
 
 export class FractionFrame extends PIXI.Container {
-  constructor(width,height,den,app,vertical,color){
+  constructor(width,height,den,app,vertical,secondColor,descriptor){
 
    super()
      // State
@@ -21,12 +21,11 @@ export class FractionFrame extends PIXI.Container {
      // Placeholders
      this.BAR_HEIGHT = 200
      this.LINE_WIDTH = 4
-     let LINE_MAX = 20
-     let LINE_START = 0
-     this.color = color 
-   
+     this.BTN_WIDTH = width/4
+     this.DESCRIPTOR_WIDTH = width/3
+
      // Default values
-     this.numerator = 1
+     this.numerator = 0
      this.denominator = den
      this._width = width
      this._height = height
@@ -34,10 +33,52 @@ export class FractionFrame extends PIXI.Container {
      this.sprites = []
      this.vertical = vertical
      this.blockDim = this.vertical ?  height / this.denominator :  width / this.denominator
-     this.activated = false
-
+     this.activated = true
      this.interactive = true
-   
+     this.color = secondColor ? secondColor : 0xFFFFFF
+
+    if (true){
+      this.descriptor = new Fraction(1,2,this.DESCRIPTOR_WIDTH)
+      this.descriptor.interactive = false
+      this.descriptor.x = this._width/2 - this.descriptor.width/2
+      this.descriptor.y = -1.2*this.descriptor.height
+      this.descriptor.on('pointerdown', this.grabberPointerDown)
+      this.descriptor.on('pointermove', this.grabberPointerMove)
+      this.descriptor.on('pointerup', this.grabberPointerUp)
+      this.descriptor.on('pointerupoutside', this.grabberPointerUp)
+      this.descriptor.draw(this.numerator,this.denominator,this.DESCRIPTOR_WIDTH)
+      this.addChild(this.descriptor)
+    }
+
+ 
+     this.plusBtn = new PIXI.Sprite.from(CONST.ASSETS.PLUS_SQUARE)
+     this.plusBtn.anchor.set(0.5)
+     this.plusBtn.interactive = true
+     this.plusBtn.width = this.BTN_WIDTH
+     this.plusBtn.height = this.plusBtn.width
+     this.plusBtn.x = 3 / 4 * this._width
+     this.plusBtn.y = this._height + 1.5 * this.plusBtn.width / 2
+     this.plusBtn.on('pointerdown', () => {
+       console.log("hello")
+       this.incDenominator(1)
+     })
+     this.addChild(this.plusBtn)
+ 
+  
+ 
+     this.minusBtn = new PIXI.Sprite.from(CONST.ASSETS.MINUS_SQUARE)
+     this.minusBtn.anchor.set(0.5)
+     this.minusBtn.interactive = true
+     this.minusBtn.width = this.BTN_WIDTH
+     this.minusBtn.height = this.minusBtn.width
+     this.minusBtn.x = 1 / 4 * this._width
+     this.minusBtn.y = this._height + 1.5 * this.minusBtn.width / 2
+     this.minusBtn.anchor.set(0.5)
+     this.minusBtn.on('pointerdown', () => {
+       this.incDenominator(-1)
+      })
+     this.addChild(this.minusBtn)
+
      let w = this.vertical ? this._width : this.blockDim
      let h = this.vertical ? this.blockDim : this._height
 
@@ -57,6 +98,7 @@ export class FractionFrame extends PIXI.Container {
        //  Attached methods
     this.on('pointerdown',this.containerPointerDown)
     this.on('pointerup',this.containerPointerUp)
+    this.on('pointerupoutside',this.containerPointerUp)
     this.on('pointermove',this.containerPointerMove)
   
     for (let i = 0;i<this.denominator;i++) {
@@ -75,6 +117,8 @@ export class FractionFrame extends PIXI.Container {
   } 
   
     incDenominator = (inc) => {
+      this.plusBtn.interactive = false
+      this.minusBtn.interactive = false
     if (this.denominator + inc >= 1) {
       this.g.clear()
       this.g.lineStyle(3,0x000000) 
@@ -91,9 +135,10 @@ export class FractionFrame extends PIXI.Container {
           s.on('pointerup',this.spritePointerUp)
           s.on('pointermove',this.spritePointerMoved)
           s.interactive = true
-          s.active = false
           this.sprites.push(s)
           this.draw()
+          this.plusBtn.interactive = true
+          this.minusBtn.interactive = true
         }
         TweenMax.to(this, 0.25, {denominator: this.denominator+1,onUpdate: this.draw,onComplete: onComplete})
       } else if (inc < 0) {
@@ -102,10 +147,22 @@ export class FractionFrame extends PIXI.Container {
         const onComplete = ()=>{
           this.draw()
           this.removeChild(s)
+          this.plusBtn.interactive = true
+          this.minusBtn.interactive = true
         }
         TweenMax.to(this, 0.25, {denominator: this.denominator-1,onUpdate: this.draw,onComplete: onComplete})
       }
      }
+     setTimeout(()=>{
+       this.numerator = this.sprites.reduce((acc,s)=>{
+      console.log("active?",s)
+     let count = s.active ? 1 : 0 
+     console.log("count",count)
+     return count+acc},0)
+    this.denominator = Math.round(this.denominator)
+    this.descriptor.draw(this.numerator,this.denominator,this.DESCRIPTOR_WIDTH)
+    },300)
+
     }
   
     draw = (width) => {
@@ -146,13 +203,25 @@ export class FractionFrame extends PIXI.Container {
   
         if (this.vertical){
           this.sprites[i].x = 0
-          this.sprites[i].y = this.blockDim*i
+          this.sprites[i].y = this._height - this.blockDim*(i+1)
         } else {
           this.sprites[i].x = this.blockDim*i
           this.sprites[i].y = 0
         }
 
       }
+    }
+
+    grabberPointerDown(){
+
+    }
+  
+    grabberPointerMove(){
+      
+    }
+  
+    grabberPointerUp(){
+      
     }
   
   
@@ -178,7 +247,13 @@ export class FractionFrame extends PIXI.Container {
         this.texture = this.active ? this.myB : this.myA
         this.myColor = this.parent.color
         TweenLite.to(this,0.1,{alpha: 1})
+        if (this.active){
+          this.parent.numerator +=1
+        } else {
+          this.parent.numerator -=1
+        }
        }
+       this.parent.descriptor.draw(this.parent.numerator,this.parent.denominator,this.parent.DESCRIPTOR_WIDTH)
        this.touched = false
     }
   
@@ -202,7 +277,7 @@ export class FractionFrame extends PIXI.Container {
     containerPointerMove(event) {
   
       if (this.touching){
-        this.y = event.data.global.y + this.deltaTouch.y
+        this.y = this.lockY ? this.y : event.data.global.y + this.deltaTouch.y
         this.x = event.data.global.x + this.deltaTouch.x
         this.dragged = true
       }

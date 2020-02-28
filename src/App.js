@@ -1,9 +1,9 @@
-import React,{createBrowserHistory} from 'react';
+import React,{Fragment,useEffect} from 'react';
 import './App.css';
 import Arena from "./components/Arena"
 //import Panels from "./components/Panels"
 import * as Pixi from "pixi.js";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Link,withRouter } from "react-router-dom";
 import * as HundredsArrayScript from "./js/hundredsarray.js"
 import * as NumberLineStripsScript from "./js/numberlinestrips.js"
 //import * as FractionWallScript from "./js/fractionwall.js";
@@ -61,7 +61,20 @@ import WordProblems from './components/WordProblemsList';
 import PortraitPortal from './components/PortraitPortal';
 import NewPanels from './components/NewPanels';
 
+function ScrollToTop({ history, children }) {
+  useEffect(() => {
+    const unlisten = history.listen(() => {
+      window.scrollTo(0, 0);
+    });
+    return () => {
+      unlisten();
+    }
+  }, []);
 
+  return <Fragment>{children}</Fragment>;
+}
+
+const ScrollToTopWithRouter = withRouter(ScrollToTop);
 
 Pixi.settings.RESOLUTION = 3
 let app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
@@ -163,7 +176,9 @@ function App() {
   return (
       <MuiThemeProvider theme = {theme}>
           <BrowserRouter className = "container">
+            <ScrollToTopWithRouter>
            <Main/>
+           </ScrollToTopWithRouter>
           </BrowserRouter>
        </MuiThemeProvider>
   );

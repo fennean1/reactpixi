@@ -11,10 +11,15 @@ export const init = (app, setup) => {
 
   const BLUE_RING_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.BLUE_RING)
   const PINK_RING_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.PINK_RING)
+  const YELLOW_RING_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.YELLOW_RING)
   const BLUE_CIRCLE_TEXTURE= new PIXI.Texture.from(CONST.ASSETS.BLUE_CIRCLE)
   const PINK_CIRCLE_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.RED_CIRCLE)
+  const YELLOW_CIRCLE_TEXTURE = new PIXI.Texture.from(CONST.ASSETS.YELLOW_CIRCLE)
   const PINK_COLOR = 0xff4772
   const BLUE_COLOR = 0x579aff
+  const YELLOW_COLOR = 0xFFE32A
+  const SECONDARY_COLOR = YELLOW_COLOR
+  const PRIMARY_COLOR = BLUE_COLOR
 
 
   // Layout Paramters
@@ -81,23 +86,22 @@ export const init = (app, setup) => {
 
   function blockPointerUp(){
     if (distance([this.x,this.y],[trashBtn.x,trashBtn.y])<Math.min(this.width,this.height)){
+      let children = this.children
+      for (let i = children.length - 1; i >= 0; i--) {	this.removeChild(children[i]);};
+
+      for (let i = children.length - 1; i >= 0; i--) {	children[i].destroy(true);};
       app.stage.removeChild(this)
       let i = frames.indexOf(this)
       frames.splice(i,1)
+      this.children.forEach((c)=>{c.destroy(true)})
       this.destroy(true)
       activeFrame = null
     } else {
-      frames.forEach(f=>f.activated = false)
-      app.stage.addChild(plusButton)
-      app.stage.addChild(minusButton)
       activeFrame = this
-      this.activated = true
-      plusButton.alpha = 1
-      minusButton.alpha = 1
-      plusButton.x = this.x + this.width + this.width/8
-      plusButton.y = this.y + this.height/2
-      minusButton.x = this.x - this.width/8
-      minusButton.y = this.y + this.height/2
+      frames.sort((a,b)=> (a.x>b.x) ? 1 : -1)
+      let frameWidth = frames.length*BLOCK_DIM*1.2
+      frames.forEach((f,i)=>{  TweenLite.to(f,0.5,{x: WINDOW_WIDTH/2 - frameWidth/2 + f.width*1.2*i})})
+    
     }
   }
 
@@ -116,20 +120,29 @@ export const init = (app, setup) => {
         this.sprite.width = WINDOW_WIDTH
         this.sprite.height = WINDOW_HEIGHT
     }
+
+
   }
 
   function newFrame(){
     // #579aff
     //0xff4772
+    frames.sort((a,b)=> (a.x>b.x) ? 1 : -1)
     let denominator = activeFrame ? activeFrame.denominator : 2
     let _newFrame = new FractionFrame(BLOCK_DIM,1.5*BLOCK_DIM,denominator,app,true,currentColor)
     _newFrame.on('pointermove',blockPointerMove)
     _newFrame.on('pointerup',blockPointerUp)
+    _newFrame.on('pointerupoutside',blockPointerUp)
+    _newFrame.on('pointerdown',blockPointerDown)
     _newFrame.interactive = false
     frames.push(_newFrame)
     app.stage.addChild(_newFrame)
     const onComplete = ()=>{_newFrame.interactive = true}
-    TweenLite.to(_newFrame,1,{x: WINDOW_WIDTH/2,y: WINDOW_HEIGHT/2,onComplete: onComplete})
+    let frameWidth = frames.length*BLOCK_DIM*1.2
+    frames.forEach((f,i)=> 
+    TweenLite.to(f,0.5,{x: WINDOW_WIDTH/2 - frameWidth/2 + f.width*1.2*i,y: WINDOW_HEIGHT/2 - _newFrame._height/2,onComplete: onComplete}))
+    
+    _newFrame.lockY  =  true
     return _newFrame
   }
 
@@ -171,7 +184,7 @@ export const init = (app, setup) => {
     plusButton.x = 0
     plusButton.y = 0
     plusButton.alpha = 0
-    app.stage.addChild(plusButton)
+    //app.stage.addChild(plusButton)
 
     minusButton = new PIXI.Sprite.from(ASSETS.MINUS_SQUARE)
     minusButton.interactive = true
@@ -186,17 +199,18 @@ export const init = (app, setup) => {
     minusButton.x = 0
     minusButton.y = 0
     minusButton.alpha = 0
-    app.stage.addChild(minusButton)
+    //app.stage.addChild(minusButton)
   
 
     activeFrame = newFrame()
 
 
     trashBtn = new PIXI.Sprite.from(ASSETS.TRASH)
+    trashBtn.anchor.set(0.5)
     trashBtn.width = BLOCK_DIM*0.5
     trashBtn.height = BLOCK_DIM*0.5
     trashBtn.x = WINDOW_WIDTH - trashBtn.width*1.1
-    trashBtn.y = trashBtn.width*0.1
+    trashBtn.y = WINDOW_HEIGHT/2
     trashBtn.interactive = true
     app.stage.addChild(trashBtn)
 
@@ -220,20 +234,20 @@ export const init = (app, setup) => {
     blueBtn.on('pointerdown',()=>{
       switchColors(BLUE_COLOR)
       blueBtn.texture = BLUE_CIRCLE_TEXTURE
-      pinkBtn.texture = PINK_RING_TEXTURE
+      pinkBtn.texture = YELLOW_RING_TEXTURE
     })
     app.stage.addChild(blueBtn)
 
 
-    pinkBtn = new PIXI.Sprite.from(ASSETS.PINK_RING)
+    pinkBtn = new PIXI.Sprite.from(ASSETS.YELLOW_RING)
     pinkBtn.width = BLOCK_DIM/3
     pinkBtn.height = BLOCK_DIM/3
     pinkBtn.y = blueBtn.y + 1.1*pinkBtn.height
     pinkBtn.x = BLOCK_DIM/10
     pinkBtn.on('pointerdown',()=>{
-      switchColors(PINK_COLOR)
+      switchColors(SECONDARY_COLOR)
       blueBtn.texture = BLUE_RING_TEXTURE
-      pinkBtn.texture = PINK_CIRCLE_TEXTURE
+      pinkBtn.texture = YELLOW_CIRCLE_TEXTURE
     })
     pinkBtn.interactive = true
     app.stage.addChild(pinkBtn)
