@@ -117,8 +117,6 @@ export class FractionFrame extends PIXI.Container {
   } 
   
     incDenominator = (inc) => {
-      this.plusBtn.interactive = false
-      this.minusBtn.interactive = false
     if (this.denominator + inc >= 1) {
       this.g.clear()
       this.g.lineStyle(3,0x000000) 
@@ -128,6 +126,8 @@ export class FractionFrame extends PIXI.Container {
       this.addChild(s)
       s.texture = R
       s.x  = 0
+      this.plusBtn.interactive = false
+      this.minusBtn.interactive = false
   
       if (inc > 0){
         const onComplete = ()=>{
@@ -330,7 +330,6 @@ export function VerticalRow(num,den,width,app){
   let g = new PIXI.Graphics()    
 
   this.incDenonimator = (inc) => {
-    console.log("this denomonicator - inc",this.denominator-inc)
   if (this.denominator + inc >= 1) {
     console.log("shouldn't exectuve if this.denominator is equal to 1",this.denominator)
     g.clear()
