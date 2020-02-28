@@ -85,6 +85,7 @@ export const init = (app, setup) => {
   }
 
   function blockPointerUp(){
+    console.log("block pointer up")
     if (distance([this.x,this.y],[trashBtn.x,trashBtn.y])<Math.min(this.width,this.height)){
       let children = this.children
       for (let i = children.length - 1; i >= 0; i--) {	this.removeChild(children[i]);};
@@ -134,7 +135,8 @@ export const init = (app, setup) => {
     _newFrame.on('pointerup',blockPointerUp)
     _newFrame.on('pointerupoutside',blockPointerUp)
     _newFrame.on('pointerdown',blockPointerDown)
-    _newFrame.interactive = false
+    _newFrame.x = 0
+    _newFrame.y = WINDOW_HEIGHT/2
     frames.push(_newFrame)
     app.stage.addChild(_newFrame)
     const onComplete = ()=>{_newFrame.interactive = true}
@@ -143,6 +145,7 @@ export const init = (app, setup) => {
     TweenLite.to(f,0.5,{x: WINDOW_WIDTH/2 - frameWidth/2 + f.width*1.2*i,y: WINDOW_HEIGHT/2 - _newFrame._height/2,onComplete: onComplete}))
     
     _newFrame.lockY  =  true
+
     return _newFrame
   }
 
