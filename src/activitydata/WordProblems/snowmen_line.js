@@ -22,6 +22,7 @@ export const ACTIVITY = {
     ICON: ICON,
     TIME: 15,
     PAGES: 4,
+    NO_TOOL: true,
     TOOL: "/fractionnumberlineopenblocks",
     SCRIPT: "FRACTION_NUMBER_LINE",
     FEATURES: {blocks: true,open: true},
