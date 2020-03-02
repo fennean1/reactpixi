@@ -16,7 +16,7 @@ export const ACTIVITY = {
     TITLE : "JiJi's Pond",
     WORD_PROBLEM: true,
     ICON: ICON,
-    NO_TOOL: false,
+    NO_TOOL: true,
     TIME: 15,
     PAGES: 4,
     TOOL: "/fractionwall",

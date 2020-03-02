@@ -130,7 +130,7 @@ export const init = (app, setup) => {
     //0xff4772
     frames.sort((a,b)=> (a.x>b.x) ? 1 : -1)
     let denominator = activeFrame ? activeFrame.denominator : 2
-    let _newFrame = new FractionFrame(BLOCK_DIM,1.5*BLOCK_DIM,denominator,app,true,currentColor)
+    let _newFrame = new FractionFrame(BLOCK_DIM,1.5*BLOCK_DIM,denominator,app,true,currentColor,false)
     _newFrame.on('pointermove',blockPointerMove)
     _newFrame.on('pointerup',blockPointerUp)
     _newFrame.on('pointerupoutside',blockPointerUp)
@@ -223,7 +223,9 @@ export const init = (app, setup) => {
     generatorBtn.x = BLOCK_DIM/10
     generatorBtn.y = BLOCK_DIM/10
     generatorBtn.interactive = true
-    generatorBtn.on('pointerdown',newFrame)
+    generatorBtn.on('pointerdown',()=>{
+      frames.length < 5 && newFrame()
+    })
     app.stage.addChild(generatorBtn)
 
 

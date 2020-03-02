@@ -37,16 +37,17 @@ export class FractionFrame extends PIXI.Container {
      this.interactive = true
      this.color = secondColor ? secondColor : 0xFFFFFF
 
-    if (true){
-      this.descriptor = new Fraction(1,2,this.DESCRIPTOR_WIDTH)
-      this.descriptor.interactive = false
-      this.descriptor.x = this._width/2 - this.descriptor.width/2
-      this.descriptor.y = -1.2*this.descriptor.height
-      this.descriptor.on('pointerdown', this.grabberPointerDown)
-      this.descriptor.on('pointermove', this.grabberPointerMove)
-      this.descriptor.on('pointerup', this.grabberPointerUp)
-      this.descriptor.on('pointerupoutside', this.grabberPointerUp)
-      this.descriptor.draw(this.numerator,this.denominator,this.DESCRIPTOR_WIDTH)
+     this.descriptor = new Fraction(1,2,this.DESCRIPTOR_WIDTH)
+     this.descriptor.interactive = false
+     this.descriptor.x = this._width/2 - this.descriptor.width/2
+     this.descriptor.y = -1.2*this.descriptor.height
+     this.descriptor.on('pointerdown', this.grabberPointerDown)
+     this.descriptor.on('pointermove', this.grabberPointerMove)
+     this.descriptor.on('pointerup', this.grabberPointerUp)
+     this.descriptor.on('pointerupoutside', this.grabberPointerUp)
+     this.descriptor.draw(this.numerator,this.denominator,this.DESCRIPTOR_WIDTH)
+
+    if (descriptor){
       this.addChild(this.descriptor)
     }
 

@@ -20,6 +20,7 @@ export const ACTIVITY = {
     TITLE : "Sea Water",
     WORD_PROBLEM: true,
     ICON: ICON,
+    NO_TOOL: true,
     TIME: 15,
     PAGES: 4,
     TOOL: "/buildingblocks",
