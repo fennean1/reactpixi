@@ -240,8 +240,8 @@ export class FractionFrame extends PIXI.Container {
   
     spritePointerUp(event){
       // previously "activated"
-      console.log("even.parent",this.parent.activated)
-     if (!this.dragged && this.touched && this.parent.activated) {
+  
+     if (!this.parent.dragged && this.touched && this.parent.activated) {
         this.dragged = false
         this.active = !this.active
         this.alpha = 0.2
@@ -277,10 +277,13 @@ export class FractionFrame extends PIXI.Container {
   
     containerPointerMove(event) {
   
-      if (this.touching && this.draggable){
+      if (this.touching){
         this.y = this.lockY ? this.y : event.data.global.y + this.deltaTouch.y
         this.x = event.data.global.x + this.deltaTouch.x
-        this.dragged = true
+        if (Math.abs(this.y - this.dragStartY) > 200){
+          console.log("Draggggggged")
+           this.dragged = true
+        }
       }
     }
   }
