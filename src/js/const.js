@@ -119,6 +119,20 @@ export const COLORS = {
     DARK_GRAY: 0xa4a9b2
   };
 
+  export const FRACTION_TAG_COLORS = {
+    "1": 0xffffff,
+    "2": 0xff668f,
+    "3": 0x77e060,
+    "4": 0x8740bd,
+    "5": 0xf9f32f,
+    "6": 0x0cad85,
+    "7": 0x80f6ff,
+    "8": 0xb24118,
+    "9": 0xf77613,
+    "10": COLORS.RED,
+    "11": 0x8b959b,
+    "12": 0xff77e8
+  };
 export const FRACTION_BAR_COLORS = {
   "1": 0xfff9fc,
   "2": 0xff385c,

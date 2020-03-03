@@ -21,6 +21,14 @@ const sequence =
     },
     {
       slideNumber: 3,
+      tips: ["Use the tool to hover over the line while holding a fraction.",
+      "Have the students raise their hands when the fraction is close."
+      ],
+      screenType: SCREEN_TYPES.PANORAMIC,
+      puzzle: "BUILDING_ACTIVITY_ONE"
+    },
+    {
+      slideNumber: 4,
       tips: ["Share out answers.",
       "What do you think the distance between A and 1 is?",
         ],
@@ -28,7 +36,7 @@ const sequence =
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
-      slideNumber: 4,
+      slideNumber: 5,
       tips: ["How do the ticks on the number line help you?",
       "How far is A from zero?",
       "How far is it from one?",
@@ -37,20 +45,20 @@ const sequence =
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
-      slideNumber: 5,
+      slideNumber: 6,
       tips: ["This is a preparation for the next sketching activity."
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO"
     },
     {
-      slideNumber: 6,
+      slideNumber: 7,
       tips: ["Students may use the tool to help them."],
         screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
-      slideNumber: 7,
+      slideNumber: 8,
       tips: ["What are the units shown?",
       "What comes after five thirds?",
       "What comes after two thirds?"
@@ -59,7 +67,7 @@ const sequence =
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
-      slideNumber: 8,
+      slideNumber: 9,
       tips: ["Students should use their organizer instead of the tool.",
       "What’s the distance from B to 1?",      
       "What’s the distance from 0 to A?",
@@ -68,18 +76,26 @@ const sequence =
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
-      slideNumber: 9,
+      slideNumber: 10,
       tips: ["Construct the diagram shown.",
       "Take suggestions from the class and use to tool to show if they're reasonable or not."],
       screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
-      slideNumber: 10,
+      slideNumber: 11,
       tips: ["Have students discuss for one minute",
       "Then share out.",
       "Model with tool to confirm."],
       screenType: SCREEN_TYPES.FULL_PROMPT,
+      puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
+    },
+    {
+      slideNumber: 12,
+      tips: ["Have students discuss for one minute",
+      "Then share out.",
+      "Model with tool to confirm."],
+      screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
 ]

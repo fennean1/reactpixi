@@ -285,7 +285,6 @@ export class FractionFrame extends PIXI.Container {
         this.x = event.data.global.x + this.deltaTouch.x
         console.log("diff",Math.abs(this.x - this.dragStartX-this.deltaTouch.x))
         if (Math.abs(this.x - this.dragStartX-this.deltaTouch.x) > 100){
-          console.log("Draggggggged")
            this.dragged = true
         }
       }
@@ -496,19 +495,24 @@ export class FeedBlocks extends PIXI.Container {
     this.init()
   }
 
+
+
   init(){
     for (let i = 0;i<100;i++){
       let newFeedBlock = new PIXI.Graphics()
-      newFeedBlock.lineStyle(2,0x000000)
       newFeedBlock.beginFill(CONST.COLORS.BLUE)
-      newFeedBlock.drawRoundedRect(0,0,100,30,0)
-
+      this.currentFillColor = CONST.COLORS.BLUE
+      newFeedBlock.drawRect(0,0,100,30)
       let newTexture = this.app.renderer.generateTexture(newFeedBlock)
-      let newFeedBlockSprite = new PIXI.Sprite.from(newTexture)
+      this.blocks.push(newFeedBlock)
+      this.addChild(newFeedBlock)
+
+      /*
       newFeedBlockSprite.alpha = 0
       this.addChild(newFeedBlockSprite)
       this.blocks.push(newFeedBlockSprite)
       newFeedBlock.destroy(true)
+      */
     }
   }
 
@@ -522,7 +526,21 @@ export class FeedBlocks extends PIXI.Container {
     })
   }
 
-  resize(whole,den) {
+  resize(whole,den,color) {
+    if (color){
+      let c = color ? color : CONST.COLORS.BLUE
+      let lineColor = (den%2 == 0 && den <= 12) ? 0xffffff : 0x000000
+      this.currentFillColor = c 
+      this.currentLineColor = lineColor
+    } 
+
+    this.blocks.forEach(b=>{
+      b.clear()
+      b.lineStyle(1,this.currentLineColor)
+      b.beginFill(this.currentFillColor)
+      b.drawRect(0,0,100,30)
+    })
+
     let _width
     if (den){
       _width = whole/den
@@ -825,11 +843,12 @@ export class Fraction extends PIXI.Container {
 
     this.numerator = n+""
     this.denominator = d+""
+    let drawingAWholeNumber = this.numerator%this.denominator == 0
 
-    if (this.numerator%this.denominator == 0 && this.makeWhole){
+    if (drawingAWholeNumber && this.makeWhole){
       this.numerator = this.numerator/this.denominator
       this.denominator = 1
-    }
+    } 
 
     this.numDigits = this.numerator.length
     this.denDigits = this.denominator.length 
@@ -850,7 +869,7 @@ export class Fraction extends PIXI.Container {
       _w = _w/1.5
     }
 
-    if (this.denominator == 1){
+    if (this.hideDenominator == true){
       this.L.alpha = 0
       this.D.alpha = 0
       this.fontSize = _w
@@ -859,28 +878,33 @@ export class Fraction extends PIXI.Container {
       this.D.alpha = 1
     }
     
+    let textColor = (this.denominator%2 == 0 && this.denominator <= 12) ? 0xffffff : 0x000000
+
     // Numerator
     this.N.x = _w/2
     this.N.y = 0
     this.N.style.fontSize = this.fontSize*this.compression
+    this.N.style.fill = textColor
     this.N.text = this.numerator
     this.addChild(this.N)
 
     // Denominator
     this.D.x = _w/2
     this.D.y = this.N.height
+    this.D.style.fill = textColor
     this.D.style.fontSize = this.fontSize*this.compression
     this.D.text = this.denominator
     this.addChild(this.D)
 
     // Line
     this.L.clear()
-    this.L.lineStyle(_w/this.lineCompression,0x000000)
+    this.L.lineStyle(_w/this.lineCompression,textColor)
     this.L.lineTo(_w,0)
     this.L.y = this.N.height
 
     this.tag.clear()
-    this.tag.beginFill(this.tagColor)
+    let color = CONST.FRACTION_TAG_COLORS[this.denominator] ?  CONST.FRACTION_TAG_COLORS[this.denominator] : 0xffffff
+    this.tag.beginFill(color)
     this.tag.drawRoundedRect(0,0,this.width,this.height,4)
 
   }
@@ -1400,6 +1424,7 @@ export class NumberLine extends PIXI.Container {
          let newLabel = new Fraction(i,this.denominator,this.dx/2)
          newLabel.makeWhole = true
          newLabel.interactive = false
+         newLabel.hideDenominator = true
 
          this.labels.push(newLabel)
          newLabel.x = _x - newLabel.width/2

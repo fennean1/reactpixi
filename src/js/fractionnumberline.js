@@ -18,13 +18,17 @@ export const init = (app, setup) => {
   let generatorTag;
   let tagOnDeck;
   let feedBlocks;
+  let feedBlocks2;
   let trashBtn;
+  let resetBtn;
  
 
   // Global Variables
   let features;
   let hidden = false
   let currentDenominator = 2
+  let tagIncAnimation = new TimelineLite()
+  let tagDecAnimation = new TimelineLite()
 
 
   // Layout Parameters
@@ -146,7 +150,7 @@ export const init = (app, setup) => {
     let n = Math.round((this.x+this.width/2 - numberline.x) / dx)
     // FEATURE
     if (features.blocks){
-      feedBlocks.resize(numberline.whole,denominator)
+      feedBlocks.resize(numberline.whole,denominator,CONST.FRACTION_TAG_COLORS[denominator])
       feedBlocks.hide()
     }
   }
@@ -187,20 +191,20 @@ export const init = (app, setup) => {
     this.x = numberline.x + _x - this.width/2
     this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y,hidden)
   
-    //app.stage.addChild(numberline)
-    console.log("n,numberline.y,this.y",n,numberline.y,this.y)
     if (floatX > numberline.x + LINE_WIDTH){
       let i = tags.indexOf(this)
       tags.splice(i,1)
       app.stage.removeChild(this)
       n = 0
     } else if (n == 0 && this.y < numberline.y) {
-      this.y = numberline.y + 4*this.width
-      this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y,hidden)
+      let i = tags.indexOf(this)
+      tags.splice(i,1)
+      app.stage.removeChild(this)
+      n = 0
     }
 
     if (this.y+this.height > app.stage.height){
-      this.y = numberline.x + 10*this.width
+      this.y = numberline.y + 3*this.width
       this.whiskerTo(Math.abs(this.y-numberline.y),numberline.y,hidden)
     }
 
@@ -271,18 +275,26 @@ export const init = (app, setup) => {
         let _x = t.fraction.numerator/t.fraction.denominator*numberline.whole
         t.x = numberline.x + _x - t.width/2
         t.whiskerTo(Math.abs(t.y-numberline.y),numberline.y)
-        feedBlocks.resize(numberline.whole)
       }
+      feedBlocks.resize(numberline.whole)
     }
     numberline.onIncrement = ()=>{
-      currentDenominator += 1
+      currentDenominator = currentDenominator > 12 ? 12 : currentDenominator + 1
       generatorTag.fraction.draw(0,currentDenominator,DX*2/3)
+      generatorTag.whiskerTo(Math.abs(generatorTag.y-numberline.y),numberline.y,hidden)
+      generatorTag.x = numberline.x -  generatorTag.width/2
       tagOnDeck.fraction.draw(0,currentDenominator,DX*2/3)
+      tagOnDeck.whiskerTo(Math.abs(tagOnDeck.y-numberline.y),numberline.y,hidden)
+      tagOnDeck.x = generatorTag.x
     }
     numberline.onDecrement = ()=>{
       currentDenominator = currentDenominator <= 1 ? 1 : currentDenominator - 1
       generatorTag.fraction.draw(0,currentDenominator,DX*2/3)
+      generatorTag.whiskerTo(Math.abs(generatorTag.y-numberline.y),numberline.y,hidden)
+      generatorTag.x = numberline.x -  generatorTag.width/2
       tagOnDeck.fraction.draw(0,currentDenominator,DX*2/3)
+      tagOnDeck.whiskerTo(Math.abs(tagOnDeck.y-numberline.y),numberline.y,hidden)
+      tagOnDeck.x = generatorTag.x
     }
 
     generatorTag = new FractionTag(0,numberline.denominator,DX)
@@ -306,6 +318,23 @@ export const init = (app, setup) => {
     trashBtn.y = WINDOW_HEIGHT/2
     app.stage.addChild(trashBtn)
 
+       
+    resetBtn = new PIXI.Sprite.from(ASSETS.RESET)
+    resetBtn.y = 0
+    resetBtn.x = 0
+    resetBtn.width = LINE_WIDTH/10
+    resetBtn.height = LINE_WIDTH/10
+    resetBtn.interactive = true
+    app.stage.addChild(resetBtn)
+    resetBtn.on('pointerdown',()=>{
+      tags.forEach(t=>{
+        t.destroy(true)
+        app.stage.removeChild(t)
+      })
+      tags = []
+      feedBlocks.hide()
+    })
+
 
     numberline.addChild(numberline.pin)
     background.zIndex = -1
@@ -316,6 +345,12 @@ export const init = (app, setup) => {
     feedBlocks.x = numberline.x 
     feedBlocks.y = numberline.y - feedBlocks.height
     feedBlocks.hide()
+
+    feedBlocks2 = new FeedBlocks(app,numberline._width)
+    app.stage.addChild(feedBlocks)
+    feedBlocks2.x = numberline.x 
+    feedBlocks2.y = numberline.y - feedBlocks.height
+    feedBlocks2.hide()
   }
   
   // Call load script
