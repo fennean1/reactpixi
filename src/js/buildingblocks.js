@@ -79,8 +79,8 @@ export const init = (app, setup) => {
 
   function blockPointerMove(){
     if (this.touching){
-      plusButton.alpha = 0
-      minusButton.alpha = 0
+      //plusButton.alpha = 0
+      //minusButton.alpha = 0
     } 
   }
 
@@ -138,7 +138,9 @@ export const init = (app, setup) => {
     _newFrame.x = 0
     _newFrame.y = WINDOW_HEIGHT/2
    // _newFrame.draggable = false
+    _newFrame.hideButtons()
     frames.push(_newFrame)
+
     app.stage.addChild(_newFrame)
     const onComplete = ()=>{_newFrame.interactive = true}
     let frameWidth = frames.length*BLOCK_DIM*1.2
@@ -175,35 +177,7 @@ export const init = (app, setup) => {
    
     // SETUP
 
-    plusButton = new PIXI.Sprite.from(ASSETS.PLUS_SQUARE)
-    plusButton.interactive = true
-    plusButton.anchor.set(0.5)
-    plusButton.on('pointerdown',()=>{
-      plusButton.interactive = false
-      activeFrame.incDenominator(1)
-      setTimeout(()=>{plusButton.interactive = true},300)
-    })
-    plusButton.width = BLOCK_DIM/5
-    plusButton.height = BLOCK_DIM/5
-    plusButton.x = 0
-    plusButton.y = 0
-    plusButton.alpha = 0
-    //app.stage.addChild(plusButton)
-
-    minusButton = new PIXI.Sprite.from(ASSETS.MINUS_SQUARE)
-    minusButton.interactive = true
-    minusButton.anchor.set(0.5)
-    minusButton.on('pointerdown',()=>{
-      minusButton.interactive = false
-      activeFrame.incDenominator(-1)
-      setTimeout(()=>{minusButton.interactive = true},300)
-    })
-    minusButton.width = BLOCK_DIM/5
-    minusButton.height = BLOCK_DIM/5
-    minusButton.x = 0
-    minusButton.y = 0
-    minusButton.alpha = 0
-    //app.stage.addChild(minusButton)
+ 
   
 
     activeFrame = newFrame()
@@ -257,6 +231,37 @@ export const init = (app, setup) => {
     })
     pinkBtn.interactive = true
     app.stage.addChild(pinkBtn)
+
+    plusButton = new PIXI.Sprite.from(ASSETS.PLUS_SQUARE)
+    plusButton.interactive = true
+    plusButton.on('pointerdown',()=>{
+      plusButton.interactive = false
+      frames.forEach((f)=>{f.incDenominator(1)})
+   
+      setTimeout(()=>{plusButton.interactive = true},300)
+    })
+    
+    plusButton.width = BLOCK_DIM/3
+    plusButton.height = BLOCK_DIM/3
+    plusButton.x = BLOCK_DIM/10
+    plusButton.y = pinkBtn.y + plusButton.height*1.1
+    app.stage.addChild(plusButton)
+
+    minusButton = new PIXI.Sprite.from(ASSETS.MINUS_SQUARE)
+    minusButton.interactive = true
+
+    minusButton.on('pointerdown',()=>{
+      minusButton.interactive = false
+      frames.forEach(f=>{
+        f.incDenominator(-1)
+      })
+      setTimeout(()=>{minusButton.interactive = true},300)
+    })
+    minusButton.width = BLOCK_DIM/3
+    minusButton.height = BLOCK_DIM/3
+    minusButton.x = BLOCK_DIM/10
+    minusButton.y = plusButton.y + 1.1*minusButton.height
+    app.stage.addChild(minusButton)
 
   }
 

@@ -116,6 +116,14 @@ export class FractionFrame extends PIXI.Container {
       
       this.draw()
   } 
+
+    hideButtons = ()=>{
+      this.plusBtn.alpha = 0 
+      this.minusBtn.alpha = 0
+      this.removeChild(this.plusBtn)
+      this.removeChild(this.minusBtn)
+    }
+
   
     incDenominator = (inc) => {
     if (this.denominator + inc >= 1) {

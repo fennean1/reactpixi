@@ -14,14 +14,14 @@ const sequence =
       tips: ["Is there anything leftover after you make the wholes?",
         "Can you use wholes and parts to name the fraction?"
         ],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+      screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 3,
       tips: ["Is there anything leftover after you make the wholes?",
         "Can you use wholes and parts to name the fraction?"
         ],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 4,
@@ -43,7 +43,7 @@ const sequence =
       "How many fourths are needed to fill one pit?",
       "How many buckets are needed to fill one pit?",      
         ],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 7,
@@ -57,7 +57,7 @@ const sequence =
       "How much is filled in each pit?",
       "How much more sand do you need for each pit?",
         ],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+        screenType: SCREEN_TYPES.PORTRAIT
     },
     {
       slideNumber: 9,
@@ -66,7 +66,7 @@ const sequence =
       "How much more sand do you need for each pit?",
       "Bonus Question: “How many piles of sand has JiJi already used?",
       ],
-      screenType: SCREEN_TYPES.PORTRAIT,
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 10,
@@ -82,7 +82,7 @@ const sequence =
       "How do you know when a fraction is greater than 1?",
       "How much more than 1 is 7/3 (or 8/6)?",
         ],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+        screenType: SCREEN_TYPES.PORTRAIT,
     },
     {
       slideNumber: 12,
