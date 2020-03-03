@@ -277,7 +277,7 @@ export class FractionFrame extends PIXI.Container {
   
     containerPointerMove(event) {
   
-      if (this.touching){
+      if (this.touching && this.draggable){
         this.y = this.lockY ? this.y : event.data.global.y + this.deltaTouch.y
         this.x = event.data.global.x + this.deltaTouch.x
         this.dragged = true

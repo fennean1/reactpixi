@@ -137,6 +137,7 @@ export const init = (app, setup) => {
     _newFrame.on('pointerdown',blockPointerDown)
     _newFrame.x = 0
     _newFrame.y = WINDOW_HEIGHT/2
+    _newFrame.draggable = false
     frames.push(_newFrame)
     app.stage.addChild(_newFrame)
     const onComplete = ()=>{_newFrame.interactive = true}

@@ -18,6 +18,7 @@ export const init = (app, setup) => {
   let generatorTag;
   let tagOnDeck;
   let feedBlocks;
+  let trashBtn;
  
 
   // Global Variables
@@ -279,7 +280,7 @@ export const init = (app, setup) => {
       tagOnDeck.fraction.draw(0,currentDenominator,DX*2/3)
     }
     numberline.onDecrement = ()=>{
-      currentDenominator = currentDenominator - 1
+      currentDenominator = currentDenominator <= 1 ? 1 : currentDenominator - 1
       generatorTag.fraction.draw(0,currentDenominator,DX*2/3)
       tagOnDeck.fraction.draw(0,currentDenominator,DX*2/3)
     }
@@ -296,6 +297,14 @@ export const init = (app, setup) => {
     app.stage.addChild(numberline)
 
     newTagOnDeck()
+
+    trashBtn = new PIXI.Sprite.from(ASSETS.TRASH)
+    trashBtn.anchor.set(0.5)
+    trashBtn.width = LINE_WIDTH/15
+    trashBtn.height = LINE_WIDTH/15
+    trashBtn.x = 1.5*NUMBERLINE_START_X + LINE_WIDTH
+    trashBtn.y = WINDOW_HEIGHT/2
+    app.stage.addChild(trashBtn)
 
 
     numberline.addChild(numberline.pin)
