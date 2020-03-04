@@ -142,42 +142,51 @@ export class FractionFrame extends PIXI.Container {
       this.g.lineStyle(3,0x000000) 
       this.g.drawRoundedRect(0,0,this._width,this._height,1)
       let R = this.app.renderer.generateTexture(this.g)
-      let s = new PIXI.Sprite()
-      this.addChild(s)
-      s.texture = R
-      s.x  = 0
       this.plusBtn.interactive = false
       this.minusBtn.interactive = false
+      let newSprites = []
+      for (let i = 0;i<Math.abs(inc);i++){
+        let s = new PIXI.Sprite()
+        this.addChild(s)
+        s.texture = R
+        s.x  = 0
+        newSprites.push(s)
+      }
+
+
   
       if (inc > 0){
         const onComplete = ()=>{
-          s.on('pointerdown',this.spritePointerDown)
+          newSprites.forEach(s=>{
+            s.on('pointerdown',this.spritePointerDown)
           s.on('pointerup',this.spritePointerUp)
           s.on('pointermove',this.spritePointerMoved)
           s.interactive = true
           this.sprites.push(s)
+          })
           this.draw()
           this.plusBtn.interactive = true
           this.minusBtn.interactive = true
         }
-        TweenMax.to(this, 0.25, {denominator: this.denominator+1,onUpdate: this.draw,onComplete: onComplete})
+        TweenMax.to(this, 0.25, {denominator: this.denominator+inc,onUpdate: this.draw,onComplete: onComplete})
       } else if (inc < 0) {
-        let removeme  = this.sprites.pop()
-        this.removeChild(removeme)
+        for (let i = 0;i<Math.abs(inc);i++){
+          let removeme  = this.sprites.pop()
+          this.removeChild(removeme)
+        }
         const onComplete = ()=>{
           this.draw()
-          this.removeChild(s)
+          newSprites.forEach(s=>{
+            this.removeChild(s)})
           this.plusBtn.interactive = true
           this.minusBtn.interactive = true
         }
-        TweenMax.to(this, 0.25, {denominator: this.denominator-1,onUpdate: this.draw,onComplete: onComplete})
+        TweenMax.to(this, 0.25, {denominator: this.denominator+inc,onUpdate: this.draw,onComplete: onComplete})
       }
      }
      setTimeout(()=>{
-       this.numerator = this.sprites.reduce((acc,s)=>{
-      console.log("active?",s)
+      this.numerator = this.sprites.reduce((acc,s)=>{
      let count = s.active ? 1 : 0 
-     console.log("count",count)
      return count+acc},0)
     this.denominator = Math.round(this.denominator)
     this.descriptor.draw(this.numerator,this.denominator,this.DESCRIPTOR_WIDTH)

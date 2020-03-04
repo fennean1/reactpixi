@@ -30,6 +30,7 @@ export const init = (app, setup) => {
   let currentDenominator = 2
   let tagIncAnimation = new TimelineLite()
   let tagDecAnimation = new TimelineLite()
+  let incrementing = false
 
 
   // Layout Parameters
@@ -42,6 +43,7 @@ export const init = (app, setup) => {
   let ARENA_HEIGHT = LANDSCAPE ? setup.height : 3/4*setup.width
   let DX = LINE_WIDTH/15
   let NUMBERLINE_START_X = WINDOW_WIDTH/2 - LINE_WIDTH/2
+  let NUMBERLINE_Y = WINDOW_HEIGHT*3/4
 
 
 
@@ -76,7 +78,7 @@ export const init = (app, setup) => {
     // Resize Number Line
     numberline.redraw(newFrame.width*0.7,newFrame.height/20)
     numberline.x = WINDOW_WIDTH/2 - LINE_WIDTH/2
-    numberline.y = WINDOW_HEIGHT/2
+    numberline.y = NUMBERLINE_Y
 
     generatorTag.x = numberline.x - generatorTag.width/2 
     generatorTag.y = numberline.y - 3*numberline._height
@@ -140,6 +142,12 @@ export const init = (app, setup) => {
 }
 
   function tagPointerDown(){
+    descriptorBlocks.forEach(b=>{
+      b.color = CONST.FRACTION_TAG_COLORS[this.fraction.denominator]
+      let inc = this.fraction.denominator - b.denominator
+      b.colorTo(0)
+      b.incDenominator(inc)
+    })
     let denominator
     if (features.open){
       denominator = this.fraction.denominator
@@ -212,18 +220,20 @@ export const init = (app, setup) => {
 
     feedBlocks.showTo(n)
 
-    let k = n 
-    descriptorBlocks.forEach(b=>{
-      console.log("k",k)
-      b.colorTo(0)
-      b.color = CONST.FRACTION_TAG_COLORS[currentDenominator]
-      if (k > currentDenominator){
-        b.colorTo(currentDenominator)
-      } else {
-        b.colorTo(k)
-      }
-      k -= currentDenominator
-    })
+    setTimeout(()=>{
+      let k = n 
+      descriptorBlocks.forEach(b=>{
+        b.color = CONST.FRACTION_TAG_COLORS[this.fraction.denominator]
+        b.colorTo(0)
+        if (k > currentDenominator){
+          b.colorTo(currentDenominator)
+        } else {
+          b.colorTo(k)
+        }
+        k -= currentDenominator
+      })
+    },100)
+
 
   }
 
@@ -275,17 +285,20 @@ export const init = (app, setup) => {
     })
 
 
-    for (let i = 0;i<3;i++){
+    for (let i = 0;i<1;i++){
       let newBlock = new FractionFrame(LINE_WIDTH/10,LINE_WIDTH/5,2,app,true,CONST.FRACTION_TAG_COLORS[currentDenominator],false)
       newBlock.hideButtons()
-      newBlock.colorTo(1)
+      newBlock.interactive = false 
+      newBlock.children.forEach(c=>c.interactive = false)
+      newBlock.colorTo(0)
       descriptorBlocks.push(newBlock)
       app.stage.addChild(newBlock)
-      newBlock.x = i*50
+      newBlock.x = WINDOW_WIDTH/2 - 1/2*newBlock.width
+      newBlock.y = LINE_WIDTH/20
     }
 
     // Number Line
-    numberline = new NumberLine(LINE_WIDTH,LINE_WIDTH/20,3,2)
+    numberline = new NumberLine(LINE_WIDTH,LINE_WIDTH/20,2,2)
     numberline.cap = 3
     numberline.hideFractions = true
     numberline.init()
@@ -295,7 +308,7 @@ export const init = (app, setup) => {
     } 
     //numberline.hideButtons()
     numberline.x = WINDOW_WIDTH/2 - LINE_WIDTH/2
-    numberline.y = WINDOW_HEIGHT/2
+    numberline.y = NUMBERLINE_Y
     numberline.onPinDrag = ()=>{
       for (let t of tags){
         let _x = t.fraction.numerator/t.fraction.denominator*numberline.whole
@@ -305,7 +318,6 @@ export const init = (app, setup) => {
       feedBlocks.resize(numberline.whole)
     }
     numberline.onIncrement = ()=>{
-      descriptorBlocks.forEach(b=>b.incDenominator(1))
       currentDenominator = currentDenominator > 12 ? 12 : currentDenominator + 1
       generatorTag.fraction.draw(0,currentDenominator,DX*2/3)
       generatorTag.whiskerTo(Math.abs(generatorTag.y-numberline.y),numberline.y,hidden)
@@ -322,7 +334,6 @@ export const init = (app, setup) => {
       tagOnDeck.fraction.draw(0,currentDenominator,DX*2/3)
       tagOnDeck.whiskerTo(Math.abs(tagOnDeck.y-numberline.y),numberline.y,hidden)
       tagOnDeck.x = generatorTag.x
-      descriptorBlocks.forEach(b=>b.incDenominator(-1))
     }
 
     generatorTag = new FractionTag(0,numberline.denominator,DX)
@@ -335,6 +346,8 @@ export const init = (app, setup) => {
     app.stage.addChild(generatorTag)
 
     app.stage.addChild(numberline)
+
+    numberline.removeChild(numberline.pin)
 
     newTagOnDeck()
 
@@ -364,7 +377,6 @@ export const init = (app, setup) => {
     })
 
 
-    numberline.addChild(numberline.pin)
     background.zIndex = -1
     numberline.zIndex = 1
 
