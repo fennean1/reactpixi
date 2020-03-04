@@ -224,15 +224,14 @@ export const init = (app, setup) => {
       let k = n 
       descriptorBlocks.forEach(b=>{
         b.color = CONST.FRACTION_TAG_COLORS[this.fraction.denominator]
-        b.colorTo(0)
-        if (k > currentDenominator){
-          b.colorTo(currentDenominator)
+        if (k > this.fraction.denominator){
+          b.colorTo(this.fraction.denominator)
         } else {
           b.colorTo(k)
         }
-        k -= currentDenominator
+        k -= this.fraction.denominator
       })
-    },100)
+    },250)
 
 
   }
@@ -288,6 +287,7 @@ export const init = (app, setup) => {
     for (let i = 0;i<1;i++){
       let newBlock = new FractionFrame(LINE_WIDTH/10,LINE_WIDTH/5,2,app,true,CONST.FRACTION_TAG_COLORS[currentDenominator],false)
       newBlock.hideButtons()
+      newBlock.autoRecolor = true
       newBlock.interactive = false 
       newBlock.children.forEach(c=>c.interactive = false)
       newBlock.colorTo(0)

@@ -23,6 +23,8 @@ export class FractionFrame extends PIXI.Container {
      this.LINE_WIDTH = 4
      this.BTN_WIDTH = width/4
      this.DESCRIPTOR_WIDTH = width/3
+     this.autoRecolor = false
+
 
      // Default values
      this.numerator = 0
