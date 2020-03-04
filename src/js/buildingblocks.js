@@ -135,10 +135,13 @@ export const init = (app, setup) => {
     _newFrame.on('pointerup',blockPointerUp)
     _newFrame.on('pointerupoutside',blockPointerUp)
     _newFrame.on('pointerdown',blockPointerDown)
-    _newFrame.x = 0
+    _newFrame.x = 1.2*WINDOW_WIDTH
     _newFrame.y = WINDOW_HEIGHT/2
    // _newFrame.draggable = false
-    _newFrame.hideButtons()
+   if (features.greaterThanOne){
+     _newFrame.hideButtons()
+   }
+
     frames.push(_newFrame)
 
     app.stage.addChild(_newFrame)
@@ -176,9 +179,6 @@ export const init = (app, setup) => {
    
    
     // SETUP
-
- 
-  
 
     activeFrame = newFrame()
 
@@ -237,7 +237,6 @@ export const init = (app, setup) => {
     plusButton.on('pointerdown',()=>{
       plusButton.interactive = false
       frames.forEach((f)=>{f.incDenominator(1)})
-   
       setTimeout(()=>{plusButton.interactive = true},300)
     })
     
@@ -245,11 +244,9 @@ export const init = (app, setup) => {
     plusButton.height = BLOCK_DIM/3
     plusButton.x = BLOCK_DIM/10
     plusButton.y = pinkBtn.y + plusButton.height*1.1
-    app.stage.addChild(plusButton)
 
     minusButton = new PIXI.Sprite.from(ASSETS.MINUS_SQUARE)
     minusButton.interactive = true
-
     minusButton.on('pointerdown',()=>{
       minusButton.interactive = false
       frames.forEach(f=>{
@@ -261,7 +258,12 @@ export const init = (app, setup) => {
     minusButton.height = BLOCK_DIM/3
     minusButton.x = BLOCK_DIM/10
     minusButton.y = plusButton.y + 1.1*minusButton.height
-    app.stage.addChild(minusButton)
+
+    if (features.greaterThanOne){
+      app.stage.addChild(plusButton)
+      app.stage.addChild(minusButton)
+    }
+  
 
   }
 

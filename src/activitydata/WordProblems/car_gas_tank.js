@@ -7,9 +7,9 @@ const sequence =
     [{
       slideNumber: 1,
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      tips: ["Can you put fourths and eighths on the same number line?",
-        "How else can we model fourths and eighths?",
-        "How do we know when JiJi was in the same spot?",
+      tips: ["Does it show more than it should or less than it should?",
+      "Is the tank more than half full?",
+      "Where should the gauge marker go?",
         ],
     },
 ]
@@ -28,7 +28,7 @@ export const ACTIVITY = {
     FEATURES: {blocks: true,open: true},
     MENU: ['Link One',"Link Two"],
     SEQUENCE: sequence,
-    LONG_DESCRIPTION: "Here is a very long description of what is happeneing in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think?",
+    LONG_DESCRIPTION: "Here is a very long description of what is happening in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think? Here is a very long description of what is happeneing in the activity I mean it's so long don't you think?",
     INSTRUCTIONS: 'Students should...',
     STANDARD_ID: "3.NF.A.3.A",
     STANDARD_DESCRIPTION: "Understand two fractions as equivalent (equal) if they are the same size, or the same point on a number line.",
