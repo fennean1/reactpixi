@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 import * as CONST from "./const.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
-import {Fraction, FeedBlocks, Draggable,NumberLine,FractionTag} from "./api.js"
+import {Fraction, FeedBlocks, Draggable,NumberLine,FractionTag, FractionFrame} from "./api.js"
 import { number } from "prop-types";
 const ASSETS = CONST.ASSETS
 
@@ -21,6 +21,7 @@ export const init = (app, setup) => {
   let feedBlocks2;
   let trashBtn;
   let resetBtn;
+  let descriptorBlocks = []
  
 
   // Global Variables
@@ -41,6 +42,7 @@ export const init = (app, setup) => {
   let ARENA_HEIGHT = LANDSCAPE ? setup.height : 3/4*setup.width
   let DX = LINE_WIDTH/15
   let NUMBERLINE_START_X = WINDOW_WIDTH/2 - LINE_WIDTH/2
+
 
 
   // Updates the layout parameters used to position elements.
@@ -209,6 +211,20 @@ export const init = (app, setup) => {
     }
 
     feedBlocks.showTo(n)
+
+    let k = n 
+    descriptorBlocks.forEach(b=>{
+      console.log("k",k)
+      b.colorTo(0)
+      b.color = CONST.FRACTION_TAG_COLORS[currentDenominator]
+      if (k > currentDenominator){
+        b.colorTo(currentDenominator)
+      } else {
+        b.colorTo(k)
+      }
+      k -= currentDenominator
+    })
+
   }
 
   function newTagOnDeck(){
@@ -259,10 +275,19 @@ export const init = (app, setup) => {
     })
 
 
+    for (let i = 0;i<3;i++){
+      let newBlock = new FractionFrame(LINE_WIDTH/10,LINE_WIDTH/5,2,app,true,CONST.FRACTION_TAG_COLORS[currentDenominator],false)
+      newBlock.hideButtons()
+      newBlock.colorTo(1)
+      descriptorBlocks.push(newBlock)
+      app.stage.addChild(newBlock)
+      newBlock.x = i*50
+    }
+
     // Number Line
     numberline = new NumberLine(LINE_WIDTH,LINE_WIDTH/20,3,2)
+    numberline.cap = 3
     numberline.hideFractions = true
-    numberline.cap = 5
     numberline.init()
     if (features.open){
       numberline.incDenominator(-1)
@@ -280,6 +305,7 @@ export const init = (app, setup) => {
       feedBlocks.resize(numberline.whole)
     }
     numberline.onIncrement = ()=>{
+      descriptorBlocks.forEach(b=>b.incDenominator(1))
       currentDenominator = currentDenominator > 12 ? 12 : currentDenominator + 1
       generatorTag.fraction.draw(0,currentDenominator,DX*2/3)
       generatorTag.whiskerTo(Math.abs(generatorTag.y-numberline.y),numberline.y,hidden)
@@ -296,6 +322,7 @@ export const init = (app, setup) => {
       tagOnDeck.fraction.draw(0,currentDenominator,DX*2/3)
       tagOnDeck.whiskerTo(Math.abs(tagOnDeck.y-numberline.y),numberline.y,hidden)
       tagOnDeck.x = generatorTag.x
+      descriptorBlocks.forEach(b=>b.incDenominator(-1))
     }
 
     generatorTag = new FractionTag(0,numberline.denominator,DX)

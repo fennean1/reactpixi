@@ -24,6 +24,7 @@ import * as NewFractionStacksScript from "./js/newfractionwall.js";
 import * as WallToolScript from "./js/walltool.js";
 import * as GridCuttingScript from "./js/gridcutting.js";
 import * as FractionNumberLineScript from "./js/fractionnumberline.js";
+import * as FractionNumberLineDescriptorScript from "./js/fractionnumberlinedescriptor.js";
 import * as PlacingNumbersScript from "./js/placingnumbers.js";
 import * as BeakerGameScript from "./js/beakergame.js";
 import * as VerticalFractionStacksScript from "./js/verticalfractionstacks.js";
@@ -106,10 +107,8 @@ const Main = () => (
     <Route exact path="/oldfractionwall" render={() => <Arena app = {app} features = {{'lock': true,'regroup': true}} fullscreen = {true}  script = {OldFractionWallScript.init}/>} />
     <Route exact path="/fractionline" render={() => <Arena app = {app} fullscreen = {true}  script = {FractionLineScript.init}/>} />
     <Route exact path="/apitest" render={() => <Arena app = {app} fullscreen = {true}  script = {ApiTestScript.init}/>} />
-    <Route exact path="/fractionnumberlineopen" render={() => <Arena app = {app} fullscreen = {true} features = {{open: true}} script = {FractionNumberLineScript.init}/>} />
     <Route exact path="/fractionnumberlineopenblocks" render={() => <Arena app = {app} fullscreen = {true} features = {{open: true,blocks: true}} script = {FractionNumberLineScript.init}/>} />
-    <Route exact path="/fractionnumberline" render={() => <Arena app = {app} fullscreen = {true} features = {{open: false}}  script = {FractionNumberLineScript.init}/>} />
-    <Route exact path="/fractionnumberlineblocks" render={() => <Arena app = {app} fullscreen = {true} features = {{open: false,blocks: true}} script = {FractionNumberLineScript.init}/>} />
+    <Route exact path="/fractionnumberlinedescriptor" render={() => <Arena app = {app} fullscreen = {true} features = {{open: true,blocks: true}} script = {FractionNumberLineDescriptorScript.init}/>} />
     <Route exact path="/fractionstacks" render={() => <Arena app = {app} fullscreen = {true} features = {{snapping: true,double: true,numberOfBlocks: 4,lineMax: 30}} script = {FractionStacksScript.init}/>} />
     <Route exact path="/verticalfractionstacks" render={() => <Arena app = {app} fullscreen = {true} features = {{snapping: false,double: false,numberOfBlocks: 2,lineMax: 30}} script = {VerticalFractionStacksScript.init}/>} />
     <Route exact path="/fractionstacksx2" render={() => <Arena app = {app} fullscreen = {true} features = {{double: true,numberOfBlocks: 2,lineMax: 20}} script = {FractionStacksScript.init}/>} />

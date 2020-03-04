@@ -117,6 +117,17 @@ export class FractionFrame extends PIXI.Container {
       this.draw()
   } 
 
+    colorTo(n){
+      this.sprites.forEach((s,i)=>{
+        if (i<n){
+          s.active = true 
+        } else {
+          s.active = false
+        }
+      })
+      this.draw()
+    }
+
     hideButtons = ()=>{
       this.plusBtn.alpha = 0 
       this.minusBtn.alpha = 0
@@ -1327,7 +1338,7 @@ export class NumberLine extends PIXI.Container {
     this.onIncrement = () => {}
     this.onDecrement = () => {}
 
-    this.max = max 
+    this.max = max
     this.hideFractions = false
     this.flipped = false
     this.everyOther = false
@@ -1366,10 +1377,11 @@ export class NumberLine extends PIXI.Container {
     this.pin.on('pointermove',()=>{
       if (this.pin.touching){
         this.onPinDrag()
-        if (this.pin.x > this._width/12){
+        console.log("this.max",this.max)
+        if (this.pin.x >= this._width/(this.cap+0.1)){
           this.set(this.pin.x)
         } else {
-          this.pin.x = this._width/12
+          this.pin.x = this._width/(this.cap+0.1)
         }
       }
     })
