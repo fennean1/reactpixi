@@ -137,9 +137,9 @@ const Main = () => (
     <Route exact path="/numberline-partitioning-game-two" render={() => <Arena activity = {"PARTITIONING_ACTIVITY_TWO"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
     <Route exact path="/numberline-building-game-one" render={() => <Arena activity = {"BUILDING_ACTIVITY_ONE"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
     <Route exact path="/numberline-building-game-two" render={() => <Arena activity = {"BUILDING_ACTIVITY_TWO"} app = {app} fullscreen = {true}  script = {PlacingNumbersScript.init}/>} />
-    <Route exact path="/newtool" render={() => <Arena app = {app} features = {{greaterThanOne: false}} fullscreen = {true} script = {NewToolScript.init}/>} />
-    <Route exact path="/neworderingtool" render={() => <Arena app = {app} features = {{greaterThanOne: true}} fullscreen = {true} script = {NewToolScript.init}/>} />
-    <Route exact path="/buildingblocks" render={() => <Arena app = {app} fullscreen = {true} script = {NewToolScript.init}/>} />
+    <Route exact path="/newtool" render={() => <Arena app = {app} features = {{greaterThanOne: true}} fullscreen = {true} script = {NewToolScript.init}/>} />
+    <Route exact path="/neworderingtool" render={() => <Arena app = {app} features = {{greaterThanOne: false}} fullscreen = {true} script = {NewToolScript.init}/>} />
+    <Route exact path="/greaterthanoneblocks" render={() => <Arena app = {app} features = {{greaterThanOne: true}} fullscreen = {true} script = {NewToolScript.init}/>} />
     <Route exact path="/sharingtool" render={() => <Arena a app = {app} fullscreen = {true} script = {SharingToolScript.init}/>} />
     <Route exact path="/activities/:activity" component={NewPanels}/>
     <Route exact path="/allactivities" component={ActivityList} />
