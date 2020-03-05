@@ -7,10 +7,10 @@ const sequence =
     [{
       slideNumber: 1,
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      tips: ["Does JiJi need more measuring cups?",
-      "How can JiJi do it with one?",
-      "What’s another way of saying 8/3 of a cup?"
-        ],
+      tips: ["How much would JiJi eat on day 1?",
+      "How much cake is left after day 1?",
+      "How much cake does JiJi eat on day 2?"
+      ],
     },
 ]
 
