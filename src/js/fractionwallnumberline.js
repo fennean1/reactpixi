@@ -348,8 +348,6 @@ export const init = (app, setup) => {
 
  
    pointerUp(event) {
-     console.log("pointerup")
-     numberline.incDenominator(1)
     if (this.dragged){
       let j = this.startIndex
       let i = Math.round((this.y-WALL_START_Y)/BAR_HEIGHT)
@@ -359,8 +357,12 @@ export const init = (app, setup) => {
       ROWS.forEach((r,k)=> {
         TweenLite.to(r,0.2,{y: ANCHORS[k]+WALL_START_Y})
       })
-      console.log("ANCHORS",ANCHORS)
-      console.log("ROWS",ROWS)
+      if (i == 11){
+        let inc = this.denominator - numberline.denominator
+        console.log("this.denominator",this.denominator, numberline.denominator)
+        numberline.incDenominator(inc)
+      }
+
     } 
       this.reset()
       this.dragged = false
@@ -372,7 +374,12 @@ export const init = (app, setup) => {
       if (this.touching){
         placeButtons()
         Dragging = true
-        this.y = event.data.global.y + this.deltaTouch.y
+        if (this.y < ROWS[11].y){
+          this.y = event.data.global.y + this.deltaTouch.y
+        } else {
+          this.y = ROWS[11].y
+        }
+
         this.dragged = true
       }
     }

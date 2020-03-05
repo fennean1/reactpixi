@@ -37,6 +37,7 @@ import * as SnowmenLine from "./WordProblems/snowmen_line.js"
 import * as MeasuringCups from "./WordProblems/measuring_cups.js"
 import * as JijiCookie from "./WordProblems/jiji_cookie.js"
 import * as JijiPie from "./WordProblems/jiji_pie.js"
+import * as JijiCake from "./WordProblems/jiji_cake.js"
 
 
 // Games
@@ -94,5 +95,6 @@ export const ACTIVITIES = {
     snowmen_line: SnowmenLine.ACTIVITY,
     measuring_cups: MeasuringCups.ACTIVITY,
     jiji_cookie: JijiCookie.ACTIVITY,
-    jiji_pie: JijiPie.ACTIVITY
+    jiji_pie: JijiPie.ACTIVITY,
+    jiji_cake: JijiCake.ACTIVITY
 }

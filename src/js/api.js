@@ -902,7 +902,7 @@ export class Fraction extends PIXI.Container {
       this.D.alpha = 1
     }
     
-    let textColor = (this.denominator%2 == 0 && this.denominator <= 12 && this.noAlternating) ? 0xffffff : 0x000000
+    let textColor = (this.denominator%2 == 0 && this.denominator <= 12) ? 0xffffff : 0x000000
 
     // Numerator
     this.N.x = _w/2
@@ -1050,7 +1050,6 @@ export class BasicFraction extends PIXI.Container {
 
     if (drawingAWholeNumber && this.makeWhole){
       this.numerator = Math.round(this.numerator/this.denominator)+""
-      console.log("This.numerator",this.numerator)
       this.L.alpha = 0 
       this.D.alpha = 0
     } 
@@ -1061,8 +1060,6 @@ export class BasicFraction extends PIXI.Container {
     this.minDigits = Math.min(this.numDigits,this.denDigits)
     this.fontSize = _w/2
     this.compression = 0.9
-
-    console.log("Numerator,maxdigits",this.numerator,this.maxDigits)
 
     if (this.maxDigits == 3){
       this.compression = 1.5

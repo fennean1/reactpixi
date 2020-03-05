@@ -36,6 +36,11 @@ class ConceptsWordProblems extends Component {
         <ActivityCard data={ACTIVITIES.jiji_pie} />
           </div>
         </div>
+        <div className="row">
+        < div className="col s6">
+        <ActivityCard data={ACTIVITIES.jiji_cake} />
+          </div>
+        </div>
       </div>
     );
   }
