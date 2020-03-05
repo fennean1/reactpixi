@@ -533,16 +533,8 @@ export class FeedBlocks extends PIXI.Container {
       newFeedBlock.beginFill(CONST.COLORS.BLUE)
       this.currentFillColor = CONST.COLORS.BLUE
       newFeedBlock.drawRect(0,0,100,30)
-      let newTexture = this.app.renderer.generateTexture(newFeedBlock)
       this.blocks.push(newFeedBlock)
       this.addChild(newFeedBlock)
-
-      /*
-      newFeedBlockSprite.alpha = 0
-      this.addChild(newFeedBlockSprite)
-      this.blocks.push(newFeedBlockSprite)
-      newFeedBlock.destroy(true)
-      */
     }
   }
 
@@ -564,13 +556,6 @@ export class FeedBlocks extends PIXI.Container {
       this.currentLineColor = lineColor
     } 
 
-    this.blocks.forEach(b=>{
-      b.clear()
-      b.lineStyle(1,this.currentLineColor)
-      b.beginFill(this.currentFillColor)
-      b.drawRect(0,0,100,30)
-    })
-
     let _width
     if (den){
       _width = whole/den
@@ -578,6 +563,15 @@ export class FeedBlocks extends PIXI.Container {
     } else {
       _width = whole/this.denominator
     }
+
+    this.blocks.forEach(b=>{
+      b.clear()
+      b.lineStyle(1,this.currentLineColor)
+      b.beginFill(this.currentFillColor)
+      b.drawRect(0,0,_width,30)
+    })
+
+
     this.blocks.forEach((b,i)=>{
       b.width = _width
       b.x = i*_width
