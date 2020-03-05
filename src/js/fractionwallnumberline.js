@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import * as CONST from "./const.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
+import {Fraction, FeedBlocks, Draggable,BasicNumberLine} from "./api.js"
 const ASSETS = CONST.ASSETS
 
 export const init = (app, setup) => {
@@ -18,6 +19,7 @@ export const init = (app, setup) => {
   let ActiveID;
   let Dragging;
   let ActiveRow;
+  let numberline;
 
   const labels = {
     1: "1",
@@ -46,11 +48,13 @@ export const init = (app, setup) => {
   // Layout Parameters
   let WINDOW_WIDTH = setup.width
   let WINDOW_HEIGHT = setup.height
-  let BAR_HEIGHT = WINDOW_HEIGHT/15
+  let BAR_HEIGHT = WINDOW_HEIGHT/20
   let BAR_WIDTH = WINDOW_WIDTH*0.8
   let WALL_START_X = WINDOW_WIDTH/2 - BAR_WIDTH/2
   let WALL_START_Y = 2*BAR_HEIGHT 
-  let INC_BUTTONS_HEIGHT = BAR_HEIGHT*0.7
+  let LINE_WIDTH = 0.8*WINDOW_WIDTH
+  let INC_BUTTONS_HEIGHT = BAR_HEIGHT*0.8
+  let LINE_START = WINDOW_WIDTH/2- LINE_WIDTH/2
   let ANCHORS = []
   let ROWS = []
 
@@ -345,6 +349,7 @@ export const init = (app, setup) => {
  
    pointerUp(event) {
      console.log("pointerup")
+     numberline.incDenominator(1)
     if (this.dragged){
       let j = this.startIndex
       let i = Math.round((this.y-WALL_START_Y)/BAR_HEIGHT)
@@ -437,6 +442,15 @@ export const init = (app, setup) => {
       app.stage.addChild(PlusButton)
     }
     app.stage.addChild(resetButton)
+
+    numberline = new BasicNumberLine(LINE_WIDTH,LINE_WIDTH/20,4,4)
+    numberline.makeWhole = true
+    numberline.init()
+    numberline.x = LINE_START
+    numberline.y = 15*BAR_HEIGHT
+    app.stage.addChild(numberline)
+
+
   }
 
   // Functions attached to app: (need to be destroyed)

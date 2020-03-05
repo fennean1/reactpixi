@@ -902,7 +902,7 @@ export class Fraction extends PIXI.Container {
       this.D.alpha = 1
     }
     
-    let textColor = (this.denominator%2 == 0 && this.denominator <= 12) ? 0xffffff : 0x000000
+    let textColor = (this.denominator%2 == 0 && this.denominator <= 12 && this.noAlternating) ? 0xffffff : 0x000000
 
     // Numerator
     this.N.x = _w/2
@@ -933,6 +933,178 @@ export class Fraction extends PIXI.Container {
 
   }
 }
+
+
+export class BasicFraction extends PIXI.Container {
+  constructor(n,d,w,color){
+    super()
+    this._width = w
+    this.numerator = n+""
+    this.denominator = d+""
+    this.makeWhole = false
+    this.numDigits = this.numerator.length
+    this.denDigits = this.denominator.length 
+    this.maxDigits = 2
+    this.fontSize = w/(this.maxDigits)
+    this.compression = 0.9
+    this.lineCompression = 20
+    this.dragged = false
+    this.touching = false
+    this.interactive = true
+    this.lockX = false 
+    this.lockY = false
+    this.tagColor = color ? color : "0xffffff"
+
+    if (this.maxDigits == 3){
+      this.compression = 1.5
+      this.lineCompression = 30
+    } else if (this.maxDigits == 2){
+      this.compression = 1.3
+      this.lineCompression = 25
+    }
+
+    // Numerator
+    this.N = new PIXI.Text()
+    this.N.anchor.x = 0.5
+    this.N.x = this._width/2
+    this.N.y = 0
+    this.N.text = n
+    this.N.style.fontSize = this.fontSize
+    this.addChild(this.N)
+
+    // Denominator
+    this.D = new PIXI.Text()
+    this.D.anchor.x = 0.5
+    this.D.x = this._width/2
+    this.D.y = this.height
+    this.D.text = d
+    this.D.style.fontSize = this.fontSize
+    this.addChild(this.D)
+
+    // Mid Line
+    this.L = new PIXI.Graphics()
+    this.L.lineStyle(this._width/this.lineCompression,0x000000)
+    this.L.lineTo(this._width,0)
+    this.L.y = this.height/2
+    this.addChild(this.L)
+
+    this.draw(n,d,w)
+  }
+
+  includeTag() {
+      this.addChild(this.tag)
+      this.addChild(this.L)
+    }
+
+  hide(mark){
+    this.N.text = "?"
+    this.D.text = "?"
+  }
+
+  makeDraggable() {
+    this.on('pointerdown',this.pointerDown)
+    this.on('pointermove',this.pointerMove)
+    this.on('pointerup',this.pointerUp)
+    this.on('pointerupoutside',this.pointerUpOutside)  
+  }
+
+
+  pointerDown(event){
+    this.touching = true
+    this.dragged = false
+    this.deltaTouch = {
+      x: this.x - event.data.global.x,
+      y: this.y - event.data.global.y
+    }
+  }
+
+  
+  pointerMove(event){
+    if (this.touching){
+      if (!this.lockX){
+        this.x = event.data.global.x + this.deltaTouch.x
+      } 
+      if (!this.lockY){
+        this.y = event.data.global.y + this.deltaTouch.y
+      }
+      this.dragged = true
+    }
+  }
+
+  pointerUp(event){
+    this.touching = false
+  }
+  
+  pointerUpOutside(event){
+    this.touching = false
+  }
+
+  draw(n,d,_w){
+
+    this.numerator = n+""
+    this.denominator = d+""
+    let drawingAWholeNumber = this.numerator%this.denominator == 0
+
+    this.L.alpha = 1
+    this.D.alpha = 1
+
+    if (drawingAWholeNumber && this.makeWhole){
+      this.numerator = Math.round(this.numerator/this.denominator)+""
+      console.log("This.numerator",this.numerator)
+      this.L.alpha = 0 
+      this.D.alpha = 0
+    } 
+
+    this.numDigits = this.numerator.length
+    this.denDigits = this.denominator.length 
+    this.maxDigits = Math.max(this.numDigits,this.denDigits)
+    this.minDigits = Math.min(this.numDigits,this.denDigits)
+    this.fontSize = _w/2
+    this.compression = 0.9
+
+    console.log("Numerator,maxdigits",this.numerator,this.maxDigits)
+
+    if (this.maxDigits == 3){
+      this.compression = 1.5
+      this.lineCompression = 30
+    } else if (this.maxDigits == 2){
+      this.compression = 1.3
+      this.lineCompression = 25
+    } else if (this.maxDigits == 1) {
+      this.compression = 1.3
+      this.lineCompression = 15
+      _w = _w/1.5
+    }
+
+    
+    let textColor = (this.denominator%2 == 0 && this.denominator <= 12 && this.noAlternating) ? 0xffffff : 0x000000
+
+    // Numerator
+    this.N.x = _w/2
+    this.N.y = 0
+    this.N.style.fontSize = this.fontSize*this.compression
+    this.N.style.fill = textColor
+    this.N.text = this.numerator
+    this.addChild(this.N)
+
+    // Denominator
+    this.D.x = _w/2
+    this.D.y = this.N.height
+    this.D.style.fill = textColor
+    this.D.style.fontSize = this.fontSize*this.compression
+    this.D.text = this.denominator
+    this.addChild(this.D)
+
+    // Line
+    this.L.clear()
+    this.L.lineStyle(_w/this.lineCompression,textColor)
+    this.L.lineTo(_w,0)
+    this.L.y = this.N.height
+
+
+  }
+}
+
 
 export class DraggablePoly extends Draggable {
   constructor(points,app){
@@ -1618,3 +1790,217 @@ export class NumberLine extends PIXI.Container {
     }
   }
 }
+
+
+export class BasicNumberLine extends PIXI.Container {
+  constructor(width,height,max,denominator){
+    super()
+
+    this.onPinDrag = ()=>{}
+    this.onIncrement = () => {}
+    this.onDecrement = () => {}
+
+    this.max = max
+    this.hideFractions = false
+    this.flipped = false
+    this.everyOther = false
+    this.denominator = denominator
+    this.open = false
+
+    // Layout parameters
+    this._height = height
+    this._width = width
+    this.lineThickness = height/10
+    this.minorTickHeight = height/1.25
+    this.majorTickHeight = height
+    this.dx = this._width/max
+    this.whole = this.dx*this.denominator
+
+
+    // Elements
+    this.ticks = []
+    this.labels = []
+
+    this.line = new PIXI.Graphics()
+
+   this.init()
+  }
+
+
+  init = () => {
+
+
+     this.line.lineStyle(this.lineThickness,0x000000)
+     this.line.x = 0
+     this.line.y = 0
+     this.line.lineTo(this._width,0)
+     this.addChild(this.line)
+
+     for (let i = 0;i<20;i++){
+         let _x = i > this.max ? this.line.width : this.dx*i 
+         let newTick = new PIXI.Graphics()
+         newTick.lineStyle(this.lineThickness,0x000000)
+  
+         newTick.x = _x
+         newTick.y = -this.minorTickHeight/2
+         newTick.lineTo(0,this.minorTickHeight)
+    
+         this.addChild(newTick)
+         this.ticks.push(newTick)
+
+         let newLabel = new BasicFraction(i,this.denominator,this.dx/2)
+         newLabel.makeWhole = true
+         newLabel.interactive = false
+ 
+
+         this.labels.push(newLabel)
+         newLabel.x = _x - newLabel.width/2
+        
+         newLabel.y = this.line.y + this.minorTickHeight
+         this.addChild(newLabel)
+     }
+     this.incDenominator(0)
+  }
+
+  redraw(width,height){
+    // Update layout parameters.
+    this.whole = this.whole/this._width*width
+    this._height = height
+    this._width = width
+    this.lineThickness = height/10
+    this.minorTickHeight = height/2
+    this.majorTickHeight = height
+    this.dx = this.whole/this.denominator
+
+    this.line.clear()
+    this.line.lineStyle(this.lineThickness,0x000000)
+    this.line.x = 0
+    this.line.y = 0
+    this.line.lineTo(this._width,0)
+
+    this.incDenominator(0)
+
+    
+    this.labels.forEach((l,i)=>{
+      if (this.dx*6 > this._width){
+        l.draw(i,this.denominator,this._width/20)
+      } else if (!this.hideFractions){
+        l.draw(i,this.denominator,this.dx/2)
+      } else {
+        l.draw(i,this.denominator,this._height)
+      }
+      let _x = i*this.dx > this._width  ? this.line.width : this.dx*i 
+      l.draw(l.numerator,l.denominator,this.dx/2)
+      l.x = _x - l.width/2
+    })
+  
+
+    this.ticks.forEach((t,j)=>{
+      let _x = j*this.dx > this._width ? this.line.width : this.dx*j
+      t.clear()
+      t.x = _x
+      t.y = -this.minorTickHeight/2
+      t.lineStyle(this.lineThickness,0x000000)
+      t.lineTo(0,this.minorTickHeight)
+    })
+    
+      // Redraw Inc Button
+      /*
+      this.incDenominatorBtn.width = this._height
+      this.incDenominatorBtn.height = this._height
+      this.incDenominatorBtn.x = 1.05*this._width + this.incDenominatorBtn.width
+      this.incDenominatorBtn.y = 0
+      */
+
+    
+      // Redraw Dec Button
+      /*
+      this.decDenominatorBtn.width = this._height
+      this.decDenominatorBtn.height = this._height
+      this.decDenominatorBtn.x = 1.05*this._width
+      this.decDenominatorBtn.y = 0
+      */
+     this.drawButtons()
+
+  }
+
+
+  set(whole){
+    this.whole = whole
+    this.dx = whole/this.denominator
+    let newMax = Math.round(this.line.width/this.dx)
+    this.max = newMax
+    this.ticks.forEach((e,i)=> {
+      let _x = this.dx*i
+       if (_x > this._width){
+          e.x = this._width
+          e.alpha = 0
+       } else {
+           e.x = _x
+           e.alpha = 1
+       }
+    })
+
+    this.labels.forEach((e,i)=> {
+    let _x = this.dx*i
+     if (_x>this._width){
+         e.x = this._width
+         e.alpha = 0
+     } else {
+         e.x = this.dx*i-e.width/2
+         if (e.denominator != 1 && this.hideFractions){
+           e.alpha = 0
+         } else {
+           e.alpha = 1
+         }
+     }
+   })
+  }
+
+  incDenominator(inc){
+    if (inc > 0){
+      this.onIncrement()
+    } else if (inc < 0){
+      this.onDecrement()
+    } 
+
+    if(!this.open){
+    
+      this.denominator += inc
+      this.dx = this.whole/this.denominator
+      this.ticks.forEach((e,i)=> {
+        let _x = this.dx*i 
+        if (_x > this._width){
+            TweenLite.to(e,0,{x: this._width,alpha: 0})
+        } else {
+            TweenLite.to(e,0.5,{x: this.dx*i,alpha: 1})
+        }
+      })
+
+      this.labels.forEach((e,i)=> {
+      
+      // HELLO - this is some resizing logic to prevent the numbers from getting too small or two big. Duplicated in "redraw" - consider re
+      if (this.dx*10 > this._width){
+        e.draw(i,this.denominator,this._width/20)
+      } else if (!this.hideFractions){
+        console.log("greater than width!!!")
+        e.draw(i,this.denominator,this.dx/2)
+      } else {
+        e.draw(i,this.denominator,this._height)
+      }
+      let _x = this.dx*i 
+      if (_x > this._width){
+          TweenLite.to(e,0.5,{x: this._width,alpha: 0})
+      } else {
+          TweenLite.to(e,0.5,{x: this.dx*i-e.width/2})
+          if (e.denominator != 1 && this.hideFractions){
+            e.alpha = 0
+          } else {
+            e.alpha = 1
+          }
+      }
+    })
+    }
+  }
+}
+

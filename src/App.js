@@ -30,6 +30,7 @@ import * as BeakerGameScript from "./js/beakergame.js";
 import * as VerticalFractionStacksScript from "./js/verticalfractionstacks.js";
 import * as BuildAndCutScript from "./js/buildandcut.js";
 import * as NewToolScript from "./js/buildingblocks.js";
+import * as FractionWallNumberLineScript from "./js/fractionwallnumberline.js";
 
 
 import ActivityList from './components/ActivityList'
@@ -100,6 +101,7 @@ const Main = () => (
     <Route exact path="/hundredslock" render={() => <Arena app = {app} features = {{'lock': true}} fullscreen = {true}  script = {HundredsArrayScript.init}/>} />
     <Route exact path="/hundredsregroup" render={() => <Arena app = {app} features = {{'lock': true,'regroup': true}} fullscreen = {true}  script = {HundredsArrayScript.init}/>} />
     <Route exact path="/fractionwall" render={() => <Arena app = {app} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
+    <Route exact path="/fractionwallnumberline" render={() => <Arena app = {app} fullscreen = {true}  script = {FractionWallNumberLineScript.init}/>} />
     <Route exact path="/fractionbars" render={() => <Arena app = {app} fullscreen = {true}  script = {FractionBarToolScript.init}/>} />
     <Route exact path="/fractionwallodd" render={() => <Arena app = {app} features = {{'values': [1,3,5,7,9,11]}} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
     <Route exact path="/fractionwalladjustable" render={() => <Arena app = {app} features = {{'values': [1,2,3,4,5,6,7,8,9,10,11,12],'adjustable': true}} fullscreen = {true}  script = {NewFractionStacksScript.init}/>} />
