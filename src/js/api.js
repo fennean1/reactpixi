@@ -170,7 +170,7 @@ export class FractionFrame extends PIXI.Container {
           this.plusBtn.interactive = true
           this.minusBtn.interactive = true
         }
-        TweenMax.to(this, 0.25, {denominator: this.denominator+inc,onUpdate: this.draw,onComplete: onComplete})
+        TweenMax.to(this, 0.1, {denominator: this.denominator+inc,onUpdate: this.draw,onComplete: onComplete})
       } else if (inc < 0) {
         for (let i = 0;i<Math.abs(inc);i++){
           let removeme  = this.sprites.pop()
@@ -183,7 +183,7 @@ export class FractionFrame extends PIXI.Container {
           this.plusBtn.interactive = true
           this.minusBtn.interactive = true
         }
-        TweenMax.to(this, 0.25, {denominator: this.denominator+inc,onUpdate: this.draw,onComplete: onComplete})
+        TweenMax.to(this, 0.1, {denominator: this.denominator+inc,onUpdate: this.draw,onComplete: onComplete})
       }
      }
      setTimeout(()=>{
@@ -1720,6 +1720,7 @@ export class NumberLine extends PIXI.Container {
           e.x = this._width
           e.alpha = 0
        } else {
+          console.log("settting x")
            e.x = _x
            e.alpha = 1
        }
@@ -1742,11 +1743,13 @@ export class NumberLine extends PIXI.Container {
   }
 
   incDenominator(inc){
+
     if (inc > 0){
       this.onIncrement()
     } else if (inc < 0){
       this.onDecrement()
     } 
+  
 
     if(!this.open){
     
@@ -1767,7 +1770,6 @@ export class NumberLine extends PIXI.Container {
       if (this.dx*10 > this._width){
         e.draw(i,this.denominator,this._width/20)
       } else if (!this.hideFractions){
-        console.log("greater than width!!!")
         e.draw(i,this.denominator,this.dx/2)
       } else {
         e.draw(i,this.denominator,this._height)

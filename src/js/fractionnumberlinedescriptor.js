@@ -223,6 +223,7 @@ export const init = (app, setup) => {
     setTimeout(()=>{
       let k = n 
       descriptorBlocks.forEach(b=>{
+        b.children.forEach(c=>c.interactive = false)
         b.color = CONST.FRACTION_TAG_COLORS[this.fraction.denominator]
         if (k > this.fraction.denominator){
           b.colorTo(this.fraction.denominator)
@@ -231,7 +232,7 @@ export const init = (app, setup) => {
         }
         k -= this.fraction.denominator
       })
-    },250)
+    },110)
 
 
   }
@@ -293,19 +294,19 @@ export const init = (app, setup) => {
       newBlock.colorTo(0)
       descriptorBlocks.push(newBlock)
       app.stage.addChild(newBlock)
-      newBlock.x = WINDOW_WIDTH/2 - 1/2*newBlock.width
+      newBlock.x = WINDOW_WIDTH/2 - 1/2*newBlock.width + newBlock.width*1.2*i
       newBlock.y = LINE_WIDTH/20
     }
 
     // Number Line
-    numberline = new NumberLine(LINE_WIDTH,LINE_WIDTH/20,2,2)
-    numberline.cap = 3
+    numberline = new NumberLine(LINE_WIDTH,LINE_WIDTH/20,1,1)
+    numberline.makeWhole = true
     numberline.hideFractions = true
+    numberline.set(0.9*LINE_WIDTH)
     numberline.init()
-    if (features.open){
-      numberline.incDenominator(-1)
-      numberline.open = true 
-    } 
+    numberline.open = true
+  
+
     //numberline.hideButtons()
     numberline.x = WINDOW_WIDTH/2 - LINE_WIDTH/2
     numberline.y = NUMBERLINE_Y
@@ -325,6 +326,12 @@ export const init = (app, setup) => {
       tagOnDeck.fraction.draw(0,currentDenominator,DX*2/3)
       tagOnDeck.whiskerTo(Math.abs(tagOnDeck.y-numberline.y),numberline.y,hidden)
       tagOnDeck.x = generatorTag.x
+      descriptorBlocks.forEach(b=>{
+        b.color = CONST.FRACTION_TAG_COLORS[currentDenominator]
+        let inc = currentDenominator - b.denominator
+        b.colorTo(0)
+        b.incDenominator(inc)
+      })
     }
     numberline.onDecrement = ()=>{
       currentDenominator = currentDenominator <= 1 ? 1 : currentDenominator - 1
@@ -334,6 +341,12 @@ export const init = (app, setup) => {
       tagOnDeck.fraction.draw(0,currentDenominator,DX*2/3)
       tagOnDeck.whiskerTo(Math.abs(tagOnDeck.y-numberline.y),numberline.y,hidden)
       tagOnDeck.x = generatorTag.x
+      descriptorBlocks.forEach(b=>{
+        b.color = CONST.FRACTION_TAG_COLORS[currentDenominator]
+        let inc = currentDenominator - b.denominator
+        b.colorTo(0)
+        b.incDenominator(inc)
+      })
     }
 
     generatorTag = new FractionTag(0,numberline.denominator,DX)
