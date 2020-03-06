@@ -24,7 +24,7 @@ class NumberLineList extends Component {
         </div>
         <div className="row">
           < div className="col s6">
-          <ActivityCard data={ACTIVITIES.placing_fractions} />
+          <ActivityCard data={ACTIVITIES.labeling_number_lines} />
           </div>
         </div>
       </div>

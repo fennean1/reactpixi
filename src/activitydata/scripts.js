@@ -9,6 +9,7 @@ import * as FractionBarsScript from "../js/fractionbar.js"
 import * as FractionStacksScript from "../js/fractionstacks.js"
 import * as FractionWallScript from "../js/newfractionwall.js"
 import * as BuildingBlocksScript from "../js/buildingblocks.js"
+import * as FractionNumberLineDescriptor from "../js/fractionnumberlinedescriptor.js"
 
 export const SCRIPTS = {
     CUTTING_GRID: GridCuttingScript.init,
@@ -21,7 +22,8 @@ export const SCRIPTS = {
     FRACTION_BARS: FractionBarsScript.init,
     FRACTION_STACKS: FractionStacksScript.init,
     FRACTION_WALL: FractionWallScript.init,
-    BUILDING_BLOCKS: BuildingBlocksScript.init
+    BUILDING_BLOCKS: BuildingBlocksScript.init,
+    FRACTION_NUMBER_LINE_DESCRIPTOR: FractionNumberLineDescriptor.init
 }
 
 /*

@@ -14,6 +14,7 @@ import * as PlacingFractions from './fractionnumberline/placing_fractions.js'
 import * as EquivalentArea from './gridnodes/equivalent_area.js'
 import * as OrderingFractions from './orderingblocks/ordering_fractions.js'
 import * as ComparingFractions from './orderingblocks/comparing_fractions.js'
+import * as LabelingNumberLines from './fractionnumberline/labeling_number_lines.js'
 
 // Word Problems
 import * as PizzaCrust from "./WordProblems/pizza_crust.js"
@@ -96,5 +97,6 @@ export const ACTIVITIES = {
     measuring_cups: MeasuringCups.ACTIVITY,
     jiji_cookie: JijiCookie.ACTIVITY,
     jiji_pie: JijiPie.ACTIVITY,
-    jiji_cake: JijiCake.ACTIVITY
+    jiji_cake: JijiCake.ACTIVITY,
+    labeling_number_lines: LabelingNumberLines.ACTIVITY
 }

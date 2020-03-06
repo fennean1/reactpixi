@@ -286,7 +286,7 @@ export const init = (app, setup) => {
 
 
     for (let i = 0;i<1;i++){
-      let newBlock = new FractionFrame(LINE_WIDTH/10,LINE_WIDTH/5,2,app,true,CONST.FRACTION_TAG_COLORS[currentDenominator],false)
+      let newBlock = new FractionFrame(WINDOW_HEIGHT/8,WINDOW_HEIGHT/4,2,app,true,CONST.FRACTION_TAG_COLORS[currentDenominator],false)
       newBlock.hideButtons()
       newBlock.autoRecolor = true
       newBlock.interactive = false 
@@ -295,14 +295,14 @@ export const init = (app, setup) => {
       descriptorBlocks.push(newBlock)
       app.stage.addChild(newBlock)
       newBlock.x = WINDOW_WIDTH/2 - 1/2*newBlock.width + newBlock.width*1.2*i
-      newBlock.y = LINE_WIDTH/20
+      newBlock.y = newBlock.height/10
     }
 
     // Number Line
     numberline = new NumberLine(LINE_WIDTH,LINE_WIDTH/20,1,1)
     numberline.makeWhole = true
     numberline.hideFractions = true
-    numberline.set(0.9*LINE_WIDTH)
+    numberline.set(0.95*LINE_WIDTH)
     numberline.init()
     numberline.open = true
   
