@@ -1,6 +1,6 @@
 
 import {SCREEN_STATES,SCREEN_TYPES} from '../../js/states.js'
-import ICON from '../../assets/PlacingFractionsIcon.png'
+import ICON from '../../assets/CarGasTankIcon.png'
 
 
 const sequence = 
@@ -12,17 +12,20 @@ const sequence =
     },
     {
       slideNumber: 2,
-      tips: ["Did students notice that the fraction is hidden when it drags?",
-      "Did they notice that the “1” was draggable?",
-      "Did they notice that you can only show one set of blocks at a time?"
+      tips: ["What do you notice when you plot a fraction on the number line?",
+      "Can you move a fraction to a different point after placing it on the number line?",
+      "What changes and stays the same?",
+      "Do you have to place fractions sequentially? Plot ⅓ first, then  ⅔ … or can you place it out of order?"
         ],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+      screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_ONE"
     },
     {
       slideNumber: 3,
       tips: ["Use the tool to hover over the line while holding a fraction.",
-      "Have the students raise their hands when the fraction is close."
+      "Have the students raise their hands when the fraction is close.",
+      "How did you think about where ¾ should go?",
+      "Compare the number line with the model above. How are they similar? Different?"
       ],
       screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_ONE"
@@ -31,6 +34,9 @@ const sequence =
       slideNumber: 4,
       tips: [
       "Draw on your own where the gauge should be.",
+      "What do you see that makes you think the gas gauge is correct or incorrect?",
+      "Where should the gas gauge be to show the correct amount of gas in the tank?",
+      "What would be a reasonable estimate of how much gas is in JiJi’s tank?"
         ],
         screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
@@ -38,19 +44,50 @@ const sequence =
     {
       slideNumber: 5,
       tips: [
-        "Draw on your own where the gauge should be.",
+        "What do you see that makes you think the gas gauge is correct or incorrect?",
+        "Where should the gas gauge be to show the correct amount of gas in the tank?",
+        "What would be a reasonable estimate of how much gas is in JiJi’s tank?",
           ],
-          screenType: SCREEN_TYPES.FULL_PROMPT,
+          screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
       slideNumber: 6,
-      tips: [""],
+      tips: ["Draw on your own where the gauge should be.",
+      "How does the fraction 2-thirds help you draw what it looks like in this problem?",
+      "What does the 3 represent? How about the two?"],
       screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO"
     },
     {
       slideNumber: 7,
+      tips: ["What does the ‘3’ in the fraction represent on the number line...on the rectangle?",
+      "What does the ‘2’ represent?",
+      "How many tic-marks did you draw to represent thirds?",
+      ],
+      screenType: SCREEN_TYPES.PANORAMIC,
+      puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
+    },
+    {
+      slideNumber: 8,
+      tips: [
+        "What do you notice about the gas gauge?",
+        "How much gas is in JiJi’s tank?",
+        "How much gas has JiJi used since filling the gas tank?",
+          ],
+          screenType: SCREEN_TYPES.FULL_PROMPT,
+      puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
+    },
+    {
+      slideNumber: 9,
+      tips: ["What do you notice about the gas gauge?",
+      "How much gas is in JiJi’s tank?",
+      "How much gas has JiJi used since filling the gas tank?"],
+      screenType: SCREEN_TYPES.PANORAMIC,
+      puzzle: "BUILDING_ACTIVITY_TWO"
+    },
+    {
+      slideNumber: 10,
       tips: ["Model solving the problem.",
       "Then share out.",
       "Model with tool to confirm."],
