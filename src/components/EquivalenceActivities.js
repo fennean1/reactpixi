@@ -13,11 +13,11 @@ class EquivalenceList extends Component {
     return (
       <div>
         <div className="row">
-          < div className="col s6">
-          <ActivityCard data={ACTIVITIES.bar_equivalence} />
+        < div className="col s6">
+          <ActivityCard data={ACTIVITIES.equivalent_area} />
           </div>
           < div className="col s6">
-          <ActivityCard data={ACTIVITIES.equivalent_area} />
+          <ActivityCard data={ACTIVITIES.bar_equivalence} />
           </div>
         </div>
         <div className="row">
