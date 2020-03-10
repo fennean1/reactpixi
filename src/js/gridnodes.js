@@ -3,7 +3,7 @@ import blueGradient from "../assets/blue-gradient.png";
 import * as CONST from "./const.js";
 import QuestionMark from '../assets/QuestionMark.png'
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
-import {Fraction, Draggable, distance} from "./api.js"
+import {BasicFraction,Fraction, Draggable, distance} from "./api.js"
 import { isObject } from "util";
 import { lchown } from "fs";
 const ASSETS = CONST.ASSETS
@@ -629,7 +629,7 @@ export const init = (app, setup) => {
     let {x,y,descriptor} = setup.props.features
     set(x,y)
 
-    fractionObj = new Fraction(0,1,BTN_DIM)
+    fractionObj = new BasicFraction(0,1,BTN_DIM)
     fractionObj.x = WINDOW_WIDTH*0.8
     fractionObj.y = WINDOW_HEIGHT/3
     if (descriptor){

@@ -63,7 +63,9 @@ export class FractionFrame extends PIXI.Container {
      this.plusBtn.y = this._height + 1.5 * this.plusBtn.width / 2
      this.plusBtn.on('pointerdown', () => {
        console.log("hello")
-       this.incDenominator(1)
+       if (this.denominator < 12){
+        this.incDenominator(1)
+       }
      })
      this.addChild(this.plusBtn)
  

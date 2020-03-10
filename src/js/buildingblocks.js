@@ -236,7 +236,11 @@ export const init = (app, setup) => {
     plusButton.interactive = true
     plusButton.on('pointerdown',()=>{
       plusButton.interactive = false
-      frames.forEach((f)=>{f.incDenominator(1)})
+      frames.forEach((f)=>{
+        if (activeFrame.denominator < 12){
+          f.incDenominator(1)
+        }
+        })
       setTimeout(()=>{plusButton.interactive = true},300)
     })
     
