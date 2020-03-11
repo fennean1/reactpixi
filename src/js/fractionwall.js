@@ -21,9 +21,6 @@ export const init = (app, setup) => {
     lineMax: 20,
   }
 
-  console.log("setupwidth",setup.width)
-  console.log("windowheight",window.innerHeight)
-
   // Layout Parameters
   let WINDOW_WIDTH = setup.width
   let BAR_HEIGHT = setup.height/15

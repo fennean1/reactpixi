@@ -25,17 +25,14 @@ const sequence =
       "Does the work match this example?",
       "Work together to make any corrections needed."
         ],
-        screenType: SCREEN_TYPES.FULL_PROMPT,
+        screenType: SCREEN_TYPES.PORTRAIT,
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
       slideNumber: 4,
-      tips: ["What is the largest unit fraction that can be used to equal ½?",
-      "What other equivalent fractions can we model with this tool?",     
-     "What patterns do you notice?",      
-      "Can we organize the bar models to help find a pattern?"
+      tips: [""
         ],
-        screenType: SCREEN_TYPES.PORTRAIT,
+        screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
@@ -52,28 +49,19 @@ const sequence =
       slideNumber: 6,
       tips: ["Monitor students as they work on their organizer"
         ],
-        screenType: SCREEN_TYPES.FULL_PROMPT,
-      puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
-    },
-    {
-      slideNumber: 7,
-      tips: ["Which fraction did you find had the most equivalent fractions?",
-      "What strategies did you use to find equivalent fraction bars?",
-      "Can we organize the bar models to help find a pattern?"
-        ],
         screenType: SCREEN_TYPES.PORTRAIT,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
-      slideNumber: 8,
+      slideNumber: 7,
       tips: ["Can we use the thirds, fifths, sevenths...bars to model one-half ½?",
       "Why or why not?",
       "Could we use twentieths 1/20 or hundredths 1/100 to model ½?",
-      "Why or why not?",
-    ],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+      "Why or why not?"],
+        screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
+
 ]
 
 

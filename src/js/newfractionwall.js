@@ -176,6 +176,8 @@ export const init = (app, setup) => {
       for (let i = 0;i<this.denominator;i++) {
         let label = new PIXI.Text()
         label.text = labels[this.denominator]
+        label.style.fill = 0xffffff
+        label.style.fontWeight = 'bold'
         label.alpha = 0
         label.anchor.set(0.5)
         label.x = this.blockWidth/2
@@ -441,7 +443,7 @@ export const init = (app, setup) => {
 
   // Functions attached to app: (need to be destroyed)
   app.resize = (frame) => resize(frame)
-  app.resizable = true
+  app.resizable = false
 
   load()
 };

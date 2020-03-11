@@ -319,7 +319,7 @@ export const init = (app, setup) => {
       feedBlocks.resize(numberline.whole)
     }
     numberline.onIncrement = ()=>{
-      currentDenominator = currentDenominator > 12 ? 12 : currentDenominator + 1
+      currentDenominator = currentDenominator >= 12 ? 12 : currentDenominator + 1
       generatorTag.fraction.draw(0,currentDenominator,DX*2/3)
       generatorTag.whiskerTo(Math.abs(generatorTag.y-numberline.y),numberline.y,hidden)
       generatorTag.x = numberline.x -  generatorTag.width/2
@@ -332,8 +332,16 @@ export const init = (app, setup) => {
         b.colorTo(0)
         b.incDenominator(inc)
       })
+      setTimeout(()=>{
+        descriptorBlocks.forEach(b=>{
+          b.children.forEach(c=>{
+            c.interactive = false
+          })
+        })
+      },300)
     }
-    numberline.onDecrement = ()=>{
+    
+    numberline.onDecrement = () => {
       currentDenominator = currentDenominator <= 1 ? 1 : currentDenominator - 1
       generatorTag.fraction.draw(0,currentDenominator,DX*2/3)
       generatorTag.whiskerTo(Math.abs(generatorTag.y-numberline.y),numberline.y,hidden)
@@ -347,6 +355,15 @@ export const init = (app, setup) => {
         b.colorTo(0)
         b.incDenominator(inc)
       })
+
+      setTimeout(()=>{
+        descriptorBlocks.forEach(b=>{
+          b.children.forEach(c=>{
+            c.interactive = false
+          })
+        })
+      },300)
+
     }
 
     generatorTag = new FractionTag(0,numberline.denominator,DX)
