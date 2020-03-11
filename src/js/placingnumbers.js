@@ -92,6 +92,7 @@ let blocksInWidget = [];
 
 let firstTry = true;
 let pinWidget = {};
+let trashBtn;
 
 let activeEntity = new PIXI.Sprite();
 
@@ -961,6 +962,7 @@ function createMeasureBlock(width, num, den, label) {
   text.y = dim / 8;
   text.style.fill = 0xffffff;
 
+
   if (label) {
     blockContainer.addChild(text);
   }
@@ -1202,7 +1204,7 @@ function createNumberLine(den) {
 function onBlockWidgetSelected() {
   let b = createMeasureBlock(this.width, this.num, this.den);
   app.stage.addChild(b);
-  b.x = dim;
+  b.x = dim + dim*(blocksOnLine.length-1)
   b.y = NUMBER_LINE_Y - b.height;
 }
 
@@ -1409,6 +1411,14 @@ function createGameModal(action){
 
     return tileContainer
 }
+
+trashBtn = new PIXI.Sprite.from(CONST.ASSETS.TRASH)
+trashBtn.anchor.set(0.5)
+trashBtn.width = dim/3
+trashBtn.height = dim/3
+trashBtn.x = dim/2
+trashBtn.y = NUMBER_LINE_Y
+app.stage.addChild(trashBtn)
 
 function dismissGameModal() {
     createjs.Tween.get(this).to({x: WINDOW_WIDTH/2,y: -this.height}, 500, createjs.Ease.getPowInOut(4)).call(()=> {app.stage.removeChild(this)})

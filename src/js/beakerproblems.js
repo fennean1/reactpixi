@@ -313,6 +313,22 @@ const SET_ONE_P1 = {
     den: 7,
   }
 
+  const BEAKER_ACTIVITY_1_PROBLEM_13 = {
+    num: 4,
+    den: 11,
+  }
+
+  const BEAKER_ACTIVITY_1_PROBLEM_14 = {
+    num: 5,
+    den: 9,
+  }
+
+  const BEAKER_ACTIVITY_1_PROBLEM_15 = {
+    num: 10,
+    den: 11,
+  }
+
+
 
   // Problem Set One Teacher Debrief
   const BEAKER_ACTIVITY_1_TEACHER_1 = {
@@ -377,7 +393,10 @@ const SET_ONE_P1 = {
     BEAKER_ACTIVITY_1_PROBLEM_9,
     BEAKER_ACTIVITY_1_PROBLEM_10,
     BEAKER_ACTIVITY_1_PROBLEM_11,
-    BEAKER_ACTIVITY_1_PROBLEM_12]
+    BEAKER_ACTIVITY_1_PROBLEM_12,
+    BEAKER_ACTIVITY_1_PROBLEM_13,
+    BEAKER_ACTIVITY_1_PROBLEM_14,
+    BEAKER_ACTIVITY_1_PROBLEM_15]
 
     const ACTIVITY_ONE = {
       prompt: "Answer the question as a class \n by showing the number to \n the answer you chose.",
