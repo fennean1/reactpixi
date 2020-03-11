@@ -22,32 +22,32 @@ const sequence =
     {
       slideNumber: 3,
       tips: ["Compare your paper with your partner.",
-      "Does the work match this example?",
-      "Work together to make any corrections needed."
+      "Did they find any pairs that you didn't?"
         ],
         screenType: SCREEN_TYPES.PORTRAIT,
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
       slideNumber: 4,
-      tips: [""
+      tips: ["Draw your ideas on the organizer.",
+      "What equivalent fractions will help you here?"
         ],
         screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
       slideNumber: 5,
-      tips: ["Compare your paper with your partner.",
-      "Does the work match these examples?",     
-      "What other equivalent fraction pairs did you find?",   
-      "Work together to make any corrections needed."
+      tips: ["How many more blocks are needed to fill the gap?",
+      "What equivalent fractions do you see here?",
+      "If I have four blocks that make two thirds, how big is each block?"
         ],
       screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO"
     },
     {
       slideNumber: 6,
-      tips: ["Monitor students as they work on their organizer"
+      tips: ["Can you fill the rest of the gap with a single block?",
+      "How big would the block be?",
         ],
         screenType: SCREEN_TYPES.PORTRAIT,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
