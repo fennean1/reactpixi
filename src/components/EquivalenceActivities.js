@@ -21,17 +21,17 @@ class EquivalenceList extends Component {
           </div>
         </div>
         <div className="row">
-          < div className="col s6">
-          <ActivityCard data={ACTIVITIES.comparing_fractions} />
-          </div>
+        <div className="col s6">
+           <ActivityCard data={ACTIVITIES.number_line_equivalence} />
+         </div>
           < div className="col s6">
           <ActivityCard data={ACTIVITIES.ordering_fractions} />
           </div>
         </div>
         <div className="row">
-          <div className="col s6">
-           <ActivityCard data={ACTIVITIES.number_line_equivalence} />
-         </div>
+        < div className="col s6">
+          <ActivityCard data={ACTIVITIES.comparing_fractions} />
+          </div>
         </div>
       </div>
     );
