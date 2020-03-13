@@ -11,69 +11,79 @@ const sequence =
     },
     {
       slideNumber: 2,
-      tips: ["Did students notice that the fraction is hidden when it drags?",
-            "Did they notice that the “1” was draggable?"       
+      tips: ["What do the plus (+) and minus (–) buttons do?",
+        "Describe what changes on the number line and rectangle models when you increase or decrease the denominator?",
+        "Did students notice that the fraction is hidden when it drags?"       
         ],
-      screenType: SCREEN_TYPES.FULL_PROMPT,
+      screenType: SCREEN_TYPES.PANORAMIC,
     },
     {
       slideNumber: 3,
-      tips: ["What does it mean when two fractions are in the same location?",
+      tips: ["What do you notice about these circles?",
+      "How can you change the number of orange parts and still have both circles show the same amount?",
+      "What patterns do you notice?",
         ],
-        screenType: SCREEN_TYPES.PANORAMIC,
+        screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
       slideNumber: 4,
-      tips: ["Remind students that all the fractions are different."
+      tips: ["What does it mean when two fractions are equivalent?",
+      "How does the number line show these two fractions are equivalent?",
+      "How does the circle model show these two fractions are equivalent?",
+      "What pattern do you see in both models?"
         ],
         screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_ONE_TEACHER"
     },
     {
       slideNumber: 5,
-      tips: ["What type of fractions will show at the top of the number line?",
-      "What about the bottom?",
-      "Which fractions are equal? How do you know?"
-        ],
-        screenType: SCREEN_TYPES.PANORAMIC,
+      tips: ["How can you divide the number line to show thirds?",
+      "Does dividing number line by thirds help you sketch sixths? How so?",
+      "What patterns do you see?"
+      ],
+        screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO"
     },
     {
       slideNumber: 6,
       tips: ["What equivalent fractions do you see?",
-            "What patterns do you notice?"
+      "What if the number line went to 2? Where would we see equivalent thirds and sixths?",
+      "How many sixths would be equivalent to 7 thirds?",
+      "How many thirds would be equivalent to 12 sixths?"
         ],
-        screenType: SCREEN_TYPES.FULL_PROMPT,
+        screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
       slideNumber: 7,
-      tips: ["Do they share any equal fractions?",
-            "What’s the pattern?"
+      tips: ["How can you divide the number line to show fourths?",
+      "Does dividing number line by fourths help you sketch eighths? How so?",
+      "What patterns do you see?"
         ],
         screenType: SCREEN_TYPES.FULL_PROMPT,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
       slideNumber: 8,
-      tips: ["How many did you find?",
-            "What do the pairs have in common?"],
-        screenType: SCREEN_TYPES.FULL_PROMPT,
+      tips: ["What equivalent fractions do you see?",
+      "What if the number line went to 2? Where would we see equivalent fourths and eighths?",
+      "How many eighths would be equivalent to 7 fourths?",
+      "How many fourths would be equivalent to 16 eighths?"],
+        screenType: SCREEN_TYPES.PANORAMIC,
       puzzle: "BUILDING_ACTIVITY_TWO_TEACHER"
     },
     {
       slideNumber: 9,
-      tips: ["What new fractions did you find?",
-      "What denominators did you use?",
-      "How did you chose them?",
-      "What denominators didn’t work?"],
-      screenType: SCREEN_TYPES.PANORAMIC,
+      tips: ["What equivalent pairs did you find?",
+      "What patterns do you see with each equivalent pair?",
+    ],
+      screenType: SCREEN_TYPES.FULL_PROMPT,
     },
     {
       slideNumber: 10,
-      tips: ["Discuss relationships between denominators and numerators.",
-        "Demo the answer."
+      tips: ["What equivalent pairs did you find?",
+      "What patterns do you see with each equivalent pair?",
       ],
         screenType: SCREEN_TYPES.PANORAMIC,
     },
