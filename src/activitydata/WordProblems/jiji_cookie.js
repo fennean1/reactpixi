@@ -7,10 +7,9 @@ const sequence =
     [{
       slideNumber: 1,
       screenType: SCREEN_TYPES.FULL_PROMPT,
-      tips: ["Can you put fourths and eighths on the same number line?",
-        "How else can we model fourths and eighths?",
-        "How do we know when JiJi was in the same spot?",
-        ],
+      tips: ["How many thirds are left?",
+      "What’s the relationship between thirds and sixths?",
+      ],
     },
 ]
 

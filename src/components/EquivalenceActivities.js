@@ -25,12 +25,12 @@ class EquivalenceList extends Component {
            <ActivityCard data={ACTIVITIES.number_line_equivalence} />
          </div>
           < div className="col s6">
-          <ActivityCard data={ACTIVITIES.ordering_fractions} />
+          <ActivityCard data={ACTIVITIES.comparing_fractions} />
           </div>
         </div>
         <div className="row">
         < div className="col s6">
-          <ActivityCard data={ACTIVITIES.comparing_fractions} />
+        <ActivityCard data={ACTIVITIES.ordering_fractions} />
           </div>
         </div>
       </div>
