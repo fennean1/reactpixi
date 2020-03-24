@@ -165,7 +165,7 @@ const Main = () => (
     <Route exact path="/newpanel/:activity" component={NewPanels} />
     <Route exact path="/fulltool" component={LandingPage} />
     <Route exact path="/wordproblemcard" component={WordProblemCard} />
-    <Route exact path="/wordproblems" component={WordProblems} />
+    <Route exact path="/wordproblemlist" component={WordProblems} />
     <Route exact path="/overview" component={Overview} />
     <Route exact path="/buildandcut" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 13,y: 13,descriptor: true}} script = {BuildAndCutScript.init}/>} />
     <Route exact path="/buildandcutisometric" render={() => <Arena app = {app} fullscreen = {true} features = {{x: 13,y: 13,descriptor: true,isometric: true}} script = {BuildAndCutScript.init}/>} />
