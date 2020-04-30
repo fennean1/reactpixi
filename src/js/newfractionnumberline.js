@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 import * as CONST from "./const.js";
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
-import {Fraction, FeedBlocks, Draggable,NumberLine,FractionTag} from "./api.js"
+import {Fraction, FeedBlocks, Draggable,OfficialNumberLine,FractionTag} from "./api.js"
 import { number } from "prop-types";
 const ASSETS = CONST.ASSETS
 
@@ -260,9 +260,8 @@ export const init = (app, setup) => {
 
 
     // Number Line
-    numberline = new NumberLine(LINE_WIDTH,LINE_WIDTH/20,3,2)
-    numberline.hideFractions = features.showFractions
-    numberline.cap = 5
+    numberline = new OfficialNumberLine(LINE_WIDTH,LINE_WIDTH/20,23,9)
+    numberline.hideFractions = false
     numberline.init()
     if (features.open){
       numberline.incDenominator(-1)
@@ -305,11 +304,11 @@ export const init = (app, setup) => {
     generatorTag.y = numberline.y - 4*numberline._height
     generatorTag.whiskerTo(Math.abs(generatorTag.y-numberline.y),numberline.y,hidden)
     generatorTag.hasTag = true
-    app.stage.addChild(generatorTag)
+    //app.stage.addChild(generatorTag)
 
     app.stage.addChild(numberline)
 
-    newTagOnDeck()
+    //newTagOnDeck()
 
     trashBtn = new PIXI.Sprite.from(ASSETS.TRASH)
     trashBtn.anchor.set(0.5)
@@ -337,7 +336,7 @@ export const init = (app, setup) => {
     })
 
 
-    numberline.addChild(numberline.pin)
+    //numberline.addChild(numberline.pin)
     background.zIndex = -1
     numberline.zIndex = 1
 

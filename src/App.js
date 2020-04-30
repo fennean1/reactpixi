@@ -31,6 +31,8 @@ import * as VerticalFractionStacksScript from "./js/verticalfractionstacks.js";
 import * as BuildAndCutScript from "./js/buildandcut.js";
 import * as NewToolScript from "./js/buildingblocks.js";
 import * as FractionWallNumberLineScript from "./js/fractionwallnumberline.js";
+import * as NewFractionNumberLineScript from "./js/newfractionnumberline.js";
+
 
 
 import ActivityList from './components/ActivityList'
@@ -109,7 +111,8 @@ const Main = () => (
     <Route exact path="/oldfractionwall" render={() => <Arena app = {app} features = {{'lock': true,'regroup': true}} fullscreen = {true}  script = {OldFractionWallScript.init}/>} />
     <Route exact path="/fractionline" render={() => <Arena app = {app} fullscreen = {true}  script = {FractionLineScript.init}/>} />
     <Route exact path="/apitest" render={() => <Arena app = {app} fullscreen = {true}  script = {ApiTestScript.init}/>} />
-    <Route exact path="/fractionnumberlineopenblocks" render={() => <Arena app = {app} fullscreen = {true} features = {{open: true,blocks: true}} script = {FractionNumberLineScript.init}/>} />
+    <Route exact path="/fractionnumberlineopenblocks" render={() => <Arena app = {app} fullscreen = {true} features = {{showFractions: true, open: true,blocks: true}} script = {FractionNumberLineScript.init}/>} />
+    <Route exact path="/newfractionnumberline" render={() => <Arena app = {app} fullscreen = {true} features = {{showFractions: true, open: true,blocks: true}} script = {NewFractionNumberLineScript.init}/>} />
     <Route exact path="/fractionnumberlinedescriptor" render={() => <Arena app = {app} fullscreen = {true} features = {{open: true,blocks: true}} script = {FractionNumberLineDescriptorScript.init}/>} />
     <Route exact path="/fractionstacks" render={() => <Arena app = {app} fullscreen = {true} features = {{snapping: true,double: true,numberOfBlocks: 4,lineMax: 30}} script = {FractionStacksScript.init}/>} />
     <Route exact path="/verticalfractionstacks" render={() => <Arena app = {app} fullscreen = {true} features = {{snapping: false,double: false,numberOfBlocks: 2,lineMax: 30}} script = {VerticalFractionStacksScript.init}/>} />
