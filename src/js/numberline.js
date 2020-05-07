@@ -212,7 +212,7 @@ export const init = (app, setup) => {
          t.x = this.minorDX*(i-this.min)
          t.y = -this.majorTickThickness/3
       })
-      
+      console.log("for the heck of itter")
       this.labels.forEach((l,j)=>{
         l.style.fontSize = this.digitHeight
         l.text = j
