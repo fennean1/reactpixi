@@ -8,7 +8,8 @@ const ASSETS = CONST.ASSETS
 
 
 export const init = (app, setup) => {
- 
+  let features;
+  let viewPort = new PIXI.Container()
 
   // Layout Parameters
   let WINDOW_WIDTH = setup.width
@@ -25,6 +26,7 @@ export const init = (app, setup) => {
     app.renderer.resize(WINDOW_WIDTH,WINDOW_HEIGHT)
   }
 
+  
   function updateLayoutParams(newFrame){
     let frame;
     if (newFrame){
@@ -42,7 +44,6 @@ export const init = (app, setup) => {
 
   // Loading Script
   function load(){
-    let features = {}
     if (setup.props.features){
       features = setup.props.features
     }
@@ -53,5 +54,5 @@ export const init = (app, setup) => {
   load()
   // Not sure where else to put this.
   app.resize = (frame) => resize(frame)
-  app.resizable = true
+  // app.resizable = true
 };

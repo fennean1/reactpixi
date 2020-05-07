@@ -6,8 +6,8 @@ import * as HundredsArrayScript from "../js/hundredsarray.js"
 import { TweenMax, TimelineLite, Power2, Elastic, CSSPlugin, TweenLite, TimelineMax } from "gsap/TweenMax";
 
 
-Pixi.settings.RESOLUTION = 3
-let app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
+Pixi.settings.RESOLUTION = 2
+let app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: false});
 
 
 function Test() {

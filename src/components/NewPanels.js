@@ -34,8 +34,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-Pixi.settings.RESOLUTION = 3
-var App = new Pixi.Application(0, 0, { backgroundColor: 0xffffff, antialias: true });
+Pixi.settings.RESOLUTION = 2
+var App = new Pixi.Application(0, 0, { backgroundColor: 0xffffff, antialias: false });
 App.static = true
 App.loaded = false
 App.multilayoutenabled = true

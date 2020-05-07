@@ -32,8 +32,6 @@ import * as BuildAndCutScript from "./js/buildandcut.js";
 import * as NewToolScript from "./js/buildingblocks.js";
 import * as FractionWallNumberLineScript from "./js/fractionwallnumberline.js";
 import * as NewFractionNumberLineScript from "./js/newfractionnumberline.js";
-import * as PaperPower from "./js/paperpower.js";
-import * as NumberLine from "./js/numberline.js";
 
 
 
@@ -83,7 +81,7 @@ function ScrollToTop({ history, children }) {
 const ScrollToTopWithRouter = withRouter(ScrollToTop);
 
 Pixi.settings.RESOLUTION = 2
-let app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: false});
+let app = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
 app.static = false
 app.loaded = false
 Object.keys(Pixi.utils.TextureCache).forEach(function(texture) {  Pixi.utils.TextureCache[texture].destroy(true);});
@@ -101,8 +99,6 @@ const theme = createMuiTheme({
 const Main = () => (
   <div>
     <Route exact path="/calculator" render={() => <Arena app = {app} features = {{'lock': false}} fullscreen = {true}  script = {CalculatorScript.init}/>} />
-    <Route exact path="/paperpower" render={() => <Arena app = {app} features = {{'lock': false}} fullscreen = {true}  script = {PaperPower.init}/>} />
-    <Route exact path="/numberline" render={() => <Arena app = {app} features = {{'lock': false}} fullscreen = {true}  script = {NumberLine.init}/>} />
     <Route exact path="/hundreds" render={() => <Arena app = {app} features = {{'lock': false}} fullscreen = {true}  script = {HundredsArrayScript.init}/>} />
     <Route exact path="/hundredslock" render={() => <Arena app = {app} features = {{'lock': true}} fullscreen = {true}  script = {HundredsArrayScript.init}/>} />
     <Route exact path="/hundredsregroup" render={() => <Arena app = {app} features = {{'lock': true,'regroup': true}} fullscreen = {true}  script = {HundredsArrayScript.init}/>} />

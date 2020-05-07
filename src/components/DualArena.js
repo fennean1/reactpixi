@@ -9,9 +9,9 @@ import * as Pixi from "pixi.js";
 import { DUAL_SCRIPTS } from "../activitydata/dualarenas.js";
 
 
-Pixi.settings.RESOLUTION = 3
-var app1 = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
-var app2 = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: true});
+Pixi.settings.RESOLUTION = 2
+var app1 = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: false});
+var app2 = new Pixi.Application(0,0,{backgroundColor: 0xffffff,antialias: false});
 app1.static = true
 app2.static = true
 app1.loaded = false

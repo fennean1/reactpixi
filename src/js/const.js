@@ -42,6 +42,7 @@ import pink_ring from "../assets/PinkRingIcon.png"
 import blue_ring from "../assets/BlueRingIcon.png"
 import yellow_ring from "../assets/YellowRingIcon.png"
 import yellow_circle from "../assets/YellowCircle.png"
+import chalk_board from "../assets/Chalkboard.png"
 
 
 export const ASSETS = {
@@ -89,6 +90,7 @@ export const ASSETS = {
     BLUE_RING: blue_ring,
     YELLOW_RING: yellow_ring,
     YELLOW_CIRCLE: yellow_circle,
+    CHALK_BOARD: chalk_board
 }
 
 export const CUISENAIRE_COLORS = {

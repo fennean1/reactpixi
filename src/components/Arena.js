@@ -26,28 +26,23 @@ class Arena extends Component {
       for (var i = children.length - 1; i >= 0; i--) {	children[i].destroy(true);};
       Object.keys(Pixi.utils.TextureCache).forEach(function(texture) {  Pixi.utils.TextureCache[texture].destroy(true);})
     } 
-    console.log('textuecache',Object.keys(Pixi.utils.TextureCache).length)
   }
 
   // Resizes the view it it's mounted and resizable. (Old versions don't always have a resize function)
   resize(){
     // Active means the this.props.app is mounted and currently being use (Not in the background)
-    console.log("this.props.app.active",this.props.app.active)
     if (this.props.app.active){
       // Does this have a resize option?
       if (this.props.app.resizable){
-        console.log("resizing")
         this.props.app.resize({width: this.gameCanvas.clientWidth,height: this.gameCanvas.clientHeight})
       } else {
         // Unless the this.props.app has an assign resizable function, we just redraw but we reload the script. (This erases everything)
-        console.log("redrawing")
         this.redraw()
       }
    }
   }
 
   redraw(){
-    console.log("REDRAWING")
     let children = this.props.app.stage.children
     for (var i = children.length - 1; i >= 0; i--) {	this.props.app.stage.removeChild(children[i]);};
     for (var i = children.length - 1; i >= 0; i--) {	children[i].destroy(true);};
@@ -85,7 +80,7 @@ class Arena extends Component {
       
       this.props.app.active = true
       this.props.app.renderer.backgroundColor = 0xffffff;
-      this.props.app.renderer.resolution = 3
+      this.props.app.renderer.resolution = 2
       this.props.app.renderer.autoDensity = true
       this.props.app.renderer.resize(this.gameCanvas.clientWidth,this.gameCanvas.clientHeight)
       this.gameCanvas.appendChild(this.props.app.view);
